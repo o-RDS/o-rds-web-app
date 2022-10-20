@@ -1,7 +1,7 @@
 import React from 'react';
 import { HashRouter, Routes, Route } from "react-router-dom";
-import LoginAdmin from "./pages/LoginAdmin";
-import DashboardAdmin from "./pages/DashboardAdmin";
+import LoginAdmin from "./pages/admin/LoginAdmin";
+import DashboardAdmin from "./pages/admin/DashboardAdmin";
 import './App.css';
 
 function App() {
