@@ -1,8 +1,7 @@
 import React from 'react';
-import logo from './logo.svg';
 import { HashRouter, Routes, Route } from "react-router-dom";
-import LoginAdmin from "./pages/LoginAdmin";
-import DashboardAdmin from "./pages/DashboardAdmin";
+import LoginAdmin from "./pages/admin/LoginAdmin";
+import DashboardAdmin from "./pages/admin/DashboardAdmin";
 import './App.css';
 
 function App() {
