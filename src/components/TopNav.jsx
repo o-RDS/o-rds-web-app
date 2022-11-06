@@ -2,9 +2,9 @@ import React from "react";
 
 export default function TopNav() {
     return (
-        <div className="flex flex-row border-b-4 w-screen justify-end">
-            <h3 className="text-lg bg-gradient-to-br from-emerald-700 to-orange-600 inline-block text-transparent bg-clip-text justify-self-start">o-RDS</h3>
-            <div className="flex justify-self-end items-center gap-2">
+        <div className="flex flex-row border-b-4 w-screen justify-start h-10 items-center fixed top-0 bottom-0 left-0 right-0 px-2">
+            <h3 className="text-lg bg-gradient-to-br from-emerald-700 to-orange-600 inline-block text-transparent bg-clip-text justify-start items-center">o-RDS</h3>
+            <div className="flex items-center gap-2 ml-auto">
                 <p>Home</p>
                 <p>Payments</p>
                 <p>Help</p>
