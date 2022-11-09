@@ -5,10 +5,8 @@ import MCQuestion from "../../components/MCQuestion";
 export default function SurveyBuilder() {
     return (
         <StandardPage>
-            <div>
-                <h1>You made it to the survey builder</h1>
-                <MCQuestion />
-            </div>
+            <p>This is the survey builder</p>
+            <MCQuestion />
         </StandardPage>
     )
 }
