@@ -5,8 +5,9 @@ export default function Question(props: any) {
   // I may move all configurable properties into an object for easier passing and typing
   interface QuestionData {
     type: string;
+    page: number;
     config?: Object;
-  }
+  };
 
   // This function will take the type property of the question object and return the appropriate component, passing the needed data
   function getQuestionType(data: QuestionData) {
