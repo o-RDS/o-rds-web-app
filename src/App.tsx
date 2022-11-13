@@ -5,8 +5,8 @@ import DashboardAdmin from "./pages/admin/DashboardAdmin";
 import SurveyBuilder from './pages/admin/SurveyBuilderAdmin';
 import Results from './pages/admin/ResultsAdmin';
 import PaymentManager from './pages/admin/PaymentManagerAdmin';
-import PhoneEntry from "./pages/surveytaker/PhoneEntry";
-import OTPCodeEntry from "./pages/surveytaker/OTPCodeEntry"
+import PhoneEntry from "./pages/user/PhoneEntry";
+import OTPCodeEntry from "./pages/user/OTPCodeEntry"
 import './App.css';
 
 
