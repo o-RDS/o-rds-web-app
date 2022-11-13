@@ -5,6 +5,8 @@ import DashboardAdmin from "./pages/admin/DashboardAdmin";
 import SurveyBuilder from './pages/admin/SurveyBuilderAdmin';
 import Results from './pages/admin/ResultsAdmin';
 import PaymentManager from './pages/admin/PaymentManagerAdmin';
+import PhoneEntry from "./pages/surveytaker/PhoneEntry";
+import OTPCodeEntry from "./pages/surveytaker/OTPCodeEntry"
 import './App.css';
 
 
@@ -17,6 +19,8 @@ function App() {
         <Route path="/SurveyBuilderAdmin" element={<SurveyBuilder/>} />
         <Route path="/ResultsAdmin" element={<Results/>} />
         <Route path="/PaymentManagerAdmin" element={<PaymentManager/>} />
+        <Route path="/PhoneEntry" element={<PhoneEntry/>} />
+        <Route path="/OTPCodeEntry" element={<OTPCodeEntry/>} />
       </Routes>
     </HashRouter>
   );
