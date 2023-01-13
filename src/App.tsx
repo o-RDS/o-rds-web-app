@@ -6,6 +6,9 @@ import SurveyBuilder from './pages/admin/SurveyBuilderAdmin';
 import Results from './pages/admin/ResultsAdmin';
 import PaymentManager from './pages/admin/PaymentManagerAdmin';
 import Survey from './pages/user/Survey';
+import PhoneEntry from "./pages/user/PhoneEntry";
+import OTPCodeEntry from "./pages/user/OTPCodeEntry"
+import './App.css';
 
 
 function App() {
@@ -18,6 +21,8 @@ function App() {
         <Route path="/ResultsAdmin" element={<Results/>} />
         <Route path="/PaymentManagerAdmin" element={<PaymentManager/>} />
         <Route path="/Survey" element={<Survey/>} />
+        <Route path="/PhoneEntry" element={<PhoneEntry/>} />
+        <Route path="/OTPCodeEntry" element={<OTPCodeEntry/>} />
       </Routes>
     </HashRouter>
   );
