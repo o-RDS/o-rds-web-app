@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import getDefault from "./Question";
 
-export default function FillInTheBlank(props: any) {
+export default function ShortAnswer(props: any) {
   // this is far from finished, but each question type will have its own default config
   // the survey editor will use this when a new question is added
   const [answer, setAnswer] = useState();
@@ -36,7 +36,7 @@ export default function FillInTheBlank(props: any) {
   function renderChoices() {
     return (
         <div>
-            <p>The US wrote the declaration of independence in <input placeholder="This is a place for text" onChange={(e) => handleClick(e.target.value)}></input></p>
+            <textarea placeholder="This is a place for text" onChange={(e) => handleClick(e.target.value)}></textarea>
         </div>
     )
   }

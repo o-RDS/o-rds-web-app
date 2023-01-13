@@ -1,6 +1,7 @@
 import React from "react";
 import MultipleChoice from "./MultipleChoice";
 import FillInTheBlank from "./FillInTheBlank";
+import ShortAnswer from "./ShortAnswer";
 import "./Question.css";
 
 export default function Question(props: any) {
@@ -36,11 +37,13 @@ export default function Question(props: any) {
         return <MultipleChoice config={data.config} updateResponse={updateResponse}/>;
       case "FillInBlank":
         return <FillInTheBlank config={data.config} updateResponse={updateResponse}/>;
+      case "ShortAnswer":
+        return <ShortAnswer config={data.config} updateResponse={updateResponse}/>
       default:
         return <p>"Unknown Question Type"</p>;
     }
   }
 
   // Returns the appropriate component
-  return <div className="Question">{getQuestionType(props.data)}</div>;
+  return <div className="bg-white p-4 rounded-md border-t-2 border-t-rdsOrange">{getQuestionType(props.data)}</div>;
 }

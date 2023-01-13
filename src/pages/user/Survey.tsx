@@ -39,6 +39,17 @@ export default function Survey() {
           type: "text",
         }
       }
+    },
+    {
+      page: 1,
+      type: "ShortAnswer",
+      config: {
+        prompt: {
+          value: "Tell me why you are here",
+          configPrompt: "Question Prompt",
+          type: "text",
+        }
+      }
     }
   ];
 
@@ -71,6 +82,8 @@ export default function Survey() {
     <div className="Survey">
       <h1>Welcome To The Survey</h1>
       {renderQuestions()}
+      <button onClick={() => setPage(0)}>Previous Page</button>
+      <button onClick={() => setPage(1)}>Next Page</button>
     </div>
   );
 }
