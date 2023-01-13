@@ -1,0 +1,9 @@
+.Survey{
+    background-color: #f5f5f5;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap : 20px;
+    min-height: 100%;
+    height: auto;
+}

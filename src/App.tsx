@@ -5,7 +5,7 @@ import DashboardAdmin from "./pages/admin/DashboardAdmin";
 import SurveyBuilder from './pages/admin/SurveyBuilderAdmin';
 import Results from './pages/admin/ResultsAdmin';
 import PaymentManager from './pages/admin/PaymentManagerAdmin';
-import './App.css';
+import Survey from './pages/user/Survey';
 
 
 function App() {
@@ -17,6 +17,7 @@ function App() {
         <Route path="/SurveyBuilderAdmin" element={<SurveyBuilder/>} />
         <Route path="/ResultsAdmin" element={<Results/>} />
         <Route path="/PaymentManagerAdmin" element={<PaymentManager/>} />
+        <Route path="/Survey" element={<Survey/>} />
       </Routes>
     </HashRouter>
   );
