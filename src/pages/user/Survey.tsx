@@ -64,6 +64,24 @@ export default function Survey() {
     console.log(response.current);
   }
 
+  const changePage = (whichWay: string) => {
+    let pageTo: number = 0;
+    if (whichWay === "up") {
+      if (page < 4) {
+        pageTo = page + 1;
+      } else {
+        pageTo = page;
+      }
+    } else if (whichWay === "down") {
+      if ((page) > 0) {
+        pageTo = page - 1;
+      } else {
+        pageTo = page;
+      }
+    }
+    setPage(pageTo);
+  }
+
   // renders all questions on the current page
   function renderQuestions() {
     console.log("Rendering questions");
@@ -82,8 +100,8 @@ export default function Survey() {
     <div className="Survey">
       <h1>Welcome To The Survey</h1>
       {renderQuestions()}
-      <button onClick={() => setPage(0)}>Previous Page</button>
-      <button onClick={() => setPage(1)}>Next Page</button>
+      <button onClick={() => changePage("down")}>Previous Page</button>
+      <button onClick={() => changePage("up")}>Next Page</button>
     </div>
   );
 }
