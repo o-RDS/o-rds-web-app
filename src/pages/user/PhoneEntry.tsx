@@ -1,8 +1,30 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import SurveyTakerStandardPage from "../../components/SurveyTakerStandardPage";
+import setPhone from "../../data/sessionManager";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function PhoneEntry() {
+    const [phoneNum, setPhoneNum] = React.useState('');
+    const [error, setError] = useState('')
+    const navigate = useNavigate();
+
+    function submitNum() {
+        let num = phoneNum.replace(/\W/g, '')
+
+        if (num.length !== 10) {
+            setError('Invalid Phone Number')
+            return
+        }
+
+        setPhone(num)
+        console.log(num)
+        // TODO Send code to phone number, pass code to OTPCodeEntry.tsx
+        navigate("/OTPCodeEntry");
+        
+    }
+
     return (
         <SurveyTakerStandardPage>      
             <div className="flex flex-col mt-10">
@@ -16,10 +38,20 @@ export default function PhoneEntry() {
             </div>
             <div className="flex flex-col mt-12">
                 <label htmlFor="phoneNumber">Phone Number:<br /></label>
-                <input type="text" id="phoneNumber" name="phoneNumber"  placeholder="(XXX) XXX-XXXX" className="w-56 p-1 rounded bg-gray-200"></input>
-                <Link to="/OTPCodeEntry">
-                    <button className="mt-6 p-1 w-56 rounded bg-orange-600 text-white">Submit</button>
-                </Link>
+                <input 
+                    type="text" 
+                    id="phoneNumber" 
+                    name="phoneNumber"  
+                    placeholder="(XXX) XXX-XXXX" 
+                    className="w-56 p-1 rounded bg-gray-200"
+                    value={phoneNum}
+                    onChange={(e) => setPhoneNum(e.target.value)}
+                >
+
+                </input>
+                <p className="text-red-600">{error}</p>
+                <button className="mt-6 p-1 w-56 rounded bg-orange-600 text-white" onClick={() => submitNum()}>Submit</button>
+            
             </div>
         </SurveyTakerStandardPage>
     )
