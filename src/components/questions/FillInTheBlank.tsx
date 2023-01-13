@@ -9,23 +9,23 @@ export default function FillInTheBlank(props: any) {
     prompt: {
       value: "",
       configPrompt: "Question Prompt",
-      type: "string"
+      type: "string",
     },
     shuffle: {
       value: false,
       configPrompt: "Shuffle?",
-      type: "boolean"
+      type: "boolean",
     },
     choices: {
       value: [""],
       configPrompt: "Question Prompt",
-      type: "stringArray"
+      type: "stringArray",
     },
   });
   console.log(props.currentValue);
 
   useEffect(() => {
-    if (typeof props.currentValue !== 'undefined') {
+    if (typeof props.currentValue !== "undefined") {
       setAnswer(props.currentValue);
     } else {
       setAnswer("Broken");
@@ -45,10 +45,17 @@ export default function FillInTheBlank(props: any) {
   // TODO: make it so answers are reported up to the survey component (function chain)
   function renderChoices() {
     return (
-        <div>
-            <p>The US wrote the declaration of independence in <input placeholder="This is a place for text" value={answer} onChange={(e) => handleClick(e.target.value)}></input></p>
-        </div>
-    )
+      <div>
+        <p>
+          The US wrote the declaration of independence in
+          <input
+            placeholder="This is a place for text"
+            value={answer}
+            onChange={(e) => handleClick(e.target.value)}
+          ></input>
+        </p>
+      </div>
+    );
   }
 
   // this will render the question prompt and the choices
