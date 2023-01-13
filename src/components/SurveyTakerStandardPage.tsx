@@ -9,7 +9,7 @@ export default function SurveyTakerStandardPage(props: any){
                 <div className="self-start justify-start">
                     <img src={contactResearcherIcon} />
                 </div>
-                <div className="flex flex-col items-center mt-8">
+                <div className="flex flex-col items-center mt-8 h-full">
                     <img src={sampleResearcherLogo}/>
                     {props.children}
                 </div>
