@@ -8,7 +8,6 @@ import PaymentManager from './pages/admin/PaymentManagerAdmin';
 import Survey from './pages/user/Survey';
 import PhoneEntry from "./pages/user/PhoneEntry";
 import OTPCodeEntry from "./pages/user/OTPCodeEntry"
-import './App.css';
 
 
 function App() {
