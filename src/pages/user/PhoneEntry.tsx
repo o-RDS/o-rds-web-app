@@ -21,6 +21,9 @@ export default function PhoneEntry() {
                     <button className="mt-6 p-1 w-56 rounded bg-orange-600 text-white">Submit</button>
                 </Link>
             </div>
+            <div className="mt-auto">
+                <button className="text-orange-600 hover:text-orange-800">Already began the survey?</button>
+            </div>
         </SurveyTakerStandardPage>
     )
 
