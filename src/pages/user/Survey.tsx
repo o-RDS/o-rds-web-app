@@ -34,7 +34,7 @@ export default function Survey() {
       type: "FillInBlank",
       config: {
         prompt: {
-          value: "This is a fill in the blank?",
+          value: "Fill in the blank",
           configPrompt: "Question Prompt:",
           type: "text",
         }

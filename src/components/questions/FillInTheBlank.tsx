@@ -36,7 +36,7 @@ export default function FillInTheBlank(props: any) {
   function renderChoices() {
     return (
         <div>
-            <textarea placeholder="This is a place for text" onChange={() => handleClick}></textarea>
+            <p>The US wrote the declaration of independence in <input placeholder="This is a place for text" onChange={(e) => handleClick(e.target.value)}></input></p>
         </div>
     )
   }
