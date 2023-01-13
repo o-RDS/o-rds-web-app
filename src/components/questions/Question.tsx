@@ -1,5 +1,6 @@
 import React from "react";
 import MultipleChoice from "./MultipleChoice";
+import FillInTheBlank from "./FillInTheBlank";
 import "./Question.css";
 
 export default function Question(props: any) {
@@ -33,6 +34,8 @@ export default function Question(props: any) {
     switch (data.type) {
       case "MultipleChoice":
         return <MultipleChoice config={data.config} updateResponse={updateResponse}/>;
+      case "FillInBlank":
+        return <FillInTheBlank config={data.config} updateResponse={updateResponse}/>;
       default:
         return <p>"Unknown Question Type"</p>;
     }

@@ -29,6 +29,17 @@ export default function Survey() {
         },
       },
     },
+    {
+      page: 0,
+      type: "FillInBlank",
+      config: {
+        prompt: {
+          value: "This is a fill in the blank?",
+          configPrompt: "Question Prompt:",
+          type: "text",
+        }
+      }
+    }
   ];
 
   // this will be called by the question component whenever the question requests to update the response
