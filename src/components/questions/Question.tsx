@@ -32,13 +32,14 @@ export default function Question(props: any) {
   // This function will take the type property of the question object and return the appropriate component, passing the needed data
   function getQuestionType(data: QuestionData) {
     console.log(data);
+    console.log(props.currentValue);
     switch (data.type) {
       case "MultipleChoice":
-        return <MultipleChoice config={data.config} updateResponse={updateResponse}/>;
+        return <MultipleChoice config={data.config} updateResponse={updateResponse} currentValue={props.currentAnswer}/>;
       case "FillInBlank":
-        return <FillInTheBlank config={data.config} updateResponse={updateResponse}/>;
+        return <FillInTheBlank config={data.config} updateResponse={updateResponse} currentValue={props.currentAnswer}/>;
       case "ShortAnswer":
-        return <ShortAnswer config={data.config} updateResponse={updateResponse}/>
+        return <ShortAnswer config={data.config} updateResponse={updateResponse} currentValue={props.currentAnswer}/>
       default:
         return <p>"Unknown Question Type"</p>;
     }

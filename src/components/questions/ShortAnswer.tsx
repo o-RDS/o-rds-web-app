@@ -4,7 +4,7 @@ import getDefault from "./Question";
 export default function ShortAnswer(props: any) {
   // this is far from finished, but each question type will have its own default config
   // the survey editor will use this when a new question is added
-  const [answer, setAnswer] = useState();
+  const [answer, setAnswer] = useState("");
   const [config, setConfig] = useState({
     prompt: {
       value: "",
@@ -23,10 +23,19 @@ export default function ShortAnswer(props: any) {
     },
   });
 
+  useEffect(() => {
+    if (typeof props.currentValue !== 'undefined') {
+      setAnswer(props.currentValue);
+    } else {
+      setAnswer("Broken");
+    }
+  }, []);
+
   // called when user clicks a choice, and sends the update to the question component
   function handleClick(answer: string) {
     if (props.updateResponse) {
       props.updateResponse({ "#": answer });
+      setAnswer(answer);
     }
     console.log("Answer: " + answer);
   }
@@ -36,7 +45,7 @@ export default function ShortAnswer(props: any) {
   function renderChoices() {
     return (
         <div>
-            <textarea placeholder="This is a place for text" onChange={(e) => handleClick(e.target.value)}></textarea>
+            <textarea placeholder="This is a place for text" value={answer} onChange={(e) => handleClick(e.target.value)}></textarea>
         </div>
     )
   }

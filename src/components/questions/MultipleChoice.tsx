@@ -4,6 +4,7 @@ import getDefault from "./Question";
 export default function MultipleChoice(props: any) {
   // this is far from finished, but each question type will have its own default config
   // the survey editor will use this when a new question is added
+  const [answer, setAnswer] = useState("");
   const [config, setConfig] = useState({
     prompt: {
       value: "",
@@ -34,9 +35,13 @@ export default function MultipleChoice(props: any) {
   // TODO: make it so answers are reported up to the survey component (function chain)
   function renderChoices() {
     return props.config.choices.value.map((choice: string, index: number) => {
+      let isChecked = false;
+      if (props.currentValue === choice) {
+        isChecked = true;
+      }
       return (
         <div key={index}>
-          <input type="radio" name="choice" value={choice} onClick={() => handleClick(choice)}/>
+          <input type="radio" name="choice" value={choice} onClick={() => handleClick(choice)} checked={isChecked}/>
           <label>{choice}</label>
         </div>
       );

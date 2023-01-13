@@ -4,7 +4,7 @@ import getDefault from "./Question";
 export default function FillInTheBlank(props: any) {
   // this is far from finished, but each question type will have its own default config
   // the survey editor will use this when a new question is added
-  const [answer, setAnswer] = useState();
+  const [answer, setAnswer] = useState("");
   const [config, setConfig] = useState({
     prompt: {
       value: "",
@@ -22,11 +22,21 @@ export default function FillInTheBlank(props: any) {
       type: "stringArray"
     },
   });
+  console.log(props.currentValue);
+
+  useEffect(() => {
+    if (typeof props.currentValue !== 'undefined') {
+      setAnswer(props.currentValue);
+    } else {
+      setAnswer("Broken");
+    }
+  }, []);
 
   // called when user clicks a choice, and sends the update to the question component
   function handleClick(answer: string) {
     if (props.updateResponse) {
       props.updateResponse({ "#": answer });
+      setAnswer(answer);
     }
     console.log("Answer: " + answer);
   }
@@ -36,7 +46,7 @@ export default function FillInTheBlank(props: any) {
   function renderChoices() {
     return (
         <div>
-            <p>The US wrote the declaration of independence in <input placeholder="This is a place for text" onChange={(e) => handleClick(e.target.value)}></input></p>
+            <p>The US wrote the declaration of independence in <input placeholder="This is a place for text" value={answer} onChange={(e) => handleClick(e.target.value)}></input></p>
         </div>
     )
   }

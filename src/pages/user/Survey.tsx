@@ -88,8 +88,9 @@ export default function Survey() {
     return design.map((question, index) => {
       console.log("Rendering question " + index);
       console.log(question);
+      let answerIndex = "Question " + (index + 1).toString();
       if (question.page === page) {
-        return <Question data={question} index={index} handleResponse={handleResponse}/>;
+        return <Question data={question} index={index} handleResponse={handleResponse} currentAnswer={response.current[answerIndex]}/>;
       } else {
         return null;
       }
