@@ -22,7 +22,9 @@ export default function PhoneEntry() {
                 </Link>
             </div>
             <div className="mt-auto">
-                <button className="text-orange-600 hover:text-orange-800">Already began the survey?</button>
+                <Link to="/ResumeSurvey">
+                    <button className="text-orange-600 hover:text-orange-800">Already began the survey?</button>
+                </Link>
             </div>
         </SurveyTakerStandardPage>
     )
