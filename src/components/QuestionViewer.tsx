@@ -18,7 +18,7 @@ export default function QuestionViewer(props: any) {
             },
             shuffle: {
               value: true,
-              configPrompt: "Shuffle choices?",
+              configPrompt: "Shuffle me up",
               type: "bool",
             },
             choices: {
@@ -34,6 +34,12 @@ export default function QuestionViewer(props: any) {
         //Also update in server you're using
         // setQuestions(questions.concat(<Question data={design}/>));
     }
+
+    const chooseQuestion = (newQuestion: any) => {
+      props.updateQuestion(newQuestion);
+    }
+
+    const testArray = design.map((question) => <div className="hover:border-2 hover:border-red-500" onClick={() => chooseQuestion(question.config)}>words</div>)
 
   return (
     <>
@@ -76,6 +82,9 @@ export default function QuestionViewer(props: any) {
                 </li>
               </ul>
             </div>
+          </div>
+          <div className="w-full">
+              {testArray}
           </div>
           <button className="bg-rdsBlue text-white rounded-sm pl-2 pr-2 w-fit">
             + Add Question

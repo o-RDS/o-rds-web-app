@@ -6,7 +6,8 @@ export default function ConfigSidebar(props: any) {
   return (
     <>
       <div className="flex flex-col justify-start border-r border-black w-1/5">
-        <p>words</p>
+        <input type="checkbox"></input>
+        <label>{props.currentQuestion.shuffle.configPrompt}</label>
       </div>
     </>
   );
