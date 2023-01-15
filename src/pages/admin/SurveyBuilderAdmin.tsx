@@ -5,6 +5,8 @@ import ConfigSidebar from "../../components/ConfigSidebar";
 
 export default function SurveyBuilder() {
     const [question, setQuestion] = useState({
+        page: 0,
+        type: "MultipleChoice",
         prompt: {
           value: "This is an example question?",
           configPrompt: "Question Prompt:",
