@@ -13,7 +13,7 @@ export default function QuestionViewer(props: any) {
           config: {
             prompt: {
               value: "This is an example question?",
-              configPrompt: "Question Prompt:",
+              configPrompt: "Question Prompt 1:",
               type: "text",
             },
             shuffle: {
@@ -28,6 +28,27 @@ export default function QuestionViewer(props: any) {
             },
           },
         },
+        {
+          page: 0,
+          type: "MultipleChoice",
+          config: {
+            prompt: {
+              value: "This is an example question i guess?",
+              configPrompt: "Question Prompt 2:",
+              type: "text",
+            },
+            shuffle: {
+              value: true,
+              configPrompt: "shuffled",
+              type: "bool",
+            },
+            choices: {
+              value: ["AA", "BB", "CC", "DD", "EE"],
+              configPrompt: "Enter choices:",
+              type: "stringArray",
+            },
+          },
+        }
       ];
 
     const addQuestion = () => {
