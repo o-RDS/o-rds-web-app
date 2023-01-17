@@ -28,7 +28,7 @@ export default function SurveyBuilder() {
         
     }
 
-    const updateCurrentQuestion = (newQuestion: any) => {
+    const setCurrentQuestion = (newQuestion: any) => {
         setQuestion(newQuestion);
     }
 
@@ -36,7 +36,7 @@ export default function SurveyBuilder() {
         <StandardPage>
             <div className="flex flex-row gap-20">
                 <ConfigSidebar currentQuestion={question}/>
-                <QuestionViewer updateQuestion={updateCurrentQuestion}/>
+                <QuestionViewer updateQuestion={setCurrentQuestion}/>
             </div>
         </StandardPage>
     )

@@ -81,6 +81,10 @@ export default function QuestionViewer(props: any) {
         setQuestions(questions.concat(proofQuestionToAdd));
     }
 
+    const changeOptions = (questionUpdate: any) => {
+      props.updateQuestion(questionUpdate);
+    }
+
     const chooseQuestion = (newQuestion: any, target: any) => {
       props.updateQuestion(newQuestion);
       target.tabIndex = -1;
@@ -113,7 +117,7 @@ export default function QuestionViewer(props: any) {
                 {question.config.choices.value.map((choice: any) => {
                   return (
                     <li key={choice}>
-                      <input type="radio" value={choice}></input>
+                      <input type="radio" value={choice} disabled></input>
                       <label>{choice}</label>
                     </li>
                   )
