@@ -5,7 +5,7 @@ import contactResearcherIcon from "../images/contact_researcher_icon.png"
 export default function SurveyTakerStandardPage(props: any){
     return(
         <>
-            <div className="flex flex-col items-center h-screen p-6">
+            <div className="flex flex-col items-center h-screen w-screen p-6">
                 <div className="self-start justify-start">
                     <img src={contactResearcherIcon} />
                 </div>
