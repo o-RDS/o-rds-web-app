@@ -1,9 +1,10 @@
+import { order } from './interfaces';
 
 // replace tokens here
 const devToken = "Bearer TEST_2lm2pekxx--s_kiobii4fxfecyrk2yg1jbjqq-eryia";
 // const prodToken = "Beaarer [TOKEN]"; 
 
-export default async function listFundingSources() {
+export async function listFundingSources<Promise>(): Promise {
 
   const options = {
       method: 'GET',
@@ -13,14 +14,22 @@ export default async function listFundingSources() {
       }
     };
   
-  await fetch('api/v2/funding_sources', options)
-    .then(response => response.json())
-    .then(response => console.log(response))
-    .catch(err => console.error(err));
-  
+  // await fetch('api/v2/funding_sources', options)
+  //   .then(response => response.json())
+  //   .then(response => console.log(response))
+  //   .catch(err => console.error(err));
+
+  return fetch('api/v2/funding_sources', options)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(response.statusText)
+      }
+      return response.json()
+    })
+
 }
 
-export function createOrder() {
+export async function createOrder<Promise>(order: order): Promise {
   const options = {
       method: 'POST',
       headers: {
@@ -29,23 +38,31 @@ export function createOrder() {
         authorization: devToken
       },
       body: JSON.stringify({
-        external_id: 'Your-Individual-Identifier-for-This-Order',
-        payment: {funding_source_id: 'SOMEIDSOMEID', channel: 'UI'},
+        external_id: order.external_id, 
+        payment: {funding_source_id: order.funding_source_id, channel: 'UI'},
         rewards: [
           {
-            campaign_id: 'SOMEIDSOMEID',
-            products: ['SOMEIDSOMEID'],
-            value: {denomination: 50, currency_code: 'USD'},
-            recipient: {name: 'John Doe Jr.', email: 'john.doe@example.com', phone: '123-456-7890'},
-            custom_fields: [{id: 'SOMEIDSOMEID', value: 'Hufflepuff'}],
-            delivery: {method: 'EMAIL'}
+            campaign_id: order.campaign_id, 
+            products: order.products,
+            value: {denomination: order.denomination, currency_code: 'USD'},
+            recipient: {name: order.recipient_name, email: order.recipient_email, phone: order.recipient_phone},
+            custom_fields: [{id: order.reward_id, value: order.reward_value}],
+            delivery: {method: order.delivery_method}
           }
         ]
       })
     };
     
-  fetch('https://testflight.tremendous.com/api/v2/orders', options)
-    .then(response => response.json())
-    .then(response => console.log(response))
-    .catch(err => console.error(err));
+  // fetch('https://testflight.tremendous.com/api/v2/orders', options)
+  //   .then(response => response.json())
+  //   .then(response => console.log(response))
+  //   .catch(err => console.error(err));
+
+  return fetch('api/v2/orders', options)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(response.statusText)
+      }
+      return response.json()
+    })
 }

@@ -1,17 +1,13 @@
 import React from "react";
 import StandardPage from "../../components/StandardPage";
-import listFundingSources from '../../Tremendous/Tremendous';
+import { listFundingSources } from '../../Tremendous/Tremendous';
 
 
-interface fundingSourcesObj {
-    method: string;
-    balance: number;
-}
 
 export default function PaymentManager() {
 
-    var response = listFundingSources();
-    // console.log(response);
+    var promise = listFundingSources();
+    console.log(promise);
 
     return (
         <StandardPage>
