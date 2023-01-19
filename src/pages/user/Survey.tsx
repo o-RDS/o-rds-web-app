@@ -116,12 +116,12 @@ export default function Survey() {
       {/*Bottom Navigation*/}
       <div className="flex flex-row justify-center mt-auto md:mt-16 w-4/5 min-h-[36px]">
         {page > 0 ? 
-          <button className="p-1 w-1/3 rounded bg-white border-2 border-orange-600 text-orange-600" onClick={() => setPage(page - 1)}>Back</button>
+          <button className="p-1 w-1/3 rounded bg-white border-2 border-rdsOrange text-rdsOrange" onClick={() => setPage(page - 1)}>Back</button>
           :
           <div className="w-1/3"></div>
         }
         <p className="w-1/3 text-center">{page + 1} of #</p>
-        <button className="p-1 w-1/3 rounded bg-orange-600 text-white" onClick={() => setPage(page + 1)}>Next</button>
+        <button className="p-1 w-1/3 rounded bg-rdsOrange text-white" onClick={() => setPage(page + 1)}>Next</button>
       </div>
     </SurveyTakerStandardPage>
   );
