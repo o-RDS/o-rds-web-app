@@ -5,7 +5,7 @@ import SurveyTakerStandardPage from "../../components/SurveyTakerStandardPage";
 export default function PhoneEntry() {
     return (
         <SurveyTakerStandardPage>      
-            <div className="flex flex-col mt-10">
+            <div className="flex flex-col max-w-prose">
                 <p>
                 Before you begin the survey, we must verify that you have not yet taken the survey.<br /><br />
 
@@ -14,7 +14,7 @@ export default function PhoneEntry() {
                 Your phone number will not be associated with your responses and will only be used for verification purposes.
                 </p>
             </div>
-            <div className="flex flex-col mt-12">
+            <div className="flex flex-col">
                 <label htmlFor="phoneNumber">Phone Number:<br /></label>
                 <input type="text" id="phoneNumber" name="phoneNumber"  placeholder="(XXX) XXX-XXXX" className="w-56 p-1 rounded bg-gray-200"></input>
                 <Link to="/OTPCodeEntry">

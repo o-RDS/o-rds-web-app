@@ -5,10 +5,10 @@ import SurveyTakerStandardPage from "../../components/SurveyTakerStandardPage";
 export default function ResumeSurvey(){
     return (
         <SurveyTakerStandardPage>
-            <p className="mt-10 max-w-prose">
+            <p className="max-w-prose">
                 To resume your progress on the survey, please enter your X-digit resumption code below.
             </p>
-            <div className="flex flex-col mt-12">
+            <div className="flex flex-col">
                 <label htmlFor="ResumptionCode">Resumption Code:<br /></label>
                 <input type="text" id="ResumptionCode" name="ResumptionCode"  placeholder="*Code Format Here*" className="w-56 p-1 rounded bg-gray-200"></input>
                 <button className="mt-6 p-1 w-56 rounded bg-rdsOrange text-white">Submit</button>

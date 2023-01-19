@@ -100,29 +100,28 @@ export default function Survey() {
 
   return (
     <SurveyTakerStandardPage>
-      <div className="flex flex-col mt-6 max-w-prose">
-        <p>
-          Here is where some instructions could go. In the future, this should be a variable based on what the researcher inputs in the Builder.
-        </p>
-        
-      </div>
-      <hr className="mt-4 w-9/12 border-1 border-gray-800" />
+        <div className="flex flex-col gap-y-3">
+          <p className="max-w-prose">
+            Here is where some instructions could go. In the future, this should be a variable based on what the researcher inputs in the Builder.
+          </p>
+          <hr className="w-9/12 border-1 border-gray-800 self-center" />
+        </div>
 
-      {/*Question Section*/}
-      <div className="flex flex-col mt-6 gap-y-6 flex-grow-1">
-        {renderQuestions()}
-      </div>
-      
-      {/*Bottom Navigation*/}
-      <div className="flex flex-row justify-center mt-auto md:mt-16 w-4/5 min-h-[36px]">
-        {page > 0 ? 
-          <button className="p-1 w-1/3 rounded bg-white border-2 border-rdsOrange text-rdsOrange" onClick={() => setPage(page - 1)}>Back</button>
-          :
-          <div className="w-1/3"></div>
-        }
-        <p className="w-1/3 text-center">{page + 1} of #</p>
-        <button className="p-1 w-1/3 rounded bg-rdsOrange text-white" onClick={() => setPage(page + 1)}>Next</button>
-      </div>
+        {/*Question Section*/}
+        <div className="flex flex-col gap-y-6 flex-grow-1">
+          {renderQuestions()}
+        </div>
+        
+        {/*Bottom Navigation*/}
+        <div className="flex flex-row justify-center mt-auto md:mt-0 w-4/5 md:w-1/3 min-h-[36px]">
+          {page > 0 ? 
+            <button className="p-1 w-1/3 rounded bg-white border-2 border-rdsOrange text-rdsOrange" onClick={() => setPage(page - 1)}>Back</button>
+            :
+            <div className="w-1/3"></div>
+          }
+          <p className="w-1/3 text-center">{page + 1} of #</p>
+          <button className="p-1 w-1/3 rounded bg-rdsOrange text-white" onClick={() => setPage(page + 1)}>Next</button>
+        </div>
     </SurveyTakerStandardPage>
   );
 }
