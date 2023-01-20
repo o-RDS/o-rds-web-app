@@ -18,7 +18,7 @@ export default function ReceivePayment(){
             </div>
 
             {(emailVerified) ?
-                <div className="flex flex-col w-full max-w-prose items-center gap-y-4">
+                <div className="flex flex-col w-full max-w-prose items-center gap-y-6">
                     <img src={tremendousLogo} alt="The logo of Tremendous" className="w-3/4"/>
                     <div className="flex flex-row justify-center items-center w-2/3 max-w-prose">
                         <p className="text-6xl text-green-500 text-center w-1/6">✔</p>
@@ -27,10 +27,12 @@ export default function ReceivePayment(){
                     <button className="p-1 w-1/3 rounded bg-rdsOrange text-white">Continue</button>
                 </div>
                 :
-                <div className="flex flex-col w-full max-w-prose items-center gap-y-4">
+                <div className="flex flex-col w-full max-w-prose items-center gap-y-6">
                     <img src={tremendousLogo} alt="The logo of Tremendous" className="w-3/4"/>
-                    <label htmlFor="tremendousEmail" className="w-2/3">Email:<br /></label>
-                    <input type="text" id="tremendousEmail" name="tremendousEmail"  placeholder="Ex: name@gmail.com" className="w-2/3 p-1 rounded bg-gray-200"></input>
+                    <div className="flex flex-col w-full max-w-prose items-center">
+                        <label htmlFor="tremendousEmail" className="w-2/3">Email:<br /></label>
+                        <input type="text" id="tremendousEmail" name="tremendousEmail"  placeholder="Ex: name@gmail.com" className="w-2/3 p-1 rounded bg-gray-200"></input>
+                    </div>
                     <button onClick={() => setEmailVerified(true)} className="p-1 w-1/3 rounded bg-rdsOrange text-white">Submit</button>
                 </div>
             }

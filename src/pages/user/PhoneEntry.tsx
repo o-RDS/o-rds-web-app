@@ -14,11 +14,13 @@ export default function PhoneEntry() {
                 Your phone number will not be associated with your responses and will only be used for verification purposes.
                 </p>
             </div>
-            <div className="flex flex-col">
-                <label htmlFor="phoneNumber">Phone Number:<br /></label>
-                <input type="text" id="phoneNumber" name="phoneNumber"  placeholder="(XXX) XXX-XXXX" className="w-56 p-1 rounded bg-gray-200"></input>
+            <div className="flex flex-col gap-y-6">
+                <div className="flex flex-col">
+                    <label htmlFor="phoneNumber">Phone Number:<br /></label>
+                    <input type="text" id="phoneNumber" name="phoneNumber"  placeholder="(XXX) XXX-XXXX" className="w-56 p-1 rounded bg-gray-200"></input>
+                </div>
                 <Link to="/OTPCodeEntry">
-                    <button className="mt-6 p-1 w-56 rounded bg-rdsOrange text-white">Submit</button>
+                    <button className="p-1 w-56 rounded bg-rdsOrange text-white">Submit</button>
                 </Link>
             </div>
         </SurveyTakerStandardPage>
