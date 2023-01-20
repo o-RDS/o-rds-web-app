@@ -4,32 +4,29 @@ import { order } from './interfaces';
 const devToken = "Bearer TEST_2lm2pekxx--s_kiobii4fxfecyrk2yg1jbjqq-eryia";
 // const prodToken = "Beaarer [TOKEN]"; 
 
-export async function listFundingSources<Promise>(): Promise {
 
-  const options = {
+export async function listFundingSources()   {
+    const options = {
       method: 'GET',
       headers: {
         accept: 'application/json',
         Authorization: devToken,
       }
     };
-  
-  // await fetch('api/v2/funding_sources', options)
-  //   .then(response => response.json())
-  //   .then(response => console.log(response))
-  //   .catch(err => console.error(err));
 
-  return fetch('api/v2/funding_sources', options)
-    .then(response => {
-      if (!response.ok) {
-        throw new Error(response.statusText)
-      }
-      return response.json()
-    })
-
+    return fetch('api/v2/funding_sources', options)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(response.statusText)
+        }
+        return response.json()
+      })
+      .then((data) => {
+        return data.funding_sources;
+      })
 }
 
-export async function createOrder<Promise>(order: order): Promise {
+export async function createOrder(order: order) {
   const options = {
       method: 'POST',
       headers: {
@@ -52,11 +49,6 @@ export async function createOrder<Promise>(order: order): Promise {
         ]
       })
     };
-    
-  // fetch('https://testflight.tremendous.com/api/v2/orders', options)
-  //   .then(response => response.json())
-  //   .then(response => console.log(response))
-  //   .catch(err => console.error(err));
 
   return fetch('api/v2/orders', options)
     .then(response => {
@@ -64,5 +56,8 @@ export async function createOrder<Promise>(order: order): Promise {
         throw new Error(response.statusText)
       }
       return response.json()
+    })
+    .then((data) => {
+      return data;
     })
 }

@@ -1,13 +1,15 @@
-import React from "react";
+import { listFundingSources } from '../../APIs/Tremendous';
 import StandardPage from "../../components/StandardPage";
-import { listFundingSources } from '../../Tremendous/Tremendous';
 
 
 
 export default function PaymentManager() {
-
-    var promise = listFundingSources();
-    console.log(promise);
+    
+    listFundingSources()
+    .then(data => {
+        console.log(data)
+    });
+       
 
     return (
         <StandardPage>
