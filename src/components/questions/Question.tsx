@@ -49,5 +49,5 @@ export default function Question(props: any) {
   }
 
   // Returns the appropriate component
-  return <div className="bg-white p-4 rounded-md border-t-2 border-t-rdsOrange">{getQuestionType(props.data)}</div>;
+  return <div className="bg-white p-4 rounded-md border-t-2 border-t-rdsOrange shadow-sm shadow-black">{getQuestionType(props.data)}</div>;
 }
