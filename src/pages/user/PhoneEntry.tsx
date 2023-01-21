@@ -31,7 +31,7 @@ export default function PhoneEntry() {
     setPhone(num);
     console.log(num);
     // TODO Send code to phone number, pass code to OTPCodeEntry.tsx
-    navigate("/OTPCodeEntry");
+    navigate("verify");
   }
 
   return (
