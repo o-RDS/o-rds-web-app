@@ -8,6 +8,8 @@ import PaymentManager from './pages/admin/PaymentManagerAdmin';
 import Survey from './pages/user/Survey';
 import PhoneEntry from "./pages/user/PhoneEntry";
 import OTPCodeEntry from "./pages/user/OTPCodeEntry"
+import ResumeSurvey from "./pages/user/ResumeSurvey"
+import ReceivePayment from './pages/user/ReceivePayment';
 
 
 function App() {
@@ -22,6 +24,8 @@ function App() {
         <Route path="/Survey" element={<Survey/>} />
         <Route path="/PhoneEntry" element={<PhoneEntry/>} />
         <Route path="/OTPCodeEntry" element={<OTPCodeEntry/>} />
+        <Route path="/ResumeSurvey" element={<ResumeSurvey/>} />
+        <Route path="/ReceivePayment" element={<ReceivePayment/>} />
       </Routes>
     </HashRouter>
   );
