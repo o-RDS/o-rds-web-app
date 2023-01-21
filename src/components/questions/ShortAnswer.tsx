@@ -27,7 +27,7 @@ export default function ShortAnswer(props: any) {
     if (typeof props.currentValue !== "undefined") {
       setAnswer(props.currentValue);
     } else {
-      setAnswer("Broken");
+      setAnswer("");
     }
   }, []);
 

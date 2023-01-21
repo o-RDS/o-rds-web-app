@@ -62,6 +62,7 @@ export default function Checkbox(props: any) {
           isChecked = true;
         }
       }
+      console.log(isChecked);
       return (
         <div key={index}>
           <input
@@ -69,7 +70,7 @@ export default function Checkbox(props: any) {
             name="name"
             value={choice}
             onChange={() => handleClick(choice)}
-            checked={isChecked}
+            defaultChecked={isChecked}
             className="accent-rdsBlue"
           />
           <label className="ml-2">{choice}</label>
