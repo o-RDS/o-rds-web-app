@@ -4,6 +4,7 @@ import "./Survey.css";
 
 export default function Survey() {
   const [page, setPage] = useState(0);
+  const [surveyQuestions, setSurveyQuestions] = useState([{}]);
   const response:any = useRef({});
 
   // this would eventually load in data from DB, not use this dummy data
@@ -34,7 +35,7 @@ export default function Survey() {
       type: "FillInBlank",
       config: {
         prompt: {
-          value: "Fill in the blank",
+          value: "The Declaration of Indpendence was written in ____________",
           configPrompt: "Question Prompt:",
           type: "text",
         }
@@ -50,7 +51,28 @@ export default function Survey() {
           type: "text",
         }
       }
-    }
+    },
+    {
+      page: 0,
+      type: "Checkbox",
+      config: {
+        prompt: {
+          value: "This is an example question?",
+          configPrompt: "Question Prompt:",
+          type: "text",
+        },
+        shuffle: {
+          value: true,
+          configPrompt: "Shuffle choices?",
+          type: "bool",
+        },
+        choices: {
+          value: ["A", "B", "C", "D", "E"],
+          configPrompt: "Enter choices:",
+          type: "stringArray",
+        },
+      },
+    },
   ];
 
   // this will be called by the question component whenever the question requests to update the response

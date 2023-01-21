@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import getDefault from "./Question";
 
 export default function MultipleChoice(props: any) {
+  // This still needs ability to handle other questions. It is not too tough to do but need a way to easily have it added in
   // this is far from finished, but each question type will have its own default config
   // the survey editor will use this when a new question is added
   const [answer, setAnswer] = useState("");
@@ -9,17 +10,17 @@ export default function MultipleChoice(props: any) {
     prompt: {
       value: "",
       configPrompt: "Question Prompt",
-      type: "string"
+      type: "string",
     },
     shuffle: {
       value: false,
       configPrompt: "Shuffle?",
-      type: "boolean"
+      type: "boolean",
     },
     choices: {
       value: [""],
       configPrompt: "Question Prompt",
-      type: "stringArray"
+      type: "stringArray",
     },
   });
 
@@ -41,8 +42,15 @@ export default function MultipleChoice(props: any) {
       }
       return (
         <div key={index}>
-          <input type="radio" name="choice" value={choice} onChange={() => handleClick(choice)} defaultChecked={isChecked}/>
-          <label>{choice}</label>
+          <input
+            type="radio"
+            name="choice"
+            value={choice}
+            onChange={() => handleClick(choice)}
+            defaultChecked={isChecked}
+            className="accent-rdsBlue"
+          />
+          <label className="ml-2">{choice}</label>
         </div>
       );
     });
@@ -51,7 +59,7 @@ export default function MultipleChoice(props: any) {
   // this will render the question prompt and the choices
   return (
     <div>
-      <h2>{props.config.prompt.value}</h2>
+      <h2 className="text-lg font-bold">{props.index + 1}) {props.config.prompt.value}</h2>
       {renderChoices()}
     </div>
   );

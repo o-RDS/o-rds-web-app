@@ -22,13 +22,13 @@ export default function FillInTheBlank(props: any) {
       type: "stringArray",
     },
   });
-  console.log(props.currentValue);
+  // console.log(props.currentValue);
 
   useEffect(() => {
     if (typeof props.currentValue !== "undefined") {
       setAnswer(props.currentValue);
     } else {
-      setAnswer("Broken");
+      setAnswer("");
     }
   }, []);
 
@@ -45,15 +45,16 @@ export default function FillInTheBlank(props: any) {
   // TODO: make it so answers are reported up to the survey component (function chain)
   function renderChoices() {
     return (
-      <div>
+      <div className="flex flex-col gap-2">
         <p>
-          The US wrote the declaration of independence in
-          <input
-            placeholder="This is a place for text"
+          {props.config.prompt.value}
+        </p>
+        <input
+            placeholder="Place Answer Here"
             value={answer}
             onChange={(e) => handleClick(e.target.value)}
+            className="border-rdsBlue border-2 rounded-md pl-1 pr-1 md:w-2/5"
           ></input>
-        </p>
       </div>
     );
   }
@@ -61,7 +62,7 @@ export default function FillInTheBlank(props: any) {
   // this will render the question prompt and the choices
   return (
     <div>
-      <h2>{props.config.prompt.value}</h2>
+      <h2 className="text-lg font-bold">{props.index + 1}) Fill In The Blank</h2>
       {renderChoices()}
     </div>
   );

@@ -9,22 +9,22 @@ export default function ShortAnswer(props: any) {
     prompt: {
       value: "",
       configPrompt: "Question Prompt",
-      type: "string"
+      type: "string",
     },
     shuffle: {
       value: false,
       configPrompt: "Shuffle?",
-      type: "boolean"
+      type: "boolean",
     },
     choices: {
       value: [""],
       configPrompt: "Question Prompt",
-      type: "stringArray"
+      type: "stringArray",
     },
   });
 
   useEffect(() => {
-    if (typeof props.currentValue !== 'undefined') {
+    if (typeof props.currentValue !== "undefined") {
       setAnswer(props.currentValue);
     } else {
       setAnswer("Broken");
@@ -44,16 +44,21 @@ export default function ShortAnswer(props: any) {
   // TODO: make it so answers are reported up to the survey component (function chain)
   function renderChoices() {
     return (
-        <div>
-            <textarea placeholder="This is a place for text" value={answer} onChange={(e) => handleClick(e.target.value)}></textarea>
-        </div>
-    )
+      <div>
+        <textarea
+          placeholder="This is a place for text"
+          value={answer}
+          onChange={(e) => handleClick(e.target.value)}
+          className="border-2 border-rdsBlue rounded-md"
+        ></textarea>
+      </div>
+    );
   }
 
   // this will render the question prompt and the choices
   return (
     <div>
-      <h2>{props.config.prompt.value}</h2>
+      <h2 className="text-lg font-bold">{props.index + 1}) {props.config.prompt.value}</h2>
       {renderChoices()}
     </div>
   );
