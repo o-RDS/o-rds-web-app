@@ -1,5 +1,8 @@
 import React from "react";
 import MultipleChoice from "./MultipleChoice";
+import FillInTheBlank from "./FillInTheBlank";
+import ShortAnswer from "./ShortAnswer";
+import Checkbox from "./Checkbox";
 import "./Question.css";
 
 export default function Question(props: any) {
@@ -29,15 +32,22 @@ export default function Question(props: any) {
 
   // This function will take the type property of the question object and return the appropriate component, passing the needed data
   function getQuestionType(data: QuestionData) {
-    console.log(data);
+    // console.log(data);
+    // console.log(props.currentValue);
     switch (data.type) {
       case "MultipleChoice":
-        return <MultipleChoice config={data.config} updateResponse={updateResponse}/>;
+        return <MultipleChoice config={data.config} updateResponse={updateResponse} currentValue={props.currentAnswer} index={props.index}/>;
+      case "FillInBlank":
+        return <FillInTheBlank config={data.config} updateResponse={updateResponse} currentValue={props.currentAnswer} index={props.index}/>;
+      case "ShortAnswer":
+        return <ShortAnswer config={data.config} updateResponse={updateResponse} currentValue={props.currentAnswer} index={props.index}/>
+      case "Checkbox":
+        return <Checkbox config={data.config} updateResponse={updateResponse} currentValue={props.currentAnswer} index={props.index}/>
       default:
         return <p>"Unknown Question Type"</p>;
     }
   }
 
   // Returns the appropriate component
-  return <div className="Question">{getQuestionType(props.data)}</div>;
+  return <div className="bg-white p-4 rounded-md border-t-2 border-t-rdsOrange">{getQuestionType(props.data)}</div>;
 }
