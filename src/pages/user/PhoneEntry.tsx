@@ -1,14 +1,24 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import SurveyTakerStandardPage from "../../components/SurveyTakerStandardPage";
-import setPhone from "../../data/sessionManager";
+import { setPhone, setSurveyID } from "../../data/sessionManager";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 export default function PhoneEntry() {
     const [phoneNum, setPhoneNum] = React.useState('');
     const [error, setError] = useState('')
+    const [searchParams] = useSearchParams();
     const navigate = useNavigate();
+
+    React.useEffect(() => {
+        let id = searchParams.get('s')
+        if (id != null) {
+            setSurveyID(id)
+        }
+        // TODO Check if user has already taken survey/if survey is valid
+        console.log(window.sessionStorage.getItem('surveyID'))
+    }, [searchParams])
 
     function submitNum() {
         let num = phoneNum.replace(/\W/g, '')
@@ -22,7 +32,6 @@ export default function PhoneEntry() {
         console.log(num)
         // TODO Send code to phone number, pass code to OTPCodeEntry.tsx
         navigate("/OTPCodeEntry");
-        
     }
 
     return (
