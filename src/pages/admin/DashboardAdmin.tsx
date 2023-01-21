@@ -9,20 +9,20 @@ export default function Dashboard() {
                 <h1>Welcome User</h1>
                 <div className="flex flex-col w-5/6">
                 <div className="flex flex-row">
-                    <h3>Active Surveys</h3>
+                    <h3 className="text-2xl">Active Surveys</h3>
                     <div className="ml-auto">
                         <Link to="/SurveyBuilderAdmin">
-                            <button className="bg-teal-500 rounded-md p-1 pl-2 pr-2 text-white">New Survey</button>
+                            <button className="bg-rdsBlue rounded-md p-1 pl-2 pr-2 text-white">New Survey</button>
                         </Link>
                     </div>
                 </div>
-                <div className="flex flex-row flex-wrap justify-evenly">
+                <div className="flex flex-row flex-wrap gap-10">
                     <Link to="/ResultsAdmin">
-                        <div className="w-24 bg-lime-500 h-24 rounded-md">survey 1</div>
+                        <div className="flex flex-col justify-end w-24 bg-rdsBlue text-white h-24 rounded-md p-2">survey 1</div>
                     </Link>
-                    <div className="w-24 bg-lime-500 h-24 rounded-md">survey 2</div>
-                    <div className="w-24 bg-lime-500 h-24 rounded-md">survey 3</div>
-                    <div className="w-24 bg-lime-500 h-24 rounded-md">survey 4</div>
+                    <div className="flex flex-col justify-end w-24 bg-rdsBlue text-white h-24 rounded-md p-2">survey 2</div>
+                    <div className="flex flex-col justify-end w-24 bg-rdsBlue text-white h-24 rounded-md p-2">survey 3</div>
+                    <div className="flex flex-col justify-end w-24 bg-rdsBlue text-white h-24 rounded-md p-2">survey 4</div>
                 </div>
                 </div>
             </div>
