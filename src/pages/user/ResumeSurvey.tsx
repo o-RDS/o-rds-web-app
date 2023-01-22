@@ -16,7 +16,7 @@ export default function ResumeSurvey(){
                 <button className="p-1 w-56 rounded bg-rdsOrange text-white">Submit</button>
             </div>
             <div className="mt-auto">
-                <Link to="/PhoneEntry">
+                <Link to="../">
                     <button className="text-rdsOrange hover:text-orange-800">Taking the survey for the first time?</button>
                 </Link>
             </div>
