@@ -1,24 +1,45 @@
-import React from "react";
 import { Link } from "react-router-dom";
 import SurveyTakerStandardPage from "../../components/SurveyTakerStandardPage";
-import { setPhone, setSurveyID } from "../../data/sessionManager";
-import { useState } from "react";
+import { setPhone, setChainInfo } from "../../data/sessionManager";
+import { useState, useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
+import Sha256 from "../../data/Sha256";
 
 export default function PhoneEntry() {
-  const [phoneNum, setPhoneNum] = React.useState("");
+  const [phoneNum, setPhoneNum] = useState("");
   const [error, setError] = useState("");
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
 
-  React.useEffect(() => {
-    let id = searchParams.get("s");
-    if (id != null) {
-      setSurveyID(id);
+  // change to parent
+  useEffect(() => {
+    let parent = searchParams.get("p");
+    let depth = 0;
+    if (parent == null) {
+      navigate("/invalid");
+    } else if (Sha256.hash(parent) === Sha256.hash("root")) {
+        depth = 1;
+        setChainInfo(parent, depth);
+    } else {
+        /* USE THIS CODE ONCE WE HAVE VALID SURVEY DATA
+           THERE ALSO NEEDS TO BE A FUNCTION TO GET USER DATA
+        retrieveResponseData(parent).then((data) => {
+            if (data == null) {
+                navigate("/invalid");
+            } else {
+                depth = data.depth + 1;
+                setChainInfo(parent, depth);
+            }
+        */
+        let depthStr = searchParams.get("d")
+        if (depthStr != null) {
+            depth = parseInt(depthStr) + 1;
+            setChainInfo(parent, depth);
+        } else {
+            navigate("/invalid");
+        }
     }
-    // TODO Check if user has already taken survey/if survey is valid
-    console.log(window.sessionStorage.getItem("surveyID"));
-  }, [searchParams]);
+  }, [searchParams, navigate]);
 
   function submitNum() {
     let num = phoneNum.replace(/\W/g, "");
@@ -65,7 +86,6 @@ export default function PhoneEntry() {
             value={phoneNum}
             onChange={(e) => setPhoneNum(e.target.value)}
           ></input>
-          <p className="text-red-600">{error}</p>
         </div>
         <button
           className="mt-6 p-1 w-56 rounded bg-orange-600 text-white"
@@ -73,6 +93,7 @@ export default function PhoneEntry() {
         >
           Submit
         </button>
+        <p className="text-red-600">{error}</p>
       </div>
     </SurveyTakerStandardPage>
   );
