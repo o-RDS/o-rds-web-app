@@ -16,13 +16,14 @@ export default function Dashboard() {
                         </Link>
                     </div>
                 </div>
+                <br></br>
                 <div className="flex flex-row flex-wrap gap-10">
                     <Link to="/ResultsAdmin">
-                        <div className="flex flex-col justify-end w-24 bg-rdsBlue text-white h-24 rounded-md p-2">survey 1</div>
+                        <div className="flex flex-col justify-end w-48 bg-rdsBlue text-white h-48 rounded-md p-2"><div className="border-t"><h4 className="text-md font-bold">survey 1</h4><p className="text-sm">0 Responses</p></div></div>
                     </Link>
-                    <div className="flex flex-col justify-end w-24 bg-rdsBlue text-white h-24 rounded-md p-2">survey 2</div>
-                    <div className="flex flex-col justify-end w-24 bg-rdsBlue text-white h-24 rounded-md p-2">survey 3</div>
-                    <div className="flex flex-col justify-end w-24 bg-rdsBlue text-white h-24 rounded-md p-2">survey 4</div>
+                    <div className="flex flex-col justify-end w-48 bg-rdsBlue text-white h-48 rounded-md p-2"><div className="border-t"><h4 className="text-md font-bold">survey 1</h4><p className="text-sm">0 Responses</p></div></div>
+                    <div className="flex flex-col justify-end w-48 bg-rdsBlue text-white h-48 rounded-md p-2"><div className="border-t"><h4 className="text-md font-bold">survey 1</h4><p className="text-sm">0 Responses</p></div></div>
+                    <div className="flex flex-col justify-end w-48 bg-rdsBlue text-white h-48 rounded-md p-2"><div className="border-t"><h4 className="text-md font-bold">survey 1</h4><p className="text-sm">0 Responses</p></div></div>
                 </div>
                 </div>
             </div>
