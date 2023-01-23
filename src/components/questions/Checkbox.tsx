@@ -1,11 +1,18 @@
 import React, { useState, useEffect } from "react";
 import getDefault from "./Question";
+import ShortAnswer from "./ShortAnswer";
 
-export default function MultipleChoice(props: any) {
-  // This still needs ability to handle other questions. It is not too tough to do but need a way to easily have it added in
+export default function Checkbox(props: any) {
   // this is far from finished, but each question type will have its own default config
   // the survey editor will use this when a new question is added
+  let answerArray: string[] = [];
+  if (props.currentValue) {
+    answerArray = props.currentValue;
+  }
+  //   let answerArray: string[] = props.currentValue;
+  console.log(answerArray);
   const [answer, setAnswer] = useState("");
+//   const [isChecked, setIsChecked] = useState(false);
   const [config, setConfig] = useState({
     prompt: {
       value: "",
@@ -24,11 +31,24 @@ export default function MultipleChoice(props: any) {
     },
   });
 
+  useEffect(() => {});
+
   // called when user clicks a choice, and sends the update to the question component
-  function handleClick(answer: string) {
+  function handleClick(answer: any) {
+    // if ()
+    console.log(answerArray);
     if (props.updateResponse) {
-      props.updateResponse({ "#": answer });
+      if (answerArray.includes(answer)) {
+        let index = answerArray.indexOf(answer);
+        answerArray.splice(index, 1);
+        // const filterArray: string[] = answerArray.filter((choice) => choice != answer);
+        props.updateResponse({ "#": answerArray });
+      } else {
+        answerArray.push(answer);
+        props.updateResponse({ "#": answerArray });
+      }
     }
+    console.log(answerArray);
     console.log("Answer: " + answer);
   }
 
@@ -37,14 +57,17 @@ export default function MultipleChoice(props: any) {
   function renderChoices() {
     return props.config.choices.value.map((choice: string, index: number) => {
       let isChecked = false;
-      if (props.currentValue === choice) {
-        isChecked = true;
+      if (props.currentValue) {
+        if (props.currentValue[index] === choice) {
+          isChecked = true;
+        }
       }
+      console.log(isChecked);
       return (
         <div key={index}>
           <input
-            type="radio"
-            name="choice"
+            type="checkbox"
+            name="name"
             value={choice}
             onChange={() => handleClick(choice)}
             defaultChecked={isChecked}
