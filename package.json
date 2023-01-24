@@ -2,7 +2,6 @@
   "name": "admin-client",
   "version": "0.1.0",
   "private": true,
-  
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
@@ -46,6 +45,8 @@
   "devDependencies": {
     "autoprefixer": "^10.4.12",
     "postcss": "^8.4.18",
+    "prettier": "^2.8.3",
+    "prettier-plugin-tailwindcss": "^0.2.1",
     "tailwindcss": "^3.1.8"
   }
 }

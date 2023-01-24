@@ -48,7 +48,7 @@ export default function SurveyBuilder() {
           type: "stringArray",
         },
       },
-    }
+    },
   ];
   const [showModal, setShowModal] = useState(false);
   const [questionIndex, setQuestionIndex] = useState(0);
@@ -74,41 +74,50 @@ export default function SurveyBuilder() {
     },
   });
 
-
-
   const updateConfig = (newConfig: any) => {
     setQuestions(newConfig);
   };
 
-  const setCurrentQuestion = (newQuestion: any, index:number) => {
+  const setCurrentQuestion = (newQuestion: any, index: number) => {
     setQuestion(newQuestion);
     setQuestionIndex(index);
   };
 
   return (
     <div>
-      <SurveyTopNav name={surveyName}/>
+      <SurveyTopNav name={surveyName} />
       <div className="flex flex-row gap-20">
-        <SurveyLinkModal showModal={setShowModal} display={showModal}/>
-        <ConfigSidebar questionIndex={questionIndex} otherCurrentQuestion={questions} update={updateConfig}/>
-        <div className="w-3/5 mt-3">
+        <SurveyLinkModal showModal={setShowModal} display={showModal} />
+        <ConfigSidebar
+          questionIndex={questionIndex}
+          otherCurrentQuestion={questions}
+          update={updateConfig}
+        />
+        <div className="mt-3 w-3/5">
           <div className="flex flex-row justify-between">
             <input
               placeholder="Survey Name"
-              className="bg-gray-100 text-black rounded-md"
+              className="rounded-md bg-gray-100 text-black"
               value={surveyName}
               onChange={(e) => setSurveyName(e.target.value)}
             ></input>
             <div className="flex gap-2">
-              <button className="border-rdsBlue border text-rdsBlue rounded-sm pl-2 pr-2">
+              <button className="rounded-sm border border-rdsBlue pl-2 pr-2 text-rdsBlue">
                 Preview
               </button>
-              <button className="bg-rdsBlue text-white rounded-sm pl-2 pr-2" onClick={() => setShowModal(true)}>
+              <button
+                className="rounded-sm bg-rdsBlue pl-2 pr-2 text-white"
+                onClick={() => setShowModal(true)}
+              >
                 Publish
               </button>
             </div>
           </div>
-          <QuestionViewer updateQuestion={setCurrentQuestion} questions={questions} update={updateConfig}/>
+          <QuestionViewer
+            updateQuestion={setCurrentQuestion}
+            questions={questions}
+            update={updateConfig}
+          />
         </div>
       </div>
     </div>
