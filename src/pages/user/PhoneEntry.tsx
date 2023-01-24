@@ -88,7 +88,7 @@ export default function PhoneEntry() {
           ></input>
         </div>
         <button
-          className="p-1 w-56 rounded bg-orange-600 text-white"
+          className="p-1 w-56 rounded bg-rdsOrange text-white"
           onClick={() => submitNum()}
         >
           Submit
