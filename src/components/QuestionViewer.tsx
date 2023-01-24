@@ -85,14 +85,14 @@ export default function QuestionViewer(props: any) {
       props.updateQuestion(questionUpdate);
     }
 
-    const chooseQuestion = (newQuestion: any, target: any) => {
-      props.updateQuestion(newQuestion);
+    const chooseQuestion = (newQuestion: any, target: any, index:number) => {
+      props.updateQuestion(newQuestion, index);
       target.tabIndex = -1;
       target.focus();
     }
 
-    const testArray = questions.map((question: any, index: number) => {
-    return <div key={index} className="rounded-sm hover:border-2 hover:border-red-500 focus:border-red-500 border-2 border-white transition-all p-1" onClick={(e) => chooseQuestion(question.config, e.target)}>
+    const testArray = props.questions.map((question: any, index: number) => {
+    return <div key={index} className="rounded-sm hover:border-2 hover:border-red-500 focus:border-red-500 border-2 border-white transition-all p-1" onClick={(e) => chooseQuestion(question.config, e.target, index)}>
       <div className="w-full">
             <h3>{"Q" + (index + 1)}</h3>
             <div className="bg-gray-100 p-3 rounded-md">
