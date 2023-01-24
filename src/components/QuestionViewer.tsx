@@ -92,28 +92,12 @@ export default function QuestionViewer(props: any) {
     }
 
     const testArray = questions.map((question: any, index: number) => {
-    return <div key={index} className="rounded-sm hover:border-2 hover:border-red-500 focus:border-red-500" onClick={(e) => chooseQuestion(question.config, e.target)}>
+    return <div key={index} className="rounded-sm hover:border-2 hover:border-red-500 focus:border-red-500 border-2 border-white transition-all p-1" onClick={(e) => chooseQuestion(question.config, e.target)}>
       <div className="w-full">
             <h3>{"Q" + (index + 1)}</h3>
             <div className="bg-gray-100 p-3 rounded-md">
               <h2>{question.config.prompt.value}</h2>
               <ul>
-                {/* <li>
-                  <input type="radio" value="Item 1"></input>
-                  <label>Item 1</label>
-                </li>
-                <li>
-                  <input type="radio" placeholder="Item 1"></input>
-                  <label>Item 2</label>
-                </li>
-                <li>
-                  <input type="radio" placeholder="Item 1"></input>
-                  <label>Item 3</label>
-                </li>
-                <li>
-                  <input type="radio" placeholder="Item 1"></input>
-                  <label>Item 4</label>
-                </li> */}
                 {question.config.choices.value.map((choice: any) => {
                   return (
                     <li key={choice}>
@@ -129,47 +113,9 @@ export default function QuestionViewer(props: any) {
 
   return (
     <>
-      <div className="flex flex-col w-3/5 h-min-56 gap-10 mt-3">
-        <div className="flex flex-row justify-between">
-          <input
-            placeholder="Survey Name"
-            className="bg-gray-100 text-white rounded-md"
-          ></input>
-          <div className="flex gap-2">
-            <button className="border-rdsBlue border text-rdsBlue rounded-sm pl-2 pr-2">
-              Preview
-            </button>
-            <button className="bg-rdsBlue text-white rounded-sm pl-2 pr-2">
-              Publish
-            </button>
-          </div>
-        </div>
+      <div className="flex flex-col h-min-56 gap-10 mt-3">
         <div className="border-black border justify-center items-center flex flex-col p-5 rounded-md gap-10 w-full">
-          {/* <div className="w-full">
-            <h3>Q1</h3>
-            <div className="bg-gray-100 p-3 rounded-md">
-              <input placeholder="Click to Write Question Text"></input>
-              <ul>
-                <li>
-                  <input type="radio" value="Item 1"></input>
-                  <label>Item 1</label>
-                </li>
-                <li>
-                  <input type="radio" placeholder="Item 1"></input>
-                  <label>Item 2</label>
-                </li>
-                <li>
-                  <input type="radio" placeholder="Item 1"></input>
-                  <label>Item 3</label>
-                </li>
-                <li>
-                  <input type="radio" placeholder="Item 1"></input>
-                  <label>Item 4</label>
-                </li>
-              </ul>
-            </div>
-          </div> */}
-          <div className="w-full">
+          <div className="w-full flex flex-col gap-4">
               {testArray}
           </div>
           <button className="bg-rdsBlue text-white rounded-sm pl-2 pr-2 w-fit" onClick={() => addQuestion()}>
