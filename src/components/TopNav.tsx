@@ -8,10 +8,10 @@ export default function TopNav() {
             <h3 className="text-lg bg-gradient-to-br from-rdsBlue to-rdsOrange inline-block text-transparent bg-clip-text justify-start items-center">o-RDS</h3>
             <div className="flex items-center gap-2 ml-auto">
                 {/* <p>Home</p> */}
-                <Link to="/DashboardAdmin">
+                <Link to="../dashboard">
                     <button className="hover:border-b-2 hover:translate transform-y-1/2">Home</button>
                 </Link>
-                <Link to="/PaymentManagerAdmin">
+                <Link to="../payment-manager">
                     <button>Payments</button>
                 </Link>
                 <img src={helpIcon} className="w-6 h-6" />

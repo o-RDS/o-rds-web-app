@@ -13,7 +13,7 @@ export default function LoginAdmin() {
                 <input type="text" placeholder="username" className="w-56 p-1 rounded bg-gray-200"></input>
                 <input type="text" placeholder="password" className="w-56 p-1 rounded bg-gray-200"></input>
                 <br></br>
-                <Link to="/DashboardAdmin">
+                <Link to="../dashboard">
                     <button className=" p-1 w-56 rounded bg-orange-600 text-white">Login</button>
                 </Link>
                 {/* <Link to="/DashboardAdmin">
