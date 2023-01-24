@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import StandardPage from "../../components/StandardPage";
+import SurveyTopNav from "../../components/SurveyTopNav";
 import QuestionViewer from "../../components/QuestionViewer";
 import ConfigSidebar from "../../components/ConfigSidebar";
 import SurveyLinkModal from "../../components/SurveyLinkModal";
@@ -51,6 +52,7 @@ export default function SurveyBuilder() {
   ];
   const [showModal, setShowModal] = useState(false);
   const [questionIndex, setQuestionIndex] = useState(0);
+  const [surveyName, setSurveyName] = useState("SurveyName");
   const [questions, setQuestions] = useState<any>(design);
   const [question, setQuestion] = useState({
     page: 0,
@@ -84,15 +86,18 @@ export default function SurveyBuilder() {
   };
 
   return (
-    <StandardPage>
+    <div>
+      <SurveyTopNav name={surveyName}/>
       <div className="flex flex-row gap-20">
         <SurveyLinkModal showModal={setShowModal} display={showModal}/>
-        <ConfigSidebar currentQuestion={question} questionIndex={questionIndex} otherCurrentQuestion={questions} update={updateConfig}/>
+        <ConfigSidebar questionIndex={questionIndex} otherCurrentQuestion={questions} update={updateConfig}/>
         <div className="w-3/5 mt-3">
           <div className="flex flex-row justify-between">
             <input
               placeholder="Survey Name"
-              className="bg-gray-100 text-white rounded-md"
+              className="bg-gray-100 text-black rounded-md"
+              value={surveyName}
+              onChange={(e) => setSurveyName(e.target.value)}
             ></input>
             <div className="flex gap-2">
               <button className="border-rdsBlue border text-rdsBlue rounded-sm pl-2 pr-2">
@@ -103,9 +108,9 @@ export default function SurveyBuilder() {
               </button>
             </div>
           </div>
-          <QuestionViewer updateQuestion={setCurrentQuestion} questions={questions}/>
+          <QuestionViewer updateQuestion={setCurrentQuestion} questions={questions} update={updateConfig}/>
         </div>
       </div>
-    </StandardPage>
+    </div>
   );
 }

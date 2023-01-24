@@ -78,7 +78,11 @@ export default function QuestionViewer(props: any) {
 
     const addQuestion = () => {
         //Also update in server you're using
-        setQuestions(questions.concat(proofQuestionToAdd));
+        let newConfig = props.questions;
+        console.log(newConfig);
+        console.log(newConfig.concat(proofQuestionToAdd));
+        props.update(newConfig.concat(proofQuestionToAdd));
+        // setQuestions(questions.concat(proofQuestionToAdd));
     }
 
     const changeOptions = (questionUpdate: any) => {
