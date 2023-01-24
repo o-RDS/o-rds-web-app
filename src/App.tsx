@@ -1,5 +1,5 @@
 import React from 'react';
-import { HashRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import LoginAdmin from "./pages/admin/LoginAdmin";
 import DashboardAdmin from "./pages/admin/DashboardAdmin";
 import SurveyBuilder from './pages/admin/SurveyBuilderAdmin';
@@ -10,24 +10,37 @@ import PhoneEntry from "./pages/user/PhoneEntry";
 import OTPCodeEntry from "./pages/user/OTPCodeEntry"
 import ResumeSurvey from "./pages/user/ResumeSurvey"
 import ReceivePayment from './pages/user/ReceivePayment';
+import BadSurvey from './pages/user/BadSurvey';
+import ConfigContext from './context/ConfigContext';
+import Share from './pages/user/Share';
 
 
 function App() {
   return (
-    <HashRouter>
+    <BrowserRouter>
       <Routes>
+        <Route path="admin">
+          <Route path="login" element={<LoginAdmin/>} />
+          <Route path="dashboard" element={<DashboardAdmin/>} />
+          <Route path="results" element={<Results/>} />
+          <Route path="payment-manager" element={<PaymentManager/>} />
+          <Route path="survey-builder" element={<SurveyBuilder/>} />
+        </Route>
+        <Route path="survey">
+          <Route path=":id" element={<ConfigContext/>}>
+            <Route path="" element={<PhoneEntry/>} />
+            <Route path="verify" element={<OTPCodeEntry/>} />
+            <Route path="questions" element={<Survey/>} />
+            <Route path="resume" element={<ResumeSurvey/>} />
+            <Route path="reward" element={<ReceivePayment/>} />
+            <Route path="share" element={<Share/>} />
+          </Route>
+        </Route>
+        <Route path="/invalid" element={<BadSurvey/>} />
+        {/*Default Path For Development*/}
         <Route path="/" element={<LoginAdmin/>} />
-        <Route path="/DashboardAdmin" element={<DashboardAdmin/>} />
-        <Route path="/SurveyBuilderAdmin" element={<SurveyBuilder/>} />
-        <Route path="/ResultsAdmin" element={<Results/>} />
-        <Route path="/PaymentManagerAdmin" element={<PaymentManager/>} />
-        <Route path="/Survey" element={<Survey/>} />
-        <Route path="/PhoneEntry" element={<PhoneEntry/>} />
-        <Route path="/OTPCodeEntry" element={<OTPCodeEntry/>} />
-        <Route path="/ResumeSurvey" element={<ResumeSurvey/>} />
-        <Route path="/ReceivePayment" element={<ReceivePayment/>} />
       </Routes>
-    </HashRouter>
+    </BrowserRouter>
   );
 }
 

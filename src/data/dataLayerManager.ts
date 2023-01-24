@@ -1,4 +1,5 @@
 import { initializeApp } from "firebase/app"
+import { getAuth, signInAnonymously } from "firebase/auth";
 import {
     getFirestore, doc, getDoc
 } from "firebase/firestore"
@@ -14,6 +15,18 @@ const firebaseConfig = {
 // Initialize Firebase
 initializeApp(firebaseConfig);
 
+export function signIn() {
+    const auth = getAuth();
+    signInAnonymously(auth)
+    .then(() => {
+        console.log("signed in");
+    })
+    .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorCode, errorMessage);
+    });
+} 
 
 export function writeSurveyResponse() {
     return (1);

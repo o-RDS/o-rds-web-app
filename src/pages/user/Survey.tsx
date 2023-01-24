@@ -4,6 +4,7 @@ import SurveyTakerStandardPage from "../../components/SurveyTakerStandardPage";
 
 export default function Survey() {
   const [page, setPage] = useState(0);
+  const [surveyQuestions, setSurveyQuestions] = useState([{}]);
   const response:any = useRef({});
 
   // this would eventually load in data from DB, not use this dummy data
@@ -11,6 +12,91 @@ export default function Survey() {
     {
       page: 0,
       type: "MultipleChoice",
+      config: {
+        prompt: {
+          value: "This is an example question (Page 0)?",
+          configPrompt: "Question Prompt:",
+          type: "text",
+        },
+        shuffle: {
+          value: true,
+          configPrompt: "Shuffle choices?",
+          type: "bool",
+        },
+        choices: {
+          value: ["A", "B", "C", "D", "E"],
+          configPrompt: "Enter choices:",
+          type: "stringArray",
+        },
+      },
+    },
+    {
+      page: 0,
+      type: "MultipleChoice",
+      config: {
+        prompt: {
+          value: "This is an example question (Page 0)?",
+          configPrompt: "Question Prompt:",
+          type: "text",
+        },
+        shuffle: {
+          value: true,
+          configPrompt: "Shuffle choices?",
+          type: "bool",
+        },
+        choices: {
+          value: ["A", "B", "C", "D", "E"],
+          configPrompt: "Enter choices:",
+          type: "stringArray",
+        },
+      },
+    },
+    {
+      page: 1,
+      type: "MultipleChoice",
+      config: {
+        prompt: {
+          value: "This is an example question (Page 1)?",
+          configPrompt: "Question Prompt:",
+          type: "text",
+        },
+        shuffle: {
+          value: true,
+          configPrompt: "Shuffle choices?",
+          type: "bool",
+        },
+        choices: {
+          value: ["A", "B", "C", "D", "E"],
+          configPrompt: "Enter choices:",
+          type: "stringArray",
+        },
+      },
+    },
+    {
+      page: 0,
+      type: "FillInBlank",
+      config: {
+        prompt: {
+          value: "The Declaration of Indpendence was written in ____________",
+          configPrompt: "Question Prompt:",
+          type: "text",
+        }
+      }
+    },
+    {
+      page: 1,
+      type: "ShortAnswer",
+      config: {
+        prompt: {
+          value: "Tell me why you are here",
+          configPrompt: "Question Prompt",
+          type: "text",
+        }
+      }
+    },
+    {
+      page: 0,
+      type: "Checkbox",
       config: {
         prompt: {
           value: "This is an example question (Page 0)?",
@@ -84,14 +170,33 @@ export default function Survey() {
     console.log(response.current);
   }
 
+  const changePage = (whichWay: string) => {
+    let pageTo: number = 0;
+    if (whichWay === "up") {
+      if (page < 4) {
+        pageTo = page + 1;
+      } else {
+        pageTo = page;
+      }
+    } else if (whichWay === "down") {
+      if ((page) > 0) {
+        pageTo = page - 1;
+      } else {
+        pageTo = page;
+      }
+    }
+    setPage(pageTo);
+  }
+
   // renders all questions on the current page
   function renderQuestions() {
     console.log("Rendering questions");
     return design.map((question, index) => {
       console.log("Rendering question " + index);
       console.log(question);
+      let answerIndex = "Question " + (index + 1).toString();
       if (question.page === page) {
-        return <Question data={question} index={index} handleResponse={handleResponse}/>;
+        return <Question data={question} index={index} handleResponse={handleResponse} currentAnswer={response.current[answerIndex]}/>;
       } else {
         return null;
       }
