@@ -52,7 +52,7 @@ export async function createOrder(order: order) {
       })
     };
 
-  return fetch('api/v2/orders', options)
+  return fetch('https://testflight.tremendous.com/api/v2/orders', options)
     .then(response => {
       if (!response.ok) {
         throw new Error(response.statusText)
