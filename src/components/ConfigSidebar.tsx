@@ -8,7 +8,7 @@ import CheckboxSidebar from "./config-sidebar/CheckboxSidebar";
 export default function ConfigSidebar(props: any) {
   console.log(props.otherCurrentQuestion);
   // const choicesArray: any = props.otherCurrentQuestion[props.questionIndex].config.choices.value.map((choice: any) => <li key={choice}>{choice}</li>);
-  console.log(props.otherCurrentQuestion[props.questionIndex].page);
+  // console.log(props.otherCurrentQuestion[props.questionIndex].page);
 
   const dealWithChange = (newData: any) => {
     // console.log(e.target.value);

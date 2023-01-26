@@ -100,7 +100,9 @@ export default function SurveyBuilder() {
   };
 
   const setCurrentQuestion = (newQuestion: any, index: number) => {
-    setQuestion(newQuestion);
+    console.log(newQuestion);
+    console.log(index);
+    // setQuestion(newQuestion);
     setQuestionIndex(index);
   };
 

@@ -5,17 +5,20 @@ import ShortAnswerConfig from "./ShortAnswerConfig";
 import MCConfig from "./MCConfig";
 
 export default function QuestionConfig(props: any) {
-    function dealWithChange() {
-        // return;
+    function dealWithChange(newQuestion: any, index: any) {
+        console.log(newQuestion);
+        props.changeQuestion(newQuestion, index);
     }
 
     function getQuestionConfig(data: any) {
+        console.log(data);
         switch (data.type) {
           case "MultipleChoice":
             return (
               <MCConfig
                 config={data}
                 updateQuestion={dealWithChange}
+                index={props.index}
               />
             );
           // case "FillInBlank":
@@ -41,4 +44,10 @@ export default function QuestionConfig(props: any) {
             return <p>"Unknown Question Type"</p>;
         }
       }
+
+      return (
+        <>
+            {getQuestionConfig(props.data)}
+        </>
+    )
 }

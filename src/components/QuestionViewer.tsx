@@ -45,10 +45,10 @@ export default function QuestionViewer(props: any) {
       props.updateQuestion(questionUpdate);
     }
 
-    const chooseQuestion = (newQuestion: any, target: any, index:number) => {
+    const chooseQuestion = (newQuestion: any, index:number) => {
       props.updateQuestion(newQuestion, index);
-      target.tabIndex = -1;
-      target.focus();
+      // target.tabIndex = -1;
+      // target.focus();
     }
 
     // const testArray = props.questions.map((question: any, index: number) => {
@@ -71,26 +71,29 @@ export default function QuestionViewer(props: any) {
     //       </div>
     // </div>});
 
+// const testArray = props.questions.map((question: any, index: number) => {
+//   return <div key={index} className="rounded-sm hover:border-2 hover:border-red-500 focus:border-red-500 border-2 border-white transition-all p-1" onClick={(e) => chooseQuestion(question.config, e.target, index)}>
+//     <div className="w-full">
+//           <h3>{"Q" + (index + 1)}</h3>
+//           <div className="bg-gray-100 p-3 rounded-md">
+//             <h2>{question.config.prompt.value}</h2>
+//             {/* <ul>
+//               {question.config.choices.value.map((choice: any) => {
+//                 return (
+//                   <li key={choice}>
+//                     <input type="radio" value={choice} disabled></input>
+//                     <label>{choice}</label>
+//                   </li>
+//                 )
+//               })}
+//             </ul> */}
+//             <input type="text"></input>
+//           </div>
+//         </div>
+//   </div>});
+
 const testArray = props.questions.map((question: any, index: number) => {
-  return <div key={index} className="rounded-sm hover:border-2 hover:border-red-500 focus:border-red-500 border-2 border-white transition-all p-1" onClick={(e) => chooseQuestion(question.config, e.target, index)}>
-    <div className="w-full">
-          <h3>{"Q" + (index + 1)}</h3>
-          <div className="bg-gray-100 p-3 rounded-md">
-            <h2>{question.config.prompt.value}</h2>
-            {/* <ul>
-              {question.config.choices.value.map((choice: any) => {
-                return (
-                  <li key={choice}>
-                    <input type="radio" value={choice} disabled></input>
-                    <label>{choice}</label>
-                  </li>
-                )
-              })}
-            </ul> */}
-            <input type="text"></input>
-          </div>
-        </div>
-  </div>});
+  return <QuestionConfig data={question} index={index} changeQuestion={chooseQuestion}/>});
 
   return (
     <>
