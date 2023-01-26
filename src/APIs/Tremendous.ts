@@ -1,8 +1,8 @@
 import { order } from './interfaces';
-// import express, { Express, Request, Response } from "express";
+import express, { Express, Request, Response } from "express";
 
 
-// const app: Express = express();
+const app: Express = express(); 
 
 // replace tokens here
 const devToken = "Bearer TEST_2lm2pekxx--s_kiobii4fxfecyrk2yg1jbjqq-eryia";
