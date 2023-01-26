@@ -1,9 +1,9 @@
 import { updateCurrentUser } from "firebase/auth";
 import react from "react";
-import MCConfig from "./sidebar/MCConfigs";
-import ShortAnswerConfig from "./sidebar/ShortAnswerConfig";
-import FillBlankConfig from "./sidebar/FillBlankConfig";
-import CheckboxConfig from "./sidebar/CheckboxConfig";
+import MCConfig from "./config-sidebar/MCConfigs";
+import ShortAnswerConfig from "./config-sidebar/ShortAnswerConfig";
+import FillBlankConfig from "./config-sidebar/FillBlankConfig";
+import CheckboxConfig from "./config-sidebar/CheckboxConfig";
 
 export default function ConfigSidebar(props: any) {
   console.log(props.otherCurrentQuestion);
