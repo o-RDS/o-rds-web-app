@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function MCConfig(props: any) {
+export default function CheckboxSidebar(props: any) {
     const choicesArray: any = props.config.config.choices.value.map((choice: any) => <li key={choice}>{choice}</li>);
     const dealWithChange = (e: any) => {
         // console.log(e.target.value);
@@ -48,5 +48,5 @@ export default function MCConfig(props: any) {
         <ul>{choicesArray}</ul>
       </div>
     </>
-  );
-}
+    );
+};

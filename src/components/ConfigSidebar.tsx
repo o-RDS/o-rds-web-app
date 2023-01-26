@@ -1,9 +1,9 @@
 import { updateCurrentUser } from "firebase/auth";
 import react from "react";
-import MCConfig from "./config-sidebar/MCConfigs";
-import ShortAnswerConfig from "./config-sidebar/ShortAnswerConfig";
-import FillBlankConfig from "./config-sidebar/FillBlankConfig";
-import CheckboxConfig from "./config-sidebar/CheckboxConfig";
+import MCSidebar from "./config-sidebar/MCSidebar";
+import ShortAnswerSidebar from "./config-sidebar/ShortAnswerSidebar";
+import FillBlankSidbar from "./config-sidebar/FillBlankSidebar";
+import CheckboxSidebar from "./config-sidebar/CheckboxSidebar";
 
 export default function ConfigSidebar(props: any) {
   console.log(props.otherCurrentQuestion);
@@ -21,26 +21,27 @@ export default function ConfigSidebar(props: any) {
     switch (data.type) {
       case "MultipleChoice":
         return (
-          <MCConfig
+          <MCSidebar
             config={data}
             updateQuestion={dealWithChange}
           />
         );
       // case "FillInBlank":
       //   return (
-      //     <FillBlankConfig
+      //     <FillBlankSidebar
       //       config={data}
       //     />
       //   );
-      // case "ShortAnswer":
-      //   return (
-      //     <ShortAnswerConfig
-      //       config={data}
-      //     />
-      //   );
+      case "ShortAnswer":
+        return (
+          <ShortAnswerSidebar
+            config={data}
+            updateQuestion={dealWithChange}
+          />
+        );
       // case "Checkbox":
       //   return (
-      //     <CheckboxConfig
+      //     <CheckboxSidebar
       //       config={data}
       //     />
       //   );

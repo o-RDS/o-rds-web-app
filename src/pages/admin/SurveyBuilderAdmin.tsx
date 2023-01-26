@@ -49,6 +49,27 @@ export default function SurveyBuilder() {
         },
       },
     },
+    {
+      page: 0,
+      type: "ShortAnswer",
+      config: {
+        prompt: {
+          value: "This is an example question i guess 3?",
+          configPrompt: "Question Prompt 2:",
+          type: "text",
+        },
+        shuffle: {
+          value: true,
+          configPrompt: "shuffled",
+          type: "bool",
+        },
+        choices: {
+          value: ["AA", "BB", "CC", "DD", "EE"],
+          configPrompt: "Enter choices:",
+          type: "stringArray",
+        },
+      },
+    }
   ];
   const [showModal, setShowModal] = useState(false);
   const [questionIndex, setQuestionIndex] = useState(0);

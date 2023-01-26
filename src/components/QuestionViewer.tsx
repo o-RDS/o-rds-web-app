@@ -6,52 +6,6 @@ import contactResearcherIcon from "../images/contact_researcher_icon.png";
 
 export default function QuestionViewer(props: any) {
     //questions would be filled in through a database call and any uses of design would be replace with questions
-    const design = [
-      {
-        page: 0,
-        type: "MultipleChoice",
-        config: {
-          prompt: {
-            value: "This is an example question?",
-            configPrompt: "Question Prompt 1:",
-            type: "text",
-          },
-          shuffle: {
-            value: true,
-            configPrompt: "Shuffle me up",
-            type: "bool",
-          },
-          choices: {
-            value: ["A", "B", "C", "D", "E"],
-            configPrompt: "Enter choices:",
-            type: "stringArray",
-          },
-        },
-      },
-      {
-        page: 0,
-        type: "MultipleChoice",
-        config: {
-          prompt: {
-            value: "This is an example question i guess?",
-            configPrompt: "Question Prompt 2:",
-            type: "text",
-          },
-          shuffle: {
-            value: true,
-            configPrompt: "shuffled",
-            type: "bool",
-          },
-          choices: {
-            value: ["AA", "BB", "CC", "DD", "EE"],
-            configPrompt: "Enter choices:",
-            type: "stringArray",
-          },
-        },
-      }
-    ];
-    const [questions, setQuestions] = useState<any>(design);
-
       const proofQuestionToAdd: any[] = [
         {
           page: 0,
@@ -80,6 +34,7 @@ export default function QuestionViewer(props: any) {
         //Also update in server you're using
         let newConfig = props.questions;
         console.log(newConfig);
+        //TODO: look into updating list a different way. Should be able to use prev and array destructuring
         console.log(newConfig.concat(proofQuestionToAdd));
         props.update(newConfig.concat(proofQuestionToAdd));
         // setQuestions(questions.concat(proofQuestionToAdd));
@@ -95,25 +50,46 @@ export default function QuestionViewer(props: any) {
       target.focus();
     }
 
-    const testArray = props.questions.map((question: any, index: number) => {
-    return <div key={index} className="rounded-sm hover:border-2 hover:border-red-500 focus:border-red-500 border-2 border-white transition-all p-1" onClick={(e) => chooseQuestion(question.config, e.target, index)}>
-      <div className="w-full">
-            <h3>{"Q" + (index + 1)}</h3>
-            <div className="bg-gray-100 p-3 rounded-md">
-              <h2>{question.config.prompt.value}</h2>
-              <ul>
-                {question.config.choices.value.map((choice: any) => {
-                  return (
-                    <li key={choice}>
-                      <input type="radio" value={choice} disabled></input>
-                      <label>{choice}</label>
-                    </li>
-                  )
-                })}
-              </ul>
-            </div>
+    // const testArray = props.questions.map((question: any, index: number) => {
+    // return <div key={index} className="rounded-sm hover:border-2 hover:border-red-500 focus:border-red-500 border-2 border-white transition-all p-1" onClick={(e) => chooseQuestion(question.config, e.target, index)}>
+    //   <div className="w-full">
+    //         <h3>{"Q" + (index + 1)}</h3>
+    //         <div className="bg-gray-100 p-3 rounded-md">
+    //           <h2>{question.config.prompt.value}</h2>
+    //           <ul>
+    //             {question.config.choices.value.map((choice: any) => {
+    //               return (
+    //                 <li key={choice}>
+    //                   <input type="radio" value={choice} disabled></input>
+    //                   <label>{choice}</label>
+    //                 </li>
+    //               )
+    //             })}
+    //           </ul>
+    //         </div>
+    //       </div>
+    // </div>});
+
+const testArray = props.questions.map((question: any, index: number) => {
+  return <div key={index} className="rounded-sm hover:border-2 hover:border-red-500 focus:border-red-500 border-2 border-white transition-all p-1" onClick={(e) => chooseQuestion(question.config, e.target, index)}>
+    <div className="w-full">
+          <h3>{"Q" + (index + 1)}</h3>
+          <div className="bg-gray-100 p-3 rounded-md">
+            <h2>{question.config.prompt.value}</h2>
+            {/* <ul>
+              {question.config.choices.value.map((choice: any) => {
+                return (
+                  <li key={choice}>
+                    <input type="radio" value={choice} disabled></input>
+                    <label>{choice}</label>
+                  </li>
+                )
+              })}
+            </ul> */}
+            <input type="text"></input>
           </div>
-    </div>});
+        </div>
+  </div>});
 
   return (
     <>
