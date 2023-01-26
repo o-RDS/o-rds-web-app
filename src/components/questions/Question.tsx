@@ -3,7 +3,6 @@ import MultipleChoice from "./MultipleChoice";
 import FillInTheBlank from "./FillInTheBlank";
 import ShortAnswer from "./ShortAnswer";
 import Checkbox from "./Checkbox";
-import "./Question.css";
 
 export default function Question(props: any) {
   // this defines the properties that should be present on each question
