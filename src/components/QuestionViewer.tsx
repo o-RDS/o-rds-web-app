@@ -1,6 +1,7 @@
 import react, {useState} from "react";
 import MultipleChoice from "./questions/MultipleChoice";
 import Question from "./questions/Question";
+import QuestionConfig from "./config-questions/QuestionConfig";
 import sampleResearcherLogo from "../images/sample_researcher_logo.png";
 import contactResearcherIcon from "../images/contact_researcher_icon.png";
 
