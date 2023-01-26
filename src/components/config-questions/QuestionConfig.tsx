@@ -21,25 +21,30 @@ export default function QuestionConfig(props: any) {
                 index={props.index}
               />
             );
-          // case "FillInBlank":
-          //   return (
-          //     <FillBlankConfig
-          //       config={data}
-          //     />
-          //   );
-        //   case "ShortAnswer":
-        //     return (
-        //       <ShortAnswerConfig
-        //         config={data}
-        //         updateQuestion={dealWithChange}
-        //       />
-        //     );
-          // case "Checkbox":
-          //   return (
-          //     <CheckboxConfig
-          //       config={data}
-          //     />
-          //   );
+          case "FillInBlank":
+            return (
+              <FillBlankConfig
+              config={data}
+              updateQuestion={dealWithChange}
+              index={props.index}
+              />
+            );
+          case "ShortAnswer":
+            return (
+              <ShortAnswerConfig
+              config={data}
+              updateQuestion={dealWithChange}
+              index={props.index}
+              />
+            );
+          case "Checkbox":
+            return (
+              <CheckboxConfig
+              config={data}
+              updateQuestion={dealWithChange}
+              index={props.index}
+              />
+            );
           default:
             return <p>"Unknown Question Type"</p>;
         }

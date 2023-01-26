@@ -2,7 +2,7 @@ import { updateCurrentUser } from "firebase/auth";
 import react from "react";
 import MCSidebar from "./config-sidebar/MCSidebar";
 import ShortAnswerSidebar from "./config-sidebar/ShortAnswerSidebar";
-import FillBlankSidbar from "./config-sidebar/FillBlankSidebar";
+import FillBlankSidebar from "./config-sidebar/FillBlankSidebar";
 import CheckboxSidebar from "./config-sidebar/CheckboxSidebar";
 
 export default function ConfigSidebar(props: any) {
@@ -26,12 +26,13 @@ export default function ConfigSidebar(props: any) {
             updateQuestion={dealWithChange}
           />
         );
-      // case "FillInBlank":
-      //   return (
-      //     <FillBlankSidebar
-      //       config={data}
-      //     />
-      //   );
+      case "FillInBlank":
+        return (
+          <FillBlankSidebar
+          config={data}
+          updateQuestion={dealWithChange}
+          />
+        );
       case "ShortAnswer":
         return (
           <ShortAnswerSidebar
@@ -39,12 +40,13 @@ export default function ConfigSidebar(props: any) {
             updateQuestion={dealWithChange}
           />
         );
-      // case "Checkbox":
-      //   return (
-      //     <CheckboxSidebar
-      //       config={data}
-      //     />
-      //   );
+      case "Checkbox":
+        return (
+          <CheckboxSidebar
+          config={data}
+          updateQuestion={dealWithChange}
+          />
+        );
       default:
         return <p>"Unknown Question Type"</p>;
     }

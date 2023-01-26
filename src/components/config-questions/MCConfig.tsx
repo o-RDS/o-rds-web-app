@@ -43,7 +43,7 @@ export default function MCConfig(props: any) {
           <div className="w-full">
                 <h3>{"Q" + (props.index + 1)}</h3>
                 <div className="bg-gray-100 p-3 rounded-md">
-                  <h2>Hello</h2>
+                  <h2>{props.config.config.prompt.value}</h2>
                   <ul>
                     {renderChoices()}
                   </ul>
