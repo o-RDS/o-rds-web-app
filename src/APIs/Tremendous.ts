@@ -1,16 +1,13 @@
 import { order } from './interfaces';
 import express, { Express, Request, Response } from "express";
 
-
-const app: Express = express(); 
+// TODO: imports now work, but trying to use them causes breaking runtime errors
+// const app: Express = express();
 
 // replace tokens here
 const devToken = "Bearer TEST_2lm2pekxx--s_kiobii4fxfecyrk2yg1jbjqq-eryia";
 // const prodToken = "Beaarer [TOKEN]"; 
 
-// TODO: uncomment, and fix the mess
-// const express = require( "express" );
-// const app = express();
 
 export async function listFundingSources()   {
     const options = {
