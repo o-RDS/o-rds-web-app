@@ -1,8 +1,7 @@
 import { order } from './interfaces';
-import express, { Express, Request, Response } from "express";
+// import app from './WebServer'
+import listen from './WebServer';
 
-// TODO: imports now work, but trying to use them causes breaking runtime errors
-// const app: Express = express();
 
 // replace tokens here
 const devToken = "Bearer TEST_2lm2pekxx--s_kiobii4fxfecyrk2yg1jbjqq-eryia";
@@ -18,16 +17,18 @@ export async function listFundingSources()   {
       }
     };
 
-    return fetch('https://testflight.tremendous.com/api/v2/funding_sources', options)
-      .then(response => {
-        if (!response.ok) {
-          throw new Error(response.statusText)
-        }
-        return response.json()
-      })
-      .then((data) => {
-        return data.funding_sources;
-      })
+    listen(); // starting web server on port 8080
+
+    // return fetch('https://testflight.tremendous.com/api/v2/funding_sources', options)
+    //   .then(response => {
+    //     if (!response.ok) {
+    //       throw new Error(response.statusText)
+    //     }
+    //     return response.json()
+    //   })
+    //   .then((data) => {
+    //     return data.funding_sources;
+    //   })
 }
 
 export async function createOrder(order: order) {
