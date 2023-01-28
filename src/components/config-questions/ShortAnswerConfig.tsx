@@ -9,7 +9,7 @@ export default function ShortAnswerConfig(props: any) {
 
   function renderChoices() {
     return (
-      <input type="text" disabled className="border-2 border-black"></input>
+      <textarea disabled className="border-2 border-rdsBlue rounded bg-white text-center" placeholder="Text Would Go Here"></textarea>
     );
   }
   return (

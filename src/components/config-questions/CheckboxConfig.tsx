@@ -11,15 +11,15 @@ export default function CheckboxConfig(props: any) {
     return props.config.config.choices.value.map((choice: any) => {
       return (
         <li key={choice}>
-          <input type="checkbox" value={choice} disabled className="ml-2"></input>
-          <label>{choice}</label>
+          <input type="checkbox" value={choice} disabled></input>
+          <label className="ml-2">{choice}</label>
         </li>
       );
     });
   }
   return (
     <div
-      className="rounded-sm border-2 border-white p-1 transition-all hover:border-2 hover:border-red-500 focus:border-red-500"
+      className="rounded border-2 border-white p-1 transition-all hover:border-2 hover:border-rdsOrange focus:border-red-500"
       onClick={(e) => chooseQuestion(props.config, e.target, props.index)}
     >
       <div className="w-full">

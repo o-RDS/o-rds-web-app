@@ -12,7 +12,15 @@ export default function MCSidebar(props: any) {
 
   return (
     <>
-      <div className="flex flex-col items-center justify-center">
+     <div className="flex flex-col items-center justify-center mt-3">
+        <label>Page</label>
+        <div className="flex flex-row gap-2">
+          <button className="rounded-full bg-rdsOrange text-white w-6 h-6">-</button>
+          <p className="text-lg">{props.config.page}</p>
+          <button className="rounded-full bg-rdsOrange text-white w-6 h-6">+</button>
+        </div>
+      </div>
+      <div className="flex flex-col items-center justify-center mt-3">
         <label>{props.config.config.prompt.configPrompt}</label>
         <input
           type="text"

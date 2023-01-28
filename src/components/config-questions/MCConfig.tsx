@@ -12,7 +12,7 @@ export default function MCConfig(props: any) {
       return (
         <li key={choice}>
           <input type="radio" value={choice} disabled></input>
-          <label>{choice}</label>
+          <label className="ml-2">{choice}</label>
         </li>
       );
     });

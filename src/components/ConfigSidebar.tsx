@@ -55,7 +55,7 @@ export default function ConfigSidebar(props: any) {
 
   return (
     <>
-      <div className="flex flex-col justify-start items-center border-r border-black w-1/5 gap-2">
+      <div className="flex flex-col justify-start items-center border-r border-black w-1/4 gap-2">
         {/* <div className="flex flex-col justify-center items-center">
           <label>{props.otherCurrentQuestion[props.questionIndex].config.prompt.configPrompt}</label>
           <input type="text" placeholder="This is a question" className="border border-rdsOrange rounded-sm w-3/5" onChange={(e: any) => dealWithChange(e)}></input>
