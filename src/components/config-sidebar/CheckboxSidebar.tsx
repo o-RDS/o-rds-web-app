@@ -4,26 +4,34 @@ export default function CheckboxSidebar(props: any) {
   const choicesArray: any = props.config.config.choices.value.map(
     (choice: any) => <li key={choice}>{choice}</li>
   );
-  const dealWithChange = (e: any) => {
+
+  const dealWithChangeText = (e: any) => {
     let test: any = props.config;
     test["config"]["prompt"]["value"] = e.target.value;
     props.updateQuestion(test);
   };
 
+  const dealWithChangeOther = (e: any) => {
+    let test: any = props.config;
+    test["config"]["shuffle"]["value"] = e.target.checked;
+    console.log(test["config"]["shuffle"]["value"]);
+    props.updateQuestion(test);
+  };
+
   return (
     <>
-      <div className="flex flex-col items-center justify-center">
+      <div className="flex flex-col items-center justify-center mt-3">
         <label>{props.config.config.prompt.configPrompt}</label>
         <input
           type="text"
           placeholder="This is a question"
           className="w-3/5 rounded-sm border border-rdsOrange"
-          onChange={(e: any) => dealWithChange(e)}
+          onChange={(e: any) => dealWithChangeText(e)}
         ></input>
       </div>
       <div>
         <label>{props.config.config.shuffle.configPrompt}</label>
-        <input type="checkbox"></input>
+        <input type="checkbox" onChange={(e) => dealWithChangeOther(e)} defaultChecked={props.config.config.shuffle.value}></input>
       </div>
       <div className="flex flex-col items-center justify-center">
         <label>{props.config.config.choices.configPrompt}</label>

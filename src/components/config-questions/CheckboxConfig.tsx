@@ -11,7 +11,7 @@ export default function CheckboxConfig(props: any) {
     return props.config.config.choices.value.map((choice: any) => {
       return (
         <li key={choice}>
-          <input type="checkbox" value={choice} disabled></input>
+          <input type="checkbox" value={choice} disabled className="ml-2"></input>
           <label>{choice}</label>
         </li>
       );

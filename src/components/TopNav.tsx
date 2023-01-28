@@ -14,7 +14,7 @@ export default function TopNav() {
                 <Link to="../payment-manager">
                     <button>Payments</button>
                 </Link>
-                <img src={helpIcon} className="w-6 h-6" />
+                <img src={helpIcon} className="w-6 h-6" alt="Help Icon"/>
                 {/* <p>Profile</p> */}
                 <div className="w-8 h-8 bg-lime-500 rounded-2xl"></div>
             </div>
