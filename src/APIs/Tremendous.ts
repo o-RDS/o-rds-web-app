@@ -1,6 +1,4 @@
 import { order } from './interfaces';
-// import app from './WebServer'
-import listen from './WebServer';
 
 
 // replace tokens here
@@ -17,7 +15,7 @@ export async function listFundingSources()   {
       }
     };
 
-    listen(); // starting web server on port 8080
+
 
     // return fetch('https://testflight.tremendous.com/api/v2/funding_sources', options)
     //   .then(response => {
