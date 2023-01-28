@@ -1,12 +1,89 @@
-import React from "react";
+import { render } from "@testing-library/react";
+import React, {useContext} from "react";
+import ResultRow from "../../components/questions/ResultRow";
 import StandardPage from "../../components/StandardPage";
+import SurveyTakerStandardPage from "../../components/SurveyTakerStandardPage";
 
-function generateTableHeader(){
-    //Will need to create the headers for each question (and other pertinent info)
+const dummySurveyConfig = {
+    question1: {
+        prompt: {
+            value: "Wie geht's?"
+        }
+    },
+    question2: {
+        prompt: {
+            value: "Which is the capital of France?"
+        }
+    },
+    question3: {
+        prompt: {
+            value: "What is the name for the German ice cream dish that imitates an Italian pasta dish?"
+        }
+    },
 }
 
-function generateTableBody(){
-    //A row will need to be generated for each response and filled in with appropriate data
+const dummySurveyResponses = {
+    1234: {
+        answers: {
+            Q1: "Ich bin gut!",
+            Q2: "A",
+            Q3: "Spaghettieis",
+        },
+    },
+    5432: {
+        answers: {
+            Q1: "Ich bin müde...",
+            Q2: "C",
+            Q3: "Spaghettieis",
+        },
+    },
+}
+
+function getUserResponses(/*selectedQuestionIDs: Array<string>*/): Array<Array<string>>{      //Thinking of function overloading to have an "All version" with no arguments and a "Selector version" with an array argument
+    let responses: any = dummySurveyResponses; //CHANGE TO PROPER POINT IN DATABASE LATER ON
+    let allUserResponses = [];
+
+    for(let userID in responses){
+        let currUserResponses = [];
+        currUserResponses.push(userID);
+        for(let questionID in responses[userID].answers){
+            currUserResponses.push(responses[userID].answers[questionID]);
+        }
+        allUserResponses.push(currUserResponses);
+    }
+
+    return allUserResponses;  
+}
+
+function renderTableHeader(){
+    let config: any = dummySurveyConfig; //CHANGE TO PROPER POINT IN DATABASE LATER ON
+    let headers = [];
+
+    headers.push("User ID");        //NOTE THAT THIS VALUE IS CURRENTLY HARD-CODED IN. THIS CAN PROBABLY BE CHANGED IN THE FUTURE
+    for(let questionID in config){
+        headers.push(config[questionID].prompt.value);
+    }
+
+    return(
+        <ResultRow rowData={headers} type="header"/>
+    );
+}
+
+function renderTableBody(){
+    let userResponses = getUserResponses();
+
+    return userResponses.map((row, index)=>{
+        if(index % 2 == 0){
+            return(
+                <ResultRow rowData={row} type="body" bgColor="bg-white"/>
+            );
+        }
+        else{
+            return(
+                <ResultRow rowData={row} type="body" bgColor="bg-gray-200"/>
+            );
+        }
+    });  
 }
 
 export default function Results() {
@@ -18,42 +95,12 @@ export default function Results() {
                     <button className="p-2 w-fit rounded bg-rdsOrange text-white">Download CSV</button>
                 </div>
                 
-                <table className="table-auto border-2 text-left">
+                <table className="table-auto border text-left w-fit">
                     <thead>
-                        <tr className="border-b-2 bg-slate-600 text-white text-sm">
-                            <th className="border-x-2 px-4 py-2">Test</th>
-                            <th>Test</th>
-                            <th>Test</th>
-                            <th>Test</th>
-                            <th>Test</th>
-                            <th>Test</th>
-                        </tr>
-                    </thead>
+                        {renderTableHeader()}
+                    </thead>  
                     <tbody>
-                        <tr className="border-b-2 bg-white">
-                            <td className="border-x-2 px-4 py-2">Answer</td>
-                            <td>Answer</td>
-                            <td>Answer</td>
-                            <td>Answer</td>
-                            <td>Answer</td>
-                            <td>Answer</td>
-                        </tr>
-                        <tr className="bg-gray-200">
-                            <td>Answer</td>
-                            <td>Answer</td>
-                            <td>Answer</td>
-                            <td>Answer</td>
-                            <td>Answer</td>
-                            <td>Answer</td>
-                        </tr>
-                        <tr>
-                            <td>Answer</td>
-                            <td>Answer</td>
-                            <td>Answer</td>
-                            <td>Answer</td>
-                            <td>Answer</td>
-                            <td>Answer</td>
-                        </tr>
+                        {renderTableBody()}
                     </tbody>
                 </table>
             </div>
