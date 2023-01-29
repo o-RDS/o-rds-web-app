@@ -17,16 +17,16 @@ export async function listFundingSources()   {
 
 
 
-    // return fetch('https://testflight.tremendous.com/api/v2/funding_sources', options)
-    //   .then(response => {
-    //     if (!response.ok) {
-    //       throw new Error(response.statusText)
-    //     }
-    //     return response.json()
-    //   })
-    //   .then((data) => {
-    //     return data.funding_sources;
-    //   })
+    return fetch('http://localhost:8080/api/v2/funding_sources', options)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(response.statusText)
+        }
+        return response.json()
+      })
+      .then((data) => {
+        return data.funding_sources;
+      })
 }
 
 export async function createOrder(order: order) {
@@ -53,7 +53,7 @@ export async function createOrder(order: order) {
       })
     };
 
-  return fetch('https://testflight.tremendous.com/api/v2/orders', options)
+  return fetch('http://localhost:8080/api/v2/orders', options)
     .then(response => {
       if (!response.ok) {
         throw new Error(response.statusText)

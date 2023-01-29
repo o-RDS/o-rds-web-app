@@ -15,7 +15,7 @@ export default function ReceivePayment(){
             funding_source_id: '0JLPRGW2MEB9',
             campaign_id: '4BDWAVSR8A91',
             products: ['TBAJH7YLFVS5'],
-            denomination: 5, // Best way to set up how much to send? Ideally, this would come from the payment manager page
+            denomination: 50.00, // Best way to set up how much to send? Ideally, this would come from the payment manager page
             recipient_name: 'Survey Taker', // best to keep this anonymous? 
             recipient_email: email,
             recipient_phone: phoneNum,

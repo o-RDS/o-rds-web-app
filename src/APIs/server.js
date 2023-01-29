@@ -1,16 +1,40 @@
-
-
 const express = require("express");
-const app = express();
-const port = 8080;
+const cors = require('cors');
+const httpProxy = require('http-proxy'); 
 
-app.get('/', (req, res) => {
-    res.send('Hello World!');
+const app = express()
+const port = 8080
+
+app.set('x-powered-by' , 'Express.js');
+app.use(cors());
+
+//Use this options for creating a reverse proxy to other domains.
+const options = {
+    changeOrigin: true,
+    target: {
+        https: true
+    }
+}
+
+//Create a reverse proxy server
+const apiProxy = httpProxy.createProxyServer(options);
+
+const devTremendousServer = 'https://testflight.tremendous.com'; 
+// const prodTremendousServer = 'https://tremendous.com';
+
+
+app.get('/api/v2/funding_sources', (req, res) => {
+    console.log(`redirecting to Tremendous ${req.url}`)
+    apiProxy.web(req, res, {target: devTremendousServer})
 })
 
+app.post('/api/v2/orders', (req, res) => {
+    console.log(`redirecting to Tremendous ${req.url}`)
+    apiProxy.web(req, res, {target: devTremendousServer})
+})
+
+
+//Start the server
 app.listen(port, () => {
-    console.log(`Example app listening on port ${port}`)
-    })
-
-
-
+    console.log(`Server is up on port ${port}.`);
+})
