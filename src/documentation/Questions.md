@@ -39,4 +39,8 @@ For this reason, the answer object can usually just look like
 since most questions will just have one answer. **All keys in the answer object must begin with `#` and should have a value of type String.**
 
 ### Recommendations
-<TODO>
+Besides looking at other questions for inspiration, there are also a few props that are highly recommended for a smooth user experience.
+
+Utilizing `props.index` is high recommended, and you should  increment it by one to display the question number when rendering the question.
+
+The other prop that should be used is `props.currentValue`, which allows the `Survey` page to pass down the current value of questions so that they can properly display their current answer. How you implement this will depend on the input method(s) the user is provided with.
