@@ -1,0 +1,7 @@
+.deleteButton{
+    display: none;
+}
+
+.dataRow:hover .deleteButton, .deleteButton:hover{
+    display: inline-block;
+}

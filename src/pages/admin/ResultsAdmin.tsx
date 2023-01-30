@@ -1,8 +1,7 @@
 import { render } from "@testing-library/react";
 import React, {useContext} from "react";
-import ResultRow from "../../components/questions/ResultRow";
+import ResultRow from "../../components/ResultRow";
 import StandardPage from "../../components/StandardPage";
-import SurveyTakerStandardPage from "../../components/SurveyTakerStandardPage";
 
 const dummySurveyConfig = {
     question1: {
@@ -34,7 +33,7 @@ const dummySurveyResponses = {
         answers: {
             Q1: "Ich bin müde...",
             Q2: "C",
-            Q3: "Spaghettieis",
+            Q3: "Spaghettieis SpaghettieisSpaghettieisSpaghettieisSpaghettieisSpaghettieisSpaghettieisSpaghettieisSpaghettieisSpaghettieisSpaghettieisSpaghettieisSpaghettieisSpaghettieisSpaghettieis",
         },
     },
 }
@@ -91,11 +90,11 @@ export default function Results() {
         <StandardPage>
             <div className="flex flex-col w-full p-6 gap-y-2">
                 <div className="flex flex-row w-full items-baseline">
-                    <h1 className="flex-grow text-left text-2xl">Survey Name</h1>
+                    <h1 className="flex-grow pl-10 text-left text-2xl">Survey Name</h1>
                     <button className="p-2 w-fit rounded bg-rdsOrange text-white">Download CSV</button>
                 </div>
                 
-                <table className="table-auto border text-left w-fit">
+                <table className="table-auto text-left w-fit">
                     <thead>
                         {renderTableHeader()}
                     </thead>  
