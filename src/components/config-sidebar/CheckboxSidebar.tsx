@@ -8,7 +8,6 @@ export default function CheckboxSidebar(props: any) {
   const dealWithChangeText = (e: any) => {
     let test: any = props.config;
     test["config"]["prompt"]["value"] = e.target.value;
-    e.target.value = "";
     props.updateQuestion(test);
   };
 
