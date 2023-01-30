@@ -9,17 +9,17 @@ import { send } from "process";
 export default function ReceivePayment(){
     const [emailVerified, setEmailVerified] = useState(false);
 
-    function newOrder(email: string, phoneNum: string): order {
+    function newOrder(email: string, phoneNum: string, hash: string): order {
         let order: order = {
-            external_id: "o-RDS Survey",
+            external_id: hash,
             funding_source_id: '0JLPRGW2MEB9',
             campaign_id: '4BDWAVSR8A91',
             products: ['TBAJH7YLFVS5'],
-            denomination: 50.00, // Best way to set up how much to send? Ideally, this would come from the payment manager page
-            recipient_name: 'Survey Taker', // best to keep this anonymous? 
+            denomination: 50.00, // TODO: Determine amount from PaymentManagerAdmin.tsx
+            recipient_name: 'Survey Taker', // To keep anonymous
             recipient_email: email,
             recipient_phone: phoneNum,
-            reward_id: '123456', // perhaps this could be the hash?? 
+            reward_id: '123456', 
             reward_value: 'Survey Reward',
             delivery_method: 'EMAIL'
         };
@@ -33,7 +33,6 @@ export default function ReceivePayment(){
         createOrder(order)
             .then(data => {
             console.log(data)
-            // TODO: error checking
         });
     }
     
@@ -68,7 +67,11 @@ export default function ReceivePayment(){
                         let test = regexp.test(email);
                         if (test) {
                             setEmailVerified(true);
-                            sendReward(newOrder(email, '123-456-7890')); // TODO: get phone number from somewhere else
+                            let phone = window.sessionStorage.getItem('phone');
+                            let hash = window.sessionStorage.getItem('hash');
+                            if (phone && hash != null) {
+                                sendReward(newOrder(email, phone, hash));
+                            }
                         } else {
                             alert("Invalid email");
                         }

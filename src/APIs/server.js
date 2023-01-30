@@ -20,7 +20,7 @@ const options = {
 const apiProxy = httpProxy.createProxyServer(options);
 
 const devTremendousServer = 'https://testflight.tremendous.com'; 
-// const prodTremendousServer = 'https://tremendous.com';
+// const prodTremendousServer = 'https://www.tremendous.com';
 
 
 app.get('/api/v2/funding_sources', (req, res) => {
