@@ -24,17 +24,31 @@ const devTremendousServer = 'https://testflight.tremendous.com';
 
 
 app.get('/api/v2/funding_sources', (req, res) => {
-    console.log(`redirecting to Tremendous ${req.url}`)
-    apiProxy.web(req, res, {target: devTremendousServer})
-})
+    console.log(`redirecting to Tremendous ${req.url}`);
+    apiProxy.web(req, res, {target: devTremendousServer});
+});
 
 app.post('/api/v2/orders', (req, res) => {
-    console.log(`redirecting to Tremendous ${req.url}`)
-    apiProxy.web(req, res, {target: devTremendousServer})
-})
+    console.log(`redirecting to Tremendous ${req.url}`);
+    apiProxy.web(req, res, {target: devTremendousServer}); 
+});
 
+
+const twilioServer = "https://verify.twilio.com";
+const serviceSid = 'VAf04a776258bab3e2c11286dc4152cf3d';
+
+app.post(`/v2/Services/${serviceSid}/Verifications`, (req, res) => {
+    console.log(`redirecting to Twilio ${req.url}`);
+    apiProxy.web(req, res, {target: twilioServer}); 
+});
+
+// 404 not found when trying to access
+app.post(`/v2/Services/${serviceSid}/VerificationCheck`, (req, res) => {
+    console.log(`redirecting to Twilio ${req.url}`);
+    apiProxy.web(req, res, {target: twilioServer}); 
+});
 
 //Start the server
 app.listen(port, () => {
     console.log(`Server is up on port ${port}.`);
-})
+});
