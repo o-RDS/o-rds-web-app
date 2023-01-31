@@ -1,5 +1,6 @@
 import { order } from './interfaces';
 
+
 // replace tokens here
 const devToken = "Bearer TEST_2lm2pekxx--s_kiobii4fxfecyrk2yg1jbjqq-eryia";
 // const prodToken = "Beaarer [TOKEN]"; 
@@ -14,7 +15,9 @@ export async function listFundingSources()   {
       }
     };
 
-    return fetch('api/v2/funding_sources', options)
+
+
+    return fetch('http://localhost:8080/api/v2/funding_sources', options)
       .then(response => {
         if (!response.ok) {
           throw new Error(response.statusText)
@@ -50,7 +53,7 @@ export async function createOrder(order: order) {
       })
     };
 
-  return fetch('api/v2/orders', options)
+  return fetch('http://localhost:8080/api/v2/orders', options)
     .then(response => {
       if (!response.ok) {
         throw new Error(response.statusText)
