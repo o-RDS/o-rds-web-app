@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import SurveyTakerStandardPage from "../../components/SurveyTakerStandardPage";
+import { verificationCheck } from "../../APIs/Twilio"
 
 export default function OTPCodeEntry() {
   const navigate = useNavigate();
@@ -12,7 +13,11 @@ export default function OTPCodeEntry() {
       setError("Invalid Code");
       return;
     } else {
-      // TODO Verify code, allow user to continue to survey
+      let phone = window.sessionStorage.getItem("phone");
+      if (phone != null)
+        console.log(`Running verification check: ${phone}, ${code}`);
+        verificationCheck(phone, code);
+        // TODO: get console.log of data here
     }
   }
 
