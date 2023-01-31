@@ -1,9 +1,7 @@
 import { order } from './interfaces';
 
 
-// replace tokens here
-const devToken = "Bearer TEST_2lm2pekxx--s_kiobii4fxfecyrk2yg1jbjqq-eryia";
-// const prodToken = "Beaarer [TOKEN]"; 
+const devToken = process.env.REACT_APP_TREMENDOUS_BEARER_TOKEN;
 
 
 export async function listFundingSources()   {
@@ -14,7 +12,6 @@ export async function listFundingSources()   {
       Authorization: devToken,
     }
   };
-
 
 
   return fetch('http://localhost:8080/api/v2/funding_sources', options)

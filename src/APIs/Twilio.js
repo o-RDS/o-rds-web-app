@@ -1,9 +1,6 @@
-
-
-const accountSid = 'AC055a4ac886088ae80960da21644de4e0';
-const authToken = '9e19e000d6c1506bf92ff8d7d5043b42';
-
-const serviceSid = 'VAf04a776258bab3e2c11286dc4152cf3d';
+const accountSid = process.env.REACT_APP_TWILIO_ACCOUNT_SID;
+const authToken = process.env.REACT_APP_TWILIO_AUTH_TOKEN;
+const serviceSid = process.env.REACT_APP_TWILIO_SERVICE_ID;
 
 export function startVerification(phone) {
   var myHeaders = new Headers();
