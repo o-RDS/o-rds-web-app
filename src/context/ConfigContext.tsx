@@ -1,6 +1,6 @@
 import react, { useEffect, useRef } from 'react';
 import { useParams, useNavigate, Outlet } from 'react-router';
-import { retrieveSurveyData, signIn } from '../data/dataLayerManager';
+import { retrieveSurveyConfig, signIn } from '../data/dataLayerManager';
 
 
 export default function ConfigContext(props: any){
@@ -13,7 +13,7 @@ export default function ConfigContext(props: any){
     signIn();
     if(params.id){
       console.log(params.id)
-      retrieveSurveyData(params.id).then((data) => {
+      retrieveSurveyConfig(params.id).then((data) => {
         if (data == null) {
           navigate("/invalid")
         } else {

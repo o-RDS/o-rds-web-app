@@ -33,7 +33,7 @@ export function writeSurveyResponse() {
     return (1);
 }
 
-export async function retrieveSurveyData(id: string) {
+export async function retrieveSurveyConfig(id: string) {
     const db = getFirestore();
     const docRef = doc(db, "surveys", id);
     try {
@@ -49,69 +49,59 @@ export async function retrieveSurveyData(id: string) {
     }
 }
 
-export function createSurvey(userID: string) { 
-  let newID = uuidv4();
-  // let question1ID = uuidv4();
-  const defaultData = {
-    "id": newID,
-    "title": "Untitled Survey",
-    "admins": [userID],
-    "completionPayout" : 0.0,
-    "refPayout" : 0.0,
-    "maxRefs": 0,
-    "lastUpdated": new Date(),
-    "questions": [
-      {
-        page: 0,
-        type: "MultipleChoice",
-        config: {
-          prompt: {
-            value: "New Question",
-            configPrompt: "Question Prompt:",
-            type: "text",
-          },
-          shuffle: {
-            value: true,
-            configPrompt: "Shuffle choices?",
-            type: "bool",
-          },
-          choices: {
-            value: ["A", "B", "C", "D", "E"],
-            configPrompt: "Enter choices:",
-            type: "stringArray",
-          },
-        },
-      },
-    ],
-    /* New Questions w/ IDs
-    "questionOrder": [question1ID],
-    "questions": {
-      question1ID: {
-        page: 0,
-        type: "MultipleChoice",
-        config: {
-          prompt: {
-            value: "New Question",
-            configPrompt: "Question Prompt:",
-            type: "text",
-          },
-          shuffle: {
-            value: true,
-            configPrompt: "Shuffle choices?",
-            type: "bool",
-          },
-          choices: {
-            value: ["A", "B", "C", "D", "E"],
-            configPrompt: "Enter choices:",
-            type: "stringArray",
-          },
-        },
-      },
-    },
-    */
-  }
+export async function saveSurvey(userID: string, surveyID: string, surveyData: any) { 
   const db = getFirestore();
-  setDoc(doc(db, "surveys", newID), defaultData);
-  // TODO: Add to user's list of surveys
-  return newID;
+  const docRef = doc(db, "surveys", surveyID);
+  const userRef = doc(db, "users", userID);
+  console.log(`Saving survey ${surveyID} for user ${userID}`)
+  try {
+    getDoc(docRef).then((snap) => {
+      if(snap.exists()) {
+        console.log("Document exists")
+        getDoc(userRef).then((docSnap) => {
+          console.log(docSnap.data())
+          if (docSnap.exists()) {
+            let data = docSnap.data();
+            console.log(data.surveys, surveyID)
+            if(data.surveys.includes(surveyID)) {
+                setDoc(docRef, surveyData);
+            } else {
+                console.log("Unauthorized access to survey")
+                return false;
+            }
+          } else {
+            console.log("User does not exist")
+            return false;
+          }
+        })
+      } else {
+        addSurveyToUser(userID, surveyID);
+        setDoc(docRef, surveyData);
+      }
+    })
+  } catch(error) {
+    console.log(error)
+  }
+}
+
+export async function addSurveyToUser(userID: string, surveyID: string) {
+  const db = getFirestore();
+  const userRef = doc(db, "users", userID);
+  try {
+    getDoc(userRef).then((docSnap) => {
+      console.log(docSnap.data())
+      if(docSnap.exists()) {
+          let newData = docSnap.data();
+          newData.surveys.push(surveyID);
+          setDoc(userRef, newData);
+          return true;
+      } else {
+          console.log("Document does not exist")
+          return false;
+      }
+    })
+  } catch(error) {
+    console.log(error)
+    return false
+  }
 }

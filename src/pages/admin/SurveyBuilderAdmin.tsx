@@ -1,11 +1,79 @@
-import React, { useState } from "react";
+import { useState, useEffect } from "react";
 import StandardPage from "../../components/StandardPage";
 import SurveyTopNav from "../../components/SurveyTopNav";
 import QuestionViewer from "../../components/QuestionViewer";
 import ConfigSidebar from "../../components/ConfigSidebar";
 import SurveyLinkModal from "../../components/SurveyLinkModal";
+import { saveSurvey, addSurveyToUser, retrieveSurveyConfig } from "../../data/dataLayerManager";
+import { v4 as uuidv4 } from "uuid";
+import { useNavigate, useParams } from "react-router";
 
 export default function SurveyBuilder() {
+  function getDefaultSurvey(userID: string) {
+    let newID = uuidv4();
+    // let question1ID = uuidv4();
+    const defaultData = {
+      id: newID,
+      title: "Untitled Survey",
+      admins: [userID],
+      completionPayout: 0.0,
+      refPayout: 0.0,
+      maxRefs: 0,
+      lastUpdated: new Date().toISOString(),
+      questions: [
+        {
+          page: 0,
+          type: "MultipleChoice",
+          config: {
+            prompt: {
+              value: "New Question",
+              configPrompt: "Question Prompt:",
+              type: "text",
+            },
+            shuffle: {
+              value: true,
+              configPrompt: "Shuffle choices?",
+              type: "bool",
+            },
+            choices: {
+              value: ["A", "B", "C", "D", "E"],
+              configPrompt: "Enter choices:",
+              type: "stringArray",
+            },
+          },
+        },
+      ],
+      /* New Questions w/ IDs
+      "questionOrder": [question1ID],
+      "questions": {
+        question1ID: {
+          page: 0,
+          type: "MultipleChoice",
+          config: {
+            prompt: {
+              value: "New Question",
+              configPrompt: "Question Prompt:",
+              type: "text",
+            },
+            shuffle: {
+              value: true,
+              configPrompt: "Shuffle choices?",
+              type: "bool",
+            },
+            choices: {
+              value: ["A", "B", "C", "D", "E"],
+              configPrompt: "Enter choices:",
+              type: "stringArray",
+            },
+          },
+        },
+      },
+      */
+    };
+    return defaultData;
+  }
+
+  /*
   const design = [
     {
       page: 0,
@@ -99,33 +167,37 @@ export default function SurveyBuilder() {
           value: "The Declaration of Indpendence was written in ____________",
           configPrompt: "Question Prompt:",
           type: "text",
-        }
-      }
+        },
+      },
     },
   ];
+  */
+
+  const params = useParams();
+  const navigate = useNavigate();
   const [showModal, setShowModal] = useState(false);
   const [questionIndex, setQuestionIndex] = useState(0);
   const [surveyName, setSurveyName] = useState("SurveyName");
-  const [questions, setQuestions] = useState<any>(design);
-  const [question, setQuestion] = useState({
-    page: 0,
-    type: "MultipleChoice",
-    prompt: {
-      value: "This is an example question?",
-      configPrompt: "Question Prompt:",
-      type: "text",
-    },
-    shuffle: {
-      value: true,
-      configPrompt: "Shuffle choices?",
-      type: "bool",
-    },
-    choices: {
-      value: ["A", "B", "C", "D", "E"],
-      configPrompt: "Enter choices:",
-      type: "stringArray",
-    },
-  });
+  const [config, setConfig] = useState<any>(getDefaultSurvey("temp"));
+  const [questions, setQuestions] = useState<any>(config.questions);
+  const [question, setQuestion] = useState(questions[0]);
+  const userID = "test"
+
+  useEffect(() => {
+    if (params.surveyID !== "new" && params.surveyID !== undefined) {
+      retrieveSurveyConfig(params.surveyID).then((data) => {
+        if (data === undefined) {
+          navigate("../../dashboard");
+        }
+        setConfig(data);
+      });
+    } else if (params.surveyID === "new") {
+      saveSurvey(userID, config.id, config);
+      navigate(`../${config.id}`)
+    } else {
+      navigate(`/admin/dashboard`)
+    }
+  }, []);
 
   const updateConfig = (newConfig: any) => {
     setQuestions(newConfig);
