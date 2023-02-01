@@ -52,8 +52,10 @@ export default function PhoneEntry() {
     }
 
     console.log(`Sending verification: ${phoneNum}`);
-    startVerification(phoneNum);
-    // TODO: get console.log of data here
+    startVerification(phoneNum)
+      .then(data => {
+        console.log(data)
+    });
 
     setPhone(num);
     console.log(num);
