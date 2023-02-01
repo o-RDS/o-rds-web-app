@@ -1,8 +1,9 @@
 import { initializeApp } from "firebase/app"
 import { getAuth, signInAnonymously } from "firebase/auth";
 import {
-    getFirestore, doc, getDoc
+    getFirestore, doc, getDoc, setDoc, collection, getDocs, query, where, addDoc
 } from "firebase/firestore"
+import { v4 as uuidv4 } from 'uuid';
 
 const firebaseConfig = {
   apiKey: "AIzaSyB6d-taZfAJEpjzl46igYQjx0l-l2Xp92E",
@@ -48,6 +49,69 @@ export async function retrieveSurveyData(id: string) {
     }
 }
 
-export function createSurvey() {
-     
+export function createSurvey(userID: string) { 
+  let newID = uuidv4();
+  // let question1ID = uuidv4();
+  const defaultData = {
+    "id": newID,
+    "title": "Untitled Survey",
+    "admins": [userID],
+    "completionPayout" : 0.0,
+    "refPayout" : 0.0,
+    "maxRefs": 0,
+    "lastUpdated": new Date(),
+    "questions": [
+      {
+        page: 0,
+        type: "MultipleChoice",
+        config: {
+          prompt: {
+            value: "New Question",
+            configPrompt: "Question Prompt:",
+            type: "text",
+          },
+          shuffle: {
+            value: true,
+            configPrompt: "Shuffle choices?",
+            type: "bool",
+          },
+          choices: {
+            value: ["A", "B", "C", "D", "E"],
+            configPrompt: "Enter choices:",
+            type: "stringArray",
+          },
+        },
+      },
+    ],
+    /* New Questions w/ IDs
+    "questionOrder": [question1ID],
+    "questions": {
+      question1ID: {
+        page: 0,
+        type: "MultipleChoice",
+        config: {
+          prompt: {
+            value: "New Question",
+            configPrompt: "Question Prompt:",
+            type: "text",
+          },
+          shuffle: {
+            value: true,
+            configPrompt: "Shuffle choices?",
+            type: "bool",
+          },
+          choices: {
+            value: ["A", "B", "C", "D", "E"],
+            configPrompt: "Enter choices:",
+            type: "stringArray",
+          },
+        },
+      },
+    },
+    */
+  }
+  const db = getFirestore();
+  setDoc(doc(db, "surveys", newID), defaultData);
+  // TODO: Add to user's list of surveys
+  return newID;
 }
