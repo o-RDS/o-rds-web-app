@@ -44,3 +44,65 @@ Besides looking at other questions for inspiration, there are also a few props t
 Utilizing `props.index` is high recommended, and you should  increment it by one to display the question number when rendering the question.
 
 The other prop that should be used is `props.currentValue`, which allows the `Survey` page to pass down the current value of questions so that they can properly display their current answer. How you implement this will depend on the input method(s) the user is provided with.
+
+### Question Makeup
+As stated above you have complete freedom to implement any type of question of your choosing. But before we go any further it is important to understand the specifics of how a question is made. 
+
+If you recall from above, when a question is finally built it will look like this:
+```
+case "MultipleChoice":
+        return <MultipleChoice config={data.config} updateResponse={updateResponse} currentValue={props.currentAnswer} index={props.index}/>;
+```
+
+Each of these props provide the most basic and necessary information for the question to function. Let's dive into what each of these do.
+
+### Config
+To first understand the config prop, you should first understand what the configuration profile of a question looks like. 
+
+At minimum a question configuration will include the following fields: `page`, `type`, and `config`.
+
+The `page` field tells the survey what page to render the question on. The `type` helps the question component to know the specific question to render, and the `config` will contain an object that specifies each characteristic of a question using nested objects. At minimum, the `config` field must contain the `prompt` object. This object looks like this:
+
+```
+prompt: {
+          value: "This is an example question (Page 0)?",
+          configPrompt: "Question Prompt:",
+          type: "text",
+        },
+        
+```
+
+This contains the most basic of information for the question, i.e. the question being asked!
+
+The `value` field contains the question, the `configPrompt` is used in the Survey Builder (and will be covered in the Survey Builder documentation), and the `type` field specifies how to render that particular characteristic.
+
+In all it will looks something like this:
+
+```
+{
+      page: 0,
+      type: "MultipleChoice",
+      config: {
+        prompt: {
+          value: "This is an example question (Page 0)?",
+          configPrompt: "Question Prompt:",
+          type: "text",
+        },
+        shuffle: {
+          value: true,
+          configPrompt: "Shuffle choices?",
+          type: "bool",
+        },
+        choices: {
+          value: ["A", "B", "C", "D", "E"],
+          configPrompt: "Enter choices:",
+          type: "stringArray",
+        },
+      },
+    },
+```
+
+This is the 
+
+
+
