@@ -9,13 +9,13 @@ import { send } from "process";
 export default function ReceivePayment(){
     const [emailVerified, setEmailVerified] = useState(false);
 
-    function newOrder(email: string, phoneNum: string, hash: string): order {
+    function newOrder(email: string, phoneNum: string, hash: string, payment: number): order {
         let order: order = {
             external_id: hash,
             funding_source_id: '0JLPRGW2MEB9',
             campaign_id: '4BDWAVSR8A91',
             products: ['TBAJH7YLFVS5'],
-            denomination: 50.00, // TODO: Determine amount from PaymentManagerAdmin.tsx
+            denomination: payment, // TODO: Determine amount from PaymentManagerAdmin.tsx
             recipient_name: 'Survey Taker', // To keep anonymous
             recipient_email: email,
             recipient_phone: phoneNum,
@@ -28,12 +28,23 @@ export default function ReceivePayment(){
         return order;
     }
 
-    function sendReward(order: order) {
-        console.log("Fetching Tremendous order API");
-        createOrder(order)
-            .then(data => {
-            console.log(data)
-        });
+    function sendReward() {
+        let email = (document.getElementById("tremendousEmail") as HTMLInputElement).value;
+        let phone = window.sessionStorage.getItem('phone');
+        let hash = window.sessionStorage.getItem('hash');
+        if (phone && hash != null) {
+
+            
+            let order = newOrder(email, phone, hash, 1.00);
+
+            console.log("Fetching Tremendous order API");
+            createOrder(order)
+                .then(data => {
+                console.log(data)
+            });
+        }
+        // TODO: error when values are null
+        
     }
     
     return(
@@ -67,11 +78,7 @@ export default function ReceivePayment(){
                         let test = regexp.test(email);
                         if (test) {
                             setEmailVerified(true);
-                            let phone = window.sessionStorage.getItem('phone');
-                            let hash = window.sessionStorage.getItem('hash');
-                            if (phone && hash != null) {
-                                sendReward(newOrder(email, phone, hash));
-                            }
+                            sendReward();
                         } else {
                             alert("Invalid email");
                         }
