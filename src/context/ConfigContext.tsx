@@ -1,10 +1,10 @@
 import react, { useEffect, useRef } from 'react';
 import { useParams, useNavigate, Outlet } from 'react-router';
-import { retrieveSurveyData, signIn } from '../data/dataLayerManager';
+import { retrieveSurveyConfig, signIn } from '../data/dataLayerManager';
 
 
 export default function ConfigContext(props: any){
-  const SurveyConfigContext = react.createContext({});
+  //const SurveyConfigContext = react.createContext({});
   const navigate = useNavigate();
   const params = useParams();
   const config = useRef({});
@@ -13,7 +13,7 @@ export default function ConfigContext(props: any){
     signIn();
     if(params.id){
       console.log(params.id)
-      retrieveSurveyData(params.id).then((data) => {
+      retrieveSurveyConfig(params.id).then((data) => {
         if (data == null) {
           navigate("/invalid")
         } else {
@@ -26,9 +26,5 @@ export default function ConfigContext(props: any){
     }
   }, [])
 
-  return (
-    <SurveyConfigContext.Provider value={config.current}>
-      <Outlet/>
-    </SurveyConfigContext.Provider>
-  )
+  return (<Outlet context={config.current}/>)
 }

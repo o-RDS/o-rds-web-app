@@ -44,7 +44,7 @@ export default function MultipleChoice(props: any) {
         <div key={index}>
           <input
             type="radio"
-            name="choice"
+            // name="choice"
             value={choice}
             onChange={() => handleClick(choice)}
             defaultChecked={isChecked}

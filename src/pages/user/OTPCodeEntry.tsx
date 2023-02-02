@@ -7,6 +7,7 @@ export default function OTPCodeEntry() {
   const navigate = useNavigate();
   const [code, setCode] = useState("");
   const [error, setError] = useState("");
+  const TESTING = true;
 
   function verifyOTPCode() {
     if (code.length !== 6) {
@@ -14,12 +15,16 @@ export default function OTPCodeEntry() {
       return;
     } else {
       let phone = window.sessionStorage.getItem("phone");
-      if (phone != null)
+      if (phone != null) {
+        if (TESTING) {
+          navigate("../questions");
+        }
         console.log(`Running verification check: ${phone}, ${code}`);
         verificationCheck(phone, code)
           .then(data => {
             console.log(data.status)
         });
+      }
     }
   }
 

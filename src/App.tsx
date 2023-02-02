@@ -12,6 +12,7 @@ import ResumeSurvey from "./pages/user/ResumeSurvey"
 import ReceivePayment from './pages/user/ReceivePayment';
 import BadSurvey from './pages/user/BadSurvey';
 import ConfigContext from './context/ConfigContext';
+import AdminAuth from './context/AdminAuth';
 import Share from './pages/user/Share';
 
 
@@ -19,12 +20,14 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="admin">
+        <Route path="admin" element={<AdminAuth/>}>
           <Route path="login" element={<LoginAdmin/>} />
           <Route path="dashboard" element={<DashboardAdmin/>} />
           <Route path="results" element={<Results/>} />
           <Route path="payment-manager" element={<PaymentManager/>} />
-          <Route path="survey-builder" element={<SurveyBuilder/>} />
+          <Route path="survey-builder">
+            <Route path=":surveyID" element={<SurveyBuilder/>} />
+          </Route>
         </Route>
         <Route path="survey">
           <Route path=":id" element={<ConfigContext/>}>
