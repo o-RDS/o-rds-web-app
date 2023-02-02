@@ -4,7 +4,7 @@ import SurveyTopNav from "../../components/SurveyTopNav";
 import QuestionViewer from "../../components/QuestionViewer";
 import ConfigSidebar from "../../components/ConfigSidebar";
 import SurveyLinkModal from "../../components/SurveyLinkModal";
-import { saveSurvey, addSurveyToUser, retrieveSurveyConfig } from "../../data/dataLayerManager";
+import { saveSurveyConfig, addSurveyToUser, retrieveSurveyConfig } from "../../data/dataLayerManager";
 import { v4 as uuidv4 } from "uuid";
 import { useNavigate, useParams } from "react-router";
 
@@ -192,7 +192,7 @@ export default function SurveyBuilder() {
         setConfig(data);
       });
     } else if (params.surveyID === "new") {
-      saveSurvey(userID, config.id, config);
+      saveSurveyConfig(userID, config.id, config);
       navigate(`../${config.id}`)
     } else {
       navigate(`/admin/dashboard`)
