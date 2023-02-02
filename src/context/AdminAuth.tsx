@@ -12,8 +12,6 @@ export default function ConfigContext(props: any){
   }, [])
 
   return (
-    <AdminAuthContext.Provider value={userID}>
-      <Outlet/>
-    </AdminAuthContext.Provider>
+      <Outlet context={userID}/>
   )
 }

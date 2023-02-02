@@ -4,7 +4,7 @@ import { retrieveSurveyConfig, signIn } from '../data/dataLayerManager';
 
 
 export default function ConfigContext(props: any){
-  const SurveyConfigContext = react.createContext({});
+  //const SurveyConfigContext = react.createContext({});
   const navigate = useNavigate();
   const params = useParams();
   const config = useRef({});
@@ -26,9 +26,5 @@ export default function ConfigContext(props: any){
     }
   }, [])
 
-  return (
-    <SurveyConfigContext.Provider value={config.current}>
-      <Outlet/>
-    </SurveyConfigContext.Provider>
-  )
+  return (<Outlet context={config.current}/>)
 }
