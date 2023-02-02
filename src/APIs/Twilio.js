@@ -20,10 +20,19 @@ export function startVerification(phone) {
     redirect: 'follow'
   };
   
-  fetch(`http://localhost:8080/v2/Services/${serviceSid}/Verifications`, requestOptions)
-    .then(response => response.text())
-    .then(result => console.log(result))
-    .catch(error => console.log('error', error));
+  return fetch(`http://localhost:8080/v2/Services/${serviceSid}/Verifications`, requestOptions)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(response.statusText)
+      }
+      return response.json()
+    })
+    .then((data) => {
+      return data;
+    });
+    // .then(response => response.text())
+    // .then(result => console.log(result))
+    // .catch(error => console.log('error', error));
 }
 
 export function verificationCheck(phone, code) {
@@ -47,8 +56,17 @@ export function verificationCheck(phone, code) {
 
   // ERROR: This is returning a 404 NOT FOUND 
   // It isn't getting to server.js for some reason 
-  fetch(`http://localhost:8080/v2/Services/${serviceSid}/VerificationCheck`, requestOptions)
-    .then(response => response.text())
-    .then(result => console.log(result))
-    .catch(error => console.log('error', error));
+  return fetch(`http://localhost:8080/v2/Services/${serviceSid}/VerificationCheck`, requestOptions)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(response.statusText)
+      }
+      return response.json()
+    })
+    .then((data) => {
+      return data;
+    });
+    // .then(response => response.text())
+    // .then(result => console.log(result))
+    // .catch(error => console.log('error', error));
 }

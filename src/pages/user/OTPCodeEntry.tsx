@@ -16,8 +16,10 @@ export default function OTPCodeEntry() {
       let phone = window.sessionStorage.getItem("phone");
       if (phone != null)
         console.log(`Running verification check: ${phone}, ${code}`);
-        verificationCheck(phone, code);
-        // TODO: get console.log of data here
+        verificationCheck(phone, code)
+          .then(data => {
+            console.log(data.status)
+        });
     }
   }
 
