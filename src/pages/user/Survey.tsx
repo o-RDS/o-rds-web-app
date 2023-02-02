@@ -1,11 +1,12 @@
 import React, { useState, useRef, useContext, useEffect } from "react";
 import Question from "../../components/questions/Question";
 import SurveyTakerStandardPage from "../../components/SurveyTakerStandardPage";
-import { useOutletContext } from "react-router";
+import { useNavigate, useOutletContext } from "react-router";
 
 export default function Survey() {
   const [page, setPage] = useState(0);
-  const [design, setDesign] = useState([{}]);
+  const [design, setDesign] = useState<any>([{}]);
+  const navigate = useNavigate();
   const config:any = useOutletContext();
   const response:any = useRef({});
 
@@ -44,10 +45,16 @@ export default function Survey() {
     setPage(pageTo);
   }
 
+  function handleSubmit() {
+    console.log("Submitting");
+    console.log(response.current);
+    navigate("../share")
+  }
+
   // renders all questions on the current page
   function renderQuestions() {
     console.log("Rendering questions");
-    return design.map((question:any, index) => {
+    return design.map((question:any, index:number) => {
       console.log("Rendering question " + index);
       console.log(question);
       let answerIndex = "Question " + (index + 1).toString();
@@ -78,10 +85,16 @@ export default function Survey() {
           {page > 0 ? 
             <button className="p-1 w-1/3 rounded bg-white border-2 border-rdsOrange text-rdsOrange" onClick={() => setPage(page - 1)}>Back</button>
             :
-            <div className="w-1/3"></div>
+            (design[design.length - 1].page > 0 && <div className="w-1/3"></div>)
           }
-          <p className="w-1/3 text-center">{page + 1} of #</p>
-          <button className="p-1 w-1/3 rounded bg-rdsOrange text-white" onClick={() => setPage(page + 1)}>Next</button>
+          { design[design.length - 1].page > 0 && 
+          <p className="w-1/3 text-center">{page + 1} of {design[design.length - 1].page+1}</p>
+          }
+          { design[design.length - 1].page < page ?
+            <button className="p-1 w-1/3 rounded bg-rdsOrange text-white" onClick={() => setPage(page + 1)}>Next</button>
+            :
+            <button className="p-1 w-1/3 rounded bg-rdsOrange text-white" onClick={() => handleSubmit()}>Submit</button>
+          }
         </div>
     </SurveyTakerStandardPage>
   );
