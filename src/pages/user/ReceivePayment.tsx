@@ -1,5 +1,5 @@
-import React, {useState} from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useOutletContext } from "react-router-dom";
 import SurveyTakerStandardPage from "../../components/SurveyTakerStandardPage";
 import tremendousLogo from "../../images/tremendous_logo.svg"
 import { order } from "../../APIs/interfaces"
@@ -8,6 +8,9 @@ import { send } from "process";
 
 export default function ReceivePayment(){
     const [emailVerified, setEmailVerified] = useState(false);
+    const [completionPayout, setCompletionPayout] = useState(0);
+    const config:any = useOutletContext();
+
 
     function newOrder(email: string, phoneNum: string, hash: string, payment: number): order {
         let order: order = {
@@ -33,9 +36,15 @@ export default function ReceivePayment(){
         let phone = window.sessionStorage.getItem('phone');
         let hash = window.sessionStorage.getItem('hash');
         if (phone && hash != null) {
+            setCompletionPayout(config.completionPayout);
+            let order = newOrder(email, phone, hash, completionPayout);
 
-            
-            let order = newOrder(email, phone, hash, 1.00);
+            // DEV: Tremendous requires payout to be > 1
+            if (order.denomination == 0) {
+                order.denomination = 1;
+            } else {
+                let order = newOrder(email, phone, hash, completionPayout + 1);
+            }
 
             console.log("Fetching Tremendous order API");
             createOrder(order)
