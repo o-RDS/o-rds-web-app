@@ -11,11 +11,7 @@ export default function CheckboxSidebar(props: any) {
 
   function handleTitleChange(e: any) {
     let test: any = task;
-    // console.log(test['question']);
-    // console.log(test['survey']['questions'][test['question']]['config']['prompt']['value']);
-    // console.log(e.target.value);
     test['survey']['questions'][test['question']]['config']['prompt']['value'] = e.target.value;
-    // console.log(test);
     dispatch({
       type: 'question-prompt',
       questions: test['survey'],
@@ -35,27 +31,13 @@ export default function CheckboxSidebar(props: any) {
 
   function handleCheckChange(e: any) {
     let test: any = task;
-    console.log(test['question'])
-    test['questions'][test['question']]['config']['shuffle']['value'] = e.target.checked;
+    test['survey']['questions'][test['question']]['config']['shuffle']['value'] = e.target.checked;
     dispatch({
       type: 'question-prompt',
-      questions: test,
+      questions: test['survey'],
       question: test['question']
     })
   }
-
-  const dealWithChangeText = (e: any) => {
-    let test: any = props.config;
-    test["config"]["prompt"]["value"] = e.target.value;
-    props.updateQuestion(test);
-  };
-
-  const dealWithChangeOther = (e: any) => {
-    let test: any = props.config;
-    test["config"]["shuffle"]["value"] = e.target.checked;
-    console.log(test["config"]["shuffle"]["value"]);
-    props.updateQuestion(test);
-  };
 
   return (
     <>
@@ -78,7 +60,7 @@ export default function CheckboxSidebar(props: any) {
       </div>
       <div>
         <label>{props.config.config.shuffle.configPrompt}</label>
-        <input type="checkbox" onChange={(e) => dealWithChangeOther(e)} defaultChecked={props.config.config.shuffle.value}></input>
+        <input type="checkbox" onChange={(e) => handleCheckChange(e)} defaultChecked={props.config.config.shuffle.value}></input>
       </div>
       <div className="flex flex-col items-center justify-center">
         <label>{props.config.config.choices.configPrompt}</label>

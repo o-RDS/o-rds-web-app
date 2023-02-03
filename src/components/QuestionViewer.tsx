@@ -5,9 +5,6 @@ import { TasksContext, TasksDispatchContext } from "../context/SurveyBuilderCont
 export default function QuestionViewer(props: any) {
   const task = useContext(TasksContext);
   const dispatch = useContext(TasksDispatchContext);
-  console.log(task['survey']);
-  console.log(task);
-  console.log("hello");
   //questions would be filled in through a database call and any uses of design would be replace with questions
   const proofQuestionToAdd: any = 
     {
@@ -33,15 +30,6 @@ export default function QuestionViewer(props: any) {
     }
   ;
 
-  const addQuestion = () => {
-    //Also update in server you're using
-    let newConfig = props.questions;
-    console.log(newConfig);
-    //TODO: look into updating list a different way. Should be able to use prev and array destructuring
-    console.log(newConfig.concat(proofQuestionToAdd));
-    props.update(newConfig.concat(proofQuestionToAdd));
-    // setQuestions(questions.concat(proofQuestionToAdd));
-  };
 
   function handleAddedQuestion() {
     let test: any = task;
@@ -54,15 +42,6 @@ export default function QuestionViewer(props: any) {
       })
   }
 
-  const changeOptions = (questionUpdate: any) => {
-    props.updateQuestion(questionUpdate);
-  };
-
-  const chooseQuestion = (newQuestion: any, index: number) => {
-    props.updateQuestion(newQuestion, index);
-    // target.tabIndex = -1;
-    // target.focus();
-  };
 let testArray;
   try {
     console.log(task);
@@ -71,7 +50,7 @@ let testArray;
       <QuestionConfig
         data={question}
         index={index}
-        changeQuestion={chooseQuestion}
+        // changeQuestion={chooseQuestion}
       />
     );
   });

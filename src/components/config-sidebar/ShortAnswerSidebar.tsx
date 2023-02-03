@@ -15,13 +15,6 @@ export default function ShortAnswerSidebar(props: any) {
     })
   }
 
-
-  const dealWithChange = (e: any) => {
-    let test: any = props.config;
-    test["config"]["prompt"]["value"] = e.target.value;
-    props.updateQuestion(test);
-  };
-
   return (
     <>
      <div className="flex flex-col items-center justify-center mt-3">
@@ -38,7 +31,7 @@ export default function ShortAnswerSidebar(props: any) {
           type="text"
           placeholder="This is a question"
           className="w-3/5 rounded-sm border border-rdsOrange"
-          onChange={(e: any) => dealWithChange(e)}
+          onChange={(e: any) => handleTitleChange(e)}
         ></input>
       </div>
     </>

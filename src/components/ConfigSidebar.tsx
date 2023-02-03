@@ -9,25 +9,6 @@ import { TasksContext, TasksDispatchContext } from "../context/SurveyBuilderCont
 export default function ConfigSidebar(props: any) {
   const task = useContext(TasksContext);
   const dispatch = useContext(TasksDispatchContext);
-  console.log(task);
-  console.log(dispatch);
-  console.log(props.otherCurrentQuestion);
-  // const choicesArray: any = props.otherCurrentQuestion[props.questionIndex].config.choices.value.map((choice: any) => <li key={choice}>{choice}</li>);
-  // console.log(props.otherCurrentQuestion[props.questionIndex].page);
-
-  const dealWithChange = (newData: any) => {
-    // console.log(e.target.value);
-    let test: any = props.otherCurrentQuestion;
-    test[props.questionIndex] = newData;
-    let newTest = task;
-    newTest["questions"][props.questionIndex] = newData;
-    // dispatch({
-    //   type: 'question-prompt',
-    //   questions: newTest['survey']
-    //   question: 
-    // })
-    props.update(test);
-  }
 
   function getQuestionConfig(data: any) {
     switch (data.type) {
@@ -35,7 +16,7 @@ export default function ConfigSidebar(props: any) {
         return (
           <MCSidebar
             config={data}
-            updateQuestion={dealWithChange}
+            // updateQuestion={dealWithChange}
             index={props.questionIndex}
           />
         );
@@ -43,7 +24,7 @@ export default function ConfigSidebar(props: any) {
         return (
           <FillBlankSidebar
           config={data}
-          updateQuestion={dealWithChange}
+          // updateQuestion={dealWithChange}
           index={props.questionIndex}
           />
         );
@@ -51,7 +32,7 @@ export default function ConfigSidebar(props: any) {
         return (
           <ShortAnswerSidebar
             config={data}
-            updateQuestion={dealWithChange}
+            // updateQuestion={dealWithChange}
             index={props.questionIndex}
           />
         );
@@ -59,7 +40,7 @@ export default function ConfigSidebar(props: any) {
         return (
           <CheckboxSidebar
           config={data}
-          updateQuestion={dealWithChange}
+          // updateQuestion={dealWithChange}
           index={props.questionIndex}
           />
         );

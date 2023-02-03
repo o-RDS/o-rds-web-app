@@ -236,7 +236,7 @@ export default function SurveyBuilder() {
         <ConfigSidebar
           questionIndex={questionIndex}
           otherCurrentQuestion={questions}
-          update={updateConfig}
+          // update={updateConfig}
         />
         <div className="mt-3 w-3/5">
           <div className="flex flex-row justify-between">
@@ -259,16 +259,10 @@ export default function SurveyBuilder() {
             </div>
           </div>
           <QuestionViewer
-            updateQuestion={setCurrentQuestion}
-            questions={questions}
-            update={updateConfig}
+            // updateQuestion={setCurrentQuestion}
+            // questions={questions}
+            // update={updateConfig}
           />
-          {/* <button onClick={() => dispatch({
-              type: 'added',
-              message: "Woah I made it"
-              })}>Touch Me
-          </button>
-  <p>{tasks.message}</p> */}
         </div>
       </div>
     </SurveyBuilderContext>

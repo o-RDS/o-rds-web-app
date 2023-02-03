@@ -5,9 +5,6 @@ import ShortAnswerConfig from "./ShortAnswerConfig";
 import MCConfig from "./MCConfig";
 
 export default function QuestionConfig(props: any) {
-  function dealWithChange(newQuestion: any, index: any) {
-    props.changeQuestion(newQuestion, index);
-  }
 
   function getQuestionConfig(data: any) {
     console.log(data);
@@ -16,7 +13,6 @@ export default function QuestionConfig(props: any) {
         return (
           <MCConfig
             config={data}
-            updateQuestion={dealWithChange}
             index={props.index}
           />
         );
@@ -24,7 +20,6 @@ export default function QuestionConfig(props: any) {
         return (
           <FillBlankConfig
             config={data}
-            updateQuestion={dealWithChange}
             index={props.index}
           />
         );
@@ -32,7 +27,6 @@ export default function QuestionConfig(props: any) {
         return (
           <ShortAnswerConfig
             config={data}
-            updateQuestion={dealWithChange}
             index={props.index}
           />
         );
@@ -40,7 +34,6 @@ export default function QuestionConfig(props: any) {
         return (
           <CheckboxConfig
             config={data}
-            updateQuestion={dealWithChange}
             index={props.index}
           />
         );

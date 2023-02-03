@@ -15,13 +15,6 @@ export default function FillBlankSidebar(props: any) {
     })
   }
 
-
-  const dealWithChange = (e: any) => {
-    let test: any = props.config;
-    test["config"]["prompt"]["value"] = e.target.value;
-    props.updateQuestion(test);
-  };
-
   return (
     <>
      <div className="flex flex-col items-center justify-center mt-3">
