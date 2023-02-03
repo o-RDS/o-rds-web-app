@@ -1,9 +1,10 @@
-import { useState, useEffect, useReducer } from "react";
+import { useState, useEffect, useReducer, useContext } from "react";
 import StandardPage from "../../components/StandardPage";
 import SurveyTopNav from "../../components/SurveyTopNav";
 import QuestionViewer from "../../components/QuestionViewer";
 import ConfigSidebar from "../../components/ConfigSidebar";
 import SurveyLinkModal from "../../components/SurveyLinkModal";
+import { TasksContext } from "../../context/SurveyBuilderContext";
 import SurveyBuilderContext from "../../context/SurveyBuilderContext";
 import { saveSurvey, addSurveyToUser, retrieveSurveyConfig } from "../../data/dataLayerManager";
 import { v4 as uuidv4 } from "uuid";
@@ -188,7 +189,8 @@ export default function SurveyBuilder() {
     },
   ];
   */
-
+  const task = useContext(TasksContext);
+  console.log(task);
   const params = useParams();
   const navigate = useNavigate();
   const [showModal, setShowModal] = useState(false);

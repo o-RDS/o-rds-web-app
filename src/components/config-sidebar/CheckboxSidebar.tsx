@@ -9,6 +9,33 @@ export default function CheckboxSidebar(props: any) {
     (choice: any) => <li key={choice}>{choice}</li>
   );
 
+  function handleTitleChange(e: any) {
+    let test: any = task;
+    test['questions'][props.index]['config']['prompt']['value'] = e.target.value;
+    dispatch({
+      type: 'question-prompt',
+      message: test
+    })
+  }
+
+  function handleChoiceChange(e: any) {
+    let test: any = task;
+    test['questions'][props.index]['config']['prompt']['value'] = e.target.value;
+    dispatch({
+      type: 'question-prompt',
+      message: test
+    })
+  }
+
+  function handleCheckChange(e: any) {
+    let test: any = task;
+    test['questions'][props.index]['config']['shuffle']['value'] = e.target.checked;
+    dispatch({
+      type: 'question-prompt',
+      message: test
+    })
+  }
+
   const dealWithChangeText = (e: any) => {
     let test: any = props.config;
     test["config"]["prompt"]["value"] = e.target.value;

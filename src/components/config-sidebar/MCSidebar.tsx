@@ -7,6 +7,17 @@ export default function MCSidebar(props: any) {
   const choicesArray: any = props.config.config.choices.value.map(
     (choice: any) => <li key={choice}>{choice}</li>
   );
+
+  function handleTitleChange(e: any) {
+    let test: any = task;
+    test['questions'][props.index]['config']['prompt']['value'] = e.target.value;
+    dispatch({
+      type: 'question-prompt',
+      message: test
+    })
+  }
+
+  
   const dealWithChange = (e: any) => {
     let test: any = props.config;
     test["config"]["prompt"]["value"] = e.target.value;

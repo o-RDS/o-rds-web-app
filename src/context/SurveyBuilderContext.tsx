@@ -41,6 +41,38 @@ export default function SurveyBuilderContext(props: any){
             },
           },
         },
+        {
+          page: 0,
+          type: "Checkbox",
+          config: {
+            prompt: {
+              value: "This is an example question (Page 0)?",
+              configPrompt: "Question Prompt:",
+              type: "text",
+            },
+            shuffle: {
+              value: true,
+              configPrompt: "Shuffle choices?",
+              type: "bool",
+            },
+            choices: {
+              value: ["A", "B", "C", "D", "E"],
+              configPrompt: "Enter choices:",
+              type: "stringArray",
+            },
+          },
+        },
+        {
+          page: 0,
+          type: "FillInBlank",
+          config: {
+            prompt: {
+              value: "The Declaration of Indpendence was written in ____________",
+              configPrompt: "Question Prompt:",
+              type: "text",
+            },
+          },
+        },
       ],
       /* New Questions w/ IDs
       "questionOrder": [question1ID],
@@ -69,6 +101,7 @@ export default function SurveyBuilderContext(props: any){
       },
       */
     };
+    console.log(defaultData);
     return defaultData;
   }
   //const SurveyConfigContext = react.createContext({});

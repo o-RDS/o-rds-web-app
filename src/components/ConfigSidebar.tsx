@@ -35,6 +35,7 @@ export default function ConfigSidebar(props: any) {
           <MCSidebar
             config={data}
             updateQuestion={dealWithChange}
+            index={props.questionIndex}
           />
         );
       case "FillInBlank":
@@ -42,6 +43,7 @@ export default function ConfigSidebar(props: any) {
           <FillBlankSidebar
           config={data}
           updateQuestion={dealWithChange}
+          index={props.questionIndex}
           />
         );
       case "ShortAnswer":
@@ -49,6 +51,7 @@ export default function ConfigSidebar(props: any) {
           <ShortAnswerSidebar
             config={data}
             updateQuestion={dealWithChange}
+            index={props.questionIndex}
           />
         );
       case "Checkbox":
@@ -56,6 +59,7 @@ export default function ConfigSidebar(props: any) {
           <CheckboxSidebar
           config={data}
           updateQuestion={dealWithChange}
+          index={props.questionIndex}
           />
         );
       default:

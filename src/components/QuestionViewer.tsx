@@ -1,7 +1,9 @@
-import react, { useState } from "react";
+import react, { useContext, useState } from "react";
 import QuestionConfig from "./config-questions/QuestionConfig";
+import { TasksContext } from "../context/SurveyBuilderContext";
 
 export default function QuestionViewer(props: any) {
+  const task = useContext(TasksContext);
   //questions would be filled in through a database call and any uses of design would be replace with questions
   const proofQuestionToAdd: any[] = [
     {
@@ -47,7 +49,7 @@ export default function QuestionViewer(props: any) {
     // target.focus();
   };
 
-  const testArray = props.questions.map((question: any, index: number) => {
+  const testArray = task['questions'].map((question: any, index: number) => {
     return (
       <QuestionConfig
         data={question}

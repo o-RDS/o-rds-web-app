@@ -4,6 +4,17 @@ import { TasksContext, TasksDispatchContext } from "../../context/SurveyBuilderC
 export default function ShortAnswerSidebar(props: any) {
   const task = useContext(TasksContext);
   const dispatch = useContext(TasksDispatchContext);
+
+  function handleTitleChange(e: any) {
+    let test: any = task;
+    test['questions'][props.index]['config']['prompt']['value'] = e.target.value;
+    dispatch({
+      type: 'question-prompt',
+      message: test
+    })
+  }
+
+  
   const dealWithChange = (e: any) => {
     let test: any = props.config;
     test["config"]["prompt"]["value"] = e.target.value;
