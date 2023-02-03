@@ -4,6 +4,9 @@ import { TasksContext } from "../context/SurveyBuilderContext";
 
 export default function QuestionViewer(props: any) {
   const task = useContext(TasksContext);
+  console.log(task['survey']);
+  console.log(task);
+  console.log("hello");
   //questions would be filled in through a database call and any uses of design would be replace with questions
   const proofQuestionToAdd: any[] = [
     {
@@ -48,8 +51,10 @@ export default function QuestionViewer(props: any) {
     // target.tabIndex = -1;
     // target.focus();
   };
-
-  const testArray = task['questions'].map((question: any, index: number) => {
+let testArray;
+  try {
+    console.log(task);
+  testArray = task['survey']['questions'].map((question: any, index: number) => {
     return (
       <QuestionConfig
         data={question}
@@ -58,6 +63,9 @@ export default function QuestionViewer(props: any) {
       />
     );
   });
+} catch(error) {
+  console.log(error);
+}
 
   return (
     <>

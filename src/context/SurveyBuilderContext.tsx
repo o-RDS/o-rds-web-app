@@ -12,6 +12,7 @@ export default function SurveyBuilderContext(props: any){
     // let newID = uuidv4();
     // let question1ID = uuidv4();
     const defaultData = {
+      survey: {
       id: 1,
       title: "Untitled Survey",
       admins: [userID],
@@ -74,6 +75,8 @@ export default function SurveyBuilderContext(props: any){
           },
         },
       ],
+    },
+    question: 0
       /* New Questions w/ IDs
       "questionOrder": [question1ID],
       "questions": {
@@ -110,16 +113,34 @@ export default function SurveyBuilderContext(props: any){
     try {
     switch(action.type) {
       case 'initialize': {
-        return action.questions
+        return {
+          survey: action.questions,
+          question: action.question
+        }
       }
       case "question-prompt": {
-        return action.message;
+        return {
+          survey: action.questions,
+          question: action.question
+        }
       }
       case "new-choice": {
-        return action.choice
+        return {
+          survey: action.questions,
+          question: action.question
+        }
       }
       case "shuffle": {
-        return action.change
+        return {
+          survey: action.questions,
+          question: action.question
+        }
+      }
+      case "update": {
+        return {
+          survey: action.questions,
+          question: action.question
+        }
       }
       default: {
         return ""

@@ -21,10 +21,11 @@ export default function ConfigSidebar(props: any) {
     test[props.questionIndex] = newData;
     let newTest = task;
     newTest["questions"][props.questionIndex] = newData;
-    dispatch({
-      type: 'question-prompt',
-      message: newTest
-    })
+    // dispatch({
+    //   type: 'question-prompt',
+    //   questions: newTest['survey']
+    //   question: 
+    // })
     props.update(test);
   }
 
@@ -71,7 +72,7 @@ export default function ConfigSidebar(props: any) {
   return (
     <>
       <div className="flex flex-col justify-start items-center border-r border-black w-1/4 gap-2">
-        {getQuestionConfig(props.otherCurrentQuestion[props.questionIndex])}
+        {getQuestionConfig(task['survey']['questions'][task['question']])}
       </div>
     </>
   );

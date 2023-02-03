@@ -9,15 +9,16 @@ export default function MCSidebar(props: any) {
   );
 
   function handleTitleChange(e: any) {
-    let test: any = task;
+    let test: any = task['survey'];
     test['questions'][props.index]['config']['prompt']['value'] = e.target.value;
     dispatch({
       type: 'question-prompt',
-      message: test
+      questions: test,
+      question: task['question']
     })
   }
 
-  
+
   const dealWithChange = (e: any) => {
     let test: any = props.config;
     test["config"]["prompt"]["value"] = e.target.value;
@@ -40,7 +41,7 @@ export default function MCSidebar(props: any) {
           type="text"
           placeholder="This is a question"
           className="w-3/5 rounded-sm border border-rdsOrange"
-          onChange={(e: any) => dealWithChange(e)}
+          onChange={(e: any) => handleTitleChange(e)}
         ></input>
       </div>
       <div>

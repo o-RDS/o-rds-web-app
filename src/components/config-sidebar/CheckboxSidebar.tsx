@@ -11,10 +11,15 @@ export default function CheckboxSidebar(props: any) {
 
   function handleTitleChange(e: any) {
     let test: any = task;
-    test['questions'][props.index]['config']['prompt']['value'] = e.target.value;
+    console.log(test['question']);
+    console.log(test['survey']['questions'][test['question']]['config']['prompt']['value']);
+    console.log(e.target.value);
+    test['survey']['questions'][test['question']]['config']['prompt']['value'] = e.target.value;
+    console.log(test);
     dispatch({
       type: 'question-prompt',
-      message: test
+      questions: test['survey'],
+      question: task['question']
     })
   }
 
@@ -23,16 +28,19 @@ export default function CheckboxSidebar(props: any) {
     test['questions'][props.index]['config']['prompt']['value'] = e.target.value;
     dispatch({
       type: 'question-prompt',
-      message: test
+      questions: test,
+      question: task['question']
     })
   }
 
   function handleCheckChange(e: any) {
     let test: any = task;
-    test['questions'][props.index]['config']['shuffle']['value'] = e.target.checked;
+    console.log(test['question'])
+    test['questions'][test['question']]['config']['shuffle']['value'] = e.target.checked;
     dispatch({
       type: 'question-prompt',
-      message: test
+      questions: test,
+      question: test['question']
     })
   }
 
@@ -65,7 +73,7 @@ export default function CheckboxSidebar(props: any) {
           type="text"
           placeholder="This is a question"
           className="w-3/5 rounded-sm border border-rdsOrange"
-          onChange={(e: any) => dealWithChangeText(e)}
+          onChange={(e: any) => handleTitleChange(e)}
         ></input>
       </div>
       <div>
