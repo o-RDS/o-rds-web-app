@@ -36,7 +36,8 @@ export default function MCConfig(props: any) {
       <div className="w-full">
         <h3>{"Q" + (props.index + 1)}</h3>
         <div className="rounded-md bg-gray-100 p-3">
-          <h2>{props.config.config.prompt.value}</h2>
+          {/* <h2>{props.config.config.prompt.value}</h2> */}
+          <h2>{task['survey']['questions'][props.index]['config']['prompt']}</h2>
           <ul>{renderChoices()}</ul>
         </div>
       </div>

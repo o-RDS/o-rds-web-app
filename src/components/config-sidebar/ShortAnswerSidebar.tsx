@@ -7,14 +7,15 @@ export default function ShortAnswerSidebar(props: any) {
 
   function handleTitleChange(e: any) {
     let test: any = task;
-    test['questions'][props.index]['config']['prompt']['value'] = e.target.value;
+    test['survey']['questions'][test['question']]['config']['prompt']['value'] = e.target.value;
     dispatch({
       type: 'question-prompt',
-      message: test
+      questions: test['survey'],
+      question: task['question']
     })
   }
 
-  
+
   const dealWithChange = (e: any) => {
     let test: any = props.config;
     test["config"]["prompt"]["value"] = e.target.value;

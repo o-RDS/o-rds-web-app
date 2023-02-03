@@ -9,11 +9,11 @@ export default function MCSidebar(props: any) {
   );
 
   function handleTitleChange(e: any) {
-    let test: any = task['survey'];
-    test['questions'][props.index]['config']['prompt']['value'] = e.target.value;
+    let test: any = task;
+    test['survey']['questions'][test['question']]['config']['prompt']['value'] = e.target.value;
     dispatch({
       type: 'question-prompt',
-      questions: test,
+      questions: test['survey'],
       question: task['question']
     })
   }

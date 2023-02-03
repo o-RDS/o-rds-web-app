@@ -1,14 +1,15 @@
 import react, { useContext, useState } from "react";
 import QuestionConfig from "./config-questions/QuestionConfig";
-import { TasksContext } from "../context/SurveyBuilderContext";
+import { TasksContext, TasksDispatchContext } from "../context/SurveyBuilderContext";
 
 export default function QuestionViewer(props: any) {
   const task = useContext(TasksContext);
+  const dispatch = useContext(TasksDispatchContext);
   console.log(task['survey']);
   console.log(task);
   console.log("hello");
   //questions would be filled in through a database call and any uses of design would be replace with questions
-  const proofQuestionToAdd: any[] = [
+  const proofQuestionToAdd: any = 
     {
       page: 0,
       type: "MultipleChoice",
@@ -29,8 +30,8 @@ export default function QuestionViewer(props: any) {
           type: "stringArray",
         },
       },
-    },
-  ];
+    }
+  ;
 
   const addQuestion = () => {
     //Also update in server you're using
@@ -41,6 +42,17 @@ export default function QuestionViewer(props: any) {
     props.update(newConfig.concat(proofQuestionToAdd));
     // setQuestions(questions.concat(proofQuestionToAdd));
   };
+
+  function handleAddedQuestion() {
+    let test: any = task;
+    test['survey']['questions'] = task['survey']['questions'].concat(proofQuestionToAdd);
+    console.log(test);
+      dispatch({
+        type: "update",
+        questions: test['survey'],
+        question: task['question']
+      })
+  }
 
   const changeOptions = (questionUpdate: any) => {
     props.updateQuestion(questionUpdate);
@@ -74,7 +86,7 @@ let testArray;
           <div className="flex w-full flex-col gap-4">{testArray}</div>
           <button
             className="w-fit rounded-sm bg-rdsBlue pl-2 pr-2 text-white"
-            onClick={() => addQuestion()}
+            onClick={() => handleAddedQuestion()}
           >
             + Add Question
           </button>

@@ -11,11 +11,11 @@ export default function CheckboxSidebar(props: any) {
 
   function handleTitleChange(e: any) {
     let test: any = task;
-    console.log(test['question']);
-    console.log(test['survey']['questions'][test['question']]['config']['prompt']['value']);
-    console.log(e.target.value);
+    // console.log(test['question']);
+    // console.log(test['survey']['questions'][test['question']]['config']['prompt']['value']);
+    // console.log(e.target.value);
     test['survey']['questions'][test['question']]['config']['prompt']['value'] = e.target.value;
-    console.log(test);
+    // console.log(test);
     dispatch({
       type: 'question-prompt',
       questions: test['survey'],
