@@ -49,7 +49,7 @@ export default function QuestionViewer(props: any) {
     // target.focus();
   };
 
-  const testArray = task['questions'].map((question: any, index: number) => {
+  const testArray = props.questions.map((question: any, index: number) => {
     return (
       <QuestionConfig
         data={question}
