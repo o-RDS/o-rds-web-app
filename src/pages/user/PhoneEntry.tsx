@@ -4,6 +4,8 @@ import { setPhone, setChainInfo } from "../../data/sessionManager";
 import { useState, useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import Sha256 from "../../data/Sha256";
+import { startVerification } from "../../APIs/Twilio"
+import { start } from "repl";
 
 export default function PhoneEntry() {
   const [phoneNum, setPhoneNum] = useState("");
@@ -49,6 +51,12 @@ export default function PhoneEntry() {
       return;
     }
 
+    console.log(`Sending verification: ${phoneNum}`);
+    startVerification(phoneNum)
+      .then(data => {
+        console.log(data)
+    });
+
     setPhone(num);
     console.log(num);
     // TODO Send code to phone number, pass code to OTPCodeEntry.tsx
@@ -88,7 +96,7 @@ export default function PhoneEntry() {
           ></input>
         </div>
         <button
-          className="mt-6 p-1 w-56 rounded bg-orange-600 text-white"
+          className="p-1 w-56 rounded bg-rdsOrange text-white"
           onClick={() => submitNum()}
         >
           Submit

@@ -11,7 +11,7 @@ export default function Dashboard() {
                 <div className="flex flex-row">
                     <h3 className="text-2xl">Active Surveys</h3>
                     <div className="ml-auto">
-                        <Link to="../survey-builder">
+                        <Link to="../survey-builder/new">
                             <button className="bg-rdsBlue rounded-md p-1 pl-2 pr-2 text-white">New Survey</button>
                         </Link>
                     </div>

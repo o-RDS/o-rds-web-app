@@ -1,8 +1,9 @@
 import { initializeApp } from "firebase/app"
 import { getAuth, signInAnonymously } from "firebase/auth";
 import {
-    getFirestore, doc, getDoc
+    getFirestore, doc, getDoc, setDoc, collection, getDocs, query, where, addDoc
 } from "firebase/firestore"
+import { v4 as uuidv4 } from 'uuid';
 
 const firebaseConfig = {
   apiKey: "AIzaSyB6d-taZfAJEpjzl46igYQjx0l-l2Xp92E",
@@ -32,7 +33,7 @@ export function writeSurveyResponse() {
     return (1);
 }
 
-export async function retrieveSurveyData(id: string) {
+export async function retrieveSurveyConfig(id: string) {
     const db = getFirestore();
     const docRef = doc(db, "surveys", id);
     try {
@@ -48,6 +49,59 @@ export async function retrieveSurveyData(id: string) {
     }
 }
 
-export function createSurvey() {
-     
+export async function saveSurvey(userID: string, surveyID: string, surveyData: any) { 
+  const db = getFirestore();
+  const docRef = doc(db, "surveys", surveyID);
+  const userRef = doc(db, "users", userID);
+  console.log(`Saving survey ${surveyID} for user ${userID}`)
+  try {
+    getDoc(docRef).then((snap) => {
+      if(snap.exists()) {
+        console.log("Document exists")
+        getDoc(userRef).then((docSnap) => {
+          console.log(docSnap.data())
+          if (docSnap.exists()) {
+            let data = docSnap.data();
+            console.log(data.surveys, surveyID)
+            if(data.surveys.includes(surveyID)) {
+                setDoc(docRef, surveyData);
+            } else {
+                console.log("Unauthorized access to survey")
+                return false;
+            }
+          } else {
+            console.log("User does not exist")
+            return false;
+          }
+        })
+      } else {
+        addSurveyToUser(userID, surveyID);
+        setDoc(docRef, surveyData);
+      }
+    })
+  } catch(error) {
+    console.log(error)
+  }
+}
+
+export async function addSurveyToUser(userID: string, surveyID: string) {
+  const db = getFirestore();
+  const userRef = doc(db, "users", userID);
+  try {
+    getDoc(userRef).then((docSnap) => {
+      console.log(docSnap.data())
+      if(docSnap.exists()) {
+          let newData = docSnap.data();
+          newData.surveys.push(surveyID);
+          setDoc(userRef, newData);
+          return true;
+      } else {
+          console.log("Document does not exist")
+          return false;
+      }
+    })
+  } catch(error) {
+    console.log(error)
+    return false
+  }
 }

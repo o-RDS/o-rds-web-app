@@ -1,32 +1,32 @@
 import { order } from './interfaces';
 
-// replace tokens here
-const devToken = "Bearer TEST_2lm2pekxx--s_kiobii4fxfecyrk2yg1jbjqq-eryia";
-// const prodToken = "Beaarer [TOKEN]"; 
+
+const devToken = process.env.REACT_APP_TREMENDOUS_BEARER_TOKEN;
 
 
 export async function listFundingSources()   {
-    const options = {
-      method: 'GET',
-      headers: {
-        accept: 'application/json',
-        Authorization: devToken,
-      }
-    };
+  const options = {
+    method: 'GET',
+    headers: {
+      accept: 'application/json',
+      Authorization: devToken,
+    }
+  };
 
-    return fetch('api/v2/funding_sources', options)
-      .then(response => {
-        if (!response.ok) {
-          throw new Error(response.statusText)
-        }
-        return response.json()
-      })
-      .then((data) => {
-        return data.funding_sources;
-      })
+
+  return fetch('http://localhost:8080/api/v2/funding_sources', options)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(response.statusText)
+      }
+      return response.json()
+    })
+    .then((data) => {
+      return data.funding_sources;
+    })
 }
 
-export async function createOrder(order: order) {
+export async function createOrder(order) {
   const options = {
       method: 'POST',
       headers: {
@@ -50,7 +50,7 @@ export async function createOrder(order: order) {
       })
     };
 
-  return fetch('api/v2/orders', options)
+  return fetch('http://localhost:8080/api/v2/orders', options)
     .then(response => {
       if (!response.ok) {
         throw new Error(response.statusText)
