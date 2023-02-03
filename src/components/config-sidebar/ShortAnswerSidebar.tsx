@@ -1,6 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
+import { TasksContext, TasksDispatchContext } from "../../context/SurveyBuilderContext";
 
 export default function ShortAnswerSidebar(props: any) {
+  const task = useContext(TasksContext);
+  const dispatch = useContext(TasksDispatchContext);
   const dealWithChange = (e: any) => {
     let test: any = props.config;
     test["config"]["prompt"]["value"] = e.target.value;

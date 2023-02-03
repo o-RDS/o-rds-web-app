@@ -1,11 +1,16 @@
 import { updateCurrentUser } from "firebase/auth";
-import react from "react";
+import react, { useContext } from "react";
 import MCSidebar from "./config-sidebar/MCSidebar";
 import ShortAnswerSidebar from "./config-sidebar/ShortAnswerSidebar";
 import FillBlankSidebar from "./config-sidebar/FillBlankSidebar";
 import CheckboxSidebar from "./config-sidebar/CheckboxSidebar";
+import { TasksContext, TasksDispatchContext } from "../context/SurveyBuilderContext";
 
 export default function ConfigSidebar(props: any) {
+  const task = useContext(TasksContext);
+  const dispatch = useContext(TasksDispatchContext);
+  console.log(task);
+  console.log(dispatch);
   console.log(props.otherCurrentQuestion);
   // const choicesArray: any = props.otherCurrentQuestion[props.questionIndex].config.choices.value.map((choice: any) => <li key={choice}>{choice}</li>);
   // console.log(props.otherCurrentQuestion[props.questionIndex].page);
@@ -14,6 +19,12 @@ export default function ConfigSidebar(props: any) {
     // console.log(e.target.value);
     let test: any = props.otherCurrentQuestion;
     test[props.questionIndex] = newData;
+    let newTest = task;
+    newTest["questions"][props.questionIndex] = newData;
+    dispatch({
+      type: 'question-prompt',
+      message: newTest
+    })
     props.update(test);
   }
 

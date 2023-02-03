@@ -1,6 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
+import { TasksContext, TasksDispatchContext } from "../../context/SurveyBuilderContext";
 
 export default function MCSidebar(props: any) {
+  const task = useContext(TasksContext);
+  const dispatch = useContext(TasksDispatchContext);
   const choicesArray: any = props.config.config.choices.value.map(
     (choice: any) => <li key={choice}>{choice}</li>
   );

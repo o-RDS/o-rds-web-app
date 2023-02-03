@@ -1,14 +1,30 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useReducer } from "react";
 import StandardPage from "../../components/StandardPage";
 import SurveyTopNav from "../../components/SurveyTopNav";
 import QuestionViewer from "../../components/QuestionViewer";
 import ConfigSidebar from "../../components/ConfigSidebar";
 import SurveyLinkModal from "../../components/SurveyLinkModal";
+import SurveyBuilderContext from "../../context/SurveyBuilderContext";
 import { saveSurvey, addSurveyToUser, retrieveSurveyConfig } from "../../data/dataLayerManager";
 import { v4 as uuidv4 } from "uuid";
 import { useNavigate, useParams } from "react-router";
 
 export default function SurveyBuilder() {
+  const initialTasks: any = "Hello";
+//   const [tasks, dispatch] = useReducer(taskReducer, initialTasks);
+//   console.log(tasks);
+//   function taskReducer (tasks: any, action: any) {
+//     if (action.type === 'added') {
+//       return action.message;
+//   }
+// }
+
+//   function handleAddTask() {
+//     dispatch({
+//       type: 'added',
+//       message: "Woah I made it"
+//     });
+//   }
   function getDefaultSurvey(userID: string) {
     let newID = uuidv4();
     // let question1ID = uuidv4();
@@ -211,7 +227,7 @@ export default function SurveyBuilder() {
   };
 
   return (
-    <div>
+    <SurveyBuilderContext>
       <SurveyTopNav name={surveyName} />
       <div className="flex flex-row gap-20">
         <SurveyLinkModal showModal={setShowModal} display={showModal} />
@@ -245,8 +261,14 @@ export default function SurveyBuilder() {
             questions={questions}
             update={updateConfig}
           />
+          {/* <button onClick={() => dispatch({
+              type: 'added',
+              message: "Woah I made it"
+              })}>Touch Me
+          </button>
+  <p>{tasks.message}</p> */}
         </div>
       </div>
-    </div>
+    </SurveyBuilderContext>
   );
 }

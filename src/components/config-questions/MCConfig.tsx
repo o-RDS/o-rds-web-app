@@ -1,6 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
+import { TasksContext } from "../../context/SurveyBuilderContext";
 
 export default function MCConfig(props: any) {
+  const task = useContext(TasksContext);
+  console.log(task['questions'][0]['config']['prompt']['value']);
   const chooseQuestion = (newQuestion: any, target: any, index: number) => {
     props.updateQuestion(newQuestion, index);
     target.tabIndex = -1;
