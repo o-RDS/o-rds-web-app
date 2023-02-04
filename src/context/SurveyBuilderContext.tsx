@@ -74,6 +74,27 @@ export default function SurveyBuilderContext(props: any){
             },
           },
         },
+        {
+          page: 0,
+          type: "ShortAnswer",
+          config: {
+            prompt: {
+              value: "This is an example question i guess 3?",
+              configPrompt: "Question Prompt 2:",
+              type: "text",
+            },
+            shuffle: {
+              value: true,
+              configPrompt: "shuffled",
+              type: "bool",
+            },
+            choices: {
+              value: ["AA", "BB", "CC", "DD", "EE"],
+              configPrompt: "Enter choices:",
+              type: "stringArray",
+            },
+          },
+        },
       ],
     },
     question: 0
@@ -150,7 +171,7 @@ export default function SurveyBuilderContext(props: any){
     console.log(error);
   }
   }
-  const initialTasks: any = {};
+
   const [tasks, dispatch] = useReducer(taskReducer, getDefaultSurvey("temp"));
 
   return (

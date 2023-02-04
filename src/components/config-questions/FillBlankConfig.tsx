@@ -3,7 +3,8 @@ import { TasksContext, TasksDispatchContext } from "../../context/SurveyBuilderC
 
 export default function FillBlankConfig(props: any) {
   const task = useContext(TasksContext);
-  const dispatch = useContext(TasksDispatchContext)
+  const dispatch = useContext(TasksDispatchContext);
+  const taskQuestions = task['survey']['questions'][props.index]
 
   function handleQuestionChange(index: number) {
     dispatch({
@@ -26,7 +27,7 @@ export default function FillBlankConfig(props: any) {
       <div className="w-full">
         <h3>{"Q" + (props.index + 1)}</h3>
         <div className="rounded-md bg-gray-100 p-3">
-          <h2>{task['survey']['questions'][props.index]['config']['prompt']['value']}</h2>
+          <h2>{taskQuestions['config']['prompt']['value']}</h2>
           <ul>{renderChoices()}</ul>
         </div>
       </div>

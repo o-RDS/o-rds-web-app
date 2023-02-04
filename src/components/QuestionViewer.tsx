@@ -44,7 +44,6 @@ export default function QuestionViewer(props: any) {
 
 let testArray;
   try {
-    console.log(task);
   testArray = task['survey']['questions'].map((question: any, index: number) => {
     return (
       <QuestionConfig

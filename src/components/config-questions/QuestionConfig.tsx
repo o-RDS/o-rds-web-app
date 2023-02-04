@@ -7,7 +7,6 @@ import MCConfig from "./MCConfig";
 export default function QuestionConfig(props: any) {
 
   function getQuestionConfig(data: any) {
-    console.log(data);
     switch (data.type) {
       case "MultipleChoice":
         return (

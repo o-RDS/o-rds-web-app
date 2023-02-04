@@ -6,26 +6,30 @@ import ConfigSidebar from "../../components/ConfigSidebar";
 import SurveyLinkModal from "../../components/SurveyLinkModal";
 import { TasksContext } from "../../context/SurveyBuilderContext";
 import SurveyBuilderContext from "../../context/SurveyBuilderContext";
-import { saveSurvey, addSurveyToUser, retrieveSurveyConfig } from "../../data/dataLayerManager";
+import {
+  saveSurvey,
+  addSurveyToUser,
+  retrieveSurveyConfig,
+} from "../../data/dataLayerManager";
 import { v4 as uuidv4 } from "uuid";
 import { useNavigate, useParams } from "react-router";
 
 export default function SurveyBuilder() {
   const initialTasks: any = "Hello";
-//   const [tasks, dispatch] = useReducer(taskReducer, initialTasks);
-//   console.log(tasks);
-//   function taskReducer (tasks: any, action: any) {
-//     if (action.type === 'added') {
-//       return action.message;
-//   }
-// }
+  //   const [tasks, dispatch] = useReducer(taskReducer, initialTasks);
+  //   console.log(tasks);
+  //   function taskReducer (tasks: any, action: any) {
+  //     if (action.type === 'added') {
+  //       return action.message;
+  //   }
+  // }
 
-//   function handleAddTask() {
-//     dispatch({
-//       type: 'added',
-//       message: "Woah I made it"
-//     });
-//   }
+  //   function handleAddTask() {
+  //     dispatch({
+  //       type: 'added',
+  //       message: "Woah I made it"
+  //     });
+  //   }
   function getDefaultSurvey(userID: string) {
     let newID = uuidv4();
     // let question1ID = uuidv4();
@@ -190,16 +194,12 @@ export default function SurveyBuilder() {
   ];
   */
   const task = useContext(TasksContext);
-  console.log(task);
   const params = useParams();
   const navigate = useNavigate();
   const [showModal, setShowModal] = useState(false);
-  const [questionIndex, setQuestionIndex] = useState(0);
   const [surveyName, setSurveyName] = useState("SurveyName");
   const [config, setConfig] = useState<any>(getDefaultSurvey("temp"));
-  const [questions, setQuestions] = useState<any>(config.questions);
-  const [question, setQuestion] = useState(questions[0]);
-  const userID = "test"
+  const userID = "test";
 
   useEffect(() => {
     if (params.surveyID !== "new" && params.surveyID !== undefined) {
@@ -211,22 +211,11 @@ export default function SurveyBuilder() {
       });
     } else if (params.surveyID === "new") {
       saveSurvey(userID, config.id, config);
-      navigate(`../${config.id}`)
+      navigate(`../${config.id}`);
     } else {
-      navigate(`/admin/dashboard`)
+      navigate(`/admin/dashboard`);
     }
   }, []);
-
-  const updateConfig = (newConfig: any) => {
-    setQuestions(newConfig);
-  };
-
-  const setCurrentQuestion = (newQuestion: any, index: number) => {
-    console.log(newQuestion);
-    console.log(index);
-    // setQuestion(newQuestion);
-    setQuestionIndex(index);
-  };
 
   return (
     <SurveyBuilderContext>
@@ -234,9 +223,6 @@ export default function SurveyBuilder() {
       <div className="flex flex-row gap-20">
         <SurveyLinkModal showModal={setShowModal} display={showModal} />
         <ConfigSidebar
-          questionIndex={questionIndex}
-          otherCurrentQuestion={questions}
-          // update={updateConfig}
         />
         <div className="mt-3 w-3/5">
           <div className="flex flex-row justify-between">
@@ -258,11 +244,7 @@ export default function SurveyBuilder() {
               </button>
             </div>
           </div>
-          <QuestionViewer
-            // updateQuestion={setCurrentQuestion}
-            // questions={questions}
-            // update={updateConfig}
-          />
+          <QuestionViewer />
         </div>
       </div>
     </SurveyBuilderContext>
