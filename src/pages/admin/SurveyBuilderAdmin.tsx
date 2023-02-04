@@ -1,6 +1,7 @@
 import { useState, useEffect, useReducer, useContext } from "react";
 import StandardPage from "../../components/StandardPage";
 import SurveyTopNav from "../../components/SurveyTopNav";
+import SurveyTopConfig from "../../components/SurveyTopConfig";
 import QuestionViewer from "../../components/QuestionViewer";
 import ConfigSidebar from "../../components/ConfigSidebar";
 import SurveyLinkModal from "../../components/SurveyLinkModal";
@@ -220,30 +221,12 @@ export default function SurveyBuilder() {
   return (
     <SurveyBuilderContext>
       <SurveyTopNav name={surveyName} />
+      <SurveyTopConfig setSurveyName={setSurveyName} setShowModal={setShowModal}/>
       <div className="flex flex-row gap-20">
-        <SurveyLinkModal showModal={setShowModal} display={showModal} />
+        <SurveyLinkModal showModal={setShowModal} display={showModal} surveyName={surveyName}/>
         <ConfigSidebar
         />
         <div className="mt-3 w-3/5">
-          <div className="flex flex-row justify-between">
-            <input
-              placeholder="Survey Name"
-              className="rounded-md bg-gray-100 text-black"
-              value={surveyName}
-              onChange={(e) => setSurveyName(e.target.value)}
-            ></input>
-            <div className="flex gap-2">
-              <button className="rounded-sm border border-rdsBlue pl-2 pr-2 text-rdsBlue">
-                Preview
-              </button>
-              <button
-                className="rounded-sm bg-rdsBlue pl-2 pr-2 text-white"
-                onClick={() => setShowModal(true)}
-              >
-                Publish
-              </button>
-            </div>
-          </div>
           <QuestionViewer />
         </div>
       </div>
