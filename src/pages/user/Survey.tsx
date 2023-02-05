@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import Question from "../../components/questions/Question";
 import SurveyTakerStandardPage from "../../components/SurveyTakerStandardPage";
 import { useNavigate, useOutletContext, useParams } from "react-router";
-import { loadResponse, writeSurveyResponse } from "../../data/dataLayerManager";
+import { completeIncentive, loadResponse, writeSurveyResponse } from "../../data/dataLayerManager";
 
 export default function Survey() {
   const [page, setPage] = useState<number>(0);
@@ -26,8 +26,8 @@ export default function Survey() {
       navigate("../");
     }
     if (params.id !== undefined) {
-      if (window.localStorage.getItem(params.id + window.sessionStorage.getItem("hash"))) {
-        let tempAlias = window.localStorage.getItem(params.id + window.sessionStorage.getItem("hash"));
+      if (window.localStorage.getItem(params.id + hash.current)) {
+        let tempAlias = window.localStorage.getItem(params.id + hash.current);
         if (tempAlias) {
           alias.current = tempAlias;
           loadResponse(params.id, tempAlias).then((data) => {
@@ -66,17 +66,23 @@ export default function Survey() {
       if (tempAlias) {
         // TODO fix this
         let tempResponse = await response.current;
-        writeSurveyResponse(params.id, tempAlias, tempResponse);
+        return writeSurveyResponse(params.id, tempAlias, tempResponse);
       }
     }
+    return false;
   }
 
-  function handleSubmit() {
+  async function handleSubmit() {
     console.log("Submitting");
     response.current.completed = true;
     console.log(response.current);
-    saveResponse();
-    navigate("../share")
+    if (params.id !== undefined && hash.current !== null) {
+      if(await saveResponse() && await completeIncentive(params.id, hash.current)) {
+        navigate("../share");
+      }
+    }
+    console.log("Failed to submit")
+    // TODO: add error message
   }
 
   // renders all questions on the current page

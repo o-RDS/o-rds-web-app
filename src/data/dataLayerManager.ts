@@ -118,6 +118,27 @@ export async function loadIncentiveInfo(surveyID: string, hash: string) {
   }
 }
 
+export async function completeIncentive(surveyID: string, hash: string) {
+  const db = getFirestore();
+  const hashRef = doc(db, "responses", surveyID, "incentives", hash);
+  try {
+    let docSnap = await getDoc(hashRef);
+    if (docSnap.exists()) {
+      let currentData = docSnap.data();
+      if (!currentData.isComplete) {
+        currentData.isComplete = true;
+        setDoc(hashRef, currentData);
+      }
+      return true;
+    } else {
+      console.log("Hash does not exist");
+      return false;
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 export async function updateIncentiveInfo(
   surveyID: string,
   hash: string,
@@ -184,11 +205,11 @@ export async function writeSurveyResponse(
       // delete the alias after the response is completed so it can't be updated again
       deleteDoc(aliasRef);
     }
+    return true;
   } else {
     console.log("Alias does not exist");
     return false;
   }
-  return true;
 }
 
 export async function retrieveSurveyConfig(id: string) {
