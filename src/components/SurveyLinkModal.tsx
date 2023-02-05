@@ -20,7 +20,7 @@ const SurveyLinkModal = (props:any) => {
                 <h1>Share Survey Link</h1>
                 <p>Use the button below to copy the link to distribute your survey.</p>
                 <div className="flex flex-row gap-5 justify-center">
-                    <div className="border-2 border-rdsOrange rounded-md pl-2 pr-2">Survey Link</div>
+                    <div className="border-2 border-rdsOrange rounded-md pl-2 pr-2">http://localhost:3000/survey/{props.surveyID}</div>
                     <button className="border-2 border-rdsBlue rounded-md pl-2 pr-2" onClick={() => copyToClipboard()}>{copyLabel}</button>
                 </div>
                 <button onClick={() => props.showModal(false)} className="bg-rdsOrange pl-2 pr-2 rounded-sm text-white">Close</button>

@@ -223,7 +223,7 @@ export default function SurveyBuilder() {
       <SurveyTopNav name={surveyName} />
       <SurveyTopConfig setSurveyName={setSurveyName} setShowModal={setShowModal}/>
       <div className="flex flex-row gap-20">
-        <SurveyLinkModal showModal={setShowModal} display={showModal} surveyName={surveyName}/>
+        <SurveyLinkModal showModal={setShowModal} display={showModal} surveyName={surveyName} surveyID={config.id}/>
         <ConfigSidebar
         />
         <div className="mt-3 w-3/5">
