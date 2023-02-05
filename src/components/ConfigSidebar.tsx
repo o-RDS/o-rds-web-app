@@ -1,25 +1,36 @@
-import react from "react";
+import { updateCurrentUser } from "firebase/auth";
+import react, { useContext } from "react";
+import MCSidebar from "./config-sidebar/MCSidebar";
+import ShortAnswerSidebar from "./config-sidebar/ShortAnswerSidebar";
+import FillBlankSidebar from "./config-sidebar/FillBlankSidebar";
+import CheckboxSidebar from "./config-sidebar/CheckboxSidebar";
+import {
+  TasksContext,
+  TasksDispatchContext,
+} from "../context/SurveyBuilderContext";
 
 export default function ConfigSidebar(props: any) {
-  const choicesArray: any = props.currentQuestion.choices.value.map((choice: any) => <li key={choice}>{choice}</li>)
+  const task = useContext(TasksContext);
+
+  function getQuestionConfig(data: any) {
+    switch (data.type) {
+      case "MultipleChoice":
+        return <MCSidebar />;
+      case "FillInBlank":
+        return <FillBlankSidebar />;
+      case "ShortAnswer":
+        return <ShortAnswerSidebar />;
+      case "Checkbox":
+        return <CheckboxSidebar />;
+      default:
+        return <p>"Unknown Question Type"</p>;
+    }
+  }
+
   return (
     <>
-      <div className="flex flex-col justify-start items-center border-r border-black w-1/5 gap-2">
-        <div>
-          <label>{props.currentQuestion.prompt.configPrompt}</label>
-          <input type="text" placeholder="This is a question" className="border border-rdsOrange rounded-sm w-3/5"></input>
-        </div>
-        <div>
-          <label>{props.currentQuestion.shuffle.configPrompt}</label>
-          <input type="checkbox"></input>
-        </div>
-        <div>
-          <label>{props.currentQuestion.choices.configPrompt}</label>
-          <input type="text" placeholder="Add Choices Here" className="border border-rdsOrange rounded-sm w-3/5"></input>
-          <ul>
-            {choicesArray}
-          </ul>
-        </div>
+      <div className="flex w-1/4 flex-col items-center justify-start gap-2 border-r border-black">
+        {getQuestionConfig(task["survey"]["questions"][task["question"]])}
       </div>
     </>
   );

@@ -10,6 +10,7 @@ export default function PaymentManager() {
         console.log(data)
     });
        
+    // TODO: Allow for configuration of payout per response -> this gets sent to ReceivePayment.tsx
 
     return (
         <StandardPage>

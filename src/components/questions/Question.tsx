@@ -3,7 +3,6 @@ import MultipleChoice from "./MultipleChoice";
 import FillInTheBlank from "./FillInTheBlank";
 import ShortAnswer from "./ShortAnswer";
 import Checkbox from "./Checkbox";
-import "./Question.css";
 
 export default function Question(props: any) {
   // this defines the properties that should be present on each question
@@ -11,7 +10,7 @@ export default function Question(props: any) {
     type: string;
     page: number;
     config?: Object;
-  };
+  }
 
   // this will retrieve the questions default config, add type and page, and pass it to the SurveyBuilder component (up the chain)
   function getConfig(configData: Object) {
@@ -36,18 +35,50 @@ export default function Question(props: any) {
     // console.log(props.currentValue);
     switch (data.type) {
       case "MultipleChoice":
-        return <MultipleChoice config={data.config} updateResponse={updateResponse} currentValue={props.currentAnswer} index={props.index}/>;
+        return (
+          <MultipleChoice
+            config={data.config}
+            updateResponse={updateResponse}
+            currentValue={props.currentAnswer}
+            index={props.index}
+          />
+        );
       case "FillInBlank":
-        return <FillInTheBlank config={data.config} updateResponse={updateResponse} currentValue={props.currentAnswer} index={props.index}/>;
+        return (
+          <FillInTheBlank
+            config={data.config}
+            updateResponse={updateResponse}
+            currentValue={props.currentAnswer}
+            index={props.index}
+          />
+        );
       case "ShortAnswer":
-        return <ShortAnswer config={data.config} updateResponse={updateResponse} currentValue={props.currentAnswer} index={props.index}/>
+        return (
+          <ShortAnswer
+            config={data.config}
+            updateResponse={updateResponse}
+            currentValue={props.currentAnswer}
+            index={props.index}
+          />
+        );
       case "Checkbox":
-        return <Checkbox config={data.config} updateResponse={updateResponse} currentValue={props.currentAnswer} index={props.index}/>
+        return (
+          <Checkbox
+            config={data.config}
+            updateResponse={updateResponse}
+            currentValue={props.currentAnswer}
+            index={props.index}
+          />
+        );
       default:
         return <p>"Unknown Question Type"</p>;
     }
   }
 
   // Returns the appropriate component
-  return <div className="bg-white p-4 rounded-md border-t-2 border-t-rdsOrange shadow-sm shadow-black">{getQuestionType(props.data)}</div>;
+  return (
+    <div className="rounded-md border-t-2 border-t-rdsOrange bg-white p-4 shadow-sm shadow-black">
+      {getQuestionType(props.data)}
+    </div>
+  );
 }

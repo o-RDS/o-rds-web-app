@@ -4,6 +4,8 @@ import { setPhone, setChainInfo } from "../../data/sessionManager";
 import { useState, useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import Sha256 from "../../data/Sha256";
+import { startVerification } from "../../APIs/Twilio"
+import { start } from "repl";
 
 export default function PhoneEntry() {
   const [phoneNum, setPhoneNum] = useState("");
@@ -48,6 +50,12 @@ export default function PhoneEntry() {
       setError("Invalid Phone Number");
       return;
     }
+
+    console.log(`Sending verification: ${phoneNum}`);
+    startVerification(phoneNum)
+      .then(data => {
+        console.log(data)
+    });
 
     setPhone(num);
     console.log(num);
