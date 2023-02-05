@@ -33,22 +33,21 @@ export function signIn() {
     });
 }
 
-export function generateAlias(surveyID: string) {
+export async function generateAlias(surveyID: string) {
   const db = getFirestore();
-  let aliasCreated = false;
+  var aliasCreated = false;
   // loops until free alias is found
   while (!aliasCreated) {
     let alias = (Math.floor(Math.random() * 10000) + 10000)
       .toString()
       .substring(1);
     const aliasRef = doc(db, "surveys", surveyID, "aliases", alias);
-    getDoc(aliasRef).then((docSnap) => {
-      if (!docSnap.exists()) {
-        setDoc(aliasRef, { responseID: uuidv4() });
-        aliasCreated = true;
-        return alias;
-      }
-    });
+    let docSnap = await getDoc(aliasRef);
+    if (!docSnap.exists()) {
+      setDoc(aliasRef, { responseID: uuidv4() });
+      aliasCreated = true;
+      return alias;
+    }
   }
 }
 
@@ -98,28 +97,17 @@ export async function saveSurveyConfig(
 ) {
   const db = getFirestore();
   const docRef = doc(db, "surveys", surveyID);
-  const userRef = doc(db, "users", userID);
   console.log(`Saving survey ${surveyID} for user ${userID}`);
   try {
     getDoc(docRef).then((snap) => {
       if (snap.exists()) {
-        console.log("Document exists");
-        getDoc(userRef).then((docSnap) => {
-          console.log(docSnap.data());
-          if (docSnap.exists()) {
-            let data = docSnap.data();
-            console.log(data.surveys, surveyID);
-            if (data.surveys.includes(surveyID)) {
-              setDoc(docRef, surveyData);
-            } else {
-              console.log("Unauthorized access to survey");
-              return false;
-            }
-          } else {
-            console.log("User does not exist");
-            return false;
-          }
-        });
+        if (snap.data().admins.includes(userID)) {
+          console.log("User is admin, updating survey")
+          setDoc(docRef, surveyData);
+        } else {
+          console.log("Unauthorized access to survey");
+          return false;
+        }
       } else {
         addSurveyToUser(userID, surveyID);
         setDoc(docRef, surveyData);

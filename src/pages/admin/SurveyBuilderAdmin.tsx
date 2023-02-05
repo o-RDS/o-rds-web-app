@@ -178,7 +178,7 @@ export default function SurveyBuilder() {
   const [showModal, setShowModal] = useState(false);
   const [questionIndex, setQuestionIndex] = useState(0);
   const [surveyName, setSurveyName] = useState("SurveyName");
-  const [config, setConfig] = useState<any>(getDefaultSurvey("temp"));
+  const [config, setConfig] = useState<any>(getDefaultSurvey("test"));
   const [questions, setQuestions] = useState<any>(config.questions);
   const [question, setQuestion] = useState(questions[0]);
   const userID = "test"
