@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require('cors');
 const httpProxy = require('http-proxy'); 
+const { response } = require("express");
 
 const app = express()
 const port = 8080
@@ -42,10 +43,14 @@ app.post(`/v2/Services/${serviceSid}/Verifications`, (req, res) => {
     apiProxy.web(req, res, {target: twilioServer}); 
 });
 
-// 404 not found when trying to access
 app.post(`/v2/Services/${serviceSid}/VerificationCheck`, (req, res) => {
     console.log(`redirecting to Twilio ${req.url}`);
     apiProxy.web(req, res, {target: twilioServer}); 
+});
+
+// default route
+app.use((req, res) => {
+    response.send("Error: not allowed.");
 });
 
 //Start the server

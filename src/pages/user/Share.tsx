@@ -9,8 +9,10 @@ export default function Share() {
     let link = window.location.href;
     link = link.replace(
       "/share",
-      "?p=" +
+      "?r=" +
         window.sessionStorage.getItem("hash") +
+        "&p=" +
+        window.sessionStorage.getItem("responseID") +
         "&d=" +
         window.sessionStorage.getItem("depth")
     );
