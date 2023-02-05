@@ -26,6 +26,9 @@ export default function ConfigContext(props: any) {
         if (data == null) {
           navigate("/invalid");
         } else {
+          if (!data.live) {
+            navigate("/invalid");
+          }
           console.log(data);
           config.current = data;
           if (params.id && typeof params.id === "string") {
