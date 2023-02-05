@@ -45,7 +45,7 @@ Utilizing `props.index` is high recommended, and you should  increment it by one
 
 The other prop that should be used is `props.currentValue`, which allows the `Survey` page to pass down the current value of questions so that they can properly display their current answer. How you implement this will depend on the input method(s) the user is provided with.
 
-### Question Makeup
+## Question Makeup
 As stated above you have complete freedom to implement any type of question of your choosing. But before we go any further it is important to understand the specifics of how a question is made. 
 
 If you recall from above, when a question is finally built it will look like this:
@@ -76,7 +76,7 @@ This contains the most basic of information for the question, i.e. the question 
 
 The `value` field contains the question, the `configPrompt` is used in the Survey Builder (and will be covered in the Survey Builder documentation), and the `type` field specifies how to render that particular characteristic.
 
-In all it will looks something like this:
+In all it will look something like this:
 
 ```
 {
@@ -102,7 +102,15 @@ In all it will looks something like this:
     },
 ```
 
-This is the 
+This is the basis for every question you will make. Underneath the `config` field, you can add any additional fields. For example, the multiple choice question has a `shuffle` and `choices` field. If you wanted you could add another field that would modify the question, it should follow the format of
+```
+field: {
+  value: "",
+  configPrompt: "",
+  type: ""
+} 
+```
+
 
 
 
