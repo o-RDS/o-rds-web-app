@@ -8,6 +8,7 @@ import {
   deleteDoc,
 } from "firebase/firestore";
 import { v4 as uuidv4 } from "uuid";
+import { completion } from "yargs";
 
 const firebaseConfig = {
   apiKey: "AIzaSyB6d-taZfAJEpjzl46igYQjx0l-l2Xp92E",
@@ -46,7 +47,7 @@ export async function generateAlias(surveyID: string) {
     let docSnap = await getDoc(aliasRef);
     if (!docSnap.exists()) {
       let newID = uuidv4();
-      setDoc(aliasRef, { responseID: newID });
+      setDoc(aliasRef, { responseID: newID, childResponses: [] });
       aliasCreated = true;
       return { alias: alias, responseID: newID };
     }
@@ -62,7 +63,13 @@ export async function loadResponse(surveyID: string, alias: string) {
   let docSnap = await getDoc(aliasRef);
   if (docSnap.exists()) {
     let responseID = docSnap.data().responseID;
-    const responseRef = doc(db, "responses", surveyID, "surveyResults", responseID);
+    const responseRef = doc(
+      db,
+      "responses",
+      surveyID,
+      "surveyResults",
+      responseID
+    );
     let responseSnap = await getDoc(responseRef);
     if (responseSnap.exists()) {
       return responseSnap.data();
@@ -75,11 +82,11 @@ export async function loadResponse(surveyID: string, alias: string) {
 
 export async function addHash(surveyID: string, hash: string) {
   const db = getFirestore();
-  const hashRef = doc(db, "surveys", surveyID, "incentives", hash);
+  const hashRef = doc(db, "responses", surveyID, "incentives", hash);
   try {
     let docSnap = await getDoc(hashRef);
     if (!docSnap.exists()) {
-      setDoc(hashRef, { 
+      setDoc(hashRef, {
         isComplete: false,
         completionClaimed: false,
         successfulReferrals: 0,
@@ -95,6 +102,55 @@ export async function addHash(surveyID: string, hash: string) {
   }
 }
 
+export async function loadIncentiveInfo(surveyID: string, hash: string) {
+  const db = getFirestore();
+  const hashRef = doc(db, "responses", surveyID, "incentives", hash);
+  try {
+    let docSnap = await getDoc(hashRef);
+    if (docSnap.exists()) {
+      return docSnap.data();
+    } else {
+      console.log("Hash does not exist");
+      return false;
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function updateIncentiveInfo(
+  surveyID: string,
+  hash: string,
+  data: any
+) {
+  const db = getFirestore();
+  const hashRef = doc(db, "responses", surveyID, "incentives", hash);
+  try {
+    let docSnap = await getDoc(hashRef);
+    if (docSnap.exists()) {
+      let currentData = docSnap.data();
+      // checks to prevent updates that would allow a user to claim more than allowed incentives
+      if (
+        data.isComplete &&
+        currentData.claimedReferrals < data.claimedReferrals &&
+        currentData.successfulReferrals < data.successfulReferrals &&
+        !(
+          currentData.completionClaimed === true &&
+          data.completionClaimed === false
+        )
+      ) {
+        setDoc(hashRef, data);
+      }
+      return true;
+    } else {
+      console.log("Hash does not exist");
+      return false;
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 export async function writeSurveyResponse(
   surveyID: string,
   alias: string,
@@ -103,14 +159,28 @@ export async function writeSurveyResponse(
   const db = getFirestore();
   const aliasRef = doc(db, "responses", surveyID, "aliases", alias);
   let docSnap = await getDoc(aliasRef);
-  console.log("Writing response", response, "to alias", alias, "for survey", surveyID, "")
+  console.log(
+    "Writing response",
+    response,
+    "to alias",
+    alias,
+    "for survey",
+    surveyID,
+    ""
+  );
   if (docSnap.exists()) {
-    console.log("Alias exists, writing response")
+    console.log("Alias exists, writing response");
     let responseID = docSnap.data().responseID;
-    const responseRef = doc(db, "responses", surveyID, "surveyResults", responseID);
+    const responseRef = doc(
+      db,
+      "responses",
+      surveyID,
+      "surveyResults",
+      responseID
+    );
     setDoc(responseRef, response);
     if (response.completed) {
-      console.log("Survey completed, deleting alias")
+      console.log("Survey completed, deleting alias");
       // delete the alias after the response is completed so it can't be updated again
       deleteDoc(aliasRef);
     }
@@ -148,7 +218,7 @@ export async function saveSurveyConfig(
     let docSnap = await getDoc(docRef);
     if (docSnap.exists()) {
       if (docSnap.data().admins.includes(userID)) {
-        console.log("User is admin, updating survey")
+        console.log("User is admin, updating survey");
         setDoc(docRef, surveyData);
       } else {
         console.log("Unauthorized access to survey");
