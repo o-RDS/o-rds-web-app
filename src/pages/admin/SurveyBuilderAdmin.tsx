@@ -37,6 +37,7 @@ export default function SurveyBuilder() {
       id: newID,
       title: "Untitled Survey",
       admins: [userID],
+      live: false,
       completionPayout: 0.0,
       refPayout: 0.0,
       maxRefs: 0,
