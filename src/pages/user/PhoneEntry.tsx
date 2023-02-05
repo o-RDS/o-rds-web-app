@@ -16,9 +16,13 @@ export default function PhoneEntry() {
   // change to parent
   useEffect(() => {
     let parent = searchParams.get("p");
+    let referer = searchParams.get("r");
     let depth = 1;
     if (parent == null) {
       parent = "root";
+    }
+    if (referer == null) {
+      referer = "root";
     }
       /* USE THIS CODE ONCE WE HAVE VALID SURVEY DATA (maybe)
            THERE ALSO NEEDS TO BE A FUNCTION TO GET USER DATA
@@ -34,7 +38,7 @@ export default function PhoneEntry() {
     if (depthStr != null) {
       depth = parseInt(depthStr) + 1;
     }
-    setChainInfo(parent, depth);
+    setChainInfo(parent, referer, depth);
   }, [searchParams, navigate]);
 
   function submitNum() {

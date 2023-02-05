@@ -33,6 +33,9 @@ export default function Survey() {
           loadResponse(params.id, tempAlias).then((data) => {
             if (data) {
               response.current = data;
+              response.current.parentID = window.sessionStorage.getItem("parent");
+              response.current.depth = window.sessionStorage.getItem("depth");
+              window.sessionStorage.setItem("responseID", data.responseID);
               setRe(!re);
             }
           });
