@@ -1,18 +1,45 @@
-import React, { useState, useRef, useContext, useEffect } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Question from "../../components/questions/Question";
 import SurveyTakerStandardPage from "../../components/SurveyTakerStandardPage";
-import { useNavigate, useOutletContext } from "react-router";
+import { useNavigate, useOutletContext, useParams } from "react-router";
+import { loadResponse, writeSurveyResponse } from "../../data/dataLayerManager";
 
 export default function Survey() {
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState<number>(0);
   const [design, setDesign] = useState<any>([{}]);
+  const [re, setRe] = useState(false);
+  const params = useParams();
   const navigate = useNavigate();
   const config:any = useOutletContext();
   const response:any = useRef({});
+  const alias = useRef<string>("");
+  const hash = useRef<string>("");
 
   useEffect(() => {
     if (config !== null && config !== undefined) {
       setDesign(config.questions);
+    }
+    let tempHash = window.sessionStorage.getItem("hash");
+    if (tempHash) {
+      hash.current = tempHash;
+    } else {
+      navigate("../");
+    }
+    if (params.id !== undefined) {
+      if (window.localStorage.getItem(params.id + window.sessionStorage.getItem("hash"))) {
+        let tempAlias = window.localStorage.getItem(params.id + window.sessionStorage.getItem("hash"));
+        if (tempAlias) {
+          alias.current = tempAlias;
+          loadResponse(params.id, tempAlias).then((data) => {
+            if (data) {
+              response.current = data;
+              setRe(!re);
+            }
+          });
+        }
+      } else {
+        navigate("../resume");
+      }
     }
   }, [])
 
@@ -27,27 +54,28 @@ export default function Survey() {
     console.log(response.current);
   }
 
-  const changePage = (whichWay: string) => {
-    let pageTo: number = 0;
-    if (whichWay === "up") {
-      if (page < 4) {
-        pageTo = page + 1;
-      } else {
-        pageTo = page;
-      }
-    } else if (whichWay === "down") {
-      if ((page) > 0) {
-        pageTo = page - 1;
-      } else {
-        pageTo = page;
+  function changePage(modifier: number) {
+    saveResponse() 
+    setPage(page + modifier);
+  }
+
+  async function saveResponse() {
+    let tempHash = hash.current;
+    if (params.id !== undefined && tempHash !== null) {
+      let tempAlias = window.localStorage.getItem(params.id + tempHash);
+      if (tempAlias) {
+        // TODO fix this
+        let tempResponse = await response.current;
+        writeSurveyResponse(params.id, tempAlias, tempResponse);
       }
     }
-    setPage(pageTo);
   }
 
   function handleSubmit() {
     console.log("Submitting");
+    response.current.completed = true;
     console.log(response.current);
+    saveResponse();
     navigate("../share")
   }
 
@@ -83,7 +111,7 @@ export default function Survey() {
         {/*Bottom Navigation*/}
         <div className="flex flex-row justify-center mt-auto md:mt-0 w-4/5 md:w-1/3 min-h-[36px]">
           {page > 0 ? 
-            <button className="p-1 w-1/3 rounded bg-white border-2 border-rdsOrange text-rdsOrange" onClick={() => setPage(page - 1)}>Back</button>
+            <button className="p-1 w-1/3 rounded bg-white border-2 border-rdsOrange text-rdsOrange" onClick={() => changePage(-1)}>Back</button>
             :
             (design[design.length - 1].page > 0 && <div className="w-1/3"></div>)
           }
@@ -91,11 +119,12 @@ export default function Survey() {
           <p className="w-1/3 text-center">{page + 1} of {design[design.length - 1].page+1}</p>
           }
           { design[design.length - 1].page < page ?
-            <button className="p-1 w-1/3 rounded bg-rdsOrange text-white" onClick={() => setPage(page + 1)}>Next</button>
+            <button className="p-1 w-1/3 rounded bg-rdsOrange text-white" onClick={() => changePage(1)}>Next</button>
             :
             <button className="p-1 w-1/3 rounded bg-rdsOrange text-white" onClick={() => handleSubmit()}>Submit</button>
           }
         </div>
+        <p>If you have to leave the survey, write down this code, which you can use to load your progress, even on another device: {alias.current}</p>
     </SurveyTakerStandardPage>
   );
 }
