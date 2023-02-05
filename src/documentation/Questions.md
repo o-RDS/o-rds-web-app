@@ -54,7 +54,7 @@ case "MultipleChoice":
         return <MultipleChoice config={data.config} updateResponse={updateResponse} currentValue={props.currentAnswer} index={props.index}/>;
 ```
 
-Each of these props provide the most basic and necessary information for the question to function. Let's dive into what each of these do.
+Each of these props provide the most basic and necessary information for the question to function. `updateResponse`, `currentValue`, and `index` have been discussed already. The most important prop that must be passed is the config prop. Let's dive into what it does.
 
 ### Config
 To first understand the config prop, you should first understand what the configuration profile of a question looks like. 
@@ -110,6 +110,9 @@ field: {
   type: ""
 } 
 ```
+
+### updateResponse
+Included in the question  
 
 
 
