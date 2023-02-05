@@ -1,14 +1,35 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useReducer, useContext } from "react";
 import StandardPage from "../../components/StandardPage";
 import SurveyTopNav from "../../components/SurveyTopNav";
+import SurveyTopConfig from "../../components/SurveyTopConfig";
 import QuestionViewer from "../../components/QuestionViewer";
 import ConfigSidebar from "../../components/ConfigSidebar";
 import SurveyLinkModal from "../../components/SurveyLinkModal";
-import { saveSurveyConfig, addSurveyToUser, retrieveSurveyConfig } from "../../data/dataLayerManager";
+import { TasksContext } from "../../context/SurveyBuilderContext";
+import SurveyBuilderContext from "../../context/SurveyBuilderContext";
+import {
+  saveSurveyConfig,
+  retrieveSurveyConfig,
+} from "../../data/dataLayerManager";
 import { v4 as uuidv4 } from "uuid";
 import { useNavigate, useParams } from "react-router";
 
 export default function SurveyBuilder() {
+  const initialTasks: any = "Hello";
+  //   const [tasks, dispatch] = useReducer(taskReducer, initialTasks);
+  //   console.log(tasks);
+  //   function taskReducer (tasks: any, action: any) {
+  //     if (action.type === 'added') {
+  //       return action.message;
+  //   }
+  // }
+
+  //   function handleAddTask() {
+  //     dispatch({
+  //       type: 'added',
+  //       message: "Woah I made it"
+  //     });
+  //   }
   function getDefaultSurvey(userID: string) {
     let newID = uuidv4();
     // let question1ID = uuidv4();
@@ -172,15 +193,14 @@ export default function SurveyBuilder() {
     },
   ];
   */
-
+  const task = useContext(TasksContext);
   const params = useParams();
   const navigate = useNavigate();
   const [showModal, setShowModal] = useState(false);
-  const [questionIndex, setQuestionIndex] = useState(0);
   const [surveyName, setSurveyName] = useState("SurveyName");
   const [config, setConfig] = useState<any>(getDefaultSurvey("test"));
-  const [questions, setQuestions] = useState<any>(config.questions);
-  const [question, setQuestion] = useState(questions[0]);
+  //const [questions, setQuestions] = useState<any>(config.questions);
+  //const [question, setQuestion] = useState(questions[0]);
   const userID = "test"
 
   useEffect(() => {
@@ -195,58 +215,22 @@ export default function SurveyBuilder() {
       saveSurveyConfig(userID, config.id, config);
       navigate(`../${config.id}`)
     } else {
-      navigate(`/admin/dashboard`)
+      navigate(`/admin/dashboard`);
     }
   }, []);
 
-  const updateConfig = (newConfig: any) => {
-    setQuestions(newConfig);
-  };
-
-  const setCurrentQuestion = (newQuestion: any, index: number) => {
-    console.log(newQuestion);
-    console.log(index);
-    // setQuestion(newQuestion);
-    setQuestionIndex(index);
-  };
-
   return (
-    <div>
+    <SurveyBuilderContext>
       <SurveyTopNav name={surveyName} />
+      <SurveyTopConfig setSurveyName={setSurveyName} setShowModal={setShowModal}/>
       <div className="flex flex-row gap-20">
-        <SurveyLinkModal showModal={setShowModal} display={showModal} />
+        <SurveyLinkModal showModal={setShowModal} display={showModal} surveyName={surveyName}/>
         <ConfigSidebar
-          questionIndex={questionIndex}
-          otherCurrentQuestion={questions}
-          update={updateConfig}
         />
         <div className="mt-3 w-3/5">
-          <div className="flex flex-row justify-between">
-            <input
-              placeholder="Survey Name"
-              className="rounded-md bg-gray-100 text-black"
-              value={surveyName}
-              onChange={(e) => setSurveyName(e.target.value)}
-            ></input>
-            <div className="flex gap-2">
-              <button className="rounded-sm border border-rdsBlue pl-2 pr-2 text-rdsBlue">
-                Preview
-              </button>
-              <button
-                className="rounded-sm bg-rdsBlue pl-2 pr-2 text-white"
-                onClick={() => setShowModal(true)}
-              >
-                Publish
-              </button>
-            </div>
-          </div>
-          <QuestionViewer
-            updateQuestion={setCurrentQuestion}
-            questions={questions}
-            update={updateConfig}
-          />
+          <QuestionViewer />
         </div>
       </div>
-    </div>
+    </SurveyBuilderContext>
   );
 }

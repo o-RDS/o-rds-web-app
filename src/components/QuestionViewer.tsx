@@ -1,9 +1,12 @@
-import react, { useState } from "react";
+import react, { useContext, useState } from "react";
 import QuestionConfig from "./config-questions/QuestionConfig";
+import { TasksContext, TasksDispatchContext } from "../context/SurveyBuilderContext";
 
 export default function QuestionViewer(props: any) {
+  const task = useContext(TasksContext);
+  const dispatch = useContext(TasksDispatchContext);
   //questions would be filled in through a database call and any uses of design would be replace with questions
-  const proofQuestionToAdd: any[] = [
+  const proofQuestionToAdd: any = 
     {
       page: 0,
       type: "MultipleChoice",
@@ -24,38 +27,35 @@ export default function QuestionViewer(props: any) {
           type: "stringArray",
         },
       },
-    },
-  ];
+    }
+  ;
 
-  const addQuestion = () => {
-    //Also update in server you're using
-    let newConfig = props.questions;
-    console.log(newConfig);
-    //TODO: look into updating list a different way. Should be able to use prev and array destructuring
-    console.log(newConfig.concat(proofQuestionToAdd));
-    props.update(newConfig.concat(proofQuestionToAdd));
-    // setQuestions(questions.concat(proofQuestionToAdd));
-  };
 
-  const changeOptions = (questionUpdate: any) => {
-    props.updateQuestion(questionUpdate);
-  };
+  function handleAddedQuestion() {
+    let test: any = task;
+    test['survey']['questions'] = task['survey']['questions'].concat(proofQuestionToAdd);
+    console.log(test);
+      dispatch({
+        type: "update",
+        questions: test['survey'],
+        question: task['question']
+      })
+  }
 
-  const chooseQuestion = (newQuestion: any, index: number) => {
-    props.updateQuestion(newQuestion, index);
-    // target.tabIndex = -1;
-    // target.focus();
-  };
-
-  const testArray = props.questions.map((question: any, index: number) => {
+let testArray;
+  try {
+  testArray = task['survey']['questions'].map((question: any, index: number) => {
     return (
       <QuestionConfig
         data={question}
         index={index}
-        changeQuestion={chooseQuestion}
+        // changeQuestion={chooseQuestion}
       />
     );
   });
+} catch(error) {
+  console.log(error);
+}
 
   return (
     <>
@@ -64,7 +64,7 @@ export default function QuestionViewer(props: any) {
           <div className="flex w-full flex-col gap-4">{testArray}</div>
           <button
             className="w-fit rounded-sm bg-rdsBlue pl-2 pr-2 text-white"
-            onClick={() => addQuestion()}
+            onClick={() => handleAddedQuestion()}
           >
             + Add Question
           </button>
