@@ -7,7 +7,7 @@ const SurveyLinkModal = (props:any) => {
     }
 
     function copyToClipboard() {
-        navigator.clipboard.writeText("SurveyLink");
+        navigator.clipboard.writeText(`http://localhost:3000/survey/${props.surveyID}`);
         setCopyLabel("Copied");
         setTimeout(() => {
           setCopyLabel("Copy");
