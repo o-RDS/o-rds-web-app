@@ -1,18 +1,18 @@
 import React, { useContext } from "react";
 import {
-  TasksContext,
-  TasksDispatchContext,
+  SurveyContext,
+  SurveyDispatchContext,
 } from "../../context/SurveyBuilderContext";
 
 export default function ShortAnswerConfig(props: any) {
-  const task = useContext(TasksContext);
-  const taskQuestions = task["survey"]["questions"][props.index];
-  const dispatch = useContext(TasksDispatchContext);
+  const surveyState = useContext(SurveyContext);
+  const taskQuestions = surveyState["survey"]["questions"][props.index];
+  const dispatch = useContext(SurveyDispatchContext);
 
   function handleQuestionChange(index: number) {
     dispatch({
       type: "update",
-      questions: task["survey"],
+      questions: surveyState["survey"],
       question: index,
     });
   }

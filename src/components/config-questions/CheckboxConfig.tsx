@@ -1,18 +1,18 @@
 import React, { useContext } from "react";
 import {
-  TasksContext,
-  TasksDispatchContext,
+  SurveyContext,
+  SurveyDispatchContext,
 } from "../../context/SurveyBuilderContext";
 
 export default function CheckboxConfig(props: any) {
-  const task = useContext(TasksContext);
-  const dispatch = useContext(TasksDispatchContext);
-  const taskQuestions = task["survey"]["questions"][props.index];
+  const surveyState = useContext(SurveyContext);
+  const dispatch = useContext(SurveyDispatchContext);
+  const taskQuestions = surveyState["survey"]["questions"][props.index];
 
   function handleQuestionChange(index: number) {
     dispatch({
       type: "update",
-      questions: task["survey"],
+      questions: surveyState["survey"],
       question: index,
     });
   }

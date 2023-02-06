@@ -1,41 +1,41 @@
 import React, { useContext } from "react";
 import {
-  TasksContext,
-  TasksDispatchContext,
+  SurveyContext,
+  SurveyDispatchContext,
 } from "../../context/SurveyBuilderContext";
 
 export default function CheckboxSidebar(props: any) {
-  const task = useContext(TasksContext);
-  const taskQuestions = task["survey"]["questions"][task["question"]];
-  const dispatch = useContext(TasksDispatchContext);
+  const surveyState = useContext(SurveyContext);
+  const taskQuestions = surveyState["survey"]["questions"][surveyState["question"]];
+  const dispatch = useContext(SurveyDispatchContext);
   const choicesArray: any = taskQuestions.config.choices.value.map(
     (choice: any) => <li key={choice}>{choice}</li>
   );
 
   function handleTitleChange(e: any) {
-    let test: any = task;
+    let test: any = surveyState;
     test["survey"]["questions"][test["question"]]["config"]["prompt"]["value"] =
       e.target.value;
     dispatch({
       type: "question-prompt",
       questions: test["survey"],
-      question: task["question"],
+      question: surveyState["question"],
     });
   }
 
   function handleChoiceChange(e: any) {
-    let test: any = task;
+    let test: any = surveyState;
     test["questions"][props.index]["config"]["prompt"]["value"] =
       e.target.value;
     dispatch({
       type: "question-prompt",
       questions: test,
-      question: task["question"],
+      question: surveyState["question"],
     });
   }
 
   function handleCheckChange(e: any) {
-    let test: any = task;
+    let test: any = surveyState;
     test["survey"]["questions"][test["question"]]["config"]["shuffle"][
       "value"
     ] = e.target.checked;

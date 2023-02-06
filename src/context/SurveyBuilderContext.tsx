@@ -3,8 +3,8 @@ import { useParams, useNavigate, Outlet } from "react-router";
 import { retrieveSurveyConfig, signIn } from "../data/dataLayerManager";
 import { createContext } from "react";
 
-export const TasksContext = createContext<any>(null);
-export const TasksDispatchContext = createContext<any>(null);
+export const SurveyContext = createContext<any>(null);
+export const SurveyDispatchContext = createContext<any>(null);
 
 export default function SurveyBuilderContext(props: any) {
   function getDefaultSurvey(userID: string) {
