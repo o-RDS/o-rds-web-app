@@ -1,18 +1,18 @@
 import React, { useContext } from "react";
 import {
-  SurveyContext,
-  SurveyDispatchContext,
+  TasksContext,
+  TasksDispatchContext,
 } from "../../context/SurveyBuilderContext";
 
 export default function FillBlankConfig(props: any) {
-  const surveyState = useContext(SurveyContext);
-  const dispatch = useContext(SurveyDispatchContext);
-  const taskQuestions = surveyState["survey"]["questions"][props.index];
+  const task = useContext(TasksContext);
+  const dispatch = useContext(TasksDispatchContext);
+  const taskQuestions = task["survey"]["questions"][props.index];
 
   function handleQuestionChange(index: number) {
     dispatch({
       type: "update",
-      questions: surveyState["survey"],
+      questions: task["survey"],
       question: index,
     });
   }

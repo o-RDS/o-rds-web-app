@@ -5,11 +5,12 @@ import ShortAnswerSidebar from "./config-sidebar/ShortAnswerSidebar";
 import FillBlankSidebar from "./config-sidebar/FillBlankSidebar";
 import CheckboxSidebar from "./config-sidebar/CheckboxSidebar";
 import {
-  SurveyContext,
+  TasksContext,
+  TasksDispatchContext,
 } from "../context/SurveyBuilderContext";
 
 export default function ConfigSidebar(props: any) {
-  const surveyState = useContext(SurveyContext);
+  const task = useContext(TasksContext);
 
   function getQuestionConfig(data: any) {
     switch (data.type) {
@@ -29,7 +30,7 @@ export default function ConfigSidebar(props: any) {
   return (
     <>
       <div className="flex w-1/4 flex-col items-center justify-start gap-2 border-r border-black">
-        {getQuestionConfig(surveyState["survey"]["questions"][surveyState["question"]])}
+        {getQuestionConfig(task["survey"]["questions"][task["question"]])}
       </div>
     </>
   );

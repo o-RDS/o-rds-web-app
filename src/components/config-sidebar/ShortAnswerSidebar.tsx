@@ -1,22 +1,22 @@
 import React, { useContext } from "react";
 import {
-  SurveyContext,
-  SurveyDispatchContext,
+  TasksContext,
+  TasksDispatchContext,
 } from "../../context/SurveyBuilderContext";
 
 export default function ShortAnswerSidebar(props: any) {
-  const surveyState = useContext(SurveyContext);
-  const taskQuestions = surveyState["survey"]["questions"][surveyState["question"]];
-  const dispatch = useContext(SurveyDispatchContext);
+  const task = useContext(TasksContext);
+  const taskQuestions = task["survey"]["questions"][task["question"]];
+  const dispatch = useContext(TasksDispatchContext);
 
   function handleTitleChange(e: any) {
-    let test: any = surveyState;
+    let test: any = task;
     test["survey"]["questions"][test["question"]]["config"]["prompt"]["value"] =
       e.target.value;
     dispatch({
       type: "question-prompt",
       questions: test["survey"],
-      question: surveyState["question"],
+      question: task["question"],
     });
   }
 

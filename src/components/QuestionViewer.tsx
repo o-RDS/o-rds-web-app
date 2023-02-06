@@ -1,13 +1,13 @@
 import react, { useContext, useState } from "react";
 import QuestionConfig from "./config-questions/QuestionConfig";
 import {
-  SurveyContext,
-  SurveyDispatchContext,
+  TasksContext,
+  TasksDispatchContext,
 } from "../context/SurveyBuilderContext";
 
 export default function QuestionViewer(props: any) {
-  const surveyState = useContext(SurveyContext);
-  const dispatch = useContext(SurveyDispatchContext);
+  const task = useContext(TasksContext);
+  const dispatch = useContext(TasksDispatchContext);
   //questions would be filled in through a database call and any uses of design would be replace with questions
   const proofQuestionToAdd: any = {
     page: 0,
@@ -30,26 +30,27 @@ export default function QuestionViewer(props: any) {
       },
     },
   };
-
   function handleAddedQuestion() {
-    let test: any = surveyState;
-    test["survey"]["questions"] = surveyState["survey"]["questions"].concat(proofQuestionToAdd);
+    let test: any = task;
+    test["survey"]["questions"] =
+      task["survey"]["questions"].concat(proofQuestionToAdd);
+    console.log(test);
     dispatch({
       type: "update",
       questions: test["survey"],
-      question: surveyState["question"],
+      question: task["question"],
     });
   }
 
-  //put this map straight into the jsx
   let testArray;
   try {
-    testArray = surveyState["survey"]["questions"].map(
+    testArray = task["survey"]["questions"].map(
       (question: any, index: number) => {
         return (
           <QuestionConfig
             data={question}
             index={index}
+            // changeQuestion={chooseQuestion}
           />
         );
       }
