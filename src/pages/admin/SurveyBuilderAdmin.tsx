@@ -8,8 +8,7 @@ import SurveyLinkModal from "../../components/SurveyLinkModal";
 import { TasksContext } from "../../context/SurveyBuilderContext";
 import SurveyBuilderContext from "../../context/SurveyBuilderContext";
 import {
-  saveSurvey,
-  addSurveyToUser,
+  saveSurveyConfig,
   retrieveSurveyConfig,
 } from "../../data/dataLayerManager";
 import { v4 as uuidv4 } from "uuid";
@@ -38,6 +37,7 @@ export default function SurveyBuilder() {
       id: newID,
       title: "Untitled Survey",
       admins: [userID],
+      live: false,
       completionPayout: 0.0,
       refPayout: 0.0,
       maxRefs: 0,
@@ -199,8 +199,10 @@ export default function SurveyBuilder() {
   const navigate = useNavigate();
   const [showModal, setShowModal] = useState(false);
   const [surveyName, setSurveyName] = useState("SurveyName");
-  const [config, setConfig] = useState<any>(getDefaultSurvey("temp"));
-  const userID = "test";
+  const [config, setConfig] = useState<any>(getDefaultSurvey("test"));
+  //const [questions, setQuestions] = useState<any>(config.questions);
+  //const [question, setQuestion] = useState(questions[0]);
+  const userID = "test"
 
   useEffect(() => {
     if (params.surveyID !== "new" && params.surveyID !== undefined) {
@@ -211,8 +213,8 @@ export default function SurveyBuilder() {
         setConfig(data);
       });
     } else if (params.surveyID === "new") {
-      saveSurvey(userID, config.id, config);
-      navigate(`../${config.id}`);
+      saveSurveyConfig(userID, config.id, config);
+      navigate(`../${config.id}`)
     } else {
       navigate(`/admin/dashboard`);
     }

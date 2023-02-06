@@ -9,7 +9,9 @@ export function startVerification(phone) {
   myHeaders.append('Authorization', 'Basic ' + btoa(accountSid + ":" + authToken));
 
   var formdata = new FormData();
-  phone = "+1" + phone;
+  
+  phone = "+1" + phone; // currently default to USA
+
   formdata.append("To", phone);
   formdata.append("Channel", "sms");
   
@@ -42,7 +44,9 @@ export function verificationCheck(phone, code) {
   myHeaders.append('Authorization', 'Basic ' + btoa(accountSid + ":" + authToken));
 
   var formdata = new FormData();
-  phone = "+1" + phone;
+
+  phone = "+1" + phone; // currently default to USA
+
   formdata.append("To", phone);
   formdata.append("Code", code);
   formdata.append("Channel", "sms");

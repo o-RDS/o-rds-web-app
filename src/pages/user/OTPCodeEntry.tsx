@@ -1,12 +1,24 @@
 import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import SurveyTakerStandardPage from "../../components/SurveyTakerStandardPage";
-import { verificationCheck } from "../../APIs/Twilio"
+import { verificationCheck } from "../../APIs/Twilio";
+import { addHash, generateAlias, writeSurveyResponse } from "../../data/dataLayerManager";
 
 export default function OTPCodeEntry() {
   const navigate = useNavigate();
+  const params = useParams();
   const [code, setCode] = useState("");
   const [error, setError] = useState("");
+  const TESTING = true;
+
+  useEffect(() => {
+    if (
+      window.sessionStorage.getItem("phone") == null ||
+      params.id === undefined
+    ) {
+      navigate("..");
+    }
+  }, []);
 
   function verifyOTPCode() {
     if (code.length !== 6) {
@@ -14,20 +26,47 @@ export default function OTPCodeEntry() {
       return;
     } else {
       let phone = window.sessionStorage.getItem("phone");
-      if (phone != null)
+      if (phone != null) {
+        if (TESTING) {
+          processHash()
+        }
         console.log(`Running verification check: ${phone}, ${code}`);
-        verificationCheck(phone, code)
-          .then(data => {
-            console.log(data.status)
+        verificationCheck(phone, code).then((data) => {
+          console.log(data.status);
+          // processHash()
         });
+      }
     }
   }
 
-  useEffect(() => {
-    if (window.sessionStorage.getItem("phone") == null) {
-      navigate("..");
+  async function processHash() {
+    let hash = window.sessionStorage.getItem("hash");
+    if (hash && params.id !== undefined) {
+      let response = await addHash(params.id, hash)
+      if(response){
+        //Existing Hash
+        console.log("Existing Hash")
+        if (response.isComplete) {
+          navigate("../share");
+        } else {
+          navigate("../questions")
+        }
+      } else {
+        //New Hash
+        if (params.id !== undefined) {
+          let result = await generateAlias(params.id);
+          if(result){
+            console.log(response)
+            let alias = result.alias;
+            let responseID = result.responseID;
+            writeSurveyResponse(params.id, alias, {completed: false, alias: alias, responseID: responseID})
+            window.localStorage.setItem(params.id + hash, alias);
+            navigate("../questions")
+          }
+        }
+      }
     }
-  }, []);
+  }
 
   function displayPhone() {
     let num = window.sessionStorage.getItem("phone");
@@ -61,13 +100,13 @@ export default function OTPCodeEntry() {
             id="OTPCode"
             name="OTPCode"
             placeholder="*Code Format Here*"
-            className="w-56 p-1 rounded bg-gray-200"
+            className="w-56 rounded bg-gray-200 p-1"
             value={code}
             onChange={(e) => setCode(e.target.value)}
           ></input>
         </div>
         <button
-          className="p-1 w-56 rounded bg-rdsOrange text-white"
+          className="w-56 rounded bg-rdsOrange p-1 text-white"
           onClick={() => verifyOTPCode()}
         >
           Submit
