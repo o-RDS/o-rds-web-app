@@ -15,6 +15,9 @@ export default function Survey() {
   const alias = useRef<string>("");
   const hash = useRef<string>("");
 
+  console.log(design[design.length - 1].page)
+  console.log(page)
+
   useEffect(() => {
     if (config !== null && config !== undefined) {
       setDesign(config.questions);
@@ -127,7 +130,7 @@ export default function Survey() {
           { design[design.length - 1].page > 0 && 
           <p className="w-1/3 text-center">{page + 1} of {design[design.length - 1].page+1}</p>
           }
-          { design[design.length - 1].page < page ?
+          { design[design.length - 1].page > page ?
             <button className="p-1 w-1/3 rounded bg-rdsOrange text-white" onClick={() => changePage(1)}>Next</button>
             :
             <button className="p-1 w-1/3 rounded bg-rdsOrange text-white" onClick={() => handleSubmit()}>Submit</button>
