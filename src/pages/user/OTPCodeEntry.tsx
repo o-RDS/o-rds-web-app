@@ -2,7 +2,11 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import SurveyTakerStandardPage from "../../components/SurveyTakerStandardPage";
 import { verificationCheck } from "../../APIs/Twilio";
-import { addHash, generateAlias, writeSurveyResponse } from "../../data/dataLayerManager";
+import {
+  addHash,
+  generateAlias,
+  writeSurveyResponse,
+} from "../../data/dataLayerManager";
 
 export default function OTPCodeEntry() {
   const navigate = useNavigate();
@@ -28,7 +32,7 @@ export default function OTPCodeEntry() {
       let phone = window.sessionStorage.getItem("phone");
       if (phone != null) {
         if (TESTING) {
-          processHash()
+          processHash();
         }
         console.log(`Running verification check: ${phone}, ${code}`);
         verificationCheck(phone, code).then((data) => {
@@ -42,26 +46,30 @@ export default function OTPCodeEntry() {
   async function processHash() {
     let hash = window.sessionStorage.getItem("hash");
     if (hash && params.id !== undefined) {
-      let response = await addHash(params.id, hash)
-      if(response){
+      let response = await addHash(params.id, hash);
+      if (response) {
         //Existing Hash
-        console.log("Existing Hash")
+        console.log("Existing Hash");
         if (response.isComplete) {
           navigate("../share");
         } else {
-          navigate("../questions")
+          navigate("../questions");
         }
       } else {
         //New Hash
         if (params.id !== undefined) {
           let result = await generateAlias(params.id);
-          if(result){
-            console.log(response)
+          if (result) {
+            console.log(response);
             let alias = result.alias;
             let responseID = result.responseID;
-            writeSurveyResponse(params.id, alias, {completed: false, alias: alias, responseID: responseID})
+            writeSurveyResponse(params.id, alias, {
+              completed: false,
+              alias: alias,
+              responseID: responseID,
+            });
             window.localStorage.setItem(params.id + hash, alias);
-            navigate("../questions")
+            navigate("../questions");
           }
         }
       }

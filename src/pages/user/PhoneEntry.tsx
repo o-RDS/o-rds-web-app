@@ -24,7 +24,7 @@ export default function PhoneEntry() {
     if (referer == null) {
       referer = "root";
     }
-      /* USE THIS CODE ONCE WE HAVE VALID SURVEY DATA (maybe)
+    /* USE THIS CODE ONCE WE HAVE VALID SURVEY DATA (maybe)
            THERE ALSO NEEDS TO BE A FUNCTION TO GET USER DATA
         retrieveResponseData(parent).then((data) => {
             if (data == null) {

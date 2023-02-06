@@ -1,22 +1,29 @@
-import React, {useContext} from "react";
-import { TasksContext, TasksDispatchContext } from "../../context/SurveyBuilderContext";
+import React, { useContext } from "react";
+import {
+  TasksContext,
+  TasksDispatchContext,
+} from "../../context/SurveyBuilderContext";
 
 export default function ShortAnswerConfig(props: any) {
   const task = useContext(TasksContext);
-  const taskQuestions = task['survey']['questions'][props.index]
-  const dispatch = useContext(TasksDispatchContext)
+  const taskQuestions = task["survey"]["questions"][props.index];
+  const dispatch = useContext(TasksDispatchContext);
 
   function handleQuestionChange(index: number) {
     dispatch({
-      type: 'update',
-      questions: task['survey'],
-      question: index
-    })
+      type: "update",
+      questions: task["survey"],
+      question: index,
+    });
   }
 
   function renderChoices() {
     return (
-      <textarea disabled className="border-2 border-rdsBlue rounded bg-white text-center" placeholder="Text Would Go Here"></textarea>
+      <textarea
+        disabled
+        className="rounded border-2 border-rdsBlue bg-white text-center"
+        placeholder="Text Would Go Here"
+      ></textarea>
     );
   }
   return (
@@ -27,7 +34,7 @@ export default function ShortAnswerConfig(props: any) {
       <div className="w-full">
         <h3>{"Q" + (props.index + 1)}</h3>
         <div className="rounded-md bg-gray-100 p-3">
-          <h2>{taskQuestions['config']['prompt']['value']}</h2>
+          <h2>{taskQuestions["config"]["prompt"]["value"]}</h2>
           <ul>{renderChoices()}</ul>
         </div>
       </div>

@@ -6,7 +6,7 @@ import {
 
 export default function MCSidebar(props: any) {
   const task = useContext(TasksContext);
-  const taskQuestions = task['survey']['questions'][task['question']]
+  const taskQuestions = task["survey"]["questions"][task["question"]];
   const dispatch = useContext(TasksDispatchContext);
   const choicesArray: any = taskQuestions.config.choices.value.map(
     (choice: any) => <li key={choice}>{choice}</li>
@@ -43,20 +43,14 @@ export default function MCSidebar(props: any) {
           <button className="h-6 w-6 rounded-full bg-rdsOrange text-white">
             -
           </button>
-          <p className="text-lg">{taskQuestions['page']}</p>
+          <p className="text-lg">{taskQuestions["page"]}</p>
           <button className="h-6 w-6 rounded-full bg-rdsOrange text-white">
             +
           </button>
         </div>
       </div>
       <div className="mt-3 flex flex-col items-center justify-center">
-        <label>
-          {
-            taskQuestions["config"]["prompt"][
-              "configPrompt"
-            ]
-          }
-        </label>
+        <label>{taskQuestions["config"]["prompt"]["configPrompt"]}</label>
         <input
           type="text"
           placeholder="This is a question"
@@ -66,13 +60,7 @@ export default function MCSidebar(props: any) {
         ></input>
       </div>
       <div>
-        <label>
-          {
-            taskQuestions["config"]["shuffle"][
-              "configPrompt"
-            ]
-          }
-        </label>
+        <label>{taskQuestions["config"]["shuffle"]["configPrompt"]}</label>
         <input type="checkbox" onChange={(e) => handleCheckChange(e)}></input>
       </div>
       <div className="flex flex-col items-center justify-center">
