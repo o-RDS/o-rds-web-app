@@ -1,8 +1,14 @@
 import { order } from './interfaces';
 
-
 const devToken = process.env.REACT_APP_TREMENDOUS_BEARER_TOKEN;
+let serverHost = "";
 
+if (process.env.NODE_ENV == "development") {
+  serverHost = 'http://localhost:8080';
+}
+else if (process.env.NODE_ENV == "production") {
+  serverHost = ''; // URL of deployed server
+}
 
 export async function listFundingSources()   {
   const options = {
@@ -14,7 +20,7 @@ export async function listFundingSources()   {
   };
 
 
-  return fetch('http://localhost:8080/api/v2/funding_sources', options)
+  return fetch(`${serverHost}/api/v2/funding_sources`, options)
     .then(response => {
       if (!response.ok) {
         throw new Error(response.statusText)
@@ -50,7 +56,7 @@ export async function createOrder(order) {
       })
     };
 
-  return fetch('http://localhost:8080/api/v2/orders', options)
+  return fetch(`${serverHost}/api/v2/orders`, options)
     .then(response => {
       if (!response.ok) {
         throw new Error(response.statusText)

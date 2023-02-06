@@ -18,7 +18,7 @@ export default function ReceivePayment(){
             funding_source_id: '0JLPRGW2MEB9',
             campaign_id: '4BDWAVSR8A91',
             products: ['TBAJH7YLFVS5'],
-            denomination: payment, // TODO: Determine amount from PaymentManagerAdmin.tsx
+            denomination: payment, 
             recipient_name: 'Survey Taker', // To keep anonymous
             recipient_email: email,
             recipient_phone: phoneNum,
@@ -27,7 +27,6 @@ export default function ReceivePayment(){
             delivery_method: 'EMAIL'
         };
 
-        
         return order;
     }
 
@@ -42,9 +41,7 @@ export default function ReceivePayment(){
             // DEV: Tremendous requires payout to be > 1
             if (order.denomination == 0) {
                 order.denomination = 1;
-            } else {
-                let order = newOrder(email, phone, hash, completionPayout + 1);
-            }
+            } 
 
             console.log("Fetching Tremendous order API");
             createOrder(order)
