@@ -5,7 +5,7 @@ import SurveyTopConfig from "../../components/SurveyTopConfig";
 import QuestionViewer from "../../components/QuestionViewer";
 import ConfigSidebar from "../../components/ConfigSidebar";
 import SurveyLinkModal from "../../components/SurveyLinkModal";
-import { TasksContext } from "../../context/SurveyBuilderContext";
+import SurveySettings from "../../components/SurveySettings";
 import SurveyBuilderContext from "../../context/SurveyBuilderContext";
 import {
   saveSurveyConfig,
@@ -85,6 +85,7 @@ export default function SurveyBuilder() {
   const [showModal, setShowModal] = useState(false);
   const [surveyName, setSurveyName] = useState("SurveyName");
   const [config, setConfig] = useState<any>(getDefaultSurvey("test"));
+  const [settings, setSettings] = useState(false);
   //const [questions, setQuestions] = useState<any>(config.questions);
   //const [question, setQuestion] = useState(questions[0]);
   const userID = "test";
@@ -111,6 +112,8 @@ export default function SurveyBuilder() {
       <SurveyTopConfig
         setSurveyName={setSurveyName}
         setShowModal={setShowModal}
+        setSettings={setSettings}
+        settings={settings}
       />
       <div className="flex flex-row gap-20">
         <SurveyLinkModal
@@ -119,10 +122,16 @@ export default function SurveyBuilder() {
           surveyName={surveyName}
           surveyID={config.id}
         />
-        <ConfigSidebar />
-        <div className="mt-3 w-3/5">
-          <QuestionViewer />
-        </div>
+        {settings ? (
+          <SurveySettings />
+        ) : (
+          <>
+            <ConfigSidebar />
+            <div className="mt-3 w-3/5">
+              <QuestionViewer />
+            </div>
+          </>
+        )}
       </div>
     </SurveyBuilderContext>
   );
