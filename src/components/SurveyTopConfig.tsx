@@ -1,4 +1,6 @@
 import React from "react";
+import floppydisc from "../images/floppydisc.png";
+import settings from "../images/settingscog.png";
 
 export default function SurveyTopConfig(props: any) {
   function showSettings() {
@@ -13,8 +15,8 @@ export default function SurveyTopConfig(props: any) {
           value={props.surveyName}
           onChange={(e) => props.setSurveyName(e.target.value)}
         ></input>
-        <p>Save</p>
-        <button onClick={() => props.setSettings(!props.settings)}>Settings</button>
+        <img src={floppydisc} className="w-6 h-6 cursor-pointer"></img>
+        <img src={settings} className="w-6 h-6 cursor-pointer" onClick={() => props.setSettings(!props.settings)}></img>
       </div>
       <p className="self-center">Last Updated: </p>
       <div className="flex gap-2">

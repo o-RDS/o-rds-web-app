@@ -3,8 +3,8 @@ import { useParams, useNavigate, Outlet } from "react-router";
 import { retrieveSurveyConfig, signIn } from "../data/dataLayerManager";
 import { createContext } from "react";
 
-export const TasksContext = createContext<any>(null);
-export const TasksDispatchContext = createContext<any>(null);
+export const TasksContext = createContext<any>(null); //This is the context that will contain the survey in state for the survey builder
+export const TasksDispatchContext = createContext<any>(null); //This context will contain the dispatch to handle state changes
 
 export default function SurveyBuilderContext(props: any) {
   function getDefaultSurvey(userID: string) {
@@ -128,7 +128,8 @@ export default function SurveyBuilderContext(props: any) {
     console.log(defaultData);
     return defaultData;
   }
-  //const SurveyConfigContext = react.createContext({});
+
+  //Reducer function will handle all actions and update state accordingly
   function taskReducer(tasks: any, action: any) {
     console.log(action);
     try {
@@ -172,7 +173,7 @@ export default function SurveyBuilderContext(props: any) {
     }
   }
 
-  const [tasks, dispatch] = useReducer(taskReducer, getDefaultSurvey("temp"));
+  const [tasks, dispatch] = useReducer(taskReducer, getDefaultSurvey("temp")); // Create useReducer
 
   return (
     <TasksContext.Provider value={tasks}>
