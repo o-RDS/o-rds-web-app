@@ -10,6 +10,28 @@ else if (process.env.NODE_ENV == "production") {
   serverHost = ''; // URL of deployed server
 }
 
+export async function listCampaigns()   {
+  const options = {
+    method: 'GET',
+    headers: {
+      accept: 'application/json',
+      Authorization: devToken,
+    }
+  };
+
+
+  return fetch(`${serverHost}/api/v2/campaigns`, options)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(response.statusText)
+      }
+      return response.json()
+    })
+    .then((data) => {
+      return data.campaigns;
+    })
+}
+
 export async function listFundingSources()   {
   const options = {
     method: 'GET',
