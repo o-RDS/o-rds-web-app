@@ -50,7 +50,6 @@ export default function QuestionViewer(props: any) {
           <QuestionConfig
             data={question}
             index={index}
-            // changeQuestion={chooseQuestion}
           />
         );
       }

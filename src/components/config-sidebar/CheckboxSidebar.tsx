@@ -1,4 +1,8 @@
 import React, { useContext } from "react";
+import PageConfig from "./config-options/PageConfig";
+import PromptConfig from "./config-options/PromptConfig";
+import ChoicesConfig from "./config-options/ChoicesConfig";
+import ShuffleConfig from "./config-options/ShuffleConfig";
 import {
   TasksContext,
   TasksDispatchContext,
@@ -9,7 +13,7 @@ export default function CheckboxSidebar(props: any) {
   const taskQuestions = task["survey"]["questions"][task["question"]];
   const dispatch = useContext(TasksDispatchContext);
   const choicesArray: any = taskQuestions.config.choices.value.map(
-    (choice: any) => <li key={choice}>{choice}</li>
+    (choice: any) => <li key={choice}><input value={choice}></input></li>
   );
 
   function handleTitleChange(e: any) {
@@ -48,7 +52,7 @@ export default function CheckboxSidebar(props: any) {
 
   return (
     <>
-      <div className="mt-3 flex flex-col items-center justify-center">
+      {/* <div className="mt-3 flex flex-col items-center justify-center">
         <label>Page</label>
         <div className="flex flex-row gap-2">
           <button className="h-6 w-6 rounded-full bg-rdsOrange text-white">
@@ -86,7 +90,13 @@ export default function CheckboxSidebar(props: any) {
           className="w-3/5 rounded-sm border border-rdsOrange"
         ></input>
         <ul>{choicesArray}</ul>
-      </div>
+      </div> */}
+      {/* <div> */}
+        <PageConfig />
+        <PromptConfig />
+        <ShuffleConfig />
+        <ChoicesConfig />
+      {/* </div> */}
     </>
   );
 }

@@ -1,4 +1,6 @@
 import React, { useContext } from "react";
+import PageConfig from "./config-options/PageConfig";
+import PromptConfig from "./config-options/PromptConfig";
 import {
   TasksContext,
   TasksDispatchContext,
@@ -22,7 +24,7 @@ export default function FillBlankSidebar(props: any) {
 
   return (
     <>
-      <div className="mt-3 flex flex-col items-center justify-center">
+      {/* <div className="mt-3 flex flex-col items-center justify-center">
         <label>Page</label>
         <div className="flex flex-row gap-2">
           <button className="h-6 w-6 rounded-full bg-rdsOrange text-white">
@@ -43,7 +45,11 @@ export default function FillBlankSidebar(props: any) {
           onChange={(e: any) => handleTitleChange(e)}
           value={taskQuestions['config']['prompt']['value']}
         ></input>
-      </div>
+      </div> */}
+      {/* <div> */}
+        <PageConfig />
+        <PromptConfig />
+      {/* </div> */}
     </>
   );
 }

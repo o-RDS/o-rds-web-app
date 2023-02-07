@@ -14,6 +14,7 @@ export default function SurveyTopConfig(props: any) {
           className="rounded-md bg-gray-100 text-black"
           value={props.name}
           onChange={(e) => props.setSurveyName(e.target.value)}
+          maxLength={20}
         ></input>
         <img src={floppydisc} className="w-6 h-6 cursor-pointer"></img>
         <img src={settings} className="w-6 h-6 cursor-pointer" onClick={() => props.setSettings(!props.settings)}></img>

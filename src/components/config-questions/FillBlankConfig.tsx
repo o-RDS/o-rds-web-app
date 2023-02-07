@@ -29,7 +29,7 @@ export default function FillBlankConfig(props: any) {
   }
   return (
     <div
-      className="rounded-sm border-2 border-white p-1 transition-all hover:border-2 hover:border-red-500 focus:border-red-500"
+      className="rounded-md border-2 border-white p-1 transition-all hover:border-2 hover:border-rdsOrange focus:border-red-500"
       onClick={(e) => handleQuestionChange(props.index)}
     >
       <div className="w-full">
