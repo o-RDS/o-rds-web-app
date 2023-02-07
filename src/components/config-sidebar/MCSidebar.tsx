@@ -57,6 +57,7 @@ export default function MCSidebar(props: any) {
           className="w-3/5 rounded-sm border border-rdsOrange"
           onChange={(e: any) => handleTitleChange(e)}
           defaultChecked={taskQuestions.config.shuffle.value}
+          value={taskQuestions['config']['prompt']['value']}
         ></input>
       </div>
       <div>

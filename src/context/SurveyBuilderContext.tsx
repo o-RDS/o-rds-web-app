@@ -42,7 +42,7 @@ export default function SurveyBuilderContext(props: any) {
             },
           },
           {
-            page: 0,
+            page: 1,
             type: "Checkbox",
             config: {
               prompt: {

@@ -110,6 +110,7 @@ export default function SurveyBuilder() {
     <SurveyBuilderContext>
       <SurveyTopNav name={surveyName} />
       <SurveyTopConfig
+        name={surveyName}
         setSurveyName={setSurveyName}
         setShowModal={setShowModal}
         setSettings={setSettings}

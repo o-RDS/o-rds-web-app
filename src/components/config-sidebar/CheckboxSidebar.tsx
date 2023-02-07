@@ -67,6 +67,7 @@ export default function CheckboxSidebar(props: any) {
           placeholder="This is a question"
           className="w-3/5 rounded-sm border border-rdsOrange"
           onChange={(e: any) => handleTitleChange(e)}
+          value={taskQuestions['config']['prompt']['value']}
         ></input>
       </div>
       <div>
