@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import PageConfig from "./config-options/PageConfig";
+import TypeConfig from "./config-options/TypeConfig";
 import PromptConfig from "./config-options/PromptConfig";
 import {
   TasksContext,
@@ -48,6 +49,7 @@ export default function ShortAnswerSidebar(props: any) {
       </div> */}
       {/* <div> */}
         <PageConfig />
+        <TypeConfig />
         <PromptConfig />
       {/* </div> */}
     </>

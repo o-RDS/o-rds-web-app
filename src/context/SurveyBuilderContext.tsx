@@ -125,7 +125,6 @@ export default function SurveyBuilderContext(props: any) {
       },
       */
     };
-    console.log(defaultData);
     return defaultData;
   }
 
