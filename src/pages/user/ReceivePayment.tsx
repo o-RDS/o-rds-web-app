@@ -12,9 +12,9 @@ export default function ReceivePayment(){
     const config:any = useOutletContext();
 
 
-    function newOrder(email: string, phoneNum: string, hash: string, payment: number): order {
+    function newOrder(email: string, phoneNum: string, externalID: string, payment: number): order {
         let order: order = {
-            external_id: hash,
+            external_id: externalID,
             funding_source_id: '0JLPRGW2MEB9',
             campaign_id: '4BDWAVSR8A91',
             products: ['TBAJH7YLFVS5'],
