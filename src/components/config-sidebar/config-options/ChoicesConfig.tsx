@@ -41,7 +41,7 @@ export default function ChoicesConfig() {
     }
   }
   const choicesArray: any = taskQuestions.config.choices.value.map(
-    (choice: any, index: number) => <li key={index}><input value={choice} onChange={(e) => handleChoicesChange(index, e)} className="border-b-2 border-rdsBlue"></input><br></br></li>
+    (choice: any, index: number) => <li key={index}><input value={choice} onChange={(e) => handleChoicesChange(index, e)} className="border-b-2 border-rdsBlue" placeholder="Enter Choice Here"></input><br></br></li>
   );
     return (
         <div className="flex flex-col items-center justify-center">
