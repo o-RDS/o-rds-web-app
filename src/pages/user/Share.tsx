@@ -9,8 +9,10 @@ export default function Share() {
     let link = window.location.href;
     link = link.replace(
       "/share",
-      "?p=" +
+      "?r=" +
         window.sessionStorage.getItem("hash") +
+        "&p=" +
+        window.sessionStorage.getItem("responseID") +
         "&d=" +
         window.sessionStorage.getItem("depth")
     );
@@ -43,9 +45,9 @@ export default function Share() {
         rewards, please use the link below.
       </p>
       <ShareBox link={getLink()} />
-      <div className="flex flex-row w-1/3 gap-8">
+      <div className="flex w-1/3 flex-row gap-8">
         <button
-          className="p-1 grow rounded bg-rdsOrange text-white"
+          className="grow rounded bg-rdsOrange p-1 text-white"
           onClick={() => {
             copyToClipboard();
           }}
@@ -53,7 +55,7 @@ export default function Share() {
           {copyLabel}
         </button>
         <button
-          className="p-1 grow rounded bg-rdsOrange text-white"
+          className="grow rounded bg-rdsOrange p-1 text-white"
           onClick={() => openShare()}
         >
           Share

@@ -1,10 +1,16 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useReducer, useContext } from "react";
 import StandardPage from "../../components/StandardPage";
 import SurveyTopNav from "../../components/SurveyTopNav";
+import SurveyTopConfig from "../../components/SurveyTopConfig";
 import QuestionViewer from "../../components/QuestionViewer";
 import ConfigSidebar from "../../components/ConfigSidebar";
 import SurveyLinkModal from "../../components/SurveyLinkModal";
-import { saveSurvey, addSurveyToUser, retrieveSurveyConfig } from "../../data/dataLayerManager";
+import SurveySettings from "../../components/SurveySettings";
+import SurveyBuilderContext from "../../context/SurveyBuilderContext";
+import {
+  saveSurveyConfig,
+  retrieveSurveyConfig,
+} from "../../data/dataLayerManager";
 import { v4 as uuidv4 } from "uuid";
 import { useNavigate, useParams } from "react-router";
 
@@ -16,6 +22,7 @@ export default function SurveyBuilder() {
       id: newID,
       title: "Untitled Survey",
       admins: [userID],
+      live: false,
       completionPayout: 0.0,
       refPayout: 0.0,
       maxRefs: 0,
@@ -73,115 +80,15 @@ export default function SurveyBuilder() {
     return defaultData;
   }
 
-  /*
-  const design = [
-    {
-      page: 0,
-      type: "MultipleChoice",
-      config: {
-        prompt: {
-          value: "This is an example question?",
-          configPrompt: "Question Prompt 1:",
-          type: "text",
-        },
-        shuffle: {
-          value: true,
-          configPrompt: "Shuffle me up",
-          type: "bool",
-        },
-        choices: {
-          value: ["A", "B", "C", "D", "E"],
-          configPrompt: "Enter choices:",
-          type: "stringArray",
-        },
-      },
-    },
-    {
-      page: 0,
-      type: "MultipleChoice",
-      config: {
-        prompt: {
-          value: "This is an example question i guess?",
-          configPrompt: "Question Prompt 2:",
-          type: "text",
-        },
-        shuffle: {
-          value: true,
-          configPrompt: "shuffled",
-          type: "bool",
-        },
-        choices: {
-          value: ["AA", "BB", "CC", "DD", "EE"],
-          configPrompt: "Enter choices:",
-          type: "stringArray",
-        },
-      },
-    },
-    {
-      page: 0,
-      type: "ShortAnswer",
-      config: {
-        prompt: {
-          value: "This is an example question i guess 3?",
-          configPrompt: "Question Prompt 2:",
-          type: "text",
-        },
-        shuffle: {
-          value: true,
-          configPrompt: "shuffled",
-          type: "bool",
-        },
-        choices: {
-          value: ["AA", "BB", "CC", "DD", "EE"],
-          configPrompt: "Enter choices:",
-          type: "stringArray",
-        },
-      },
-    },
-    {
-      page: 0,
-      type: "Checkbox",
-      config: {
-        prompt: {
-          value: "This is an example question (Page 0)?",
-          configPrompt: "Question Prompt:",
-          type: "text",
-        },
-        shuffle: {
-          value: true,
-          configPrompt: "Shuffle choices?",
-          type: "bool",
-        },
-        choices: {
-          value: ["A", "B", "C", "D", "E"],
-          configPrompt: "Enter choices:",
-          type: "stringArray",
-        },
-      },
-    },
-    {
-      page: 0,
-      type: "FillInBlank",
-      config: {
-        prompt: {
-          value: "The Declaration of Indpendence was written in ____________",
-          configPrompt: "Question Prompt:",
-          type: "text",
-        },
-      },
-    },
-  ];
-  */
-
   const params = useParams();
   const navigate = useNavigate();
   const [showModal, setShowModal] = useState(false);
-  const [questionIndex, setQuestionIndex] = useState(0);
   const [surveyName, setSurveyName] = useState("SurveyName");
-  const [config, setConfig] = useState<any>(getDefaultSurvey("temp"));
-  const [questions, setQuestions] = useState<any>(config.questions);
-  const [question, setQuestion] = useState(questions[0]);
-  const userID = "test"
+  const [config, setConfig] = useState<any>(getDefaultSurvey("test"));
+  const [settings, setSettings] = useState(false);
+  //const [questions, setQuestions] = useState<any>(config.questions);
+  //const [question, setQuestion] = useState(questions[0]);
+  const userID = "test";
 
   useEffect(() => {
     if (params.surveyID !== "new" && params.surveyID !== undefined) {
@@ -192,61 +99,41 @@ export default function SurveyBuilder() {
         setConfig(data);
       });
     } else if (params.surveyID === "new") {
-      saveSurvey(userID, config.id, config);
-      navigate(`../${config.id}`)
+      saveSurveyConfig(userID, config.id, config);
+      navigate(`../${config.id}`);
     } else {
-      navigate(`/admin/dashboard`)
+      navigate(`/admin/dashboard`);
     }
   }, []);
 
-  const updateConfig = (newConfig: any) => {
-    setQuestions(newConfig);
-  };
-
-  const setCurrentQuestion = (newQuestion: any, index: number) => {
-    console.log(newQuestion);
-    console.log(index);
-    // setQuestion(newQuestion);
-    setQuestionIndex(index);
-  };
-
   return (
-    <div>
+    <SurveyBuilderContext>
       <SurveyTopNav name={surveyName} />
+      <SurveyTopConfig
+        name={surveyName}
+        setSurveyName={setSurveyName}
+        setShowModal={setShowModal}
+        setSettings={setSettings}
+        settings={settings}
+      />
       <div className="flex flex-row gap-20">
-        <SurveyLinkModal showModal={setShowModal} display={showModal} />
-        <ConfigSidebar
-          questionIndex={questionIndex}
-          otherCurrentQuestion={questions}
-          update={updateConfig}
+        <SurveyLinkModal
+          showModal={setShowModal}
+          display={showModal}
+          surveyName={surveyName}
+          surveyID={config.id}
         />
-        <div className="mt-3 w-3/5">
-          <div className="flex flex-row justify-between">
-            <input
-              placeholder="Survey Name"
-              className="rounded-md bg-gray-100 text-black"
-              value={surveyName}
-              onChange={(e) => setSurveyName(e.target.value)}
-            ></input>
-            <div className="flex gap-2">
-              <button className="rounded-sm border border-rdsBlue pl-2 pr-2 text-rdsBlue">
-                Preview
-              </button>
-              <button
-                className="rounded-sm bg-rdsBlue pl-2 pr-2 text-white"
-                onClick={() => setShowModal(true)}
-              >
-                Publish
-              </button>
+        {settings ? (
+          <SurveySettings />
+        ) : (
+          <>
+            <ConfigSidebar />
+            <div className="mt-3 w-3/5">
+              <QuestionViewer />
             </div>
-          </div>
-          <QuestionViewer
-            updateQuestion={setCurrentQuestion}
-            questions={questions}
-            update={updateConfig}
-          />
-        </div>
+          </>
+        )}
       </div>
-    </div>
+    </SurveyBuilderContext>
   );
 }
