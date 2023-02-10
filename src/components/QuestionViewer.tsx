@@ -60,8 +60,8 @@ export default function QuestionViewer(props: any) {
 
   return (
     <>
-      <div className="h-min-56 mt-3 flex flex-col gap-10 overflow-y-auto">
-        <div className="flex w-full flex-col items-center justify-center gap-10 rounded-md border border-black p-5">
+      <div className="h-min-56 mt-3 flex flex-col gap-10 overflow-y-auto shadow-lg shadow-black">
+        <div className="flex w-full flex-col items-center justify-center gap-10 rounded-md p-5">
           <div className="flex w-full flex-col gap-4">{testArray}</div>
           <button
             className="w-fit rounded-sm bg-rdsBlue pl-2 pr-2 text-white"

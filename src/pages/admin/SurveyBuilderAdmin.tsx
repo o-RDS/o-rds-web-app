@@ -1,5 +1,4 @@
 import { useState, useEffect, useReducer, useContext } from "react";
-import StandardPage from "../../components/StandardPage";
 import SurveyTopNav from "../../components/SurveyTopNav";
 import SurveyTopConfig from "../../components/SurveyTopConfig";
 import QuestionViewer from "../../components/QuestionViewer";
@@ -105,6 +104,10 @@ export default function SurveyBuilder() {
       navigate(`/admin/dashboard`);
     }
   }, []);
+
+  // setInterval(() => {
+  //   console.log("this happens");
+  // }, 5000)
 
   return (
     <SurveyBuilderContext>

@@ -16,17 +16,45 @@ export default function ChoicesConfig() {
         question: task["question"],
       });
   }
+
+  function addChoice(action: string) {
+    let test: any = task;
+    switch(action) {
+      case "pop": {
+        test["survey"]["questions"][test["question"]]['config']["choices"]['value'].pop();
+        dispatch({
+          type: "question-prompt",
+          questions: test["survey"],
+          question: task["question"],
+        });
+        break;
+      }
+      case "push": {
+        test["survey"]["questions"][test["question"]]['config']["choices"]['value'].push("New Option");
+        dispatch({
+          type: "question-prompt",
+          questions: test["survey"],
+          question: task["question"],
+        });
+        break;
+      }
+    }
+  }
   const choicesArray: any = taskQuestions.config.choices.value.map(
-    (choice: any, index: number) => <li key={choice}><input value={taskQuestions['config']['choices']['value'][index.toString()]} onChange={(e) => handleChoicesChange(index, e)}></input></li>
+    (choice: any, index: number) => <li key={index}><input value={choice} onChange={(e) => handleChoicesChange(index, e)} className="border-b-2 border-rdsBlue"></input><br></br></li>
   );
     return (
         <div className="flex flex-col items-center justify-center">
         <label>{taskQuestions["config"]["choices"]["configPrompt"]}</label>
-        <input
-          type="text"
-          placeholder="Add Choices Here"
-          className="w-3/5 rounded-sm border border-rdsOrange"
-        ></input>
+        <div className="flex flex-row gap-2">
+          <button className="h-6 w-6 rounded-full bg-rdsOrange text-white" onClick={() => addChoice("pop")}>
+            -
+          </button>
+          <p className="text-lg">{taskQuestions["config"]['choices']['value'].length}</p>
+          <button className="h-6 w-6 rounded-full bg-rdsOrange text-white" onClick={() => addChoice("push")}>
+            +
+          </button>
+        </div>
         <ul>{choicesArray}</ul>
       </div>
     )

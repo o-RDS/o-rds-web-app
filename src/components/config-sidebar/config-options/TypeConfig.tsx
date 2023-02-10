@@ -23,9 +23,9 @@ export default function TypeConfig() {
   return (
     <div>
       <select className="border border-rdsBlue" onChange={(e) => handleTypeChange(e)}>
-        <option>MultipleChoice</option>
+        <option>Multiple Choice</option>
         <option>FillInBlank</option>
-        <option>ShortAnswer</option>
+        <option>Short Answer</option>
         <option>Checkbox</option>
       </select>
     </div>
