@@ -1,5 +1,3 @@
-const accountSid = process.env.REACT_APP_TWILIO_ACCOUNT_SID;
-const authToken = process.env.REACT_APP_TWILIO_AUTH_TOKEN;
 const serviceSid = process.env.REACT_APP_TWILIO_SERVICE_ID;
 let serverHost = "";
 
@@ -11,10 +9,9 @@ else if (process.env.NODE_ENV == 'production') {
 }
 
 export function startVerification(phone) {
-  var myHeaders = new Headers();
 
-  // TODO: btoa depricated, but Buffer.from does not work
-  myHeaders.append('Authorization', 'Basic ' + btoa(accountSid + ":" + authToken));
+  // Auth now done at serter
+  // myHeaders.append('Authorization', 'Basic ' + btoa(accountSid + ":" + authToken));
 
   var formdata = new FormData();
   
@@ -25,7 +22,6 @@ export function startVerification(phone) {
   
   var requestOptions = {
     method: 'POST',
-    headers: myHeaders,
     body: formdata,
     redirect: 'follow'
   };
@@ -43,10 +39,9 @@ export function startVerification(phone) {
 }
 
 export function verificationCheck(phone, code) {
-  var myHeaders = new Headers();
-  
-  // TODO: btoa depricated, but Buffer.from does not work
-  myHeaders.append('Authorization', 'Basic ' + btoa(accountSid + ":" + authToken));
+
+  // Auth now done at serter
+  // myHeaders.append('Authorization', 'Basic ' + btoa(accountSid + ":" + authToken));
 
   var formdata = new FormData();
 
@@ -58,13 +53,10 @@ export function verificationCheck(phone, code) {
 
   var requestOptions = {
     method: 'POST',
-    headers: myHeaders,
     body: formdata,
     redirect: 'follow'
   };
 
-  // ERROR: This is returning a 404 NOT FOUND 
-  // It isn't getting to server.js for some reason 
   return fetch(`${serverHost}/v2/Services/${serviceSid}/VerificationCheck`, requestOptions)
     .then(response => {
       if (!response.ok) {

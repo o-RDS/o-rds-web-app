@@ -1,6 +1,5 @@
 import { order } from './interfaces';
 
-const devToken = process.env.REACT_APP_TREMENDOUS_BEARER_TOKEN;
 let serverHost = "";
 
 if (process.env.NODE_ENV == "development") {
@@ -15,7 +14,7 @@ export async function listCampaigns()   {
     method: 'GET',
     headers: {
       accept: 'application/json',
-      Authorization: devToken,
+      // Authorization: devToken,
     }
   };
 
@@ -37,7 +36,8 @@ export async function listFundingSources()   {
     method: 'GET',
     headers: {
       accept: 'application/json',
-      Authorization: devToken,
+      // Authorization: devToken, 
+      // replace with JWT
     }
   };
 
@@ -59,8 +59,7 @@ export async function createOrder(order) {
       method: 'POST',
       headers: {
         accept: 'application/json',
-        'content-type': 'application/json',
-        authorization: devToken
+        'content-type': 'application/json'
       },
       body: JSON.stringify({
         external_id: order.external_id, 
