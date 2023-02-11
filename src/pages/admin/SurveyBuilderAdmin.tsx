@@ -1,10 +1,11 @@
 import { useState, useEffect, useReducer, useContext } from "react";
+import SurveySettingsSide from "../../components/settings/SurveySettingsSide";
 import SurveyTopNav from "../../components/SurveyTopNav";
 import SurveyTopConfig from "../../components/SurveyTopConfig";
 import QuestionViewer from "../../components/QuestionViewer";
 import ConfigSidebar from "../../components/ConfigSidebar";
 import SurveyLinkModal from "../../components/SurveyLinkModal";
-import SurveySettings from "../../components/SurveySettings";
+import SurveySettings from "../../components/settings/SurveySettings";
 import SurveyBuilderContext from "../../context/SurveyBuilderContext";
 import {
   saveSurveyConfig,
@@ -119,7 +120,7 @@ export default function SurveyBuilder() {
         setSettings={setSettings}
         settings={settings}
       />
-      <div className="flex flex-row gap-20">
+      <div className="flex flex-row gap-20 dark:bg-rdsDark2 min-h-screen">
         <SurveyLinkModal
           showModal={setShowModal}
           display={showModal}
@@ -127,7 +128,10 @@ export default function SurveyBuilder() {
           surveyID={config.id}
         />
         {settings ? (
-          <SurveySettings />
+          <>
+            <SurveySettingsSide />
+            <SurveySettings />
+          </>
         ) : (
           <>
             <ConfigSidebar />
