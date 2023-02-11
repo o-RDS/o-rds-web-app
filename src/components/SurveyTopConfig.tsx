@@ -1,6 +1,9 @@
 import React, { useContext } from "react";
 import { saveSurveyConfig } from "../data/dataLayerManager";
-import { TasksContext, TasksDispatchContext } from "../context/SurveyBuilderContext";
+import {
+  TasksContext,
+  TasksDispatchContext,
+} from "../context/SurveyBuilderContext";
 import floppydisc from "../images/floppydisc.png";
 import settings from "../images/settingscog.png";
 
@@ -9,23 +12,35 @@ export default function SurveyTopConfig(props: any) {
   const dispatch = useContext(TasksDispatchContext);
 
   function saveSurvey() {
-    saveSurveyConfig("test", task['survey']['id'], task['survey']);
+    saveSurveyConfig("test", task["survey"]["id"], task["survey"]);
   }
 
   return (
-    <div className="flex h-14 w-screen flex-row items-center justify-between border-black border-b pl-4 pr-4 dark:bg-rdsDark2 dark:border-none dark:text-white">
+    <div className="flex h-14 w-screen flex-row items-center justify-between border-b border-black pl-4 pr-4 dark:border-none dark:bg-rdsDark2 dark:text-white">
       <div className="flex gap-2">
         <input
           placeholder="Survey Name"
-          className="bg-inherit text-black dark:text-white border-b-2 border-gray-200 focus:border-b-rdsBlue focus:outline-none transition-all"
+          className="border-b-2 border-gray-200 bg-inherit text-black transition-all focus:border-b-rdsBlue focus:outline-none dark:text-white"
           value={props.name}
           onChange={(e) => props.setSurveyName(e.target.value)}
           maxLength={20}
         ></input>
-        <img src={floppydisc} className="w-6 h-6 cursor-pointer" onClick={() => saveSurvey()}></img>
-        <img src={settings} className="w-6 h-6 cursor-pointer" onClick={() => props.setSettings(!props.settings)}></img>
+        <img
+          src={floppydisc}
+          className="h-6 w-6 cursor-pointer"
+          onClick={() => saveSurvey()}
+          alt="Save Button"
+        ></img>
+        <img
+          src={settings}
+          className="h-6 w-6 cursor-pointer"
+          onClick={() => props.setSettings({active: !props.settings.active, whichSettings: "general"})}
+          alt="Settings Button"
+        ></img>
       </div>
-      <p className="self-center">Last Updated: {task['survey']['lastUpdated']}</p>
+      <p className="self-center">
+        Last Updated: {task["survey"]["lastUpdated"]}
+      </p>
       <div className="flex gap-2">
         <button className="rounded-sm border border-rdsBlue pl-2 pr-2 text-rdsBlue">
           Preview

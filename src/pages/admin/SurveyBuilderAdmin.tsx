@@ -85,7 +85,12 @@ export default function SurveyBuilder() {
   const [showModal, setShowModal] = useState(false);
   const [surveyName, setSurveyName] = useState("SurveyName");
   const [config, setConfig] = useState<any>(getDefaultSurvey("test"));
-  const [settings, setSettings] = useState(false);
+  const [settings, setSettings] = useState(
+    {
+      active: false,
+      whichSettings: "General"
+    }
+  );
   //const [questions, setQuestions] = useState<any>(config.questions);
   //const [question, setQuestion] = useState(questions[0]);
   const userID = "test";
@@ -127,10 +132,10 @@ export default function SurveyBuilder() {
           surveyName={surveyName}
           surveyID={config.id}
         />
-        {settings ? (
+        {settings.active ? (
           <>
-            <SurveySettingsSide />
-            <SurveySettings />
+            <SurveySettingsSide setSettings={setSettings} settings={settings}/>
+            <SurveySettings settings={settings}/>
           </>
         ) : (
           <>

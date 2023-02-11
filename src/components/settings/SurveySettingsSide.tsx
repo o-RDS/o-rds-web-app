@@ -1,41 +1,24 @@
-import { updateCurrentUser } from "firebase/auth";
 import react, { useContext } from "react";
-import MCSidebar from "../config-sidebar/MCSidebar";
-import ShortAnswerSidebar from "../config-sidebar/ShortAnswerSidebar";
-import FillBlankSidebar from "../config-sidebar/FillBlankSidebar";
-import CheckboxSidebar from "../config-sidebar/CheckboxSidebar";
-import {
-  TasksContext,
-  TasksDispatchContext,
-} from "../../context/SurveyBuilderContext";
 
 export default function SurveySettingsSide(props: any) {
-  const task = useContext(TasksContext);
 
-  function getQuestionConfig(data: any) {
-    switch (data.type) {
-      case "MultipleChoice":
-        return <MCSidebar />;
-      case "FillInBlank":
-        return <FillBlankSidebar />;
-      case "ShortAnswer":
-        return <ShortAnswerSidebar />;
-      case "Checkbox":
-        return <CheckboxSidebar />;
-      default:
-        return <p>"Unknown Question Type"</p>;
+  function isActive(setting: string) {
+    if (setting ===  props.settings.whichSettings) {
+      return "dark:bg-rdsDarkAccent"
+    } else {
+      return ""
     }
   }
 
   return (
     <>
-      <div className="flex w-1/4 flex-col items-center justify-start gap-2 border-r border-black dark:bg-rdsDarkAccent3 dark:text-white dark:border-none">
-        <h2>Stuff Here</h2>
-        <button>General</button>
-        <button>Appearance</button>
-        <button>Referrals & Payments</button>
-        <button>Tremendous</button>
-        <button>Contact Information</button>
+      <div className="flex w-1/4 pl-4 pt-3 flex-col items-start justify-start gap-2 border-r border-black dark:bg-rdsDarkAccent3 dark:text-white dark:border-none">
+        <h2 className="text-2xl w-2/5 font-bold">Settings</h2>
+        <button className={`hover:bg-rdsDarkAccent w-4/5 rounded-sm text-left p-1 ${isActive("general")}`} onClick={() => props.setSettings({active: true, whichSettings: "general"})}>General</button>
+        <button className={`hover:bg-rdsDarkAccent w-4/5 rounded-sm text-left p-1 ${isActive("appearance")}`} onClick={() => props.setSettings({active: true, whichSettings: "appearance"})}>Appearance</button>
+        <button className={`hover:bg-rdsDarkAccent w-4/5 rounded-sm text-left p-1 ${isActive("money")}`} onClick={() => props.setSettings({active: true, whichSettings: "money"})}>Referrals & Payments</button>
+        <button className={`hover:bg-rdsDarkAccent w-4/5 rounded-sm text-left p-1 ${isActive("tremendous")}`} onClick={() => props.setSettings({active: true, whichSettings: "tremendous"})}>Tremendous</button>
+        <button className={`hover:bg-rdsDarkAccent w-4/5 rounded-sm text-left p-1 ${isActive("contact")}`} onClick={() => props.setSettings({active: true, whichSettings: "contact"})}>Contact Information</button>
       </div>
     </>
   );
