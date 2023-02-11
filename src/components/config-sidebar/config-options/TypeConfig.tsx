@@ -22,7 +22,7 @@ export default function TypeConfig() {
     
   return (
     <div>
-      <select className="border border-rdsBlue" onChange={(e) => handleTypeChange(e)}>
+      <select className="border border-rdsBlue rounded-md dark:text-white dark:bg-inherit" onChange={(e) => handleTypeChange(e)}>
         <option>Multiple Choice</option>
         <option>FillInBlank</option>
         <option>Short Answer</option>

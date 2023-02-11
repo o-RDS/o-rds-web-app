@@ -20,7 +20,7 @@ export default function CheckboxConfig(props: any) {
   function renderChoices() {
     return taskQuestions["config"]["choices"]["value"].map((choice: any) => {
       return (
-        <li key={choice}>
+        <li key={choice} className="">
           <input type="checkbox" value={choice} disabled></input>
           <label className="ml-2">{choice}</label>
         </li>
@@ -29,12 +29,12 @@ export default function CheckboxConfig(props: any) {
   }
   return (
     <div
-      className="rounded-md border-2 border-white p-1 transition-all hover:border-2 hover:border-rdsOrange focus:border-red-500"
+      className="rounded-md border-2 border-white dark:border-rdsDarkAccent2 p-1 transition-all hover:border-2 hover:border-rdsOrange shadow shadow-slate-900"
       onClick={(e) => handleQuestionChange(props.index)}
     >
-      <div className="w-full">
-        <h3>{"Q" + (props.index + 1)}</h3>
-        <div className="rounded-md bg-gray-100 p-3">
+      <div className="w-full dark:text-white dark:bg-rdsDarkAccent2">
+        <h3 className="ml-2">{"Q" + (props.index + 1)}</h3>
+        <div className="rounded-md bg-gray-100 p-3 dark:bg-rdsDarkAccent2">
           <h2>{taskQuestions["config"]["prompt"]["value"]}</h2>
           <ul>{renderChoices()}</ul>
         </div>

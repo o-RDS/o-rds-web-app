@@ -20,13 +20,12 @@ export default function PromptConfig() {
     return (
         <div id="question-prompt" className="mt-3 flex flex-col items-center justify-center">
         <label htmlFor="question-prompt">{taskQuestions["config"]["prompt"]["configPrompt"]}</label>
-        <input
-          type="text"
+        <textarea
           placeholder="This is a question"
-          className="w-3/5 rounded-sm border border-rdsOrange"
+          className="w-4/5 rounded-md border border-rdsOrange dark:bg-inherit"
           onChange={(e: any) => handleTitleChange(e)}
           value={taskQuestions['config']['prompt']['value']}
-        ></input>
+        ></textarea>
       </div>
     )
 }

@@ -13,11 +13,11 @@ export default function SurveyTopConfig(props: any) {
   }
 
   return (
-    <div className="flex h-14 w-screen flex-row items-center justify-between border-black border-b pl-4 pr-4">
+    <div className="flex h-14 w-screen flex-row items-center justify-between border-black border-b pl-4 pr-4 dark:bg-rdsDark2 dark:border-none dark:text-white">
       <div className="flex gap-2">
         <input
           placeholder="Survey Name"
-          className="bg-inherit text-black border-b-2 border-gray-200 focus:border-b-rdsBlue focus:outline-none transition-all"
+          className="bg-inherit text-black dark:text-white border-b-2 border-gray-200 focus:border-b-rdsBlue focus:outline-none transition-all"
           value={props.name}
           onChange={(e) => props.setSurveyName(e.target.value)}
           maxLength={20}
