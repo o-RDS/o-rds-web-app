@@ -1,19 +1,14 @@
 import React, { useContext } from "react";
-import PageConfig from "./config-options/PageConfig";
-import TypeConfig from "./config-options/TypeConfig";
-import PromptConfig from "./config-options/PromptConfig";
-import ChoicesConfig from "./config-options/ChoicesConfig";
-import ShuffleConfig from "./config-options/ShuffleConfig";
+import GeneralSidebar from "./GeneralSidebar";
+import AnswersSidebar from "./AnswersSidebar";
 
 export default function CheckboxSidebar(props: any) {
 
   return (
     <>
-        <PageConfig />
-        <TypeConfig />
-        <PromptConfig />
-        <ShuffleConfig />
-        <ChoicesConfig />
+      <GeneralSidebar />
+      <div className="h-1 w-8/12 bg-slate-500"></div>
+      <AnswersSidebar />
     </>
   );
 }

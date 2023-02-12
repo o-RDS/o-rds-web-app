@@ -4,20 +4,10 @@ import helpIcon from "../images/help_icon.png";
 import ords from "../images/ords.png";
 
 export default function SurveyTopNav(props: any) {
-  const [open, setOpen] = useState(false);
   return (
-    <div className="flex h-14 w-screen flex-row items-center justify-start px-2 shadow-sm shadow-black">
+    <div className="flex h-14 w-screen flex-row items-center justify-start px-2 shadow-sm shadow-black overflow-visible overflow-y-auto">
       <div className="flex flex-row gap-3">
-        <img src={ords} className="w-14 h-14"></img>
-        <div className="">
-          <h3 onClick={() => setOpen(!open)}>{props.name}</h3>
-          {open && (
-            <div className="flex flex-col">
-              <Link to="../results">Results</Link>
-              <Link to="../survey-builder">Survey Builder</Link>
-            </div>
-          )}
-        </div>
+        <img src={ords} className="w-14 h-14" alt="o-RDS Logo"></img>
       </div>
       <div className="ml-auto flex items-center gap-2">
         <Link to="../dashboard">

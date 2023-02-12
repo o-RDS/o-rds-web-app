@@ -22,7 +22,7 @@ export default function PromptConfig() {
         <label htmlFor="question-prompt">{taskQuestions["config"]["prompt"]["configPrompt"]}</label>
         <textarea
           placeholder="This is a question"
-          className="w-4/5 rounded-md border border-rdsOrange dark:bg-inherit"
+          className="w-full h-20 p-1 rounded-md border border-rdsOrange dark:bg-inherit"
           onChange={(e: any) => handleTitleChange(e)}
           value={taskQuestions['config']['prompt']['value']}
         ></textarea>

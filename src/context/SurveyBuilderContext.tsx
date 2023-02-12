@@ -19,6 +19,14 @@ export default function SurveyBuilderContext(props: any) {
         refPayout: 0.0,
         maxRefs: 0,
         lastUpdated: new Date().toISOString(),
+        researcherMessage: "",
+        endSurveyMessage: "Thank you for taking our survey",
+        informedConsent: "You must consent to this survey",
+        contactInfo: {
+          phone: "",
+          email: "",
+          mail: ""
+        },
         questions: [
           {
             page: 0,
