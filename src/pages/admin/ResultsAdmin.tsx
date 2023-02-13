@@ -1,7 +1,8 @@
-import { render } from "@testing-library/react";
-import React, { useState, useContext } from "react";
+import { useState, useEffect } from "react";
 import ResultRow from "../../components/ResultRow";
 import StandardPage from "../../components/StandardPage";
+import { loadAllResponses } from "../../data/dataLayerManager";
+import { useParams, useNavigate } from "react-router-dom";
 
 const dummySurveyConfig = {
   question1: {
@@ -97,11 +98,25 @@ const dummySurveyResponses = {
   },
 };
 
-function getUserResponses(): Array<Array<string>> {
-  let responses: any = dummySurveyResponses; //CHANGE TO PROPER POINT IN DATABASE LATER ON
-  let allUserResponses = [];
+export default function Results() {
+  const [filterCompleted, setFilterCompleted] = useState(false);
+  const params = useParams();
+  const navigate = useNavigate();
 
-  for (let userID in responses) {
+  useEffect(() => {
+    if (params.id){
+      loadAllResponses(params.id)
+    } else {
+      console.log("No survey ID provided")
+      navigate("/admin/dashboard")
+    }
+  }, []);
+
+  function getUserResponses(): Array<Array<string>> {
+    let responses: any = dummySurveyResponses; //CHANGE TO PROPER POINT IN DATABASE LATER ON
+    let allUserResponses = [];
+
+    for (let userID in responses) {
       let currUserResponses = [];
       currUserResponses.push(userID);
       for (let questionID in responses[userID].answers) {
@@ -109,53 +124,59 @@ function getUserResponses(): Array<Array<string>> {
       }
       currUserResponses.push(responses[userID].completed.toString()); //Store completed status at end of array
       allUserResponses.push(currUserResponses);
-  }
-
-  return allUserResponses;
-}
-
-function renderTableHeader() {
-  let config: any = dummySurveyConfig; //CHANGE TO PROPER POINT IN DATABASE LATER ON
-  let headers = [];
-
-  headers.push("User ID"); //NOTE THAT THIS VALUE IS CURRENTLY HARD-CODED IN. THIS CAN PROBABLY BE CHANGED IN THE FUTURE
-  for (let questionID in config) {
-    headers.push(config[questionID].prompt.value);
-  }
-
-  return <ResultRow rowData={headers} type="header" />;
-}
-
-function renderTableBody(filterCompleted:boolean) {
-  let userResponses = getUserResponses();
-
-  return userResponses.map((row, index) => {
-    if(row.pop() === "true" || filterCompleted === false){      //If filtering is on pop the completed value from the row array
-      if (index % 2 === 0) {
-        return <ResultRow rowData={row} type="body" bgColor="bg-white" />;
-      } else {
-        return <ResultRow rowData={row} type="body" bgColor="bg-gray-200" />;
-      }
     }
-  });
-}
 
-export default function Results() {
-  const [filterCompleted, setFilterCompleted] = useState(false);
+    return allUserResponses;
+  }
+
+  function renderTableHeader() {
+    let config: any = dummySurveyConfig; //CHANGE TO PROPER POINT IN DATABASE LATER ON
+    let headers = [];
+
+    headers.push("User ID"); //NOTE THAT THIS VALUE IS CURRENTLY HARD-CODED IN. THIS CAN PROBABLY BE CHANGED IN THE FUTURE
+    for (let questionID in config) {
+      headers.push(config[questionID].prompt.value);
+    }
+
+    return <ResultRow rowData={headers} type="header" />;
+  }
+
+  function renderTableBody(filterCompleted: boolean) {
+    let userResponses = getUserResponses();
+
+    return userResponses.map((row, index) => {
+      if (row.pop() === "true" || filterCompleted === false) {
+        //If filtering is on pop the completed value from the row array
+        if (index % 2 === 0) {
+          return <ResultRow rowData={row} type="body" bgColor="bg-white" />;
+        } else {
+          return <ResultRow rowData={row} type="body" bgColor="bg-gray-200" />;
+        }
+      }
+    });
+  }
 
   return (
     <StandardPage>
       <div className="flex w-full flex-col gap-y-2 p-6">
         <div className="flex w-full flex-row items-baseline">
           <h1 className="flex-grow pl-10 text-left text-2xl">Survey Name</h1>
-          <label htmlFor="filterCompleted">Display completed responses only</label>
-          <input type="checkbox" id="filterCompleted" name="filterCompleted" className="ml-4 mr-12" onChange={() => setFilterCompleted(!filterCompleted)}/>
+          <label htmlFor="filterCompleted">
+            Display completed responses only
+          </label>
+          <input
+            type="checkbox"
+            id="filterCompleted"
+            name="filterCompleted"
+            className="ml-4 mr-12"
+            onChange={() => setFilterCompleted(!filterCompleted)}
+          />
           <button className="w-fit rounded bg-rdsOrange p-2 text-white">
             Download CSV
           </button>
         </div>
         <div className="overflow-auto">
-          <table className="w-fit mb-4 table-auto text-left border-collapse">
+          <table className="mb-4 w-fit table-auto border-collapse text-left">
             <thead>{renderTableHeader()}</thead>
             <tbody>{renderTableBody(filterCompleted)}</tbody>
           </table>

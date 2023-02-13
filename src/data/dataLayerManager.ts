@@ -4,8 +4,11 @@ import {
   getFirestore,
   doc,
   getDoc,
+  getDocs,
   setDoc,
   deleteDoc,
+  query,
+  collection,
 } from "firebase/firestore";
 import { v4 as uuidv4 } from "uuid";
 import { completion } from "yargs";
@@ -77,6 +80,29 @@ export async function loadResponse(surveyID: string, alias: string) {
       console.log("Response does not exist");
       return false;
     }
+  }
+}
+
+export async function loadAllResponses(surveyID: string) {
+  const db = getFirestore();
+  const surveyRef = query(collection(db, "responses", surveyID, "surveyResults"));
+  let querySnapshot = await getDocs(surveyRef);
+  let allResponses:any = [];
+  querySnapshot.forEach((doc) => {
+    allResponses.push(doc.data());
+  });
+  return allResponses;
+}
+
+export async function loadAdminSurveys(userID: string) {
+  const db = getFirestore();
+  const userRef = doc(db, "users", userID);
+  let docSnap = await getDoc(userRef);
+  if (docSnap.exists()) {
+    return docSnap.data().surveys;
+  } else {
+    console.log("User does not exist");
+    return false;
   }
 }
 

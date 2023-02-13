@@ -1,8 +1,31 @@
-import React from "react";
 import { Link } from "react-router-dom";
 import StandardPage from "../../components/StandardPage";
+import { loadAdminSurveys } from "../../data/dataLayerManager";
+import { useState, useEffect } from "react";
 
 export default function Dashboard() {
+  const user = "test"
+  const [surveys, setSurveys] = useState([]);
+
+  useEffect(() => {
+    loadAdminSurveys(user).then((surveys) => {
+      setSurveys(surveys);
+    });
+  }, []);
+
+  function renderSurveyButtons() {
+    return surveys.map((survey) => (
+      <Link to={`../results/${survey}`}>
+        <div className="flex h-48 w-48 flex-col justify-end rounded-md bg-rdsBlue p-2 text-white">
+          <div className="border-t">
+            <h4 className="text-md font-bold">Survey {survey}</h4>
+            <p className="text-sm">? Responses</p>
+          </div>
+        </div>
+      </Link>
+    ));
+  }
+
   return (
     <StandardPage>
       <div className="flex flex-col items-center">
@@ -20,32 +43,7 @@ export default function Dashboard() {
           </div>
           <br></br>
           <div className="flex flex-row flex-wrap gap-10">
-            <Link to="../results">
-              <div className="flex h-48 w-48 flex-col justify-end rounded-md bg-rdsBlue p-2 text-white">
-                <div className="border-t">
-                  <h4 className="text-md font-bold">survey 1</h4>
-                  <p className="text-sm">0 Responses</p>
-                </div>
-              </div>
-            </Link>
-            <div className="flex h-48 w-48 flex-col justify-end rounded-md bg-rdsBlue p-2 text-white">
-              <div className="border-t">
-                <h4 className="text-md font-bold">survey 1</h4>
-                <p className="text-sm">0 Responses</p>
-              </div>
-            </div>
-            <div className="flex h-48 w-48 flex-col justify-end rounded-md bg-rdsBlue p-2 text-white">
-              <div className="border-t">
-                <h4 className="text-md font-bold">survey 1</h4>
-                <p className="text-sm">0 Responses</p>
-              </div>
-            </div>
-            <div className="flex h-48 w-48 flex-col justify-end rounded-md bg-rdsBlue p-2 text-white">
-              <div className="border-t">
-                <h4 className="text-md font-bold">survey 1</h4>
-                <p className="text-sm">0 Responses</p>
-              </div>
-            </div>
+            {renderSurveyButtons()}
           </div>
         </div>
       </div>
