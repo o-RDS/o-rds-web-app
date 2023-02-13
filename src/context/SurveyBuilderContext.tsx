@@ -39,12 +39,13 @@ export default function SurveyBuilderContext(props: any) {
               },
               shuffle: {
                 value: true,
-                configPrompt: "Shuffle choices?",
+                configPrompt: "Shuffle choices",
                 type: "bool",
               },
               choices: {
                 value: ["A", "B", "C", "D", "E"],
-                configPrompt: "Enter choices:",
+                configPrompt: "Number of Choices",
+                editablePrompt: "Edit Choices",
                 type: "stringArray",
               },
             },
@@ -60,12 +61,13 @@ export default function SurveyBuilderContext(props: any) {
               },
               shuffle: {
                 value: true,
-                configPrompt: "Shuffle choices?",
+                configPrompt: "Shuffle choices",
                 type: "bool",
               },
               choices: {
                 value: ["A", "B", "C", "D", "E"],
-                configPrompt: "Enter choices:",
+                configPrompt: "Number of Choices",
+                editablePrompt: "Edit Choices",
                 type: "stringArray",
               },
             },

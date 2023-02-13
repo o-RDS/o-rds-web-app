@@ -9,6 +9,14 @@ export default function FillBlankConfig(props: any) {
   const dispatch = useContext(TasksDispatchContext);
   const taskQuestions = task["survey"]["questions"][props.index];
 
+  function isSelected() {
+    if (task['question'] == props.index) {
+      return "shadow-lg shadow-slate-900"
+    } else {
+      return ""
+    }
+  }
+
   function handleQuestionChange(index: number) {
     dispatch({
       type: "update",
@@ -29,7 +37,7 @@ export default function FillBlankConfig(props: any) {
   }
   return (
     <div
-      className="shadow shadow-slate-900 dark:border-rdsDarkAccent2 rounded-md border-2 border-white p-1 transition-all hover:border-2 hover:border-rdsOrange focus:border-red-500"
+    className={`dark:border-rdsDarkAccent2 ${isSelected()} rounded-md border-2 border-white p-1 transition-all hover:border-2 hover:border-rdsOrange focus:border-red-500`}
       onClick={(e) => handleQuestionChange(props.index)}
     >
       <div className="w-full dark:bg-rdsDarkAccent2 text-white">

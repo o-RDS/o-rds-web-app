@@ -140,7 +140,7 @@ export default function SurveyBuilder() {
         ) : (
           <>
             <ConfigSidebar />
-            <div className="mt-3 w-3/5">
+            <div className="mt-3 w-8/12">
               <QuestionViewer />
             </div>
           </>
