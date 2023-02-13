@@ -18,7 +18,7 @@ export default function PromptConfig() {
       }
       
     return (
-        <div id="question-prompt" className="mt-3 flex flex-col items-center justify-center">
+        <div id="question-prompt" className="mt-3 flex flex-col items-start justify-center gap-2">
         <label htmlFor="question-prompt">{taskQuestions["config"]["prompt"]["configPrompt"]}</label>
         <textarea
           placeholder="This is a question"

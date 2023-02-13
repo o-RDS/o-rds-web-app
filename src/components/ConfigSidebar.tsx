@@ -29,8 +29,10 @@ export default function ConfigSidebar(props: any) {
 
   return (
     <>
-      <div className="flex w-1/4 flex-col items-center justify-start gap-4 border-r border-black dark:bg-rdsDarkAccent3 dark:text-white dark:border-none pl-2 pr-2">
-        <h2 className="self-start text-xl font-bold">{"Q" + (task['question'] + 1) + "  Settings"}</h2>
+      <div className="flex w-[20%] flex-col items-center justify-start gap-4 border-r border-black p-4 dark:border-none dark:bg-rdsDarkAccent3 dark:text-white">
+        <h2 className="self-start text-xl font-bold">
+          {"Q" + (task["question"] + 1) + "  Settings"}
+        </h2>
         {getQuestionConfig(task["survey"]["questions"][task["question"]])}
       </div>
     </>

@@ -19,12 +19,13 @@ export default function ShuffleConfig() {
   }
     
   return(
-    <div>
+    <div className="flex flex-row gap-4">
         <label>{taskQuestions["config"]["shuffle"]["configPrompt"]}</label>
         <input
           type="checkbox"
           onChange={(e) => handleCheckChange(e)}
           defaultChecked={taskQuestions.config.shuffle.value}
+          className="accent-rdsBlue"
         ></input>
       </div>
   )

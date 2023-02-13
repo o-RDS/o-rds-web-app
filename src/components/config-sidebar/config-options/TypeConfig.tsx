@@ -21,9 +21,9 @@ export default function TypeConfig() {
   }
     
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col gap-2">
       <label>Question Type</label>
-      <select className="border border-rdsBlue rounded-md dark:text-white dark:bg-inherit" onChange={(e) => handleTypeChange(e)}>
+      <select className="border border-rdsBlue rounded-md dark:text-white dark:bg-inherit p-2" onChange={(e) => handleTypeChange(e)}>
         <option>Multiple Choice</option>
         <option>FillInBlank</option>
         <option>Short Answer</option>
