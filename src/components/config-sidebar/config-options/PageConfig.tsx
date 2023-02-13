@@ -24,7 +24,7 @@ export default function PageConfig() {
           <button className="h-8 w-1/3 text-lg rounded-l-full bg-rdsOrange text-white border-r border-r-white" onClick={() => handlePageChange(taskQuestions['page'] - 1)}>
             -
           </button>
-          <p className="text-lg h-8">{taskQuestions["page"]}</p>
+          <p className="text-lg h-8 text-white">{taskQuestions["page"]}</p>
           <button className="text-lg h-8 w-1/3 rounded-r-full bg-rdsOrange text-white border-l border-l-white" onClick={() => handlePageChange(taskQuestions['page'] + 1)}>
             +
           </button>

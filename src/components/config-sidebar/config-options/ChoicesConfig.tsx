@@ -72,7 +72,7 @@ export default function ChoicesConfig() {
         >
           -
         </button>
-        <p className="text-lg">
+        <p className="text-lg text-white">
           {taskQuestions["config"]["choices"]["value"].length}
         </p>
         <button

@@ -12,6 +12,10 @@ export default function SurveyTopConfig(props: any) {
   const task = useContext(TasksContext);
   const dispatch = useContext(TasksDispatchContext);
   const [open, setOpen] = useState(false);
+  const [surveyStatus, setSurveyStatus] = useState({
+    colors: "border-red-500 text-red-500 bg-red-500 bg-opacity-10",
+    active: "Inactive"
+  })
 
   function saveSurvey() {
     saveSurveyConfig("test", task["survey"]["id"], task["survey"]);
@@ -45,9 +49,9 @@ export default function SurveyTopConfig(props: any) {
         Last Updated: {task["survey"]["lastUpdated"]}
       </p>
       <div className="flex gap-2">
-        <button className="rounded-sm border border-rdsBlue pl-2 pr-2 text-rdsBlue">
-          Preview
-        </button>
+        <div className={`rounded-sm border ${surveyStatus.colors} pl-2 pr-2`}>
+          Inactive
+        </div>
         <button
           className="rounded-sm bg-rdsBlue pl-2 pr-2 text-white"
           onClick={() => props.setShowModal(true)}

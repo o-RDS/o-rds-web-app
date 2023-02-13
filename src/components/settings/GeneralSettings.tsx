@@ -71,7 +71,7 @@ export function GeneralSettings() {
           <label htmlFor="survey-message">Researcher Message</label>
           <textarea
             id="survey-message"
-            className="w-2/5 rounded-sm dark:bg-rdsDarkAccent"
+            className="w-2/5 rounded-sm dark:bg-rdsDarkAccent bg-gray-200 p-1"
             onChange={(e) => handleStartMessageChange(e)}
             value={task['survey']['researcherMessage']}
           ></textarea>
@@ -80,7 +80,7 @@ export function GeneralSettings() {
           <label htmlFor="end-survey-message">End of Survey Message</label>
           <textarea
             id="end-survey-message"
-            className="w-2/5 rounded-sm dark:bg-rdsDarkAccent"
+            className="w-2/5 rounded-sm dark:bg-rdsDarkAccent bg-gray-200 p-1"
             onChange={(e) => handleEndMessageChange(e)}
             value={task['survey']['endSurveyMessage']}
           ></textarea>
