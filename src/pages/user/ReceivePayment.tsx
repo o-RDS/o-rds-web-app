@@ -3,7 +3,7 @@ import { Link, useOutletContext } from "react-router-dom";
 import SurveyTakerStandardPage from "../../components/SurveyTakerStandardPage";
 import tremendousLogo from "../../images/tremendous_logo.svg";
 import { order } from "../../APIs/interfaces";
-import { createOrder } from "../../APIs/Tremendous";
+import { createOrder, sendPayment } from "../../APIs/Tremendous";
 import { send } from "process";
 
 export default function ReceivePayment() {
@@ -51,9 +51,12 @@ export default function ReceivePayment() {
       }
 
       console.log("Fetching Tremendous order API");
-      createOrder(order).then((data) => {
+      sendPayment(order).then((data) => {
         console.log(data);
       });
+      // createOrder(order).then((data) => {
+      //   console.log(data);
+      // });
     }
     // TODO: error when values are null
   }

@@ -41,7 +41,6 @@ export function startVerification(phone) {
 export function verificationCheck(phone, code) {
 
   // Auth now done at serter
-  // myHeaders.append('Authorization', 'Basic ' + btoa(accountSid + ":" + authToken));
 
   var formdata = new FormData();
 
