@@ -12,7 +12,7 @@ export default function SurveyBuilderContext(props: any) {
     // let question1ID = uuidv4();
     const defaultData = {
       survey: {
-        id: 1,
+        id: "1",
         title: "Untitled Survey",
         admins: [userID],
         completionPayout: 0.0,
@@ -182,7 +182,7 @@ export default function SurveyBuilderContext(props: any) {
     }
   }
 
-  const [tasks, dispatch] = useReducer(taskReducer, getDefaultSurvey("temp")); // Create useReducer
+  const [tasks, dispatch] = useReducer(taskReducer, getDefaultSurvey("test")); // Create useReducer
 
   return (
     <TasksContext.Provider value={tasks}>

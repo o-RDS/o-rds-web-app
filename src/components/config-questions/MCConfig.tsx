@@ -11,7 +11,7 @@ export default function MCConfig(props: any) {
 
   function isSelected() {
     if (task['question'] == props.index) {
-      return "shadow-lg shadow-slate-900"
+      return "shadow-lg shadow-slate-900 border-rdsOrange"
     } else {
       return ""
     }
@@ -36,7 +36,7 @@ export default function MCConfig(props: any) {
   }
   return (
     <div
-      className={`dark:border-rdsDarkAccent2 ${isSelected()} rounded-md border-2 border-white p-1 transition-all hover:border-2 hover:border-rdsOrange focus:border-red-500`}
+      className={` ${isSelected()} rounded-md border-2 p-1 transition-all hover:border-2 hover:border-rdsOrange focus:border-red-500`}
       onClick={(e) => handleQuestionChange(props.index)}
     >
       <div className="w-full dark:bg-rdsDarkAccent2 text-white">
