@@ -46,12 +46,7 @@ export default function QuestionViewer(props: any) {
   try {
     testArray = task["survey"]["questions"].map(
       (question: any, index: number) => {
-        return (
-          <QuestionConfig
-            data={question}
-            index={index}
-          />
-        );
+        return <QuestionConfig data={question} index={index} />;
       }
     );
   } catch (error) {
@@ -60,7 +55,7 @@ export default function QuestionViewer(props: any) {
 
   return (
     <>
-      <div className="h-min-56 mt-3 w-full flex flex-col gap-10 overflow-y-auto shadow-lg shadow-black dark:bg-rdsDarkAccent3 mb-3 rounded-md">
+      <div className="h-min-56 mt-3 mb-3 flex w-full flex-col gap-10 overflow-y-auto rounded-md shadow-lg shadow-black dark:bg-rdsDarkAccent3">
         <div className="flex w-full flex-col items-center justify-center gap-10 rounded-md p-5">
           <div className="flex w-full flex-col gap-4">{testArray}</div>
           <button

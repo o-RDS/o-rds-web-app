@@ -5,9 +5,9 @@ import ords from "../images/ords.png";
 
 export default function SurveyTopNav(props: any) {
   return (
-    <div className="flex h-14 w-screen flex-row items-center justify-start px-2 shadow-sm shadow-black overflow-visible overflow-y-auto">
+    <div className="flex h-14 w-screen flex-row items-center justify-start overflow-visible overflow-y-auto px-2 shadow-sm shadow-black">
       <div className="flex flex-row gap-3">
-        <img src={ords} className="w-14 h-14" alt="o-RDS Logo"></img>
+        <img src={ords} className="h-14 w-14" alt="o-RDS Logo"></img>
       </div>
       <div className="ml-auto flex items-center gap-2">
         <Link to="../dashboard">

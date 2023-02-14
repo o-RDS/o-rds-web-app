@@ -10,10 +10,10 @@ export default function ShortAnswerConfig(props: any) {
   const dispatch = useContext(TasksDispatchContext);
 
   function isSelected() {
-    if (task['question'] == props.index) {
-      return "shadow-lg shadow-slate-900"
+    if (task["question"] == props.index) {
+      return "shadow-lg shadow-slate-900";
     } else {
-      return ""
+      return "";
     }
   }
 
@@ -36,7 +36,7 @@ export default function ShortAnswerConfig(props: any) {
   }
   return (
     <div
-    className={`dark:border-rdsDarkAccent2 ${isSelected()} rounded-md border-2 border-white p-1 transition-all hover:border-2 hover:border-rdsOrange focus:border-red-500`}
+      className={`dark:border-rdsDarkAccent2 ${isSelected()} rounded-md border-2 border-white p-1 transition-all hover:border-2 hover:border-rdsOrange focus:border-red-500`}
       onClick={(e) => handleQuestionChange(props.index)}
     >
       <div className="w-full">

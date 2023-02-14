@@ -29,7 +29,9 @@ const SurveyLinkModal = (props: any) => {
   return (
     <div className="fixed top-0 left-0 bottom-0 right-0 z-50 flex items-center justify-center backdrop-blur-sm">
       <div className="flex h-3/5 w-3/5 flex-col justify-end gap-4 rounded-md border-2 border-rdsBlue bg-white p-4">
-        <h3 className="self-start text-lg font-bold justify-self-start">Survey Availability</h3>
+        <h3 className="self-start justify-self-start text-lg font-bold">
+          Survey Availability
+        </h3>
         <div className="">
           <h3 className="text-lg font-bold">Share Survey Link</h3>
           <p>
@@ -47,7 +49,7 @@ const SurveyLinkModal = (props: any) => {
             </button>
           </div>
         </div>
-        <div className="self-start w-full">
+        <div className="w-full self-start">
           <div className="flex w-full flex-row justify-between gap-2">
             <button
               onClick={() => props.showModal(false)}
@@ -59,7 +61,7 @@ const SurveyLinkModal = (props: any) => {
               <button className="rounded-md border-2 border-rdsBlue p-1">
                 Pause Survey
               </button>
-              <button className="rounded-md bg-rdsBlue pl-2 pr-2 text-white py-1">
+              <button className="rounded-md bg-rdsBlue py-1 pl-2 pr-2 text-white">
                 Publish Survey
               </button>
             </div>

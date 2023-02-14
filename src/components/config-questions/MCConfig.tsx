@@ -10,10 +10,10 @@ export default function MCConfig(props: any) {
   const taskQuestions = task["survey"]["questions"][props.index];
 
   function isSelected() {
-    if (task['question'] == props.index) {
-      return "shadow-lg shadow-slate-900 border-rdsOrange"
+    if (task["question"] == props.index) {
+      return "shadow-lg shadow-slate-900 border-rdsOrange";
     } else {
-      return ""
+      return "";
     }
   }
 
@@ -39,7 +39,7 @@ export default function MCConfig(props: any) {
       className={` ${isSelected()} rounded-md border-2 p-1 transition-all hover:border-2 hover:border-rdsOrange focus:border-red-500`}
       onClick={(e) => handleQuestionChange(props.index)}
     >
-      <div className="w-full dark:bg-rdsDarkAccent2 text-white">
+      <div className="w-full text-white dark:bg-rdsDarkAccent2">
         <h3>{"Q" + (props.index + 1)}</h3>
         <div className="rounded-md bg-gray-100 p-3 dark:bg-rdsDarkAccent2">
           <h2>{taskQuestions["config"]["prompt"]["value"]}</h2>

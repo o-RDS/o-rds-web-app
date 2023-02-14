@@ -25,7 +25,7 @@ export default function SurveyBuilderContext(props: any) {
         contactInfo: {
           phone: "",
           email: "",
-          mail: ""
+          mail: "",
         },
         questions: [
           {

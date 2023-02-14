@@ -54,7 +54,7 @@ export default function ChoicesConfig() {
         <input
           value={choice}
           onChange={(e) => handleChoicesChange(index, e)}
-          className="border-b-2 border-gray-200 transition-all focus:border-b-rdsBlue focus:outline-none dark:bg-rdsDarkAccent2 w-full"
+          className="w-full border-b-2 border-gray-200 transition-all focus:border-b-rdsBlue focus:outline-none dark:bg-rdsDarkAccent2"
           placeholder="Enter Choice Here"
         ></input>
         <br></br>
@@ -63,25 +63,25 @@ export default function ChoicesConfig() {
   );
   return (
     <div className="flex flex-col items-start justify-center gap-5">
-      <div className="w-full flex flex-col items-start justify-center gap-2">
-      <label>{taskQuestions["config"]["choices"]["configPrompt"]}</label>
-      <div className="flex flex-row w-2/3 justify-between gap-2 bg-rdsOrange rounded-full">
-        <button
-          className="h-8 w-1/3 text-lg rounded-l-full bg-rdsOrange text-white border-r border-r-white"
-          onClick={() => addChoice("pop")}
-        >
-          -
-        </button>
-        <p className="text-lg text-white">
-          {taskQuestions["config"]["choices"]["value"].length}
-        </p>
-        <button
-          className="text-lg h-8 w-1/3 rounded-r-full bg-rdsOrange text-white border-l border-l-white"
-          onClick={() => addChoice("push")}
-        >
-          +
-        </button>
-      </div>
+      <div className="flex w-full flex-col items-start justify-center gap-2">
+        <label>{taskQuestions["config"]["choices"]["configPrompt"]}</label>
+        <div className="flex w-2/3 flex-row justify-between gap-2 rounded-full bg-rdsOrange">
+          <button
+            className="h-8 w-1/3 rounded-l-full border-r border-r-white bg-rdsOrange text-lg text-white"
+            onClick={() => addChoice("pop")}
+          >
+            -
+          </button>
+          <p className="text-lg text-white">
+            {taskQuestions["config"]["choices"]["value"].length}
+          </p>
+          <button
+            className="h-8 w-1/3 rounded-r-full border-l border-l-white bg-rdsOrange text-lg text-white"
+            onClick={() => addChoice("push")}
+          >
+            +
+          </button>
+        </div>
       </div>
       <div className="flex flex-col gap-2">
         <h4>{taskQuestions["config"]["choices"]["editablePrompt"]}</h4>

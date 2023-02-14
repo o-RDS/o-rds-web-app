@@ -46,15 +46,13 @@ export default function FillInTheBlank(props: any) {
   function renderChoices() {
     return (
       <div className="flex flex-col gap-2">
-        <p>
-          {props.config.prompt.value}
-        </p>
+        <p>{props.config.prompt.value}</p>
         <input
-            placeholder="Place Answer Here"
-            value={answer}
-            onChange={(e) => handleClick(e.target.value)}
-            className="border-rdsBlue border-2 rounded-md pl-1 pr-1 md:w-2/5"
-          ></input>
+          placeholder="Place Answer Here"
+          value={answer}
+          onChange={(e) => handleClick(e.target.value)}
+          className="rounded-md border-2 border-rdsBlue pl-1 pr-1 md:w-2/5"
+        ></input>
       </div>
     );
   }
@@ -62,7 +60,9 @@ export default function FillInTheBlank(props: any) {
   // this will render the question prompt and the choices
   return (
     <div>
-      <h2 className="text-lg font-bold">{props.index + 1}) Fill In The Blank</h2>
+      <h2 className="text-lg font-bold">
+        {props.index + 1}) Fill In The Blank
+      </h2>
       {renderChoices()}
     </div>
   );

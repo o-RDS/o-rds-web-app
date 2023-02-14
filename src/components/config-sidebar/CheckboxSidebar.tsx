@@ -3,7 +3,6 @@ import GeneralSidebar from "./GeneralSidebar";
 import AnswersSidebar from "./AnswersSidebar";
 
 export default function CheckboxSidebar(props: any) {
-
   return (
     <>
       <GeneralSidebar />
