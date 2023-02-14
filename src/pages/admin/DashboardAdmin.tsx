@@ -5,20 +5,21 @@ import { useState, useEffect } from "react";
 
 export default function Dashboard() {
   const user = "test"
-  const [surveys, setSurveys] = useState([]);
+  const [surveys, setSurveys] = useState([{ id: 1, title: "Loading..." }]);
 
   useEffect(() => {
     loadAdminSurveys(user).then((surveys) => {
+      console.log(surveys)
       setSurveys(surveys);
     });
   }, []);
 
   function renderSurveyButtons() {
     return surveys.map((survey) => (
-      <Link to={`../results/${survey}`}>
+      <Link to={`../results/${survey.id}`}>
         <div className="flex h-48 w-48 flex-col justify-end rounded-md bg-rdsBlue p-2 text-white">
           <div className="border-t">
-            <h4 className="text-md font-bold">Survey {survey}</h4>
+            <h4 className="text-md font-bold">{survey.title}</h4>
             <p className="text-sm">? Responses</p>
           </div>
         </div>
