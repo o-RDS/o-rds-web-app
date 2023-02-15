@@ -10,12 +10,12 @@ export default function SurveyTopNav(props: any) {
         <img src={ords} className="h-14 w-14" alt="o-RDS Logo"></img>
       </div>
       <div className="ml-auto flex items-center gap-2">
-        <Link to="../dashboard">
+        <Link to="/admin/dashboard">
           <button className="hover:translate transform-y-1/2 hover:border-b-2">
             Home
           </button>
         </Link>
-        <Link to="../payment-manager">
+        <Link to="/admin/payment-manager">
           <button>Payments</button>
         </Link>
         <img src={helpIcon} className="h-6 w-6" alt="Help Icon" />

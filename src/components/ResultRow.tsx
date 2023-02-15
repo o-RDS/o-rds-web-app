@@ -11,13 +11,13 @@ export default function ResultRow(props: {
     return props.rowData.map((responseVal, index) => {
       if (props.type == "header") {
         return (
-          <th className="whitespace-wrap max-w-md border border-black px-4 py-3">
+          <th className="whitespace-wrap min-w-[275px] max-w-md border-x border-black px-4 py-3">
             {responseVal}
           </th>
         );
       } else {
         return (
-          <td className="whitespace-wrap max-w-md break-words border border-black px-4 py-3">
+          <td className="whitespace-wrap min-w-[275px] max-w-md break-words border border-black px-4 py-3">
             {responseVal}
           </td>
         );
@@ -29,21 +29,21 @@ export default function ResultRow(props: {
     <>
       {props.type == "header" ? (
         <tr className="bg-slate-600 text-sm text-white">
-          <th className="w-fit border-0 bg-white"></th>
+          <th className="sticky left-0 min-w-[40px] w-10 bg-white"></th>
           {renderCells()}
         </tr>
       ) : (
         <>
           <tr className={"dataRow " + props.bgColor}>
-            <td className="w-10 bg-white align-middle">
-              <button className="deleteButton">
-                <img
-                  src={removeEntryIcon}
-                  alt="Row delete button"
-                  className="h-10 w-8"
-                />
-              </button>
-            </td>
+              <td className="sticky left-0 min-w-[40px] w-10 bg-white align-middle">
+                <button className="deleteButton">
+                  <img
+                    src={removeEntryIcon}
+                    alt="Row delete button"
+                    className="h-10 w-8"
+                  />
+                </button>
+              </td>
             {renderCells()}
           </tr>
         </>

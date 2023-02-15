@@ -100,7 +100,7 @@ export default function SurveyBuilder() {
     if (params.surveyID !== "new" && params.surveyID !== undefined) {
       retrieveSurveyConfig(params.surveyID).then((data) => {
         if (data === undefined) {
-          navigate("../../dashboard");
+          navigate("/admin/dashboard");
         }
         dispatch({
           type: "question-prompt",
