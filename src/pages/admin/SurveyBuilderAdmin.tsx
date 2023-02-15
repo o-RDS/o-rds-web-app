@@ -6,7 +6,7 @@ import QuestionViewer from "../../components/QuestionViewer";
 import ConfigSidebar from "../../components/ConfigSidebar";
 import SurveyLinkModal from "../../components/SurveyLinkModal";
 import SurveySettings from "../../components/settings/SurveySettings";
-import SurveyBuilderContext from "../../context/SurveyBuilderContext";
+import { TasksContext, TasksDispatchContext } from "../../context/SurveyBuilderContext";
 import {
   saveSurveyConfig,
   retrieveSurveyConfig,
@@ -16,6 +16,7 @@ import { useNavigate, useParams } from "react-router";
 
 //TODO: Survey builder context needs to get the correct survey! We need to make sure we get that data to it!
 export default function SurveyBuilder() {
+  const dispatch = useContext(TasksDispatchContext);
   function getDefaultSurvey(userID: string) {
     let newID = uuidv4();
     // let question1ID = uuidv4();
@@ -51,6 +52,7 @@ export default function SurveyBuilder() {
           },
         },
       ],
+      question: 0
       /* New Questions w/ IDs
       "questionOrder": [question1ID],
       "questions": {
@@ -100,9 +102,19 @@ export default function SurveyBuilder() {
         if (data === undefined) {
           navigate("../../dashboard");
         }
+        dispatch({
+          type: "question-prompt",
+          questions: data,
+          question: 0
+        })
         setConfig(data);
       });
     } else if (params.surveyID === "new") {
+      dispatch({
+        type: "question-prompt",
+        questions: config,
+        question: 0
+      })
       saveSurveyConfig(userID, config.id, config);
       navigate(`../${config.id}`);
     } else {
@@ -115,7 +127,7 @@ export default function SurveyBuilder() {
   // }, 5000)
 
   return (
-    <SurveyBuilderContext>
+    <>
       <SurveyTopNav name={surveyName} />
       <SurveyTopConfig
         name={surveyName}
@@ -145,6 +157,6 @@ export default function SurveyBuilder() {
           </>
         )}
       </div>
-    </SurveyBuilderContext>
+    </>
   );
 }
