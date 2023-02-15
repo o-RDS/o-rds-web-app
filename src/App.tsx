@@ -14,6 +14,7 @@ import BadSurvey from './pages/user/BadSurvey';
 import ConfigContext from './context/ConfigContext';
 import AdminAuth from './context/AdminAuth';
 import Share from './pages/user/Share';
+import SurveyBuilderContext from './context/SurveyBuilderContext';
 
 
 function App() {
@@ -26,7 +27,7 @@ function App() {
           <Route path="results" element={<Results/>} />
           <Route path="payment-manager" element={<PaymentManager/>} />
           <Route path="survey-builder">
-            <Route path=":surveyID" element={<SurveyBuilder/>} />
+              <Route path=":surveyID" element={<SurveyBuilderContext ><SurveyBuilder/></SurveyBuilderContext>} />
           </Route>
         </Route>
         <Route path="survey">

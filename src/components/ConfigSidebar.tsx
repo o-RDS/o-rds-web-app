@@ -13,6 +13,7 @@ export default function ConfigSidebar(props: any) {
   const task = useContext(TasksContext);
 
   function getQuestionConfig(data: any) {
+    try {
     switch (data.type) {
       case "MultipleChoice":
         return <MCSidebar />;
@@ -25,11 +26,17 @@ export default function ConfigSidebar(props: any) {
       default:
         return <p>"Unknown Question Type"</p>;
     }
+  } catch(error) {
+    console.log(error);
+  }
   }
 
   return (
     <>
-      <div className="flex w-1/4 flex-col items-center justify-start gap-2 border-r border-black">
+      <div className="flex w-[20%] flex-col items-center justify-start gap-4 border-r border-black p-4 dark:border-none dark:bg-rdsDarkAccent3 dark:text-white">
+        <h2 className="self-start text-xl font-bold">
+          {"Q" + (task["question"] + 1) + "  Settings"}
+        </h2>
         {getQuestionConfig(task["survey"]["questions"][task["question"]])}
       </div>
     </>

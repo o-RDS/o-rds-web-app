@@ -49,7 +49,7 @@ export default function ShortAnswer(props: any) {
           placeholder="This is a place for text"
           value={answer}
           onChange={(e) => handleClick(e.target.value)}
-          className="border-2 border-rdsBlue rounded-md"
+          className="rounded-md border-2 border-rdsBlue"
         ></textarea>
       </div>
     );
@@ -58,7 +58,9 @@ export default function ShortAnswer(props: any) {
   // this will render the question prompt and the choices
   return (
     <div>
-      <h2 className="text-lg font-bold">{props.index + 1}) {props.config.prompt.value}</h2>
+      <h2 className="text-lg font-bold">
+        {props.index + 1}) {props.config.prompt.value}
+      </h2>
       {renderChoices()}
     </div>
   );

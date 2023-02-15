@@ -46,13 +46,7 @@ export default function QuestionViewer(props: any) {
   try {
     testArray = task["survey"]["questions"].map(
       (question: any, index: number) => {
-        return (
-          <QuestionConfig
-            data={question}
-            index={index}
-            // changeQuestion={chooseQuestion}
-          />
-        );
+        return <QuestionConfig data={question} index={index} />;
       }
     );
   } catch (error) {
@@ -61,22 +55,15 @@ export default function QuestionViewer(props: any) {
 
   return (
     <>
-      <div className="h-min-56 mt-3 flex flex-col gap-10 overflow-y-auto">
-        <div className="flex w-full flex-col items-center justify-center gap-10 rounded-md border border-black p-5">
+      <div className="h-min-56 mt-3 mb-3 flex w-full flex-col gap-10 overflow-y-auto rounded-md shadow-lg shadow-black dark:bg-rdsDarkAccent3">
+        <div className="flex w-full flex-col items-center justify-center gap-10 rounded-md p-5">
           <div className="flex w-full flex-col gap-4">{testArray}</div>
           <button
-            className="w-fit rounded-sm bg-rdsBlue pl-2 pr-2 text-white"
+            className="w-fit rounded-sm bg-rdsBlue pl-2 pr-2 dark:text-white"
             onClick={() => handleAddedQuestion()}
           >
             + Add Question
           </button>
-          <div className="w-full">
-            <h3>End of Survey</h3>
-            <input
-              className="w-full bg-gray-100"
-              placeholder="Put what you would like the end of survey message to be!"
-            ></input>
-          </div>
         </div>
       </div>
     </>

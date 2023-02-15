@@ -1,12 +1,12 @@
 import { useState, useEffect, useReducer, useContext } from "react";
-import StandardPage from "../../components/StandardPage";
+import SurveySettingsSide from "../../components/settings/SurveySettingsSide";
 import SurveyTopNav from "../../components/SurveyTopNav";
 import SurveyTopConfig from "../../components/SurveyTopConfig";
 import QuestionViewer from "../../components/QuestionViewer";
 import ConfigSidebar from "../../components/ConfigSidebar";
 import SurveyLinkModal from "../../components/SurveyLinkModal";
-import { TasksContext } from "../../context/SurveyBuilderContext";
-import SurveyBuilderContext from "../../context/SurveyBuilderContext";
+import SurveySettings from "../../components/settings/SurveySettings";
+import { TasksContext, TasksDispatchContext } from "../../context/SurveyBuilderContext";
 import {
   saveSurveyConfig,
   retrieveSurveyConfig,
@@ -14,19 +14,28 @@ import {
 import { v4 as uuidv4 } from "uuid";
 import { useNavigate, useParams } from "react-router";
 
+//TODO: Survey builder context needs to get the correct survey! We need to make sure we get that data to it!
 export default function SurveyBuilder() {
+  const dispatch = useContext(TasksDispatchContext);
   function getDefaultSurvey(userID: string) {
     let newID = uuidv4();
     // let question1ID = uuidv4();
     const defaultData = {
       id: newID,
-      title: "Untitled Survey",
-      admins: [userID],
-      live: false,
-      completionPayout: 0.0,
-      refPayout: 0.0,
-      maxRefs: 0,
-      lastUpdated: new Date().toISOString(),
+        title: "Untitled Survey",
+        admins: [userID],
+        completionPayout: 0.0,
+        refPayout: 0.0,
+        maxRefs: 0,
+        lastUpdated: new Date().toISOString(),
+        researcherMessage: "",
+        endSurveyMessage: "Thank you for taking our survey",
+        informedConsent: "You must consent to this survey",
+        contactInfo: {
+          phone: "",
+          email: "",
+          mail: "",
+        },
       questions: [
         {
           page: 0,
@@ -50,6 +59,7 @@ export default function SurveyBuilder() {
           },
         },
       ],
+      question: 0
       /* New Questions w/ IDs
       "questionOrder": [question1ID],
       "questions": {
@@ -85,8 +95,10 @@ export default function SurveyBuilder() {
   const [showModal, setShowModal] = useState(false);
   const [surveyName, setSurveyName] = useState("SurveyName");
   const [config, setConfig] = useState<any>(getDefaultSurvey("test"));
-  //const [questions, setQuestions] = useState<any>(config.questions);
-  //const [question, setQuestion] = useState(questions[0]);
+  const [settings, setSettings] = useState({
+    active: false,
+    whichSettings: "General",
+  });
   const userID = "test";
 
   useEffect(() => {
@@ -95,9 +107,19 @@ export default function SurveyBuilder() {
         if (data === undefined) {
           navigate("/admin/dashboard");
         }
+        dispatch({
+          type: "question-prompt",
+          questions: data,
+          question: 0
+        })
         setConfig(data);
       });
     } else if (params.surveyID === "new") {
+      dispatch({
+        type: "question-prompt",
+        questions: config,
+        question: 0
+      })
       saveSurveyConfig(userID, config.id, config);
       navigate(`../${config.id}`);
     } else {
@@ -105,25 +127,41 @@ export default function SurveyBuilder() {
     }
   }, []);
 
+  // setInterval(() => {
+  //   console.log("this happens");
+  // }, 5000)
+
   return (
-    <SurveyBuilderContext>
+    <>
       <SurveyTopNav name={surveyName} />
       <SurveyTopConfig
+        name={surveyName}
         setSurveyName={setSurveyName}
         setShowModal={setShowModal}
+        setSettings={setSettings}
+        settings={settings}
       />
-      <div className="flex flex-row gap-20">
+      <div className="flex min-h-screen flex-row gap-20 dark:bg-rdsDark2">
         <SurveyLinkModal
           showModal={setShowModal}
           display={showModal}
           surveyName={surveyName}
           surveyID={config.id}
         />
-        <ConfigSidebar />
-        <div className="mt-3 w-3/5">
-          <QuestionViewer />
-        </div>
+        {settings.active ? (
+          <>
+            <SurveySettingsSide setSettings={setSettings} settings={settings} />
+            <SurveySettings settings={settings} />
+          </>
+        ) : (
+          <>
+            <ConfigSidebar />
+            <div className="mt-3 w-8/12">
+              <QuestionViewer />
+            </div>
+          </>
+        )}
       </div>
-    </SurveyBuilderContext>
+    </>
   );
 }
