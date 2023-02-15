@@ -1,17 +1,31 @@
 import React, { useContext, useState } from "react";
-import { TasksDispatchContext } from "../context/SurveyBuilderContext";
+import { TasksContext, TasksDispatchContext } from "../context/SurveyBuilderContext";
 
 const SurveyLinkModal = (props: any) => {
   const [copyLabel, setCopyLabel] = useState("Copy");
+  const task = useContext(TasksContext);
   const dispatch = useContext(TasksDispatchContext);
 
   function handlePauseSurvey() {
+    let test = task;
+    test['survey']['live'] = false;
     dispatch({
       type: "question-prompt",
-      questions: "",
-      question: "",
+      questions: test['survey'],
+      question: task['question'],
     });
   }
+
+  function handlePublishSurvey() {
+    let test = task;
+    test['survey']['live'] = true;
+    dispatch({
+      type: "question-prompt",
+      questions: test['survey'],
+      question: task['question'],
+    });
+  }
+
   if (!props.display) {
     return <></>;
   }
@@ -24,6 +38,14 @@ const SurveyLinkModal = (props: any) => {
     setTimeout(() => {
       setCopyLabel("Copy");
     }, 2000);
+  }
+
+  function checkIfReadyToPublish() {
+    if (task['survey']['questions'].length == 0 && task['survey']['title'] !== "") {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   return (
@@ -58,10 +80,10 @@ const SurveyLinkModal = (props: any) => {
               Close
             </button>
             <div className="flex flex-row gap-2">
-              <button className="rounded-md border-2 border-rdsBlue p-1">
+              <button className="rounded-md border-2 border-rdsBlue p-1" onClick={() => handlePauseSurvey()}>
                 Pause Survey
               </button>
-              <button className="rounded-md bg-rdsBlue py-1 pl-2 pr-2 text-white">
+              <button className="rounded-md bg-rdsBlue py-1 pl-2 pr-2 text-white disabled:cursor-not-allowed disabled:bg-gray-500" disabled={checkIfReadyToPublish()} onClick={() => handlePublishSurvey()}>
                 Publish Survey
               </button>
             </div>

@@ -17,6 +17,7 @@ export default function PromptConfig() {
       type: "question-prompt",
       questions: test["survey"],
       question: task["question"],
+      change: true
     });
   }
 

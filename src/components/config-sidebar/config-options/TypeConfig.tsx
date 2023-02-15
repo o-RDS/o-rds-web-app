@@ -20,6 +20,7 @@ export default function TypeConfig() {
       type: "question-prompt",
       questions: test["survey"],
       question: test["question"],
+      change: true
     });
   }
 

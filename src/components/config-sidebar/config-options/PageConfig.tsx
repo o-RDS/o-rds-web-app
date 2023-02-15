@@ -16,6 +16,7 @@ export default function PageConfig() {
       type: "question-prompt",
       questions: test["survey"],
       question: task["question"],
+      change: true
     });
   }
 

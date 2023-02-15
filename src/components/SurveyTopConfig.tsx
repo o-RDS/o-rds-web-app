@@ -18,7 +18,15 @@ export default function SurveyTopConfig(props: any) {
   });
 
   function saveSurvey() {
-    saveSurveyConfig("test", task["survey"]["id"], task["survey"]);
+    if (task['change']) {
+      saveSurveyConfig("test", task["survey"]["id"], task["survey"]);
+    }
+    dispatch({
+      type: 'question-prompt',
+      questions: task['survey'],
+      question: task['question'],
+      change: false
+    })
   }
 
   return (

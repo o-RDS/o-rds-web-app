@@ -15,6 +15,7 @@ export function MoneySettings() {
       type: "update",
       questions: test["survey"],
       question: task["question"],
+      change: true
     });
   }
 
@@ -25,6 +26,7 @@ export function MoneySettings() {
       type: "update",
       questions: test["survey"],
       question: task["question"],
+      change: true
     });
   }
 
@@ -36,6 +38,7 @@ export function MoneySettings() {
       type: "update",
       questions: test["survey"],
       question: task["question"],
+      change: true
     });
   }
 
@@ -46,6 +49,7 @@ export function MoneySettings() {
       type: "update",
       questions: test["survey"],
       question: task["question"],
+      change: true
     });
   }
 
