@@ -22,13 +22,20 @@ export default function SurveyBuilder() {
     // let question1ID = uuidv4();
     const defaultData = {
       id: newID,
-      title: "Untitled Survey",
-      admins: [userID],
-      live: false,
-      completionPayout: 0.0,
-      refPayout: 0.0,
-      maxRefs: 0,
-      lastUpdated: new Date().toISOString(),
+        title: "Untitled Survey",
+        admins: [userID],
+        completionPayout: 0.0,
+        refPayout: 0.0,
+        maxRefs: 0,
+        lastUpdated: new Date().toISOString(),
+        researcherMessage: "",
+        endSurveyMessage: "Thank you for taking our survey",
+        informedConsent: "You must consent to this survey",
+        contactInfo: {
+          phone: "",
+          email: "",
+          mail: "",
+        },
       questions: [
         {
           page: 0,
@@ -92,8 +99,6 @@ export default function SurveyBuilder() {
     active: false,
     whichSettings: "General",
   });
-  //const [questions, setQuestions] = useState<any>(config.questions);
-  //const [question, setQuestion] = useState(questions[0]);
   const userID = "test";
 
   useEffect(() => {

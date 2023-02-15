@@ -13,6 +13,7 @@ export default function ConfigSidebar(props: any) {
   const task = useContext(TasksContext);
 
   function getQuestionConfig(data: any) {
+    try {
     switch (data.type) {
       case "MultipleChoice":
         return <MCSidebar />;
@@ -25,6 +26,9 @@ export default function ConfigSidebar(props: any) {
       default:
         return <p>"Unknown Question Type"</p>;
     }
+  } catch(error) {
+    console.log(error);
+  }
   }
 
   return (

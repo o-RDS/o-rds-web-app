@@ -25,13 +25,6 @@ export default function SurveyTopConfig(props: any) {
     <div className="flex h-14 w-screen flex-row items-center justify-between border-b border-black pl-4 pr-4 dark:border-none dark:bg-rdsDark2 dark:text-white">
       <div className="flex gap-2">
         <p onClick={() => setOpen(!open)}>{task["survey"]["title"]}</p>
-        {/* <input
-          placeholder="Survey Name"
-          className="border-b-2 border-gray-200 bg-inherit text-black transition-all focus:border-b-rdsBlue focus:outline-none dark:text-white"
-          value={task['survey']['title']}
-          onChange={(e) => props.setSurveyName(e.target.value)}
-          maxLength={20}
-        ></input> */}
         <img
           src={floppydisc}
           className="h-6 w-6 cursor-pointer"
