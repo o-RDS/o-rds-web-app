@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import ResultRow from "../../components/ResultRow";
 import StandardPage from "../../components/StandardPage";
-import { loadAllResponses } from "../../data/dataLayerManager";
+import { loadAllResponses, retrieveSurveyConfig } from "../../data/dataLayerManager";
 import { useParams, useNavigate } from "react-router-dom";
 
 const dummySurveyConfig = {
@@ -99,13 +99,16 @@ const dummySurveyResponses = {
 };
 
 export default function Results() {
+  const [results, setResults] = useState<any>([]);
+  const [config, setConfig] = useState<any>({});
   const [filterCompleted, setFilterCompleted] = useState(false);
   const params = useParams();
   const navigate = useNavigate();
 
   useEffect(() => {
     if (params.id){
-      loadAllResponses(params.id)
+      setResults(loadAllResponses(params.id));
+      setConfig(retrieveSurveyConfig(params.id));
     } else {
       console.log("No survey ID provided")
       navigate("/admin/dashboard")
@@ -113,7 +116,7 @@ export default function Results() {
   }, []);
 
   function getUserResponses(): Array<Array<string>> {
-    let responses: any = dummySurveyResponses; //CHANGE TO PROPER POINT IN DATABASE LATER ON
+    let responses: any = results;
     let allUserResponses = [];
 
     for (let userID in responses) {
@@ -126,17 +129,21 @@ export default function Results() {
       allUserResponses.push(currUserResponses);
     }
 
+    responses.forEach((response:any) => {
+      // TODO - Handle true schema, and change schema in survey
+    });
+
     return allUserResponses;
   }
 
   function renderTableHeader() {
-    let config: any = dummySurveyConfig; //CHANGE TO PROPER POINT IN DATABASE LATER ON
+    let questions:Array<any> = config.questions;
     let headers = [];
 
     headers.push("User ID"); //NOTE THAT THIS VALUE IS CURRENTLY HARD-CODED IN. THIS CAN PROBABLY BE CHANGED IN THE FUTURE
-    for (let questionID in config) {
-      headers.push(config[questionID].prompt.value);
-    }
+    questions.forEach((question) => {
+      headers.push(question.prompt.value);
+    });
 
     return <ResultRow rowData={headers} type="header" />;
   }
