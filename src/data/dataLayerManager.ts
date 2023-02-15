@@ -240,7 +240,7 @@ export async function saveSurveyConfig(
     if (docSnap.exists()) {
       if (docSnap.data().admins.includes(userID)) {
         console.log("User is admin, updating survey");
-        surveyData.data().lastUpdated = (new Date()).toISOString();
+        surveyData.lastUpdated = (new Date()).toISOString();
         setDoc(docRef, surveyData);
       } else {
         console.log("Unauthorized access to survey");

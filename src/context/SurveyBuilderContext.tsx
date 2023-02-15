@@ -2,17 +2,18 @@ import react, { useEffect, useReducer, useRef } from "react";
 import { useParams, useNavigate, Outlet } from "react-router";
 import { retrieveSurveyConfig, signIn } from "../data/dataLayerManager";
 import { createContext } from "react";
+import { uuidv4 } from "@firebase/util";
 
 export const TasksContext = createContext<any>(null); //This is the context that will contain the survey in state for the survey builder
 export const TasksDispatchContext = createContext<any>(null); //This context will contain the dispatch to handle state changes
 
 export default function SurveyBuilderContext(props: any) {
   function getDefaultSurvey(userID: string) {
-    // let newID = uuidv4();
-    // let question1ID = uuidv4();
+    let newID = uuidv4();
+    let question1ID = uuidv4();
     const defaultData = {
       survey: {
-        id: "1",
+        id: newID,
         title: "Untitled Survey",
         admins: [userID],
         completionPayout: 0.0,
