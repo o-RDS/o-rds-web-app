@@ -82,7 +82,8 @@ export async function sendPayment(order, JWT) {
         email: order.recipient_email,
         phone: order.recipient_phone
       },
-      method: order.delivery_method
+      method: order.delivery_method,
+      to: order.recipient_phone
     })
   };
 
