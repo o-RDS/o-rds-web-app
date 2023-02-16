@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import SurveyTopNav from "../../components/SurveyTopNav";
 import ResultRow from "../../components/ResultRow";
 import StandardPage from "../../components/StandardPage";
 import { loadAllResponses } from "../../data/dataLayerManager";
@@ -157,7 +158,8 @@ export default function Results() {
   }
 
   return (
-    <StandardPage>
+    <>
+      <SurveyTopNav id={params.id}/>
       <div className="flex w-full flex-col gap-y-2 p-6">
         <div className="flex w-full flex-row items-baseline">
           <h1 className="flex-grow pl-10 text-left text-2xl">Survey Name</h1>
@@ -182,6 +184,6 @@ export default function Results() {
           </table>
         </div>
       </div>
-    </StandardPage>
+    </>
   );
 }

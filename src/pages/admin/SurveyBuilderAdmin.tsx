@@ -16,6 +16,7 @@ import { useNavigate, useParams } from "react-router";
 
 //TODO: Survey builder context needs to get the correct survey! We need to make sure we get that data to it!
 export default function SurveyBuilder() {
+  const task = useContext(TasksContext);
   const dispatch = useContext(TasksDispatchContext);
   function getDefaultSurvey(userID: string) {
     let newID = uuidv4();
@@ -133,7 +134,7 @@ export default function SurveyBuilder() {
 
   return (
     <>
-      <SurveyTopNav name={surveyName} />
+      <SurveyTopNav id={task['survey']['id']}/>
       <SurveyTopConfig
         name={surveyName}
         setSurveyName={setSurveyName}
