@@ -154,6 +154,7 @@ export default function SurveyBuilderContext(props: any) {
           return {
             survey: action.questions,
             question: action.question,
+            change: action.change
           };
         }
         case "new-choice": {
@@ -172,6 +173,7 @@ export default function SurveyBuilderContext(props: any) {
           return {
             survey: action.questions,
             question: action.question,
+            change: action.change
           };
         }
         default: {

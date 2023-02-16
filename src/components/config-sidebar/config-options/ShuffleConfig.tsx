@@ -18,6 +18,7 @@ export default function ShuffleConfig() {
       type: "question-prompt",
       questions: test["survey"],
       question: test["question"],
+      change: true
     });
   }
 

@@ -16,6 +16,7 @@ export function GeneralSettings() {
       type: "update",
       questions: test["survey"],
       question: task["question"],
+      change: true
     });
   }
 
@@ -26,6 +27,7 @@ export function GeneralSettings() {
       type: "update",
       questions: test["survey"],
       question: task["question"],
+      change: true
     });
   }
 
@@ -36,6 +38,7 @@ export function GeneralSettings() {
       type: "update",
       questions: test["survey"],
       question: task["question"],
+      change: true
     });
   }
 

@@ -18,6 +18,7 @@ export default function ChoicesConfig() {
       type: "question-prompt",
       questions: test["survey"],
       question: task["question"],
+      change: true
     });
   }
 
@@ -32,6 +33,7 @@ export default function ChoicesConfig() {
           type: "question-prompt",
           questions: test["survey"],
           question: task["question"],
+          change: true
         });
         break;
       }
@@ -43,6 +45,7 @@ export default function ChoicesConfig() {
           type: "question-prompt",
           questions: test["survey"],
           question: task["question"],
+          change: true
         });
         break;
       }

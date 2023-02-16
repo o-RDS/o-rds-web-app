@@ -34,7 +34,8 @@ export default function MCConfig(props: any) {
     dispatch({
       type: "question-prompt",
       questions: test2,
-      question: 0
+      question: 0,
+      change: true
     })
   }
   function renderChoices() {
@@ -49,12 +50,12 @@ export default function MCConfig(props: any) {
   }
   return (
     <div
-      className={` ${isSelected()} rounded-md border-2 p-1 transition-all hover:border-2 hover:border-rdsOrange focus:border-red-500 pointer-events-auto`}
+      className={` ${isSelected()} rounded-md border-2 p-1 transition-all hover:border-2 hover:border-rdsOrange focus:border-red-500`}
       onClick={(e) => handleQuestionChange(props.index)}
     >
       <div className="w-full dark:text-white dark:bg-rdsDarkAccent2">
         <h3>{"Q" + (props.index + 1)}</h3>
-        <button className="rouned-sm p-1 bg-rdsDarkAccent z-50" onClick={() => handleDeleteQuestion(props.index)}>Delete</button>
+        <button className="rounded-sm p-1 bg-rdsDarkAccent z-50 pointer-events-auto" onClick={() => handleDeleteQuestion(props.index)}>Delete</button>
         <div className="rounded-md bg-gray-100 p-3 dark:bg-rdsDarkAccent2">
           <h2>{taskQuestions["config"]["prompt"]["value"]}</h2>
           <ul>{renderChoices()}</ul>
