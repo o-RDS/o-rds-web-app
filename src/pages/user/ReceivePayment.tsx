@@ -3,7 +3,7 @@ import { Link, useOutletContext } from "react-router-dom";
 import SurveyTakerStandardPage from "../../components/SurveyTakerStandardPage";
 import tremendousLogo from "../../images/tremendous_logo.svg";
 import { order } from "../../APIs/interfaces";
-import { createOrder, sendPayment } from "../../APIs/Tremendous";
+import { sendPayment } from "../../APIs/Tremendous";
 import { send } from "process";
 
 export default function ReceivePayment() {
@@ -22,7 +22,7 @@ export default function ReceivePayment() {
       funding_source_id: "0JLPRGW2MEB9",
       campaign_id: "4BDWAVSR8A91",
       products: ["TBAJH7YLFVS5"],
-      denomination: payment, // TODO: Determine amount from PaymentManagerAdmin.tsx
+      denomination: payment, 
       recipient_name: "Survey Taker", // To keep anonymous
       recipient_email: email,
       recipient_phone: phoneNum,
@@ -51,14 +51,12 @@ export default function ReceivePayment() {
       }
 
       console.log("Fetching Tremendous order API");
-      sendPayment(order).then((data) => {
+      
+      // TODO: this now requires a JWT
+      sendPayment(order, "").then((data) => {
         console.log(data);
       });
-      // createOrder(order).then((data) => {
-      //   console.log(data);
-      // });
     }
-    // TODO: error when values are null
   }
 
   return (
