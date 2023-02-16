@@ -99,16 +99,20 @@ const dummySurveyResponses = {
 };
 
 export default function Results() {
-  const [results, setResults] = useState<any>([]);
-  const [config, setConfig] = useState<any>({});
+  const [results, setResults] = useState<any>(null);
+  const [config, setConfig] = useState<any>(null);
   const [filterCompleted, setFilterCompleted] = useState(false);
   const params = useParams();
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (params.id){
-      setResults(loadAllResponses(params.id));
-      setConfig(retrieveSurveyConfig(params.id));
+    if (params.surveyID){
+      loadAllResponses(params.surveyID).then((results) => {
+        setResults(results);
+      });
+      retrieveSurveyConfig(params.surveyID).then((config) => {
+        setConfig(config);
+      });
     } else {
       console.log("No survey ID provided")
       navigate("/admin/dashboard")
@@ -120,18 +124,16 @@ export default function Results() {
     let allUserResponses = [];
 
     for (let userID in responses) {
-      let currUserResponses = [];
-      currUserResponses.push(userID);
-      for (let questionID in responses[userID].answers) {
-        currUserResponses.push(responses[userID].answers[questionID]);
+      if (responses[userID].answers !== undefined) {
+        let currUserResponses = [];
+        currUserResponses.push(responses[userID].responseID);
+        for (let questionID in responses[userID].answers) {
+          currUserResponses.push(responses[userID].answers[questionID]); 
+        }
+        currUserResponses.push(responses[userID].completed.toString()); //Store completed status at end of array
+        allUserResponses.push(currUserResponses);
       }
-      currUserResponses.push(responses[userID].completed.toString()); //Store completed status at end of array
-      allUserResponses.push(currUserResponses);
     }
-
-    responses.forEach((response:any) => {
-      // TODO - Handle true schema, and change schema in survey
-    });
 
     return allUserResponses;
   }
@@ -142,7 +144,7 @@ export default function Results() {
 
     headers.push("User ID"); //NOTE THAT THIS VALUE IS CURRENTLY HARD-CODED IN. THIS CAN PROBABLY BE CHANGED IN THE FUTURE
     questions.forEach((question) => {
-      headers.push(question.prompt.value);
+      headers.push(question.config.prompt.value);
     });
 
     return <ResultRow rowData={headers} type="header" />;
@@ -183,10 +185,11 @@ export default function Results() {
           </button>
         </div>
         <div className="overflow-auto">
+          {results && config &&
           <table className="mb-4 w-fit table-auto border-collapse text-left">
             <thead>{renderTableHeader()}</thead>
             <tbody>{renderTableBody(filterCompleted)}</tbody>
-          </table>
+          </table>}
         </div>
       </div>
     </StandardPage>
