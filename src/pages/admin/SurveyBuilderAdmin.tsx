@@ -1,5 +1,6 @@
 import { useState, useEffect, useReducer, useContext } from "react";
 import SurveySettingsSide from "../../components/settings/SurveySettingsSide";
+import SurveyTopNav from "../../components/SurveyTopNav";
 import SurveyTopConfig from "../../components/SurveyTopConfig";
 import QuestionViewer from "../../components/QuestionViewer";
 import ConfigSidebar from "../../components/ConfigSidebar";
@@ -163,6 +164,6 @@ export default function SurveyBuilder() {
           </>
         )}
       </div>
-    </StandardPage>
+    </>
   );
 }

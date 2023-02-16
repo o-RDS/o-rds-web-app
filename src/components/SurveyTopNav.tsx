@@ -11,7 +11,7 @@ export default function SurveyTopNav(props: any) {
         <Link to={`../../results/${props.id}`}>
           Results
         </Link>
-        <Link to={`../survey-builder/${props.id}`}>
+        <Link to={`../../survey-builder/${props.id}`}>
           Survey Builder
         </Link>
       </div>

@@ -78,7 +78,7 @@ export default function Results() {
 
   return (
     <>
-      <SurveyTopNav id={params.id}/>
+      <SurveyTopNav id={params.surveyID}/>
       <div className="flex w-full flex-col gap-y-2 p-6">
         <div className="flex w-full flex-row items-baseline">
           <h1 className="flex-grow pl-10 text-left text-2xl">Survey Name</h1>
