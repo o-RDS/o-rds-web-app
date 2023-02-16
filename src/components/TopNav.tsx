@@ -5,9 +5,11 @@ import helpIcon from "../images/help_icon.png";
 export default function TopNav() {
   return (
     <div className="flex h-14 w-screen flex-row items-center justify-start border-b-4 px-2">
-      <h3 className="inline-block items-center justify-start bg-gradient-to-br from-rdsBlue to-rdsOrange bg-clip-text text-lg text-transparent">
-        o-RDS
-      </h3>
+      <Link to="/admin/dashboard/">
+        <h3 className="inline-block items-center justify-start bg-gradient-to-br from-rdsBlue to-rdsOrange bg-clip-text text-lg text-transparent">
+          o-RDS
+        </h3>
+      </Link>
       <div className="ml-auto flex items-center gap-2">
         {/* <p>Home</p> */}
         <Link to="/admin/dashboard/">
