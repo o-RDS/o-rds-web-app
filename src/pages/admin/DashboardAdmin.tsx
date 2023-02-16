@@ -50,7 +50,11 @@ export default function Dashboard() {
               <button disabled>{"<"}</button>
             )}
             <p>Page {page + 1}</p>
-            <button onClick={() => setPage(page + 1)}>{">"}</button>
+            {renderSurveyButtons().length >= displayNumber ? (
+              <button onClick={() => setPage(page + 1)}>{">"}</button>
+            ) : (
+              <button disabled>{">"}</button>
+            )}
             <div className="ml-auto">
               <Link to="../survey-builder/new">
                 <button className="rounded-md bg-rdsBlue p-1 pl-2 pr-2 text-white">
