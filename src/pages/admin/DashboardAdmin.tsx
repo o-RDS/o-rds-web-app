@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import StandardPage from "../../components/StandardPage";
 import { loadAdminSurveys } from "../../data/dataLayerManager";
 import { useState, useEffect } from "react";
+import Loading from "../../components/Loading";
 
 export default function Dashboard() {
   const user = "test";
@@ -10,6 +11,7 @@ export default function Dashboard() {
   const [displayNumber, setDisplayNumber] = useState(5);
 
   useEffect(() => {
+    setSurveys([{ id: 1, title: "Loading..." }])
     loadAdminSurveys(
       user,
       page * displayNumber,
@@ -22,16 +24,22 @@ export default function Dashboard() {
 
   function renderSurveyButtons() {
     return surveys.map((survey) => (
-      <Link to={`../results/${survey.id}`}>
-        <div className="flex h-48 w-48 flex-col justify-end rounded-md bg-rdsBlue p-2 text-white">
-          <div className="border-t">
-            <h4 className="text-md font-bold">{survey.title}</h4>
-            <p className="text-sm">? Responses</p>
-          </div>
+      <div className="flex h-48 w-48 flex-col justify-end rounded-md bg-rdsBlue p-2 text-white">
+        <Link to={`../survey-builder/${survey.id}`}>Edit Survey</Link>
+        <Link to={`../results/${survey.id}`}>View Results</Link>
+        <div className="border-t">
+          <h4 className="text-md font-bold">{survey.title}</h4>
+          <p className="text-sm">? Responses</p>
         </div>
-      </Link>
+      </div>
     ));
   }
+
+  function changeDisplayNumber(number: number) {
+    setPage(0);
+    setDisplayNumber(number);
+  }
+
 
   return (
     <StandardPage>
@@ -41,9 +49,9 @@ export default function Dashboard() {
           <div className="flex flex-row items-baseline gap-2">
             <h3 className="text-2xl">My Surveys</h3>
             <p className="pl-5">Surveys Per Page:</p>
-            <button onClick={() => setDisplayNumber(5)} className={`${displayNumber === 5 ? "text-rdsOrange" : ""}`}>5</button>
-            <button onClick={() => setDisplayNumber(10)} className={`${displayNumber === 10 ? "text-rdsOrange" : ""}`}>10</button>
-            <button onClick={() => setDisplayNumber(25)}  className={`pr-5 ${displayNumber === 25 ? "text-rdsOrange" : ""}`}>25</button>
+            <button onClick={() => changeDisplayNumber(5)} className={`${displayNumber === 5 ? "text-rdsOrange" : ""}`}>5</button>
+            <button onClick={() => changeDisplayNumber(10)} className={`${displayNumber === 10 ? "text-rdsOrange" : ""}`}>10</button>
+            <button onClick={() => changeDisplayNumber(25)}  className={`pr-5 ${displayNumber === 25 ? "text-rdsOrange" : ""}`}>25</button>
             {page > 0 ? (
               <button onClick={() => setPage(page - 1)}>{"<"}</button>
             ) : (
@@ -65,7 +73,7 @@ export default function Dashboard() {
           </div>
           <br></br>
           <div className="flex flex-row flex-wrap gap-10">
-            {renderSurveyButtons()}
+            {surveys[0].id !== 1 ? renderSurveyButtons() : <Loading/>}
           </div>
         </div>
       </div>
