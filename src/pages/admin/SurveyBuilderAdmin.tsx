@@ -1,6 +1,5 @@
 import { useState, useEffect, useReducer, useContext } from "react";
 import SurveySettingsSide from "../../components/settings/SurveySettingsSide";
-import SurveyTopNav from "../../components/SurveyTopNav";
 import SurveyTopConfig from "../../components/SurveyTopConfig";
 import QuestionViewer from "../../components/QuestionViewer";
 import ConfigSidebar from "../../components/ConfigSidebar";
@@ -13,6 +12,7 @@ import {
 } from "../../data/dataLayerManager";
 import { v4 as uuidv4 } from "uuid";
 import { useNavigate, useParams } from "react-router";
+import StandardPage from "../../components/StandardPage";
 
 //TODO: Survey builder context needs to get the correct survey! We need to make sure we get that data to it!
 export default function SurveyBuilder() {
@@ -163,6 +163,6 @@ export default function SurveyBuilder() {
           </>
         )}
       </div>
-    </>
+    </StandardPage>
   );
 }

@@ -15,7 +15,7 @@ export default function Survey() {
   const params = useParams();
   const navigate = useNavigate();
   const config: any = useOutletContext();
-  const response: any = useRef({});
+  const response: any = useRef({answers: {}});
   const alias = useRef<string>("");
   const hash = useRef<string>("");
 
@@ -63,7 +63,7 @@ export default function Survey() {
         "#",
         "Question " + (questionIndex + 1).toString()
       );
-      response.current[questionName] = value;
+      response.current.answers[questionName] = value;
     });
     console.log(response.current);
   }
@@ -110,12 +110,13 @@ export default function Survey() {
       console.log(question);
       let answerIndex = "Question " + (index + 1).toString();
       if (question.page === page) {
+        console.log(response.current)
         return (
           <Question
             data={question}
             index={index}
             handleResponse={handleResponse}
-            currentAnswer={response.current[answerIndex]}
+            currentAnswer={response.current.answers[answerIndex]}
           />
         );
       } else {

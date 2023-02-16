@@ -64,9 +64,12 @@ export default function OTPCodeEntry() {
             let alias = result.alias;
             let responseID = result.responseID;
             writeSurveyResponse(params.id, alias, {
+              answers: {},
               completed: false,
               alias: alias,
               responseID: responseID,
+              parentID: window.sessionStorage.getItem("parent"),
+              depth: window.sessionStorage.getItem("depth"),
             });
             window.localStorage.setItem(params.id + hash, alias);
             navigate("../questions");

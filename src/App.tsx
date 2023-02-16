@@ -24,7 +24,9 @@ function App() {
         <Route path="admin" element={<AdminAuth/>}>
           <Route path="login" element={<LoginAdmin/>} />
           <Route path="dashboard" element={<DashboardAdmin/>} />
-          <Route path="results" element={<Results/>} />
+          <Route path="results">
+            <Route path=":surveyID" element={<Results/>} />
+          </Route>
           <Route path="payment-manager" element={<PaymentManager/>} />
           <Route path="survey-builder">
               <Route path=":surveyID" element={<SurveyBuilderContext ><SurveyBuilder/></SurveyBuilderContext>} />
