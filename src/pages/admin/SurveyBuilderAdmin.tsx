@@ -6,7 +6,10 @@ import QuestionViewer from "../../components/QuestionViewer";
 import ConfigSidebar from "../../components/ConfigSidebar";
 import SurveyLinkModal from "../../components/SurveyLinkModal";
 import SurveySettings from "../../components/settings/SurveySettings";
-import { SurveyContext, SurveyDispatchContext } from "../../context/SurveyBuilderContext";
+import {
+  SurveyContext,
+  SurveyDispatchContext,
+} from "../../context/SurveyBuilderContext";
 import {
   saveSurveyConfig,
   retrieveSurveyConfig,
@@ -22,50 +25,28 @@ export default function SurveyBuilder() {
   const dispatch = useContext(SurveyDispatchContext);
   function getDefaultSurvey(userID: string) {
     let newID = uuidv4();
-    // let question1ID = uuidv4();
+    let question1ID = uuidv4();
     const defaultData = {
       id: newID,
-        title: "Untitled Survey",
-        admins: [userID],
-        completionPayout: 0.0,
-        refPayout: 0.0,
-        maxRefs: 0,
-        lastUpdated: new Date().toISOString(),
-        researcherMessage: "",
-        endSurveyMessage: "Thank you for taking our survey",
-        informedConsent: "You must consent to this survey",
-        contactInfo: {
-          phone: "",
-          email: "",
-          mail: "",
-        },
-      questions: [
-        {
-          page: 0,
-          type: "MultipleChoice",
-          config: {
-            prompt: {
-              value: "New Question",
-              configPrompt: "Question Prompt:",
-              type: "text",
-            },
-            shuffle: {
-              value: true,
-              configPrompt: "Shuffle choices?",
-              type: "bool",
-            },
-            choices: {
-              value: ["A", "B", "C", "D", "E"],
-              configPrompt: "Enter choices:",
-              type: "stringArray",
-            },
-          },
-        },
-      ],
-      /* New Questions w/ IDs
-      "questionOrder": [question1ID],
-      "questions": {
-        question1ID: {
+      title: "Untitled Survey",
+      admins: [userID],
+      completionPayout: 0.0,
+      refPayout: 0.0,
+      maxRefs: 0,
+      maxRefIncentives: 0,
+      lastUpdated: new Date().toLocaleString("en-US", { timeZone: "UTC" }),
+      researcherMessage: "",
+      endSurveyMessage: "Thank you for taking our survey",
+      informedConsent: "You must consent to this survey",
+      contactInfo: {
+        phone: "",
+        email: "",
+        mail: "",
+      },
+      /* question: 0, */
+      questionOrder: [question1ID],
+      questions: {
+        [question1ID]: {
           page: 0,
           type: "MultipleChoice",
           config: {
@@ -87,7 +68,6 @@ export default function SurveyBuilder() {
           },
         },
       },
-      */
     };
     return defaultData;
   }
@@ -114,20 +94,21 @@ export default function SurveyBuilder() {
           type: "initialize",
           questions: data,
           question: 0,
-          change: false
-        })
+          change: false,
+        });
         setConfig(data);
-        setTimeout(() =>{
-          setLoading(false);
-        }, 750)
+        // setTimeout(() =>{
+        //   setLoading(false);
+        // }, 750)
+        setLoading(false);
       });
     } else if (params.surveyID === "new") {
       dispatch({
         type: "initialize",
         questions: config,
         question: 0,
-        change: false
-      })
+        change: false,
+      });
       saveSurveyConfig(userID, config.id, config);
       navigate(`../${config.id}`);
     } else {
@@ -141,35 +122,44 @@ export default function SurveyBuilder() {
 
   return (
     <>
-      <SurveyTopNav id={SurveyState['survey']['id']}/>
+      <SurveyTopNav id={SurveyState["survey"]["id"]} />
       <SurveyTopConfig
-        name={SurveyState['survey']['title']}
+        name={SurveyState["survey"]["title"]}
         setSurveyName={setSurveyName}
         setShowModal={setShowModal}
         setSettings={setSettings}
         settings={settings}
       />
-      {loading ? <div className="dark:bg-rdsDark2"><Loading/></div> : <div className="flex min-h-screen flex-row gap-20 dark:bg-rdsDark2">
-        <SurveyLinkModal
-          showModal={setShowModal}
-          display={showModal}
-          surveyName={surveyName}
-          surveyID={config.id}
-        />
-        {settings.active ? (
-          <>
-            <SurveySettingsSide setSettings={setSettings} settings={settings} />
-            <SurveySettings settings={settings} />
-          </>
-        ) : (
-          <>
-            <ConfigSidebar />
-            <div className="mt-3 w-8/12">
-              <QuestionViewer />
-            </div>
-          </>
-        )}
-      </div>}
+      {loading ? (
+        <div className="dark:bg-rdsDark2">
+          <Loading />
+        </div>
+      ) : (
+        <div className="flex min-h-screen flex-row gap-20 dark:bg-rdsDark2">
+          <SurveyLinkModal
+            showModal={setShowModal}
+            display={showModal}
+            surveyName={surveyName}
+            surveyID={config.id}
+          />
+          {settings.active ? (
+            <>
+              <SurveySettingsSide
+                setSettings={setSettings}
+                settings={settings}
+              />
+              <SurveySettings settings={settings} />
+            </>
+          ) : (
+            <>
+              <ConfigSidebar />
+              <div className="mt-3 w-8/12">
+                <QuestionViewer />
+              </div>
+            </>
+          )}
+        </div>
+      )}
     </>
   );
 }

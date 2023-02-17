@@ -16,10 +16,10 @@ const options = {
         https: true
     }
 }
-
 //Create a reverse proxy server
 const apiProxy = httpProxy.createProxyServer(options);
 
+// TODO: set this based on process status PROD/DEV
 const devTremendousServer = 'https://testflight.tremendous.com'; 
 // const prodTremendousServer = 'https://www.tremendous.com';
 

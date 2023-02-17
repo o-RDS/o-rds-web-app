@@ -32,12 +32,14 @@ export default function ShortAnswerConfig(props: any) {
     console.log(question);
     let test = SurveyState;
     let test2 = SurveyState;
-    test2['survey']['questions'] = test['survey']['questions'].filter((thing:any, index: any) => index != question);
+    let index = test2['survey']['questionOrder'].indexOf(question);
+    test2['survey']['questionOrder'].splice(index, 1);
+    delete test2['survey']['questions'][question];
     console.log(test2);
     dispatch({
       type: "question-prompt",
       questions: test2['survey'],
-      question: 0,
+      question: test2['survey']['questionOrder'][0],
       change: true
     })
   }

@@ -1,8 +1,6 @@
 import { useState, useEffect } from "react";
 import SurveyTopNav from "../../components/SurveyTopNav";
 import ResultRow from "../../components/ResultRow";
-import StandardPage from "../../components/StandardPage";
-import SurveyTopConfig from "../../components/SurveyTopConfig";
 import {
   loadAllResponses,
   retrieveSurveyConfig,
@@ -13,7 +11,7 @@ import Loading from "../../components/Loading";
 export default function Results() {
   const [results, setResults] = useState<any>(null);
   const [config, setConfig] = useState<any>(null);
-  const [filterCompleted, setFilterCompleted] = useState(false);
+  const [filterCompleted, setFilterCompleted] = useState(true);
   const params = useParams();
   const navigate = useNavigate();
 
@@ -33,15 +31,20 @@ export default function Results() {
 
   function getUserResponses(): Array<Array<string>> {
     let responses: any = results;
+    let questionOrder = config.questionOrder;
     let allUserResponses = [];
 
     for (let userID in responses) {
       if (responses[userID].answers !== undefined) {
         let currUserResponses = [];
         currUserResponses.push(responses[userID].responseID);
-        for (let questionID in responses[userID].answers) {
-          currUserResponses.push(responses[userID].answers[questionID]);
-        }
+        questionOrder.forEach((questionID: string) => {
+          if (responses[userID].answers[questionID] === undefined) {
+            currUserResponses.push("");
+          } else {
+            currUserResponses.push(responses[userID].answers[questionID]);
+          }
+        });
         currUserResponses.push(responses[userID].completed.toString()); //Store completed status at end of array
         allUserResponses.push(currUserResponses);
       }
@@ -51,12 +54,15 @@ export default function Results() {
   }
 
   function renderTableHeader() {
-    let questions: Array<any> = config.questions;
+    let questionOrder: Array<any> = config.questionOrder;
+    let questions = config.questions;
     let headers = [];
 
     headers.push("User ID");
-    questions.forEach((question) => {
-      headers.push(question.config.prompt.value);
+    questionOrder.forEach((questionID) => {
+      let question = questions[questionID];
+      if (question !== undefined)
+        headers.push(question.config.prompt.value);
     });
 
     return <ResultRow rowData={headers} type="header" />;

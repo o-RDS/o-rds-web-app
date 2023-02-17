@@ -6,6 +6,7 @@ import MCConfig from "./MCConfig";
 
 export default function QuestionConfig(props: any) {
   function getQuestionConfig(data: any) {
+    try{
     switch (data.type) {
       case "MultipleChoice":
         return <MCConfig config={data} index={props.index} />;
@@ -17,6 +18,9 @@ export default function QuestionConfig(props: any) {
         return <CheckboxConfig config={data} index={props.index} />;
       default:
         return <p>"Unknown Question Type"</p>;
+    }
+   } catch(error) {
+      console.log(error)
     }
   }
 
