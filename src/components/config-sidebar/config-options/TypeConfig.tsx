@@ -17,10 +17,8 @@ export default function TypeConfig() {
     test["survey"]["questions"][test["question"]]["type"] = type;
     test["survey"]["questions"][test["question"]]["config"] = giveConfigs(type);
     dispatch({
-      type: "question-prompt",
-      questions: test["survey"],
-      question: test["question"],
-      change: true
+      type: "change-type",
+      newType: type
     });
   }
 

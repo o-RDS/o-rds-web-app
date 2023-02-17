@@ -62,7 +62,6 @@ export default function SurveyBuilder() {
           },
         },
       ],
-      question: 0
       /* New Questions w/ IDs
       "questionOrder": [question1ID],
       "questions": {

@@ -1,4 +1,5 @@
 import react, { useEffect, useReducer, useRef } from "react";
+import giveConfigs from "../data/QuestionSwitcher";
 import { useParams, useNavigate, Outlet } from "react-router";
 import { retrieveSurveyConfig, signIn } from "../data/dataLayerManager";
 import { createContext } from "react";
@@ -175,6 +176,17 @@ export default function SurveyBuilderContext(props: any) {
             question: action.question,
             change: action.change
           };
+        }
+        case "change-type": {
+          let test: any = tasks;
+          console.log(action.newType);
+          test["survey"]["questions"][test["question"]]["type"] = action.newType;
+          test["survey"]["questions"][test["question"]]["config"] = giveConfigs(action.newType);
+          return {
+            survey: test['survey'],
+            question: tasks['question'],
+            change: true
+          }
         }
         default: {
           return "";
