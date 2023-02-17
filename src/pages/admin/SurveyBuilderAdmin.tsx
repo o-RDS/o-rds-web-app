@@ -94,9 +94,10 @@ export default function SurveyBuilder() {
           change: false
         })
         setConfig(data);
-        setTimeout(() =>{
-          setLoading(false);
-        }, 750)
+        // setTimeout(() =>{
+        //   setLoading(false);
+        // }, 750)
+        setLoading(false);
       });
     } else if (params.surveyID === "new") {
       dispatch({
@@ -126,7 +127,7 @@ export default function SurveyBuilder() {
         setSettings={setSettings}
         settings={settings}
       />
-      {loading ? <div className="dark:bg-rdsDark2"><Loading/></div> : <div className="flex min-h-screen flex-row gap-20 dark:bg-rdsDark2">
+      <div className="flex min-h-screen flex-row gap-20 dark:bg-rdsDark2">
         <SurveyLinkModal
           showModal={setShowModal}
           display={showModal}
@@ -146,7 +147,7 @@ export default function SurveyBuilder() {
             </div>
           </>
         )}
-      </div>}
+      </div>
     </>
   );
 }

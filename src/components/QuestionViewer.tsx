@@ -1,5 +1,6 @@
 import react, { useContext, useState } from "react";
 import QuestionConfig from "./config-questions/QuestionConfig";
+import { v4 as uuidv4 } from "uuid";
 import {
   SurveyContext,
   SurveyDispatchContext,
@@ -28,12 +29,13 @@ export default function QuestionViewer(props: any) {
         configPrompt: "Enter choices:",
         type: "stringArray",
       },
-    },
+  }
   };
   function handleAddedQuestion() {
     let test: any = SurveyState;
-    test["survey"]["questions"] =
-      SurveyState["survey"]["questions"].concat(proofQuestionToAdd);
+    let id = uuidv4();
+    test['survey']['questionOrder'] = SurveyState['survey']['questionOrder'].concat([id]); 
+    test["survey"]["questions"][id] = proofQuestionToAdd; 
     console.log(test);
     dispatch({
       type: "update",
@@ -45,11 +47,16 @@ export default function QuestionViewer(props: any) {
 
   let testArray;
   try {
-    testArray = SurveyState["survey"]["questions"].map(
-      (question: any, index: number) => {
-        return <QuestionConfig data={question} index={index} />;
+    console.log(Object.entries(SurveyState['survey']['questions'])[0][1])
+    console.log(Object.keys(SurveyState['survey']['questions']).forEach(function (key: any, index: any) {Object.entries(key)}))
+    testArray = SurveyState["survey"]["questionOrder"].map(
+      (question: string, index: number) => {
+        console.log(question);
+        console.log(SurveyState['survey']['questions'][question])
+        return <QuestionConfig data={SurveyState['survey']['questions'][question]} index={question} />;
       }
     );
+    console.log(testArray[0]);
   } catch (error) {
     console.log(error);
     console.log(SurveyState['survey']);
