@@ -1,42 +1,42 @@
 import React, { useContext } from "react";
 import {
-  TasksContext,
-  TasksDispatchContext,
+  SurveyContext,
+  SurveyDispatchContext,
 } from "../../context/SurveyBuilderContext";
 
 export function ContactSettings() {
-  const task = useContext(TasksContext);
-  const dispatch = useContext(TasksDispatchContext);
+  const SurveyState = useContext(SurveyContext);
+  const dispatch = useContext(SurveyDispatchContext);
 
   function handlePhoneChange(e: any) {
-    let test: any = task;
+    let test: any = SurveyState;
     test["survey"]["contactInfo"]['phone'] = e.target.value;
     dispatch({
       type: "update",
       questions: test["survey"],
-      question: task["question"],
+      question: SurveyState["question"],
       change: true
     });
   }
 
   function handleEmailChange(e: any) {
-    let test: any = task;
+    let test: any = SurveyState;
     test["survey"]["contactInfo"]['email'] = e.target.value;
     dispatch({
       type: "update",
       questions: test["survey"],
-      question: task["question"],
+      question: SurveyState["question"],
       change: true
     });
   }
 
   function handleMailChange(e: any) {
-    let test: any = task;
+    let test: any = SurveyState;
     test["survey"]["contactInfo"]['mail'] = e.target.value;
     dispatch({
       type: "update",
       questions: test["survey"],
-      question: task["question"],
+      question: SurveyState["question"],
       change: true
     });
   }
@@ -51,7 +51,7 @@ export function ContactSettings() {
           id="phone"
           className="rounded-sm p-1 dark:bg-rdsDarkAccent w-2/5"
           maxLength={20}
-          value={task['survey']['contactInfo']['phone']}
+          value={SurveyState['survey']['contactInfo']['phone']}
           onChange={(e) => handlePhoneChange(e)}
         ></input>
       </div>
@@ -62,7 +62,7 @@ export function ContactSettings() {
           id="email"
           className="rounded-sm p-1 dark:bg-rdsDarkAccent w-2/5"
           maxLength={20}
-          value={task['survey']['contactInfo']['email']}
+          value={SurveyState['survey']['contactInfo']['email']}
           onChange={(e) => handleEmailChange(e)}
         ></input>
       </div>
@@ -73,7 +73,7 @@ export function ContactSettings() {
           id="mail"
           className="rounded-sm p-1 dark:bg-rdsDarkAccent w-2/5"
           maxLength={20}
-          value={task['survey']['contactInfo']['mail']}
+          value={SurveyState['survey']['contactInfo']['mail']}
           onChange={(e) => handleMailChange(e)}
         ></input>
       </div>

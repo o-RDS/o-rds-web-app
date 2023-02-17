@@ -1,13 +1,13 @@
 import react, { useContext, useState } from "react";
 import QuestionConfig from "./config-questions/QuestionConfig";
 import {
-  TasksContext,
-  TasksDispatchContext,
+  SurveyContext,
+  SurveyDispatchContext,
 } from "../context/SurveyBuilderContext";
 
 export default function QuestionViewer(props: any) {
-  const task = useContext(TasksContext);
-  const dispatch = useContext(TasksDispatchContext);
+  const SurveyState = useContext(SurveyContext);
+  const dispatch = useContext(SurveyDispatchContext);
   //questions would be filled in through a database call and any uses of design would be replace with questions
   const proofQuestionToAdd: any = {
     page: 0,
@@ -31,29 +31,29 @@ export default function QuestionViewer(props: any) {
     },
   };
   function handleAddedQuestion() {
-    let test: any = task;
+    let test: any = SurveyState;
     test["survey"]["questions"] =
-      task["survey"]["questions"].concat(proofQuestionToAdd);
+      SurveyState["survey"]["questions"].concat(proofQuestionToAdd);
     console.log(test);
     dispatch({
       type: "update",
       questions: test["survey"],
-      question: task["question"],
+      question: SurveyState["question"],
       change: true
     });
   }
 
   let testArray;
   try {
-    testArray = task["survey"]["questions"].map(
+    testArray = SurveyState["survey"]["questions"].map(
       (question: any, index: number) => {
         return <QuestionConfig data={question} index={index} />;
       }
     );
   } catch (error) {
     console.log(error);
-    console.log(task['survey']);
-    console.log(task['survey']['questions']);
+    console.log(SurveyState['survey']);
+    console.log(SurveyState['survey']['questions']);
   }
 
   return (

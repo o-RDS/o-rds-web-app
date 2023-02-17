@@ -2,25 +2,25 @@ import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { saveSurveyConfig } from "../data/dataLayerManager";
 import {
-  TasksContext,
-  TasksDispatchContext,
+  SurveyContext,
+  SurveyDispatchContext,
 } from "../context/SurveyBuilderContext";
 import floppydisc from "../images/floppydisc.png";
 import settings from "../images/settingscog.png";
 
 export default function SurveyTopConfig(props: any) {
-  const task = useContext(TasksContext);
-  const dispatch = useContext(TasksDispatchContext);
+  const SurveyState = useContext(SurveyContext);
+  const dispatch = useContext(SurveyDispatchContext);
   const [open, setOpen] = useState(false);
   const [surveyStatus, setSurveyStatus] = useState(renderStatus());
 
   function renderStatus() {
-    if (task['change'] == true) {
+    if (SurveyState['change'] == true) {
       return ({
         colors: "border-yellow-500 text-yellow-500 bg-yellow-500 bg-opacity-10",
         active: "Pending Changes",
       })
-    } else if (task['survey']['live'] == true) {
+    } else if (SurveyState['survey']['live'] == true) {
       return ({
         colors: "border-green-500 text-green-500 bg-green-500 bg-opacity-10",
         active: "Active",
@@ -34,13 +34,13 @@ export default function SurveyTopConfig(props: any) {
   }
 
   function saveSurvey() {
-    if (task['change']) {
-      saveSurveyConfig("test", task["survey"]["id"], task["survey"]);
+    if (SurveyState['change']) {
+      saveSurveyConfig("test", SurveyState["survey"]["id"], SurveyState["survey"]);
     }
     dispatch({
       type: 'question-prompt',
-      questions: task['survey'],
-      question: task['question'],
+      questions: SurveyState['survey'],
+      question: SurveyState['question'],
       change: false
     })
   }
@@ -68,7 +68,7 @@ export default function SurveyTopConfig(props: any) {
         ></img>
       </div>
       <p className="self-center">
-        Last Updated: {task["survey"]["lastUpdated"]}
+        Last Updated: {SurveyState["survey"]["lastUpdated"]}
       </p>
       <div className="flex gap-2">
         <div className={`rounded-sm border ${renderStatus().colors} pl-2 pr-2 transition-all`}>

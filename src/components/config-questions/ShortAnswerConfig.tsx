@@ -1,16 +1,16 @@
 import React, { useContext } from "react";
 import {
-  TasksContext,
-  TasksDispatchContext,
+  SurveyContext,
+  SurveyDispatchContext,
 } from "../../context/SurveyBuilderContext";
 
 export default function ShortAnswerConfig(props: any) {
-  const task = useContext(TasksContext);
-  const taskQuestions = task["survey"]["questions"][props.index];
-  const dispatch = useContext(TasksDispatchContext);
+  const SurveyState = useContext(SurveyContext);
+  const SurveyStateQuestions = SurveyState["survey"]["questions"][props.index];
+  const dispatch = useContext(SurveyDispatchContext);
 
   function isSelected() {
-    if (task["question"] == props.index) {
+    if (SurveyState["question"] == props.index) {
       return "shadow-lg shadow-slate-900";
     } else {
       return "";
@@ -18,20 +18,20 @@ export default function ShortAnswerConfig(props: any) {
   }
 
   function handleQuestionChange(index: number) {
-    if (task['survey']['questions'].hasOwnProperty(index)) {
+    if (SurveyState['survey']['questions'].hasOwnProperty(index)) {
       dispatch({
         type: "update",
-        questions: task["survey"],
+        questions: SurveyState["survey"],
         question: index,
-        change: task['change']
+        change: SurveyState['change']
       });
       }
   }
 
   function handleDeleteQuestion(question: number) {
     console.log(question);
-    let test = task;
-    let test2 = task;
+    let test = SurveyState;
+    let test2 = SurveyState;
     test2['survey']['questions'] = test['survey']['questions'].filter((thing:any, index: any) => index != question);
     console.log(test2);
     dispatch({
@@ -62,7 +62,7 @@ export default function ShortAnswerConfig(props: any) {
         <button className="rounded-sm p-1 bg-rdsDarkAccent z-50 pointer-events-auto ml-auto" onClick={() => handleDeleteQuestion(props.index)}>Delete</button>
         </div>
         <div className="rounded-md bg-gray-100 p-3">
-          <h2>{taskQuestions["config"]["prompt"]["value"]}</h2>
+          <h2>{SurveyStateQuestions["config"]["prompt"]["value"]}</h2>
           <ul>{renderChoices()}</ul>
         </div>
       </div>

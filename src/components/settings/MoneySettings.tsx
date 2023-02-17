@@ -1,54 +1,54 @@
 import React, { useContext } from "react";
 import {
-  TasksContext,
-  TasksDispatchContext,
+  SurveyContext,
+  SurveyDispatchContext,
 } from "../../context/SurveyBuilderContext";
 
 export function MoneySettings() {
-  const task = useContext(TasksContext);
-  const dispatch = useContext(TasksDispatchContext);
+  const SurveyState = useContext(SurveyContext);
+  const dispatch = useContext(SurveyDispatchContext);
 
   function handleCompletionAmountChange(e: any) {
-    let test: any = task;
+    let test: any = SurveyState;
     test["survey"]["completionPayout"] = parseInt(e.target.value);
     dispatch({
       type: "update",
       questions: test["survey"],
-      question: task["question"],
+      question: SurveyState["question"],
       change: true
     });
   }
 
   function handleReferralAmountChange(e: any) {
-    let test: any = task;
+    let test: any = SurveyState;
     test["survey"]["refPayout"] = parseInt(e.target.value);
     dispatch({
       type: "update",
       questions: test["survey"],
-      question: task["question"],
+      question: SurveyState["question"],
       change: true
     });
   }
 
   function handleNumRefChange(e: any) {
-    let test: any = task;
+    let test: any = SurveyState;
     test["survey"]["maxRefs"] = parseInt(e.target.value);
     console.log(test["survey"]["maxRefs"]);
     dispatch({
       type: "update",
       questions: test["survey"],
-      question: task["question"],
+      question: SurveyState["question"],
       change: true
     });
   }
 
   function handleMaxRefChange(e: any) {
-    let test: any = task;
+    let test: any = SurveyState;
     test["survey"]["refPayout"] = parseInt(e.target.value);
     dispatch({
       type: "update",
       questions: test["survey"],
-      question: task["question"],
+      question: SurveyState["question"],
       change: true
     });
   }
@@ -63,7 +63,7 @@ export function MoneySettings() {
           className="w-2/5 rounded-sm p-1 dark:bg-rdsDarkAccent"
           maxLength={20}
           onChange={(e) => handleNumRefChange(e)}
-          value={task['survey']['maxRefs']}
+          value={SurveyState['survey']['maxRefs']}
         ></input>
       </div>
       <div className="flex flex-col gap-1">
@@ -71,7 +71,7 @@ export function MoneySettings() {
         <input
           id="referrals-max"
           className="w-2/5 rounded-sm p-1 dark:bg-rdsDarkAccent"
-          value={task['survey']['maxRefs']}
+          value={SurveyState['survey']['maxRefs']}
         ></input>
       </div>
       <div className="flex flex-col gap-1">
@@ -80,7 +80,7 @@ export function MoneySettings() {
           id="completion-amount"
           className="w-2/5 rounded-sm p-1 dark:bg-rdsDarkAccent"
           onChange={(e) => handleCompletionAmountChange(e)}
-          value={task['survey']['completionPayout']}
+          value={SurveyState['survey']['completionPayout']}
         ></input>
       </div>
       <div className="flex flex-col gap-1">
@@ -89,7 +89,7 @@ export function MoneySettings() {
           id="referral-amount"
           className="w-2/5 rounded-sm p-1 dark:bg-rdsDarkAccent"
           onChange={(e) => handleReferralAmountChange(e)}
-          value={task['survey']['refPayout']}
+          value={SurveyState['survey']['refPayout']}
         ></input>
       </div>
     </div>

@@ -6,7 +6,7 @@ import QuestionViewer from "../../components/QuestionViewer";
 import ConfigSidebar from "../../components/ConfigSidebar";
 import SurveyLinkModal from "../../components/SurveyLinkModal";
 import SurveySettings from "../../components/settings/SurveySettings";
-import { TasksContext, TasksDispatchContext } from "../../context/SurveyBuilderContext";
+import { SurveyContext, SurveyDispatchContext } from "../../context/SurveyBuilderContext";
 import {
   saveSurveyConfig,
   retrieveSurveyConfig,
@@ -18,8 +18,8 @@ import Loading from "../../components/Loading";
 
 //TODO: Survey builder context needs to get the correct survey! We need to make sure we get that data to it!
 export default function SurveyBuilder() {
-  const task = useContext(TasksContext);
-  const dispatch = useContext(TasksDispatchContext);
+  const SurveyState = useContext(SurveyContext);
+  const dispatch = useContext(SurveyDispatchContext);
   function getDefaultSurvey(userID: string) {
     let newID = uuidv4();
     // let question1ID = uuidv4();
@@ -112,9 +112,10 @@ export default function SurveyBuilder() {
           navigate("/admin/dashboard");
         }
         dispatch({
-          type: "question-prompt",
+          type: "initialize",
           questions: data,
-          question: 0
+          question: 0,
+          change: false
         })
         setConfig(data);
         setTimeout(() =>{
@@ -123,9 +124,10 @@ export default function SurveyBuilder() {
       });
     } else if (params.surveyID === "new") {
       dispatch({
-        type: "question-prompt",
+        type: "initialize",
         questions: config,
-        question: 0
+        question: 0,
+        change: false
       })
       saveSurveyConfig(userID, config.id, config);
       navigate(`../${config.id}`);
@@ -140,15 +142,15 @@ export default function SurveyBuilder() {
 
   return (
     <>
-      <SurveyTopNav id={task['survey']['id']}/>
+      <SurveyTopNav id={SurveyState['survey']['id']}/>
       <SurveyTopConfig
-        name={task['survey']['title']}
+        name={SurveyState['survey']['title']}
         setSurveyName={setSurveyName}
         setShowModal={setShowModal}
         setSettings={setSettings}
         settings={settings}
       />
-      {loading ? <Loading/> : <div className="flex min-h-screen flex-row gap-20 dark:bg-rdsDark2">
+      {loading ? <div className="dark:bg-rdsDark2"><Loading/></div> : <div className="flex min-h-screen flex-row gap-20 dark:bg-rdsDark2">
         <SurveyLinkModal
           showModal={setShowModal}
           display={showModal}

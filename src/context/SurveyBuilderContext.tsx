@@ -4,8 +4,8 @@ import { retrieveSurveyConfig, signIn } from "../data/dataLayerManager";
 import { createContext } from "react";
 import { uuidv4 } from "@firebase/util";
 
-export const TasksContext = createContext<any>(null); //This is the context that will contain the survey in state for the survey builder
-export const TasksDispatchContext = createContext<any>(null); //This context will contain the dispatch to handle state changes
+export const SurveyContext = createContext<any>(null); //This is the context that will contain the survey in state for the survey builder
+export const SurveyDispatchContext = createContext<any>(null); //This context will contain the dispatch to handle state changes
 
 export default function SurveyBuilderContext(props: any) {
   function getDefaultSurvey(userID: string) {
@@ -147,6 +147,7 @@ export default function SurveyBuilderContext(props: any) {
           return {
             survey: action.questions,
             question: action.question,
+            change: action.change,
           };
         }
         case "question-prompt": {
@@ -187,10 +188,10 @@ export default function SurveyBuilderContext(props: any) {
   const [tasks, dispatch] = useReducer(taskReducer, getDefaultSurvey("test")); // Create useReducer
 
   return (
-    <TasksContext.Provider value={tasks}>
-      <TasksDispatchContext.Provider value={dispatch}>
+    <SurveyContext.Provider value={tasks}>
+      <SurveyDispatchContext.Provider value={dispatch}>
         {props.children}
-      </TasksDispatchContext.Provider>
-    </TasksContext.Provider>
+      </SurveyDispatchContext.Provider>
+    </SurveyContext.Provider>
   );
 }

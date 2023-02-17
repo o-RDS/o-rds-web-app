@@ -1,16 +1,16 @@
 import React, { useContext } from "react";
 import {
-  TasksContext,
-  TasksDispatchContext,
+  SurveyContext,
+  SurveyDispatchContext,
 } from "../../../context/SurveyBuilderContext";
 
 export default function ShuffleConfig() {
-  const task = useContext(TasksContext);
-  const taskQuestions = task["survey"]["questions"][task["question"]];
-  const dispatch = useContext(TasksDispatchContext);
+  const SurveyState = useContext(SurveyContext);
+  const SurveyStateQuestions = SurveyState["survey"]["questions"][SurveyState["question"]];
+  const dispatch = useContext(SurveyDispatchContext);
 
   function handleCheckChange(e: any) {
-    let test: any = task;
+    let test: any = SurveyState;
     test["survey"]["questions"][test["question"]]["config"]["shuffle"][
       "value"
     ] = e.target.checked;
@@ -24,11 +24,11 @@ export default function ShuffleConfig() {
 
   return (
     <div className="flex flex-row gap-4">
-      <label>{taskQuestions["config"]["shuffle"]["configPrompt"]}</label>
+      <label>{SurveyStateQuestions["config"]["shuffle"]["configPrompt"]}</label>
       <input
         type="checkbox"
         onChange={(e) => handleCheckChange(e)}
-        defaultChecked={taskQuestions.config.shuffle.value}
+        defaultChecked={SurveyStateQuestions.config.shuffle.value}
         className="accent-rdsBlue"
       ></input>
     </div>
