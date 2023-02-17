@@ -1,24 +1,10 @@
 # APIs
-### o-RDS
-This folder contains the files that facilitate our web API calls. There are currently two resources o-RDS is leveraging: the **Tremendous** payment service API, and the **WebOTP** (One Time Password) API. 
 
+This folder contains the files that facilitate our web API calls. There are currently two resources o-RDS is leveraging: the **Tremendous** payment service API, and **Twilio** APIs. 
 
-# Tremendous
-### Description
-Tremendous is how o-RDS facilitates payments to the survey takers. In the current state of o-RDS, Tremendous is the only place a researcher or developer will need to set up an account wtih any third-party. It is within that Tremendous account where a researcher will deposit the funds for their survey, create an organization, and pick a particular payout method for their individual survey. 
-### Usage
-The use of the Tremendous API functions requires set up in two places. First, by setting up [Tremendous.ts](./Tremendous.ts) with the correct authentication tokens. At the top of the file you will find: 
+All of these calls require the use of a JWT (JSON web token) that is provided after a user or survey taker signs in or verifies via their phone number. These tokens allow us to be sure that anyone who is attempting to access our endpoints are properly authorized and to prevent misuse of the payout system. 
 
-`// replace tokens here`
-`const devToken = "Bearer [TOKEN]";`
-`const prodToken = "Beaarer [TOKEN]"; `
+## o-RDS proxy server
 
-Tremendous has a sandbox environment meant for development testing. The API key for this environment would go into `devToken`. Once the developer is ready to switch to production, they will need to change the variable within the request body (`const options`).
+We have created a [proxy server](https://github.com/o-RDS/o-rds-server) for use with the o-RDS admin client and survey taker pages. This server is meant to provide integrity and confidentiality to both our users' data and API secrets. The server's Github goes into much more detail on how our API endpoints work, as well as how to set up your own keys once you have both a Tremendous and Twilio account set up.  
 
-The second important set up requires the use of an `order` [interface](./interfaces.ts). This interface defines all of the necessary information that goes into creating an order through the Tremendous API. Notice that an order variable is the parameter for the `createOrder` function.
-
-
-# WebOTP
-### Description
-
-### Usage
