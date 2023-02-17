@@ -1,43 +1,43 @@
 import React, { useContext } from "react";
 import {
-  TasksContext,
-  TasksDispatchContext,
+  SurveyContext,
+  SurveyDispatchContext,
 } from "../../context/SurveyBuilderContext";
 import ords from "../../images/ords.png";
 
 export function GeneralSettings() {
-  const task = useContext(TasksContext);
-  const dispatch = useContext(TasksDispatchContext);
+  const SurveyState = useContext(SurveyContext);
+  const dispatch = useContext(SurveyDispatchContext);
 
   function handleNameChange(e: any) {
-    let test: any = task;
+    let test: any = SurveyState;
     test["survey"]["title"] = e.target.value;
     dispatch({
       type: "update",
       questions: test["survey"],
-      question: task["question"],
+      question: SurveyState["question"],
       change: true
     });
   }
 
   function handleStartMessageChange(e: any) {
-    let test: any = task;
+    let test: any = SurveyState;
     test["survey"]["researcherMessage"] = e.target.value;
     dispatch({
       type: "update",
       questions: test["survey"],
-      question: task["question"],
+      question: SurveyState["question"],
       change: true
     });
   }
 
   function handleEndMessageChange(e: any) {
-    let test: any = task;
+    let test: any = SurveyState;
     test["survey"]["endSurveyMessage"] = e.target.value;
     dispatch({
       type: "update",
       questions: test["survey"],
-      question: task["question"],
+      question: SurveyState["question"],
       change: true
     });
   }
@@ -63,7 +63,7 @@ export function GeneralSettings() {
               className="rounded-sm bg-gray-200 p-1 dark:bg-rdsDarkAccent"
               maxLength={20}
               onChange={(e) => handleNameChange(e)}
-              value={task['survey']['title']}
+              value={SurveyState['survey']['title']}
             ></input>
           </div>
         </div>
@@ -76,7 +76,7 @@ export function GeneralSettings() {
             id="survey-message"
             className="w-2/5 rounded-sm dark:bg-rdsDarkAccent bg-gray-200 p-1"
             onChange={(e) => handleStartMessageChange(e)}
-            value={task['survey']['researcherMessage']}
+            value={SurveyState['survey']['researcherMessage']}
           ></textarea>
         </div>
         <div className="flex flex-col gap-1">
@@ -85,7 +85,7 @@ export function GeneralSettings() {
             id="end-survey-message"
             className="w-2/5 rounded-sm dark:bg-rdsDarkAccent bg-gray-200 p-1"
             onChange={(e) => handleEndMessageChange(e)}
-            value={task['survey']['endSurveyMessage']}
+            value={SurveyState['survey']['endSurveyMessage']}
           ></textarea>
         </div>
       </div>

@@ -1,17 +1,17 @@
 import React, { useContext } from "react";
 import giveConfigs from "../../../data/QuestionSwitcher";
 import {
-  TasksContext,
-  TasksDispatchContext,
+  SurveyContext,
+  SurveyDispatchContext,
 } from "../../../context/SurveyBuilderContext";
 
 export default function TypeConfig() {
-  const task = useContext(TasksContext);
-  const taskQuestions = task["survey"]["questions"][task["question"]];
-  const dispatch = useContext(TasksDispatchContext);
+  const SurveyState = useContext(SurveyContext);
+  const SurveyStateQuestions = SurveyState["survey"]["questions"][SurveyState["question"]];
+  const dispatch = useContext(SurveyDispatchContext);
 
   function handleTypeChange(e: any) {
-    let test: any = task;
+    let test: any = SurveyState;
     let type = e.target.value.replace(" ", "");
     console.log(type);
     test["survey"]["questions"][test["question"]]["type"] = type;

@@ -1,28 +1,28 @@
 import React, { useContext, useState } from "react";
-import { TasksContext, TasksDispatchContext } from "../context/SurveyBuilderContext";
+import { SurveyContext, SurveyDispatchContext } from "../context/SurveyBuilderContext";
 
 const SurveyLinkModal = (props: any) => {
   const [copyLabel, setCopyLabel] = useState("Copy");
-  const task = useContext(TasksContext);
-  const dispatch = useContext(TasksDispatchContext);
+  const SurveyState = useContext(SurveyContext);
+  const dispatch = useContext(SurveyDispatchContext);
 
   function handlePauseSurvey() {
-    let test = task;
+    let test = SurveyState;
     test['survey']['live'] = false;
     dispatch({
       type: "question-prompt",
       questions: test['survey'],
-      question: task['question'],
+      question: SurveyState['question'],
     });
   }
 
   function handlePublishSurvey() {
-    let test = task;
+    let test = SurveyState;
     test['survey']['live'] = true;
     dispatch({
       type: "question-prompt",
       questions: test['survey'],
-      question: task['question'],
+      question: SurveyState['question'],
     });
   }
 
@@ -41,7 +41,7 @@ const SurveyLinkModal = (props: any) => {
   }
 
   function checkIfReadyToPublish() {
-    if (task['survey']['questions'].length == 0 && task['survey']['title'] !== "") {
+    if (SurveyState['survey']['questions'].length == 0 && SurveyState['survey']['title'] !== "") {
       return true;
     } else {
       return false;

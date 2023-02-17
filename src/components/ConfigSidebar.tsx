@@ -5,13 +5,13 @@ import ShortAnswerSidebar from "./config-sidebar/ShortAnswerSidebar";
 import FillBlankSidebar from "./config-sidebar/FillBlankSidebar";
 import CheckboxSidebar from "./config-sidebar/CheckboxSidebar";
 import {
-  TasksContext,
-  TasksDispatchContext,
+  SurveyContext,
+  SurveyDispatchContext,
 } from "../context/SurveyBuilderContext";
 
 export default function ConfigSidebar(props: any) {
-  const task = useContext(TasksContext);
-  console.log(task);
+  const SurveyState = useContext(SurveyContext);
+  console.log(SurveyState);
 
   function getQuestionConfig(data: any) {
     try {
@@ -37,9 +37,9 @@ export default function ConfigSidebar(props: any) {
     <>
       <div className="flex w-[20%] flex-col items-center justify-start gap-4 border-r border-black p-4 dark:border-none dark:bg-rdsDarkAccent3 dark:text-white">
         <h2 className="self-start text-xl font-bold">
-          {"Q" + (task["question"] + 1) + "  Settings"}
+          {"Q" + (SurveyState["question"] + 1) + "  Settings"}
         </h2>
-        {getQuestionConfig(task["survey"]["questions"][task["question"]])}
+        {getQuestionConfig(SurveyState["survey"]["questions"][SurveyState["question"]])}
       </div>
     </>
   );
