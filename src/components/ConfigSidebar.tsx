@@ -11,6 +11,7 @@ import {
 
 export default function ConfigSidebar(props: any) {
   const task = useContext(TasksContext);
+  console.log(task);
 
   function getQuestionConfig(data: any) {
     try {

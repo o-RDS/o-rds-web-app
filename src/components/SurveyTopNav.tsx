@@ -8,6 +8,12 @@ export default function SurveyTopNav(props: any) {
     <div className="flex h-14 w-screen flex-row items-center justify-start overflow-visible overflow-y-auto px-2 shadow-sm shadow-black">
       <div className="flex flex-row gap-3">
         <img src={ords} className="h-14 w-14" alt="o-RDS Logo"></img>
+        <Link to={`../../results/${props.id}`}>
+          Results
+        </Link>
+        <Link to={`../../survey-builder/${props.id}`}>
+          Survey Builder
+        </Link>
       </div>
       <div className="ml-auto flex items-center gap-2">
         <Link to="/admin/dashboard">

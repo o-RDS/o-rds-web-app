@@ -1,5 +1,6 @@
 import { useState, useEffect, useReducer, useContext } from "react";
 import SurveySettingsSide from "../../components/settings/SurveySettingsSide";
+import SurveyTopNav from "../../components/SurveyTopNav";
 import SurveyTopConfig from "../../components/SurveyTopConfig";
 import QuestionViewer from "../../components/QuestionViewer";
 import ConfigSidebar from "../../components/ConfigSidebar";
@@ -13,9 +14,11 @@ import {
 import { v4 as uuidv4 } from "uuid";
 import { useNavigate, useParams } from "react-router";
 import StandardPage from "../../components/StandardPage";
+import Loading from "../../components/Loading";
 
 //TODO: Survey builder context needs to get the correct survey! We need to make sure we get that data to it!
 export default function SurveyBuilder() {
+  const task = useContext(TasksContext);
   const dispatch = useContext(TasksDispatchContext);
   function getDefaultSurvey(userID: string) {
     let newID = uuidv4();
@@ -92,6 +95,7 @@ export default function SurveyBuilder() {
 
   const params = useParams();
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
   const [surveyName, setSurveyName] = useState("SurveyName");
   const [config, setConfig] = useState<any>(getDefaultSurvey("test"));
@@ -113,6 +117,9 @@ export default function SurveyBuilder() {
           question: 0
         })
         setConfig(data);
+        setTimeout(() =>{
+          setLoading(false);
+        }, 750)
       });
     } else if (params.surveyID === "new") {
       dispatch({
@@ -129,18 +136,19 @@ export default function SurveyBuilder() {
 
   // setInterval(() => {
   //   console.log("this happens");
-  // }, 5000)
+  // }, 50);
 
   return (
-    <StandardPage>
+    <>
+      <SurveyTopNav id={task['survey']['id']}/>
       <SurveyTopConfig
-        name={surveyName}
+        name={task['survey']['title']}
         setSurveyName={setSurveyName}
         setShowModal={setShowModal}
         setSettings={setSettings}
         settings={settings}
       />
-      <div className="flex min-h-screen flex-row gap-20 dark:bg-rdsDark2">
+      {loading ? <Loading/> : <div className="flex min-h-screen flex-row gap-20 dark:bg-rdsDark2">
         <SurveyLinkModal
           showModal={setShowModal}
           display={showModal}
@@ -160,7 +168,7 @@ export default function SurveyBuilder() {
             </div>
           </>
         )}
-      </div>
-    </StandardPage>
+      </div>}
+    </>
   );
 }

@@ -12,10 +12,26 @@ export default function SurveyTopConfig(props: any) {
   const task = useContext(TasksContext);
   const dispatch = useContext(TasksDispatchContext);
   const [open, setOpen] = useState(false);
-  const [surveyStatus, setSurveyStatus] = useState({
-    colors: "border-red-500 text-red-500 bg-red-500 bg-opacity-10",
-    active: "Inactive",
-  });
+  const [surveyStatus, setSurveyStatus] = useState(renderStatus());
+
+  function renderStatus() {
+    if (task['change'] == true) {
+      return ({
+        colors: "border-yellow-500 text-yellow-500 bg-yellow-500 bg-opacity-10",
+        active: "Pending Changes",
+      })
+    } else if (task['survey']['live'] == true) {
+      return ({
+        colors: "border-green-500 text-green-500 bg-green-500 bg-opacity-10",
+        active: "Active",
+      });
+    } else {
+      return ({
+        colors: "border-red-500 text-red-500 bg-red-500 bg-opacity-10",
+        active: "Inactive",
+      });
+    }
+  }
 
   function saveSurvey() {
     if (task['change']) {
@@ -32,7 +48,7 @@ export default function SurveyTopConfig(props: any) {
   return (
     <div className="flex h-14 w-screen flex-row items-center justify-between border-b border-black pl-4 pr-4 dark:border-none dark:bg-rdsDark2 dark:text-white">
       <div className="flex gap-2">
-        <p onClick={() => setOpen(!open)}>{task["survey"]["title"]}</p>
+        <p onClick={() => setOpen(!open)}>{props.name}</p>
         <img
           src={floppydisc}
           className="h-6 w-6 cursor-pointer"
@@ -55,8 +71,8 @@ export default function SurveyTopConfig(props: any) {
         Last Updated: {task["survey"]["lastUpdated"]}
       </p>
       <div className="flex gap-2">
-        <div className={`rounded-sm border ${surveyStatus.colors} pl-2 pr-2`}>
-          Inactive
+        <div className={`rounded-sm border ${renderStatus().colors} pl-2 pr-2 transition-all`}>
+          {renderStatus().active}
         </div>
         <button
           className="rounded-sm bg-rdsBlue pl-2 pr-2 text-white"
