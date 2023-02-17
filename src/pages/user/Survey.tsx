@@ -12,7 +12,6 @@ import Loading from "../../components/Loading";
 export default function Survey() {
   const [page, setPage] = useState<number>(0);
   const [design, setDesign] = useState<any>(null);
-  const [re, setRe] = useState(false);
   const params = useParams();
   const navigate = useNavigate();
   const config: any = useOutletContext();
