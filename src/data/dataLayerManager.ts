@@ -11,7 +11,6 @@ import {
   collection,
 } from "firebase/firestore";
 import { v4 as uuidv4 } from "uuid";
-import { completion } from "yargs";
 
 const firebaseConfig = {
   apiKey: "AIzaSyB6d-taZfAJEpjzl46igYQjx0l-l2Xp92E",
