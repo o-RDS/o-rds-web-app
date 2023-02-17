@@ -24,7 +24,7 @@ export default function Survey() {
 
   useEffect(() => {
     if (config !== null && config !== undefined) {
-      setDesign(config.questions);
+      setDesign(config.questionOrder);
     }
     let tempHash = window.sessionStorage.getItem("hash");
     if (tempHash) {
@@ -56,12 +56,12 @@ export default function Survey() {
 
   // this will be called by the question component whenever the question requests to update the response
   // goes through each column sent by the question and updates the response object
-  function handleResponse(data: any, questionIndex: number) {
+  function handleResponse(data: any, questionID: string) {
     Object.entries(data).forEach(([key, value]) => {
       let questionName = key;
       questionName = questionName.replace(
         "#",
-        "Question " + (questionIndex + 1).toString()
+        questionID
       );
       response.current.answers[questionName] = value;
     });
@@ -105,18 +105,19 @@ export default function Survey() {
   // renders all questions on the current page
   function renderQuestions() {
     console.log("Rendering questions");
-    return design.map((question: any, index: number) => {
+    return design.map((id: string, index: number) => {
+      let question = config.questions[id];
       console.log("Rendering question " + index);
       console.log(question);
-      let answerIndex = "Question " + (index + 1).toString();
       if (question.page === page) {
         console.log(response.current)
         return (
           <Question
             data={question}
             index={index}
+            id={id}
             handleResponse={handleResponse}
-            currentAnswer={response.current.answers[answerIndex]}
+            currentAnswer={response.current.answers[id]}
           />
         );
       } else {

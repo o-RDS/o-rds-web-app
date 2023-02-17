@@ -25,7 +25,7 @@ export default function Question(props: any) {
   // this will be called in the question, then called a function from Survey to pass new response data up the chain
   function updateResponse(answers: Object) {
     if (props.handleResponse) {
-      props.handleResponse(answers, props.index);
+      props.handleResponse(answers, props.id);
     }
   }
 

@@ -13,7 +13,7 @@ import Loading from "../../components/Loading";
 export default function Results() {
   const [results, setResults] = useState<any>(null);
   const [config, setConfig] = useState<any>(null);
-  const [filterCompleted, setFilterCompleted] = useState(false);
+  const [filterCompleted, setFilterCompleted] = useState(true);
   const params = useParams();
   const navigate = useNavigate();
 
@@ -33,14 +33,19 @@ export default function Results() {
 
   function getUserResponses(): Array<Array<string>> {
     let responses: any = results;
+    let questionOrder = config.questionOrder;
     let allUserResponses = [];
 
     for (let userID in responses) {
       if (responses[userID].answers !== undefined) {
         let currUserResponses = [];
         currUserResponses.push(responses[userID].responseID);
-        for (let questionID in responses[userID].answers) {
-          currUserResponses.push(responses[userID].answers[questionID]);
+        for (let questionID in questionOrder) {
+          if (responses[userID].answers[questionID] === undefined) {
+            currUserResponses.push("");
+          } else {
+            currUserResponses.push(responses[userID].answers[questionID]);
+          }
         }
         currUserResponses.push(responses[userID].completed.toString()); //Store completed status at end of array
         allUserResponses.push(currUserResponses);
