@@ -1,14 +1,17 @@
-import React, {useContext} from "react";
+import React, { useContext } from "react";
 import giveConfigs from "../../../data/QuestionSwitcher";
-import { TasksContext, TasksDispatchContext } from "../../../context/SurveyBuilderContext";
+import {
+  SurveyContext,
+  SurveyDispatchContext,
+} from "../../../context/SurveyBuilderContext";
 
 export default function TypeConfig() {
-  const task = useContext(TasksContext);
-  const taskQuestions = task["survey"]["questions"][task["question"]];
-  const dispatch = useContext(TasksDispatchContext);
+  const SurveyState = useContext(SurveyContext);
+  const SurveyStateQuestions = SurveyState["survey"]["questions"][SurveyState["question"]];
+  const dispatch = useContext(SurveyDispatchContext);
 
   function handleTypeChange(e: any) {
-    let test: any = task;
+    let test: any = SurveyState;
     let type = e.target.value.replace(" ", "");
     console.log(type);
     test["survey"]["questions"][test["question"]]["type"] = type;
@@ -17,17 +20,22 @@ export default function TypeConfig() {
       type: "question-prompt",
       questions: test["survey"],
       question: test["question"],
+      change: true
     });
   }
-    
+
   return (
-    <div>
-      <select className="border border-rdsBlue" onChange={(e) => handleTypeChange(e)}>
-        <option>MultipleChoice</option>
+    <div className="flex flex-col gap-2">
+      <label>Question Type</label>
+      <select
+        className="rounded-md border border-rdsBlue p-2 dark:bg-inherit dark:text-white"
+        onChange={(e) => handleTypeChange(e)}
+      >
+        <option>Multiple Choice</option>
         <option>FillInBlank</option>
-        <option>ShortAnswer</option>
+        <option>Short Answer</option>
         <option>Checkbox</option>
       </select>
     </div>
-  )
+  );
 }

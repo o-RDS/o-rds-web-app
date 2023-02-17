@@ -12,7 +12,7 @@ export default function Checkbox(props: any) {
   //   let answerArray: string[] = props.currentValue;
   console.log(answerArray);
   const [answer, setAnswer] = useState("");
-//   const [isChecked, setIsChecked] = useState(false);
+  //   const [isChecked, setIsChecked] = useState(false);
   const [config, setConfig] = useState({
     prompt: {
       value: "",
@@ -82,7 +82,9 @@ export default function Checkbox(props: any) {
   // this will render the question prompt and the choices
   return (
     <div>
-      <h2 className="text-lg font-bold">{props.index + 1}) {props.config.prompt.value}</h2>
+      <h2 className="text-lg font-bold">
+        {props.index + 1}) {props.config.prompt.value}
+      </h2>
       {renderChoices()}
     </div>
   );

@@ -4,18 +4,20 @@ import helpIcon from "../images/help_icon.png";
 
 export default function TopNav() {
   return (
-    <div className="flex h-14 w-screen flex-row items-center justify-start border-b-4 px-2">
-      <h3 className="inline-block items-center justify-start bg-gradient-to-br from-rdsBlue to-rdsOrange bg-clip-text text-lg text-transparent">
-        o-RDS
-      </h3>
+    <div className="flex h-14 w-screen flex-row items-center justify-start overflow-visible overflow-y-auto px-2 shadow-sm shadow-black">
+      <Link to="/admin/dashboard/">
+        <h3 className="inline-block items-center justify-start bg-gradient-to-br from-rdsBlue to-rdsOrange bg-clip-text text-lg text-transparent">
+          o-RDS
+        </h3>
+      </Link>
       <div className="ml-auto flex items-center gap-2">
         {/* <p>Home</p> */}
-        <Link to="../dashboard">
+        <Link to="/admin/dashboard/">
           <button className="hover:translate transform-y-1/2 hover:border-b-2">
             Home
           </button>
         </Link>
-        <Link to="../payment-manager">
+        <Link to="/admin/payment-manager/">
           <button>Payments</button>
         </Link>
         <img src={helpIcon} className="h-6 w-6" alt="Help Icon" />

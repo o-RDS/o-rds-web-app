@@ -59,7 +59,9 @@ export default function MultipleChoice(props: any) {
   // this will render the question prompt and the choices
   return (
     <div>
-      <h2 className="text-lg font-bold">{props.index + 1}) {props.config.prompt.value}</h2>
+      <h2 className="text-lg font-bold">
+        {props.index + 1}) {props.config.prompt.value}
+      </h2>
       {renderChoices()}
     </div>
   );

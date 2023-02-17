@@ -4,8 +4,11 @@ import {
   getFirestore,
   doc,
   getDoc,
+  getDocs,
   setDoc,
   deleteDoc,
+  query,
+  collection,
 } from "firebase/firestore";
 import { v4 as uuidv4 } from "uuid";
 import { completion } from "yargs";
@@ -77,6 +80,46 @@ export async function loadResponse(surveyID: string, alias: string) {
       console.log("Response does not exist");
       return false;
     }
+  }
+}
+
+export async function loadAllResponses(surveyID: string) {
+  const db = getFirestore();
+  const surveyRef = query(collection(db, "responses", surveyID, "surveyResults"));
+  let querySnapshot = await getDocs(surveyRef);
+  let allResponses:any = [];
+  querySnapshot.forEach((doc) => {
+    allResponses.push(doc.data());
+  });
+  return allResponses;
+}
+
+export async function loadAdminSurveys(userID: string, index: number = 0, limit: number = index+5) {
+  const db = getFirestore();
+  const userRef = doc(db, "users", userID);
+  let docSnap = await getDoc(userRef);
+  if (docSnap.exists()) {
+    var surveyList:any = []
+    let surveyIDs = docSnap.data().surveys
+    for (var i = index; i < limit; i++) {
+      if (i >= surveyIDs.length) {
+        break;
+      }
+      let surveyID:string = surveyIDs[i];
+      console.log(surveyID);
+      const surveyRef = doc(db, "surveys", surveyID);
+      console.log(surveyRef)
+      let surveySnap = await getDoc(surveyRef);
+      console.log(surveySnap)
+      if (surveySnap.exists()) {
+        surveyList.push(surveySnap.data());
+      }
+    };
+    console.log(surveyList)
+    return surveyList;
+  } else {
+    console.log("User does not exist");
+    return false;
   }
 }
 
@@ -240,7 +283,7 @@ export async function saveSurveyConfig(
     if (docSnap.exists()) {
       if (docSnap.data().admins.includes(userID)) {
         console.log("User is admin, updating survey");
-        surveyData.data().lastUpdated = (new Date()).toISOString();
+        surveyData.lastUpdated = (new Date()).toISOString();
         setDoc(docRef, surveyData);
       } else {
         console.log("Unauthorized access to survey");
@@ -261,7 +304,6 @@ export async function addSurveyToUser(userID: string, surveyID: string) {
   const userRef = doc(db, "users", userID);
   try {
     let docSnap = await getDoc(userRef);
-    console.log(docSnap.data());
     if (docSnap.exists()) {
       let newData = docSnap.data();
       newData.surveys.push(surveyID);
