@@ -1,8 +1,6 @@
 import { useState, useEffect } from "react";
 import SurveyTopNav from "../../components/SurveyTopNav";
 import ResultRow from "../../components/ResultRow";
-import StandardPage from "../../components/StandardPage";
-import SurveyTopConfig from "../../components/SurveyTopConfig";
 import {
   loadAllResponses,
   retrieveSurveyConfig,
@@ -40,13 +38,13 @@ export default function Results() {
       if (responses[userID].answers !== undefined) {
         let currUserResponses = [];
         currUserResponses.push(responses[userID].responseID);
-        for (let questionID in questionOrder) {
+        questionOrder.forEach((questionID: string) => {
           if (responses[userID].answers[questionID] === undefined) {
             currUserResponses.push("");
           } else {
             currUserResponses.push(responses[userID].answers[questionID]);
           }
-        }
+        });
         currUserResponses.push(responses[userID].completed.toString()); //Store completed status at end of array
         allUserResponses.push(currUserResponses);
       }
