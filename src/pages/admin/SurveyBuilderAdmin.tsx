@@ -22,7 +22,7 @@ export default function SurveyBuilder() {
   const dispatch = useContext(SurveyDispatchContext);
   function getDefaultSurvey(userID: string) {
     let newID = uuidv4();
-    // let question1ID = uuidv4();
+    let question1ID = uuidv4();
     const defaultData = {
       id: newID,
         title: "Untitled Survey",
@@ -40,34 +40,10 @@ export default function SurveyBuilder() {
           email: "",
           mail: "",
         },
-      questions: [
-        {
-          page: 0,
-          type: "MultipleChoice",
-          config: {
-            prompt: {
-              value: "New Question",
-              configPrompt: "Question Prompt:",
-              type: "text",
-            },
-            shuffle: {
-              value: true,
-              configPrompt: "Shuffle choices?",
-              type: "bool",
-            },
-            choices: {
-              value: ["A", "B", "C", "D", "E"],
-              configPrompt: "Enter choices:",
-              type: "stringArray",
-            },
-          },
-        },
-      ],
-      question: 0
-      /* New Questions w/ IDs
+      /* question: 0, */
       "questionOrder": [question1ID],
       "questions": {
-        question1ID: {
+        [question1ID]: {
           page: 0,
           type: "MultipleChoice",
           config: {
@@ -89,7 +65,6 @@ export default function SurveyBuilder() {
           },
         },
       },
-      */
     };
     return defaultData;
   }
