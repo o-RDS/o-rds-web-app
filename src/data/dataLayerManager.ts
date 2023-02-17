@@ -106,16 +106,12 @@ export async function loadAdminSurveys(userID: string, index: number = 0, limit:
         break;
       }
       let surveyID:string = surveyIDs[i];
-      console.log(surveyID);
       const surveyRef = doc(db, "surveys", surveyID);
-      console.log(surveyRef)
       let surveySnap = await getDoc(surveyRef);
-      console.log(surveySnap)
       if (surveySnap.exists()) {
         surveyList.push(surveySnap.data());
       }
     };
-    console.log(surveyList)
     return surveyList;
   } else {
     console.log("User does not exist");
@@ -292,6 +288,54 @@ export async function saveSurveyConfig(
     } else {
       addSurveyToUser(userID, surveyID);
       setDoc(docRef, surveyData);
+    }
+  } catch (error) {
+    console.log(error);
+    return false;
+  }
+}
+
+export async function deleteSurveyConfig(surveyID: string) {
+  const db = getFirestore();
+  const docRef = doc(db, "surveys", surveyID);
+  try {
+    let docSnap = await getDoc(docRef);
+    if (docSnap.exists()) {
+      if (true){ //(docSnap.data().admins.includes(userID)) {  THIS WILL BE USED WHEN WE HAVE AUTHENTICATION
+        console.log("User is admin, deleting survey");
+        for (let admin of docSnap.data().admins) {
+          console.log("Removing survey from admin: ", admin)
+          await removeSurveyFromUser(admin, surveyID);
+        }
+        deleteDoc(docRef);
+        return true;
+      } else {
+        console.log("Unauthorized access to survey");
+        return false;
+      }
+    } else {
+      console.log("Document does not exist");
+      return false;
+    }
+  } catch (error) {
+    console.log(error);
+    return false;
+  }
+}
+
+export async function removeSurveyFromUser(userID: string, surveyID: string) {
+  const db = getFirestore();
+  const userRef = doc(db, "users", userID);
+  try {
+    let docSnap = await getDoc(userRef);
+    if (docSnap.exists()) {
+      let newData = docSnap.data();
+      newData.surveys = newData.surveys.filter((id: string) => id !== surveyID);
+      setDoc(userRef, newData);
+      return true;
+    } else {
+      console.log("Document does not exist");
+      return false;
     }
   } catch (error) {
     console.log(error);
