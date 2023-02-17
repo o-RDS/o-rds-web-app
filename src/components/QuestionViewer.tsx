@@ -39,6 +39,7 @@ export default function QuestionViewer(props: any) {
       type: "update",
       questions: test["survey"],
       question: task["question"],
+      change: true
     });
   }
 
@@ -51,6 +52,8 @@ export default function QuestionViewer(props: any) {
     );
   } catch (error) {
     console.log(error);
+    console.log(task['survey']);
+    console.log(task['survey']['questions']);
   }
 
   return (

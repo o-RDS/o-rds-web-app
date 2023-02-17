@@ -141,7 +141,6 @@ export default function SurveyBuilderContext(props: any) {
 
   //Reducer function will handle all actions and update state accordingly
   function taskReducer(tasks: any, action: any) {
-    console.log(action);
     try {
       switch (action.type) {
         case "initialize": {

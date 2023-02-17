@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import SurveyTopNav from "../../components/SurveyTopNav";
 import ResultRow from "../../components/ResultRow";
 import StandardPage from "../../components/StandardPage";
+import SurveyTopConfig from "../../components/SurveyTopConfig";
 import {
   loadAllResponses,
   retrieveSurveyConfig,
@@ -79,6 +80,7 @@ export default function Results() {
   return (
     <>
       <SurveyTopNav id={params.surveyID}/>
+      {/* <SurveyTopConfig name={config.title} id={params.surveyID}/> */}
       <div className="flex w-full flex-col gap-y-2 p-6">
         <div className="flex w-full flex-row items-baseline">
           <h1 className="flex-grow pl-10 text-left text-2xl">Survey Name</h1>
