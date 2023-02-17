@@ -26,6 +26,7 @@ export default function MultipleChoice(props: any) {
 
   // called when user clicks a choice, and sends the update to the question component
   function handleClick(answer: string) {
+    setAnswer(answer);
     if (props.updateResponse) {
       props.updateResponse({ "#": answer });
     }
@@ -33,11 +34,10 @@ export default function MultipleChoice(props: any) {
   }
 
   // fairly obvious, this will render each choice as a radio button (can be made more pretty)
-  // TODO: make it so answers are reported up to the survey component (function chain)
   function renderChoices() {
     return props.config.choices.value.map((choice: string, index: number) => {
       let isChecked = false;
-      if (props.currentValue === choice) {
+      if (answer === choice) {
         isChecked = true;
       }
       return (
@@ -47,7 +47,7 @@ export default function MultipleChoice(props: any) {
             // name="choice"
             value={choice}
             onChange={() => handleClick(choice)}
-            defaultChecked={isChecked}
+            checked={isChecked}
             className="accent-rdsBlue"
           />
           <label className="ml-2">{choice}</label>
