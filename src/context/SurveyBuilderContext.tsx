@@ -188,8 +188,26 @@ export default function SurveyBuilderContext(props: any) {
             change: true
           }
         }
+        case "delete-question": {
+          console.log(action.questionToDelete);
+    let test2 = tasks;
+    let index = test2['survey']['questionOrder'].indexOf(action.questionToDelete);
+    console.log(index);
+    test2['survey']['questionOrder'].splice(1, 1);
+    delete test2['survey']['questions'][action.questionToDelete];
+    console.log(test2);
+          return {
+            survey: test2['survey'],
+            question: test2['survey']['questionOrder'][0],
+            change: true
+          }
+        }
         default: {
-          return "";
+          return {
+            survey: tasks['survey'],
+            question: tasks['question'],
+            change: tasks['change']
+          };
         }
       }
     } catch (error) {

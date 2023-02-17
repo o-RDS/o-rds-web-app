@@ -29,18 +29,9 @@ export default function MCConfig(props: any) {
   }
 
   function handleDeleteQuestion(question: number) {
-    console.log(question);
-    let test = SurveyState;
-    let test2 = SurveyState;
-    let index = test2['survey']['questionOrder'].indexOf(question);
-    test2['survey']['questionOrder'].splice(index, 1);
-    delete test2['survey']['questions'][question];
-    console.log(test2);
     dispatch({
-      type: "question-prompt",
-      questions: test2['survey'],
-      question: test2['survey']['questionOrder'][0],
-      change: true
+      type: "delete-question",
+      questionToDelete: question
     })
   }
   function renderChoices() {
