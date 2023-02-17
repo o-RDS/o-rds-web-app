@@ -56,12 +56,15 @@ export default function Results() {
   }
 
   function renderTableHeader() {
-    let questions: Array<any> = config.questions;
+    let questionOrder: Array<any> = config.questionOrder;
+    let questions = config.questions;
     let headers = [];
 
     headers.push("User ID");
-    questions.forEach((question) => {
-      headers.push(question.config.prompt.value);
+    questionOrder.forEach((questionID) => {
+      let question = questions[questionID];
+      if (question !== undefined)
+        headers.push(question.config.prompt.value);
     });
 
     return <ResultRow rowData={headers} type="header" />;
