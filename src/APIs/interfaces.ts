@@ -12,6 +12,13 @@ export interface order {
     delivery_method: string; // 'EMAIL'
 }
 
+export interface admin {
+    fullname: string;
+    email: string;
+    role: string; // "admin" or "research_assistant"
+    password: string;
+}
+
 // EXAMPLE Order Creation
 // let order: order = {
 //     external_id: "your individual indentifier for this order",
