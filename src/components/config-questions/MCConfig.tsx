@@ -28,7 +28,7 @@ export default function MCConfig(props: any) {
     }
   }
 
-  function handleDeleteQuestion(question: number) {
+  function handleDeleteQuestion(question: string) {
     dispatch({
       type: "delete-question",
       questionToDelete: question

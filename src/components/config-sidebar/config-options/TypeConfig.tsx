@@ -11,11 +11,7 @@ export default function TypeConfig() {
   const dispatch = useContext(SurveyDispatchContext);
 
   function handleTypeChange(e: any) {
-    let test: any = SurveyState;
     let type = e.target.value.replace(" ", "");
-    console.log(type);
-    test["survey"]["questions"][test["question"]]["type"] = type;
-    test["survey"]["questions"][test["question"]]["config"] = giveConfigs(type);
     dispatch({
       type: "change-type",
       newType: type

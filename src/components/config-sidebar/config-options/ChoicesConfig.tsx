@@ -10,15 +10,10 @@ export default function ChoicesConfig() {
   const dispatch = useContext(SurveyDispatchContext);
 
   function handleChoicesChange(index: number, e: any) {
-    let test: any = SurveyState;
-    test["survey"]["questions"][test["question"]]["config"]["choices"]["value"][
-      index
-    ] = e.target.value;
     dispatch({
-      type: "question-prompt",
-      questions: test["survey"],
-      question: SurveyState["question"],
-      change: true
+      type: "choices-change",
+      choiceIndex: index,
+      newChoice: e.target.value
     });
   }
 

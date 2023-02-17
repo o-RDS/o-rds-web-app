@@ -152,10 +152,25 @@ export default function SurveyBuilderContext(props: any) {
           };
         }
         case "question-prompt": {
+          let test: any = tasks;
+          test["survey"]["questions"][test["question"]]["config"]["prompt"][
+            "value"
+          ] = action.prompt;
           return {
-            survey: action.questions,
-            question: action.question,
-            change: action.change
+            survey: test["survey"],
+            question: tasks["question"],
+            change: true,
+          };
+        }
+        case "change-choice": {
+          let test: any = tasks;
+          test["survey"]["questions"][test["question"]]["config"]["choices"][
+            "value"
+          ][action.choiceIndex] = action.newChoice;
+          return {
+            survey: test["survey"],
+            question: tasks["question"],
+            change: true,
           };
         }
         case "new-choice": {
@@ -165,48 +180,79 @@ export default function SurveyBuilderContext(props: any) {
           };
         }
         case "shuffle": {
+          let test: any = tasks;
+          test["survey"]["questions"][test["question"]]["config"]["shuffle"][
+            "value"
+          ] = action.isChecked;
           return {
-            survey: action.questions,
-            question: action.question,
+            survey: test["survey"],
+            question: tasks["question"],
+            change: true,
+          };
+        }
+        case "change-page": {
+          let test: any = tasks;
+          test["survey"]["questions"][test["question"]]["page"] =
+            action.newPage;
+          return {
+            survey: test["survey"],
+            question: test["question"],
+            change: true,
           };
         }
         case "update": {
           return {
             survey: action.questions,
             question: action.question,
-            change: action.change
+            change: action.change,
           };
         }
         case "change-type": {
           let test: any = tasks;
           console.log(action.newType);
-          test["survey"]["questions"][test["question"]]["type"] = action.newType;
-          test["survey"]["questions"][test["question"]]["config"] = giveConfigs(action.newType);
+          test["survey"]["questions"][test["question"]]["type"] =
+            action.newType;
+          test["survey"]["questions"][test["question"]]["config"] = giveConfigs(
+            action.newType
+          );
           return {
-            survey: test['survey'],
-            question: tasks['question'],
-            change: true
-          }
+            survey: test["survey"],
+            question: tasks["question"],
+            change: true,
+          };
         }
         case "delete-question": {
           console.log(action.questionToDelete);
-    let test2 = tasks;
-    let index = test2['survey']['questionOrder'].indexOf(action.questionToDelete);
-    console.log(index);
-    test2['survey']['questionOrder'].splice(1, 1);
-    delete test2['survey']['questions'][action.questionToDelete];
-    console.log(test2);
+          let test2 = tasks;
+          let index = test2["survey"]["questionOrder"].indexOf(
+            action.questionToDelete
+          );
+          console.log(index);
+          test2["survey"]["questionOrder"].splice(index, 1);
+          console.log(test2["survey"]["questionOrder"]);
+          console.log(test2);
+          delete test2["survey"]["questions"][action.questionToDelete];
+          console.log(test2);
           return {
-            survey: test2['survey'],
-            question: test2['survey']['questionOrder'][0],
-            change: true
-          }
+            survey: test2["survey"],
+            question: test2["survey"]["questionOrder"][0],
+            change: true,
+          };
+        }
+        case "general-update": {
+          let test: any = tasks;
+          test["survey"][action.property] = action.value;
+          return {
+            survey: test["survey"],
+            question: tasks["question"],
+            change: true,
+          };
         }
         default: {
           return {
-            survey: tasks['survey'],
-            question: tasks['question'],
-            change: tasks['change']
+            survey: tasks["survey"],
+            question: tasks["question"],
+            change: tasks["change"],
           };
         }
       }

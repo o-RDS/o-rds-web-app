@@ -10,14 +10,9 @@ export default function PromptConfig() {
   const dispatch = useContext(SurveyDispatchContext);
 
   function handleTitleChange(e: any) {
-    let test: any = SurveyState;
-    test["survey"]["questions"][test["question"]]["config"]["prompt"]["value"] =
-      e.target.value;
     dispatch({
       type: "question-prompt",
-      questions: test["survey"],
-      question: SurveyState["question"],
-      change: true
+      prompt: e.target.value
     });
   }
 

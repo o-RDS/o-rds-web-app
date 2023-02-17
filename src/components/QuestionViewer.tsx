@@ -47,8 +47,6 @@ export default function QuestionViewer(props: any) {
 
   let testArray;
   try {
-    console.log(Object.entries(SurveyState['survey']['questions'])[0][1])
-    console.log(Object.keys(SurveyState['survey']['questions']).forEach(function (key: any, index: any) {Object.entries(key)}))
     testArray = SurveyState["survey"]["questionOrder"].map(
       (question: string, index: number) => {
         console.log(question);

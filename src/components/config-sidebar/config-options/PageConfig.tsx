@@ -10,13 +10,9 @@ export default function PageConfig() {
   const dispatch = useContext(SurveyDispatchContext);
 
   function handlePageChange(page: number) {
-    let test: any = SurveyState;
-    test["survey"]["questions"][test["question"]]["page"] = page;
     dispatch({
-      type: "question-prompt",
-      questions: test["survey"],
-      question: SurveyState["question"],
-      change: true
+      type: "change-page",
+      newPage: page
     });
   }
 

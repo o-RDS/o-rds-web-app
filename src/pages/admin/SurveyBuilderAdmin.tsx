@@ -130,11 +130,11 @@ export default function SurveyBuilder() {
         setSettings={setSettings}
         settings={settings}
       />
-      {loading ? (
+      {/* {loading ? (
         <div className="dark:bg-rdsDark2">
           <Loading />
         </div>
-      ) : (
+      ) : ( */}
         <div className="flex min-h-screen flex-row gap-20 dark:bg-rdsDark2">
           <SurveyLinkModal
             showModal={setShowModal}
@@ -159,7 +159,7 @@ export default function SurveyBuilder() {
             </>
           )}
         </div>
-      )}
+      {/* )} */}
     </>
   );
 }
