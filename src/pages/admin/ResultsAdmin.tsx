@@ -75,9 +75,9 @@ export default function Results() {
       if (row.pop() === "true" || filterCompleted === false) {
         //If filtering is on pop the completed value from the row array
         if (index % 2 === 0) {
-          return <ResultRow rowData={row} type="body" bgColor="bg-white" />;
+          return <ResultRow rowData={row} type="body" bgColor="bg-white dark:bg-black"/>;
         } else {
-          return <ResultRow rowData={row} type="body" bgColor="bg-gray-200" />;
+          return <ResultRow rowData={row} type="body" bgColor="bg-gray-200 dark:bg-rdsDark2" />;
         }
       }
     });
