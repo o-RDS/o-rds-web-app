@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import DeleteButton from "../DeleteButton";
 import {
   SurveyContext,
   SurveyDispatchContext,
@@ -11,9 +12,9 @@ export default function ShortAnswerConfig(props: any) {
 
   function isSelected() {
     if (SurveyState["question"] == props.index) {
-      return "shadow-lg shadow-slate-900";
+      return "shadow-md dark:shadow-lg shadow-slate-900 border-rdsOrange";
     } else {
-      return "";
+      return "border-rdsDark dark:border-rdsDarkAccent";
     }
   }
 
@@ -55,14 +56,15 @@ export default function ShortAnswerConfig(props: any) {
   }
   return (
     <div
-      className={`dark:border-rdsDarkAccent2 ${isSelected()} rounded-md border-2 border-white p-1 transition-all hover:border-2 hover:border-rdsOrange`}
+      className={`${isSelected()} rounded-md border-2 p-1 transition-all hover:border-2 hover:border-rdsOrange`}
       onClick={(e) => handleQuestionChange(props.index)}
     >
       <div className="w-full dark:text-white p-2">
       <div className="flex flex-row">
-        <h3>{"Q" + (props.index + 1)}</h3>
-        <button className="rounded-sm p-1 bg-rdsOrange z-50 pointer-events-auto ml-auto" onClick={() => handleDeleteQuestion(props.index)}>Delete</button>
+        <h3>{"Q" + (props.otherIndex + 1)}</h3>
+        <DeleteButton handleDeleteQuestion={handleDeleteQuestion} index={props.index}/>
         </div>
+        <br></br>
         <div className="rounded-md bg-gray-100 p-3 dark:bg-rdsDarkAccent">
           <h2>{SurveyStateQuestions["config"]["prompt"]["value"]}</h2>
           <ul>{renderChoices()}</ul>

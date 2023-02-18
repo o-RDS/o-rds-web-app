@@ -86,14 +86,14 @@ export default function SurveyBuilder() {
 
   useEffect(() => {
     if (params.surveyID !== "new" && params.surveyID !== undefined) {
-      retrieveSurveyConfig(params.surveyID).then((data) => {
+      retrieveSurveyConfig(params.surveyID).then((data: any) => {
         if (data === undefined) {
           navigate("/admin/dashboard");
         }
         dispatch({
           type: "initialize",
           questions: data,
-          question: 0,
+          question: Object.keys(data['questions'])[0],
           change: false,
         });
         setConfig(data);

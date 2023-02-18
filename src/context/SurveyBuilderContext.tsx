@@ -1,5 +1,6 @@
 import react, { useEffect, useReducer, useRef } from "react";
 import giveConfigs from "../data/QuestionSwitcher";
+import { saveSurveyConfig } from "../data/dataLayerManager";
 import { useParams, useNavigate, Outlet } from "react-router";
 import { retrieveSurveyConfig, signIn } from "../data/dataLayerManager";
 import { createContext } from "react";
@@ -162,11 +163,12 @@ export default function SurveyBuilderContext(props: any) {
             change: true,
           };
         }
-        case "change-choice": {
+        case "choices-change": {
           let test: any = tasks;
           test["survey"]["questions"][test["question"]]["config"]["choices"][
             "value"
           ][action.choiceIndex] = action.newChoice;
+          console.log(test['survey']);
           return {
             survey: test["survey"],
             question: tasks["question"],
@@ -180,6 +182,17 @@ export default function SurveyBuilderContext(props: any) {
           };
         }
         case "shuffle": {
+          let test: any = tasks;
+          test["survey"]["questions"][test["question"]]["config"]["shuffle"][
+            "value"
+          ] = action.isChecked;
+          return {
+            survey: test["survey"],
+            question: tasks["question"],
+            change: true,
+          };
+        }
+        case "require": {
           let test: any = tasks;
           test["survey"]["questions"][test["question"]]["config"]["shuffle"][
             "value"
@@ -206,6 +219,25 @@ export default function SurveyBuilderContext(props: any) {
             question: action.question,
             change: action.change,
           };
+        }
+        case "update-survey-status": {
+          let test = tasks;
+          test['survey']['live'] = action.status;
+          return {
+            survey: test['survey'],
+            question: tasks['question'],
+            change: false
+          }
+        }
+        case "save-survey": {
+          if (tasks['change']) {
+            saveSurveyConfig("test", tasks["survey"]["id"], tasks["survey"]);
+          }
+          return {
+            survey: tasks['survey'],
+            question: tasks['question'],
+            change: false
+          }
         }
         case "change-type": {
           let test: any = tasks;

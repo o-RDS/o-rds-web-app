@@ -17,7 +17,7 @@ export default function PageConfig() {
   }
 
   return (
-    <div className="mt-3 flex flex-col items-start justify-center gap-2">
+    <div className="flex flex-col items-start justify-center gap-2">
       <label>Page</label>
       <div className="flex w-2/3 flex-row justify-between gap-2 rounded-full bg-rdsOrange">
         <button

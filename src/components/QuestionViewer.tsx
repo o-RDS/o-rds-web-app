@@ -51,7 +51,7 @@ export default function QuestionViewer(props: any) {
       (question: string, index: number) => {
         console.log(question);
         console.log(SurveyState['survey']['questions'][question])
-        return <QuestionConfig data={SurveyState['survey']['questions'][question]} index={question} />;
+        return <QuestionConfig data={SurveyState['survey']['questions'][question]} index={question} otherIndex={index}/>;
       }
     );
     console.log(testArray[0]);
@@ -67,7 +67,7 @@ export default function QuestionViewer(props: any) {
         <div className="flex w-full flex-col items-center justify-center gap-10 rounded-md p-5">
           <div className="flex w-full flex-col gap-4">{testArray}</div>
           <button
-            className="w-fit rounded-sm bg-rdsBlue pl-2 pr-2 dark:text-white"
+            className="w-fit rounded-sm bg-rdsBlue px-2 text-white py-1"
             onClick={() => handleAddedQuestion()}
           >
             + Add Question
