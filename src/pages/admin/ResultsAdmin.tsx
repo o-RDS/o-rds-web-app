@@ -67,7 +67,7 @@ export default function Results() {
         headers.push(question.config.prompt.value);
     });
 
-    return <ResultRow rowData={headers} type="header" />;
+    return <ResultRow rowData={headers} type="header"/>;
   }
 
   function renderTableBody(filterCompleted: boolean) {
@@ -77,9 +77,9 @@ export default function Results() {
       if (row.pop() === "true" || filterCompleted === false) {
         //If filtering is on pop the completed value from the row array
         if (index % 2 === 0) {
-          return <ResultRow rowData={row} type="body" bgColor="bg-white dark:bg-rdsBlue"/>;
+          return <ResultRow rowData={row} type="body" bgColor="bg-white dark:bg-rdsDark3"/>;
         } else {
-          return <ResultRow rowData={row} type="body" bgColor="bg-gray-200 dark:bg-rdsDark2" />;
+          return <ResultRow rowData={row} type="body" bgColor="bg-gray-200 dark:bg-rdsDarkAccent3" />;
         }
       }
     });
