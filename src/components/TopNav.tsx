@@ -4,7 +4,7 @@ import helpIcon from "../images/help_icon.png";
 
 export default function TopNav() {
   return (
-    <div className="flex h-14 w-screen flex-row items-center justify-start overflow-visible overflow-y-auto px-2 shadow-sm shadow-black">
+    <div className="flex h-14 w-full flex-row items-center justify-start overflow-visible overflow-y-auto px-2 shadow-sm shadow-black">
       <Link to="/admin/dashboard/">
         <h3 className="inline-block items-center justify-start bg-gradient-to-br from-rdsBlue to-rdsOrange bg-clip-text text-lg text-transparent">
           o-RDS
