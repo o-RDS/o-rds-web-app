@@ -59,12 +59,12 @@ export default function FillBlankConfig(props: any) {
       className={`dark:border-rdsDarkAccent2 ${isSelected()} rounded-md border-2 border-white p-1 transition-all hover:border-2 hover:border-rdsOrange focus:border-red-500`}
       onClick={(e) => handleQuestionChange(props.index)}
     >
-      <div className="w-full text-white dark:bg-rdsDarkAccent2">
+      <div className="w-full dark:text-white dark:bg-rdsDarkAccent2">
       <div className="flex flex-row">
         <h3>{"Q" + (props.index + 1)}</h3>
-        <button className="rounded-sm p-1 bg-rdsDarkAccent z-50 pointer-events-auto ml-auto" onClick={() => handleDeleteQuestion(props.index)}>Delete</button>
+        <button className="rounded-sm p-1 bg-rdsOrange z-50 pointer-events-auto ml-auto" onClick={() => handleDeleteQuestion(props.index)}>Delete</button>
         </div>
-        <div className="rounded-md bg-gray-100 p-3 dark:bg-rdsDarkAccent2">
+        <div className="rounded-md bg-gray-100 p-3 dark:bg-rdsDarkAccent">
           <h2>{SurveyStateQuestions["config"]["prompt"]["value"]}</h2>
           <ul>{renderChoices()}</ul>
         </div>

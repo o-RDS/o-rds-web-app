@@ -62,7 +62,7 @@ export default function CheckboxConfig(props: any) {
       <div className="w-full dark:bg-rdsDarkAccent2 dark:text-white">
       <div className="flex flex-row">
         <h3>{"Q" + (props.index + 1)}</h3>
-        <button className="rounded-sm p-1 bg-rdsDarkAccent z-50 pointer-events-auto ml-auto" onClick={() => handleDeleteQuestion(props.index)}>Delete</button>
+        <button className="rounded-sm p-1 bg-rdsOrange z-50 pointer-events-auto ml-auto" onClick={() => handleDeleteQuestion(props.index)}>Delete</button>
         </div>
         <div className="rounded-md bg-gray-100 p-3 dark:bg-rdsDarkAccent2">
           <h2>{SurveyStateQuestions["config"]["prompt"]["value"]}</h2>

@@ -55,15 +55,15 @@ export default function ShortAnswerConfig(props: any) {
   }
   return (
     <div
-      className={`dark:border-rdsDarkAccent2 ${isSelected()} rounded-md border-2 border-white p-1 transition-all hover:border-2 hover:border-rdsOrange focus:border-red-500`}
+      className={`dark:border-rdsDarkAccent2 ${isSelected()} rounded-md border-2 border-white p-1 transition-all hover:border-2 hover:border-rdsOrange`}
       onClick={(e) => handleQuestionChange(props.index)}
     >
-      <div className="w-full">
+      <div className="w-full dark:text-white p-2">
       <div className="flex flex-row">
         <h3>{"Q" + (props.index + 1)}</h3>
-        <button className="rounded-sm p-1 bg-rdsDarkAccent z-50 pointer-events-auto ml-auto" onClick={() => handleDeleteQuestion(props.index)}>Delete</button>
+        <button className="rounded-sm p-1 bg-rdsOrange z-50 pointer-events-auto ml-auto" onClick={() => handleDeleteQuestion(props.index)}>Delete</button>
         </div>
-        <div className="rounded-md bg-gray-100 p-3">
+        <div className="rounded-md bg-gray-100 p-3 dark:bg-rdsDarkAccent">
           <h2>{SurveyStateQuestions["config"]["prompt"]["value"]}</h2>
           <ul>{renderChoices()}</ul>
         </div>

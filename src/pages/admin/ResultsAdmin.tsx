@@ -84,7 +84,7 @@ export default function Results() {
   }
 
   return (
-    <>
+    <div className="dark:bg-rdsDark2 h-screen text-white">
       <SurveyTopNav id={params.surveyID}/>
       {/* <SurveyTopConfig name={config.title} id={params.surveyID}/> */}
       <div className="flex w-full flex-col gap-y-2 p-6">
@@ -115,6 +115,6 @@ export default function Results() {
           )}
         </div>
       </div>
-    </>
+    </div>
   );
 }
