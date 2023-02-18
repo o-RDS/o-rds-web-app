@@ -36,7 +36,7 @@ export default function OTPCodeEntry() {
         }
         console.log(`Running verification check: ${phone}, ${code}`);
         verificationCheck(phone, code).then((data) => {
-          console.log(data.status);
+          console.log(data);
           // processHash()
         });
       }

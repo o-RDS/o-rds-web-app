@@ -10,18 +10,14 @@ export default function PageConfig() {
   const dispatch = useContext(SurveyDispatchContext);
 
   function handlePageChange(page: number) {
-    let test: any = SurveyState;
-    test["survey"]["questions"][test["question"]]["page"] = page;
     dispatch({
-      type: "question-prompt",
-      questions: test["survey"],
-      question: SurveyState["question"],
-      change: true
+      type: "change-page",
+      newPage: page
     });
   }
 
   return (
-    <div className="mt-3 flex flex-col items-start justify-center gap-2">
+    <div className="flex flex-col items-start justify-center gap-2">
       <label>Page</label>
       <div className="flex w-2/3 flex-row justify-between gap-2 rounded-full bg-rdsOrange">
         <button

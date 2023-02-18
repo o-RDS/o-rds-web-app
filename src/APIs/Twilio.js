@@ -1,4 +1,3 @@
-const serviceSid = process.env.REACT_APP_TWILIO_SERVICE_ID;
 let serverHost = "";
 
 if (process.env.NODE_ENV == "development") {
@@ -10,23 +9,23 @@ else if (process.env.NODE_ENV == 'production') {
 
 export function startVerification(phone) {
 
-  // Auth now done at serter
-  // myHeaders.append('Authorization', 'Basic ' + btoa(accountSid + ":" + authToken));
+  phone = phone.toString();
+  phone = "+1" + phone; 
 
-  var formdata = new FormData();
   
-  phone = "+1" + phone; // default to USA
-
-  formdata.append("To", phone);
-  formdata.append("Channel", "sms");
-  
-  var requestOptions = {
+  const options = {
     method: 'POST',
-    body: formdata,
+    headers: {
+      accept: 'application/json',
+      'content-type': 'application/json',
+    },
+    body: JSON.stringify({
+      to: phone
+    }),
     redirect: 'follow'
   };
   
-  return fetch(`${serverHost}/v2/Services/${serviceSid}/Verifications`, requestOptions)
+  return fetch(`${serverHost}/twilio/verification`, options)
     .then(response => {
       if (!response.ok) {
         throw new Error(response.statusText)
@@ -40,23 +39,24 @@ export function startVerification(phone) {
 
 export function verificationCheck(phone, code) {
 
-  // Auth now done at serter
-
-  var formdata = new FormData();
-
+  phone = phone.toString();
   phone = "+1" + phone; // currently default to USA
 
-  formdata.append("To", phone);
-  formdata.append("Code", code);
-  formdata.append("Channel", "sms");
 
-  var requestOptions = {
+  const options = {
     method: 'POST',
-    body: formdata,
+    headers: {
+      accept: 'application/json',
+      'content-type': 'application/json',
+    },
+    body: JSON.stringify({
+      to: phone,
+      code: code
+    }),
     redirect: 'follow'
   };
 
-  return fetch(`${serverHost}/v2/Services/${serviceSid}/VerificationCheck`, requestOptions)
+  return fetch(`${serverHost}/twilio/verificationCheck`, options)
     .then(response => {
       if (!response.ok) {
         throw new Error(response.statusText)

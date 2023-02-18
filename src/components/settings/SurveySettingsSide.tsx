@@ -19,6 +19,7 @@ export default function SurveySettingsSide(props: any) {
         <button className={`hover:bg-rdsDarkAccent w-4/5 rounded-sm text-left p-1 ${isActive("money")} transition-all`} onClick={() => props.setSettings({active: true, whichSettings: "money"})}>Referrals & Payments</button>
         <button className={`hover:bg-rdsDarkAccent w-4/5 rounded-sm text-left p-1 ${isActive("tremendous")} transition-all`} onClick={() => props.setSettings({active: true, whichSettings: "tremendous"})}>Tremendous</button>
         <button className={`hover:bg-rdsDarkAccent w-4/5 rounded-sm text-left p-1 ${isActive("contact")} transition-all`} onClick={() => props.setSettings({active: true, whichSettings: "contact"})}>Contact Information</button>
+        <button className={`hover:bg-rdsDarkAccent w-4/5 rounded-sm text-left p-1 ${isActive("informed-consent")} transition-all`} onClick={() => props.setSettings({active: true, whichSettings: "informed-consent"})}>Informed Consent</button>
       </div>
     </>
   );

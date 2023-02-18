@@ -29,13 +29,13 @@ export default function ResultRow(props: {
     <>
       {props.type == "header" ? (
         <tr className="bg-slate-600 text-sm text-white">
-          <th className="sticky left-0 min-w-[40px] w-10 bg-white"></th>
+          <th className="sticky left-0 min-w-[40px] w-10 bg-white dark:bg-rdsDark2"></th>
           {renderCells()}
         </tr>
       ) : (
         <>
           <tr className={"dataRow " + props.bgColor}>
-              <td className="sticky left-0 min-w-[40px] w-10 bg-white align-middle">
+              <td className="sticky left-0 min-w-[40px] w-10 bg-white align-middle dark:bg-rdsDark2">
                 <button className="deleteButton">
                   <img
                     src={removeEntryIcon}

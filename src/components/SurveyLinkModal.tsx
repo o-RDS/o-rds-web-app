@@ -6,23 +6,12 @@ const SurveyLinkModal = (props: any) => {
   const SurveyState = useContext(SurveyContext);
   const dispatch = useContext(SurveyDispatchContext);
 
-  function handlePauseSurvey() {
+  function handleSurveyStatus(status: boolean) {
     let test = SurveyState;
     test['survey']['live'] = false;
     dispatch({
-      type: "question-prompt",
-      questions: test['survey'],
-      question: SurveyState['question'],
-    });
-  }
-
-  function handlePublishSurvey() {
-    let test = SurveyState;
-    test['survey']['live'] = true;
-    dispatch({
-      type: "question-prompt",
-      questions: test['survey'],
-      question: SurveyState['question'],
+      type: "update-survey-status",
+      status: status
     });
   }
 
@@ -80,10 +69,10 @@ const SurveyLinkModal = (props: any) => {
               Close
             </button>
             <div className="flex flex-row gap-2">
-              <button className="rounded-md border-2 border-rdsBlue p-1" onClick={() => handlePauseSurvey()}>
+              <button className="rounded-md border-2 border-rdsBlue p-1" onClick={() => handleSurveyStatus(false)}>
                 Pause Survey
               </button>
-              <button className="rounded-md bg-rdsBlue py-1 pl-2 pr-2 text-white disabled:cursor-not-allowed disabled:bg-gray-500" disabled={checkIfReadyToPublish()} onClick={() => handlePublishSurvey()}>
+              <button className="rounded-md bg-rdsBlue py-1 pl-2 pr-2 text-white disabled:cursor-not-allowed disabled:bg-gray-500" disabled={checkIfReadyToPublish()} onClick={() => handleSurveyStatus(true)}>
                 Publish Survey
               </button>
             </div>

@@ -1,4 +1,5 @@
 import React, { useContext, useState } from "react";
+import DeleteButton from "../DeleteButton";
 import {
   SurveyContext,
   SurveyDispatchContext,
@@ -11,9 +12,9 @@ export default function MCConfig(props: any) {
 
   function isSelected() {
     if (SurveyState["question"] == props.index) {
-      return "shadow-lg shadow-slate-900 border-rdsOrange";
+      return "shadow-md dark:shadow-lg shadow-slate-900 border-rdsOrange";
     } else {
-      return "";
+      return "border-rdsDark dark:border-rdsDarkAccent";
     }
   }
 
@@ -28,19 +29,10 @@ export default function MCConfig(props: any) {
     }
   }
 
-  function handleDeleteQuestion(question: number) {
-    console.log(question);
-    let test = SurveyState;
-    let test2 = SurveyState;
-    let index = test2['survey']['questionOrder'].indexOf(question);
-    test2['survey']['questionOrder'].splice(index, 1);
-    delete test2['survey']['questions'][question];
-    console.log(test2);
+  function handleDeleteQuestion(question: string) {
     dispatch({
-      type: "question-prompt",
-      questions: test2['survey'],
-      question: test2['survey']['questionOrder'][0],
-      change: true
+      type: "delete-question",
+      questionToDelete: question
     })
   }
   function renderChoices() {
@@ -56,15 +48,16 @@ export default function MCConfig(props: any) {
   return (
     <>
     <div
-      className={` ${isSelected()} rounded-md border-2 p-1 transition-all hover:border-2 hover:border-rdsOrange focus:border-red-500`}
+      className={` ${isSelected()} rounded-md border-2 p-1 transition-all hover:border-2 hover:border-rdsOrange`}
       onClick={(e) => handleQuestionChange(props.index)}
     >
-      <div className="w-full dark:text-white dark:bg-rdsDarkAccent2">
+      <div className="w-full dark:text-white p-2">
         <div className="flex flex-row">
-        <h3>{"Q" + (props.index + 1)}</h3>
-        <button className="rounded-sm p-1 bg-rdsDarkAccent z-50 pointer-events-auto ml-auto" onClick={() => handleDeleteQuestion(props.index)}>Delete</button>
+        <h3>{"Q" + (props.otherIndex + 1)}</h3>
+        <DeleteButton handleDeleteQuestion={handleDeleteQuestion} index={props.index}/>
         </div>
-        <div className="rounded-md bg-gray-100 p-3 dark:bg-rdsDarkAccent2">
+        <br></br>
+        <div className="rounded-md bg-gray-100 p-3 dark:bg-rdsDarkAccent">
           <h2>{SurveyStateQuestions["config"]["prompt"]["value"]}</h2>
           <ul>{renderChoices()}</ul>
         </div>
