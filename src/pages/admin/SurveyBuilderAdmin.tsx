@@ -86,14 +86,14 @@ export default function SurveyBuilder() {
 
   useEffect(() => {
     if (params.surveyID !== "new" && params.surveyID !== undefined) {
-      retrieveSurveyConfig(params.surveyID).then((data) => {
+      retrieveSurveyConfig(params.surveyID).then((data: any) => {
         if (data === undefined) {
           navigate("/admin/dashboard");
         }
         dispatch({
           type: "initialize",
           questions: data,
-          question: 0,
+          question: Object.keys(data['questions'])[0],
           change: false,
         });
         setConfig(data);
@@ -130,11 +130,11 @@ export default function SurveyBuilder() {
         setSettings={setSettings}
         settings={settings}
       />
-      {loading ? (
+      {/* {loading ? (
         <div className="dark:bg-rdsDark2">
           <Loading />
         </div>
-      ) : (
+      ) : ( */}
         <div className="flex min-h-screen flex-row gap-20 dark:bg-rdsDark2">
           <SurveyLinkModal
             showModal={setShowModal}
@@ -159,7 +159,7 @@ export default function SurveyBuilder() {
             </>
           )}
         </div>
-      )}
+      {/* )} */}
     </>
   );
 }

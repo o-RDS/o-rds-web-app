@@ -9,14 +9,13 @@ export function GeneralSettings() {
   const SurveyState = useContext(SurveyContext);
   const dispatch = useContext(SurveyDispatchContext);
 
-  function handleNameChange(e: any) {
+  function handleInputChange(e: any, input: string) {
     let test: any = SurveyState;
-    test["survey"]["title"] = e.target.value;
+    test["survey"][input] = e.target.value;
     dispatch({
-      type: "update",
-      questions: test["survey"],
-      question: SurveyState["question"],
-      change: true
+      type: "general-update",
+      property: input,
+      value: e.target.value
     });
   }
 
@@ -62,7 +61,7 @@ export function GeneralSettings() {
               id="survey-name"
               className="rounded-sm bg-gray-200 p-1 dark:bg-rdsDarkAccent"
               maxLength={20}
-              onChange={(e) => handleNameChange(e)}
+              onChange={(e) => handleInputChange(e, "title")}
               value={SurveyState['survey']['title']}
             ></input>
           </div>
@@ -75,7 +74,7 @@ export function GeneralSettings() {
           <textarea
             id="survey-message"
             className="w-2/5 rounded-sm dark:bg-rdsDarkAccent bg-gray-200 p-1"
-            onChange={(e) => handleStartMessageChange(e)}
+            onChange={(e) => handleInputChange(e, "researcherMessage")}
             value={SurveyState['survey']['researcherMessage']}
           ></textarea>
         </div>
@@ -84,7 +83,7 @@ export function GeneralSettings() {
           <textarea
             id="end-survey-message"
             className="w-2/5 rounded-sm dark:bg-rdsDarkAccent bg-gray-200 p-1"
-            onChange={(e) => handleEndMessageChange(e)}
+            onChange={(e) => handleInputChange(e, "endSurveyMessage")}
             value={SurveyState['survey']['endSurveyMessage']}
           ></textarea>
         </div>

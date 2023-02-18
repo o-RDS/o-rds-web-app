@@ -36,8 +36,8 @@ export default function ConfigSidebar(props: any) {
   return (
     <>
       <div className="flex w-[20%] flex-col items-center justify-start gap-4 border-r border-black p-4 dark:border-none dark:bg-rdsDarkAccent3 dark:text-white">
-        <h2 className="self-start text-xl font-bold">
-          {"Q" + (SurveyState["question"] + 1) + "  Settings"}
+        <h2 className="self-start text-2xl font-bold">
+          {"Question Settings"}
         </h2>
         {getQuestionConfig(SurveyState["survey"]["questions"][SurveyState["question"]])}
       </div>

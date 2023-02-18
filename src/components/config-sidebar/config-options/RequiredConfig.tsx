@@ -4,25 +4,25 @@ import {
   SurveyDispatchContext,
 } from "../../../context/SurveyBuilderContext";
 
-export default function ShuffleConfig() {
+export default function RequiredConfig() {
   const SurveyState = useContext(SurveyContext);
   const SurveyStateQuestions = SurveyState["survey"]["questions"][SurveyState["question"]];
   const dispatch = useContext(SurveyDispatchContext);
 
   function handleCheckChange(e: any) {
     dispatch({
-      type: "shuffle",
+      type: "require",
       isChecked: e.target.checked,
     });
   }
 
   return (
     <div className="flex flex-row gap-4">
-      <label>{SurveyStateQuestions["config"]["shuffle"]["configPrompt"]}</label>
+      <label>{"Require Question"}</label>
       <input
         type="checkbox"
         onChange={(e) => handleCheckChange(e)}
-        defaultChecked={SurveyStateQuestions.config.shuffle.value}
+        defaultChecked={true} //Required needs to be added as a value in the survey!
         className="accent-rdsBlue"
       ></input>
     </div>

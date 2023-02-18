@@ -38,6 +38,7 @@ export default function Results() {
       if (responses[userID].answers !== undefined) {
         let currUserResponses = [];
         currUserResponses.push(responses[userID].responseID);
+        currUserResponses.push(responses[userID].parentID)
         questionOrder.forEach((questionID: string) => {
           if (responses[userID].answers[questionID] === undefined) {
             currUserResponses.push("");
@@ -59,6 +60,7 @@ export default function Results() {
     let headers = [];
 
     headers.push("User ID");
+    headers.push("Parent ID");
     questionOrder.forEach((questionID) => {
       let question = questions[questionID];
       if (question !== undefined)
@@ -75,9 +77,9 @@ export default function Results() {
       if (row.pop() === "true" || filterCompleted === false) {
         //If filtering is on pop the completed value from the row array
         if (index % 2 === 0) {
-          return <ResultRow rowData={row} type="body" bgColor="bg-white" />;
+          return <ResultRow rowData={row} type="body" bgColor="bg-white dark:bg-rdsBlue"/>;
         } else {
-          return <ResultRow rowData={row} type="body" bgColor="bg-gray-200" />;
+          return <ResultRow rowData={row} type="body" bgColor="bg-gray-200 dark:bg-rdsDark2" />;
         }
       }
     });
@@ -145,7 +147,7 @@ export default function Results() {
   }
 
   return (
-    <>
+    <div className="dark:bg-rdsDark2 h-screen text-white">
       <SurveyTopNav id={params.surveyID}/>
       {/* <SurveyTopConfig name={config.title} id={params.surveyID}/> */}
       <div className="flex w-full flex-col gap-y-2 p-6">
@@ -179,6 +181,6 @@ export default function Results() {
           )}
         </div>
       </div>
-    </>
+    </div>
   );
 }

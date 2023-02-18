@@ -38,10 +38,7 @@ export default function SurveyTopConfig(props: any) {
       saveSurveyConfig("test", SurveyState["survey"]["id"], SurveyState["survey"]);
     }
     dispatch({
-      type: 'question-prompt',
-      questions: SurveyState['survey'],
-      question: SurveyState['question'],
-      change: false
+      type: 'save-survey',
     })
   }
 

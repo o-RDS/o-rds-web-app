@@ -4,6 +4,7 @@ import { MoneySettings } from "./MoneySettings";
 import { ContactSettings } from "./ContactSettings";
 import { AppearanceSettings } from "./AppearanceSettings";
 import { TremendousSettings } from "./TremendousSettings";
+import { InformedConsentSettings } from "./InformedConsentSettings";
 
 export default function SurveySettings(props: any) {
 
@@ -23,6 +24,9 @@ export default function SurveySettings(props: any) {
       }
       case "tremendous": {
         return <TremendousSettings />
+      }
+      case "informed-consent": {
+        return <InformedConsentSettings />
       }
     }
   }
