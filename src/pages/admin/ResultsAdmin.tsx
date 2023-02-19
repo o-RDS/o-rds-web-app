@@ -67,7 +67,7 @@ export default function Results() {
       if (question !== undefined) headers.push(question.config.prompt.value);
     });
 
-    return <ResultRow rowData={headers} type="header" />;
+    return <ResultRow rowData={headers} type="header"/>;
   }
 
   function renderTableBody(filterCompleted: boolean) {
@@ -81,7 +81,7 @@ export default function Results() {
             <ResultRow
               rowData={row}
               type="body"
-              bgColor="bg-white dark:bg-rdsBlue"
+              bgColor="bg-white dark:bg-rdsDark3"
             />
           );
         } else {
@@ -89,7 +89,7 @@ export default function Results() {
             <ResultRow
               rowData={row}
               type="body"
-              bgColor="bg-gray-200 dark:bg-rdsDark2"
+              bgColor="bg-gray-200 dark:bg-rdsDarkAccent3"
             />
           );
         }
