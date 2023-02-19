@@ -1,12 +1,38 @@
-import React from "react";
+import React, {useState} from "react";
 import { Link, useNavigate } from "react-router-dom";
 import StandardPage from "../../components/StandardPage";
+import {login} from "../../APIs/Admin.auth.js";
 
 export default function LoginAdmin() {
-
-  function handleLogin(e: any) {
-    var data = new FormData(e.target);
+  const navigate = useNavigate();
+  const [errorMessage, setErrorMessage] = useState({error: false, message: ""});
+  async function handleLogin(e: any) {
+    e.preventDefault();
+    let loginResponse: any = "";
+    console.log(e);
+    console.log(e.target);
+    var item = document.getElementById('username')!;
+    var data: any = new FormData(e.target);
+    console.log(data);
     let formObject = Object.fromEntries(data.entries());
+    console.log(formObject);
+    let loginInfo = {
+      fullname: "Mr MR",
+      email: formObject.username,
+      role: "admin",
+      password: formObject.password
+    }
+    try {
+      loginResponse = await login(loginInfo);
+      console.log(loginResponse);
+      document.cookie = `token=${loginResponse.accessToken}`
+      navigate("admin/dashboard");
+    } catch (error) {
+      setErrorMessage({error: true, message: "Username or password was incorrect"});
+      console.log(error);
+    } finally {
+
+    }
   }
 
   return (
@@ -17,17 +43,43 @@ export default function LoginAdmin() {
         </h1>
         <form onSubmit={(e) => handleLogin(e)}>
           <div className="relative">
-          <input type="text" id="username" className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border border-black appearance-none dark:text-white dark:border-gray-600 dark:focus:border-rdsBlue focus:outline-none focus:ring-0 focus:border-rdsBlue peer" placeholder=" " />
-          <label htmlFor="username" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-rdsDark2 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-rdsOrange peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Username</label>
+            <input
+              type="text"
+              id="username"
+              name="username"
+              className="peer block w-full appearance-none rounded-lg border border-black bg-transparent px-2.5 pb-2.5 pt-4 text-sm text-gray-900 focus:border-rdsBlue focus:outline-none focus:ring-0 dark:border-gray-600 dark:text-white dark:focus:border-rdsBlue"
+              placeholder=" "
+            />
+            <label
+              htmlFor="username"
+              className="absolute top-2 left-1 z-10 origin-[0] -translate-y-4 scale-75 transform bg-white px-2 text-sm text-gray-500 duration-300 peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:scale-100 peer-focus:top-2 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:px-2 peer-focus:text-blue-600 dark:bg-rdsDark2 dark:text-gray-400 peer-focus:dark:text-rdsOrange"
+            >
+              Username
+            </label>
           </div>
           <br></br>
           <div className="relative">
-          <input type="text" id="username" className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border border-black appearance-none dark:text-white dark:border-gray-600 dark:focus:border-rdsBlue focus:outline-none focus:ring-0 focus:border-rdsBlue peer" placeholder=" " />
-          <label htmlFor="username" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-rdsDark2 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-rdsOrange peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Password</label>
+            <input
+              type="text"
+              id="password"
+              name="password"
+              className="peer block w-full appearance-none rounded-lg border border-black bg-transparent px-2.5 pb-2.5 pt-4 text-sm text-gray-900 focus:border-rdsBlue focus:outline-none focus:ring-0 dark:border-gray-600 dark:text-white dark:focus:border-rdsBlue"
+              placeholder=" "
+            />
+            <label
+              htmlFor="password"
+              className="absolute top-2 left-1 z-10 origin-[0] -translate-y-4 scale-75 transform bg-white px-2 text-sm text-gray-500 duration-300 peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:scale-100 peer-focus:top-2 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:px-2 peer-focus:text-blue-600 dark:bg-rdsDark2 dark:text-gray-400 peer-focus:dark:text-rdsOrange"
+            >
+              Password
+            </label>
           </div>
-        <br></br>
-          <input type="submit" className="w-56 rounded bg-orange-600 p-1 text-white" >
-          </input>
+          <br></br>
+          <button className="w-full rounded bg-orange-600 p-1 text-white">
+            Submit
+          </button>
+          <br></br>
+          <br></br>
+          {errorMessage.error && <div className="p-2 w-full bg-red-500 bg-opacity-20 rounded-md"><p className="text-red-500 text-center text-sm">{errorMessage.message}</p></div>}
         </form>
       </div>
     </StandardPage>
