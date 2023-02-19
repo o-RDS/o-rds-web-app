@@ -260,7 +260,9 @@ export default function SurveyBuilderContext(props: any) {
             action.questionToDelete
           );
           console.log(index);
-          test2["survey"]["questionOrder"].splice(index, 1);
+          if (index != -1) {
+            test2["survey"]["questionOrder"].splice(index, 1);
+          }
           console.log(test2["survey"]["questionOrder"]);
           console.log(test2);
           delete test2["survey"]["questions"][action.questionToDelete];

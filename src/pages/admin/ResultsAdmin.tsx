@@ -39,7 +39,7 @@ export default function Results() {
       if (responses[userID].answers !== undefined) {
         let currUserResponses = [];
         currUserResponses.push(responses[userID].responseID);
-        currUserResponses.push(responses[userID].parentID)
+        currUserResponses.push(responses[userID].parentID);
         questionOrder.forEach((questionID: string) => {
           if (responses[userID].answers[questionID] === undefined) {
             currUserResponses.push("");
@@ -64,8 +64,7 @@ export default function Results() {
     headers.push("Parent ID");
     questionOrder.forEach((questionID) => {
       let question = questions[questionID];
-      if (question !== undefined)
-        headers.push(question.config.prompt.value);
+      if (question !== undefined) headers.push(question.config.prompt.value);
     });
 
     return <ResultRow rowData={headers} type="header" />;
@@ -78,9 +77,21 @@ export default function Results() {
       if (row.pop() === "true" || filterCompleted === false) {
         //If filtering is on pop the completed value from the row array
         if (index % 2 === 0) {
-          return <ResultRow rowData={row} type="body" bgColor="bg-white dark:bg-rdsBlue"/>;
+          return (
+            <ResultRow
+              rowData={row}
+              type="body"
+              bgColor="bg-white dark:bg-rdsBlue"
+            />
+          );
         } else {
-          return <ResultRow rowData={row} type="body" bgColor="bg-gray-200 dark:bg-rdsDark2" />;
+          return (
+            <ResultRow
+              rowData={row}
+              type="body"
+              bgColor="bg-gray-200 dark:bg-rdsDark2"
+            />
+          );
         }
       }
     });
@@ -94,17 +105,18 @@ export default function Results() {
     let allResponseRows: Array<string> = [];
 
     //Base headers to be included in every Results file
-    let headersStr: string = "User ID," +
+    let headersStr: string =
+      "User ID," +
       "Referrer ID," +
       "Referral Chain Depth," +
       "Completion Status,";
-    
+
     //Get question headers for the current survey
     let qHeaders: Array<string> = [];
     questionOrder.forEach((questionID) => {
       let question = questions[questionID];
       if (question !== undefined)
-        qHeaders.push("\"" + question.config.prompt.value + "\"");
+        qHeaders.push('"' + question.config.prompt.value + '"');
     });
 
     headersStr += qHeaders.join(",") + "\n";
@@ -116,19 +128,19 @@ export default function Results() {
       userResponseRow.push(response.responseID);
       userResponseRow.push(response.parentID);
       userResponseRow.push(response.depth);
-      if(response.completed === true){
+      if (response.completed === true) {
         userResponseRow.push("Complete");
       } else {
         userResponseRow.push("Incomplete");
       }
-      
+
       //Get the questions values
-      if(response.answers !== undefined){
+      if (response.answers !== undefined) {
         questionOrder.forEach((questionID: string) => {
           if (response.answers[questionID] === undefined) {
             userResponseRow.push("");
           } else {
-            userResponseRow.push("\"" + response.answers[questionID] + "\"");
+            userResponseRow.push('"' + response.answers[questionID] + '"');
           }
         });
       }
@@ -140,20 +152,28 @@ export default function Results() {
   }
 
   function downloadCSV() {
-    const csvfile = new Blob([generateCSV()], {type: "text/csv"}); //Add data
-    const a = document.createElement('a');
+    const csvfile = new Blob([generateCSV()], { type: "text/csv" }); //Add data
+    const a = document.createElement("a");
     a.href = URL.createObjectURL(csvfile);
     a.download = config.title + " Results.csv";
     a.click();
   }
 
   return (
-    <div className="dark:bg-rdsDark2 h-screen text-white">
-      <SurveyTopNav id={params.surveyID}/>
-      {results && config && <ResultsTopConfig name={config.title} id={params.surveyID}/>}
+    <div className="h-screen text-white dark:bg-rdsDark2">
+      <SurveyTopNav id={params.surveyID} />
+      {results && config ? (
+        <>
+        <ResultsTopConfig
+          name={config.title}
+          id={params.surveyID}
+          live={config.live}
+          updated={config.lastUpdated}
+        />
+      
       <div className="flex w-full flex-col gap-y-2 p-6">
         <div className="flex w-full flex-row items-baseline">
-          <h1 className="flex-grow pl-10 text-left text-2xl">Survey Name</h1>
+          <h1 className="flex-grow pl-10 text-left text-2xl">{config.title}</h1>
           <label htmlFor="filterCompleted">
             Display completed responses only
           </label>
@@ -164,7 +184,7 @@ export default function Results() {
             className="ml-4 mr-12"
             onChange={() => setFilterCompleted(!filterCompleted)}
           />
-          <button 
+          <button
             className="w-fit rounded bg-rdsOrange p-2 text-white"
             onClick={() => downloadCSV()}
           >
@@ -172,16 +192,15 @@ export default function Results() {
           </button>
         </div>
         <div className="overflow-auto">
-          {results && config ? (
             <table className="mb-4 w-fit table-auto border-collapse text-left">
               <thead>{renderTableHeader()}</thead>
               <tbody>{renderTableBody(filterCompleted)}</tbody>
             </table>
-          ) : (
-            <Loading />
-          )}
         </div>
       </div>
+      </>) : (
+            <Loading />
+          )}
     </div>
   );
 }
