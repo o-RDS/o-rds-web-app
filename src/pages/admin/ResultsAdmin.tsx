@@ -89,7 +89,7 @@ export default function Results() {
   return (
     <div className="dark:bg-rdsDark2 h-screen text-white">
       <SurveyTopNav id={params.surveyID}/>
-      <ResultsTopConfig name="adasdasd" id={params.surveyID}/>
+      {results && config && <ResultsTopConfig name={config.title} id={params.surveyID}/>}
       <div className="flex w-full flex-col gap-y-2 p-6">
         <div className="flex w-full flex-row items-baseline">
           <h1 className="flex-grow pl-10 text-left text-2xl">Survey Name</h1>
