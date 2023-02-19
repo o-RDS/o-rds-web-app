@@ -86,6 +86,67 @@ export default function Results() {
     });
   }
 
+  function generateCSV(): string {
+    let questionOrder: Array<any> = config.questionOrder;
+    let questions = config.questions;
+    let responses: any = results;
+    let userResponseRow: Array<string> = [];
+    let allResponseRows: Array<string> = [];
+
+    //Base headers to be included in every Results file
+    let headersStr: string = "User ID," +
+      "Referrer ID," +
+      "Referral Chain Depth," +
+      "Completion Status,";
+    
+    //Get question headers for the current survey
+    let qHeaders: Array<string> = [];
+    questionOrder.forEach((questionID) => {
+      let question = questions[questionID];
+      if (question !== undefined)
+        qHeaders.push("\"" + question.config.prompt.value + "\"");
+    });
+
+    headersStr += qHeaders.join(",") + "\n";
+
+    //Get the data row for each user
+    responses.forEach((response: any) => {
+      userResponseRow = [];
+      //Get the values for the base headers
+      userResponseRow.push(response.responseID);
+      userResponseRow.push(response.parentID);
+      userResponseRow.push(response.depth);
+      if(response.completed === true){
+        userResponseRow.push("Complete");
+      } else {
+        userResponseRow.push("Incomplete");
+      }
+      
+      //Get the questions values
+      if(response.answers !== undefined){
+        questionOrder.forEach((questionID: string) => {
+          if (response.answers[questionID] === undefined) {
+            userResponseRow.push("");
+          } else {
+            userResponseRow.push("\"" + response.answers[questionID] + "\"");
+          }
+        });
+      }
+
+      allResponseRows.push(userResponseRow.join(","));
+    });
+
+    return headersStr + allResponseRows.join("\n");
+  }
+
+  function downloadCSV() {
+    const csvfile = new Blob([generateCSV()], {type: "text/csv"}); //Add data
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(csvfile);
+    a.download = config.title + " Results.csv";
+    a.click();
+  }
+
   return (
     <div className="dark:bg-rdsDark2 h-screen text-white">
       <SurveyTopNav id={params.surveyID}/>
@@ -103,7 +164,10 @@ export default function Results() {
             className="ml-4 mr-12"
             onChange={() => setFilterCompleted(!filterCompleted)}
           />
-          <button className="w-fit rounded bg-rdsOrange p-2 text-white">
+          <button 
+            className="w-fit rounded bg-rdsOrange p-2 text-white"
+            onClick={() => downloadCSV()}
+          >
             Download CSV
           </button>
         </div>

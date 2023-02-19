@@ -1,32 +1,34 @@
 import { Link } from "react-router-dom";
 import StandardPage from "../../components/StandardPage";
-import { loadAdminSurveys } from "../../data/dataLayerManager";
+import { deleteSurveyConfig, loadAdminSurveys } from "../../data/dataLayerManager";
 import { useState, useEffect } from "react";
 import Loading from "../../components/Loading";
 
 export default function Dashboard() {
   const user = "test";
-  const [surveys, setSurveys] = useState([{ id: 1, title: "Loading..." }]);
+  const [surveys, setSurveys] = useState<any>([]);
   const [page, setPage] = useState(0);
   const [displayNumber, setDisplayNumber] = useState(5);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    setSurveys([{ id: 1, title: "Loading..." }])
+    setSurveys([])
     loadAdminSurveys(
       user,
       page * displayNumber,
       (page + 1) * displayNumber
     ).then((surveys) => {
-      console.log(surveys);
       setSurveys(surveys);
+      setLoading(false);
     });
   }, [page, displayNumber]);
 
   function renderSurveyButtons() {
-    return surveys.map((survey) => (
+    return surveys.map((survey:any) => (
       <div className="flex h-48 w-48 flex-col justify-end rounded-md bg-rdsBlue p-2 text-white">
         <Link to={`../survey-builder/${survey.id}`}>Edit Survey</Link>
         <Link to={`../results/${survey.id}`}>View Results</Link>
+        <p onClick={() => deleteSurvey(survey.id)}>Delete Survey</p>
         <div className="border-t">
           <h4 className="text-md font-bold">{survey.title}</h4>
           <p className="text-sm">? Responses</p>
@@ -38,6 +40,17 @@ export default function Dashboard() {
   function changeDisplayNumber(number: number) {
     setPage(0);
     setDisplayNumber(number);
+  }
+
+  async function deleteSurvey(id: string) {
+    console.log(await deleteSurveyConfig(id));
+    loadAdminSurveys(
+      user,
+      page * displayNumber,
+      (page + 1) * displayNumber
+    ).then((surveys) => {
+      setSurveys(surveys);
+    });
   }
 
 
@@ -73,7 +86,8 @@ export default function Dashboard() {
           </div>
           <br></br>
           <div className="flex flex-row flex-wrap gap-10">
-            {surveys[0].id !== 1 ? renderSurveyButtons() : <Loading/>}
+            {surveys.length > 0 ? renderSurveyButtons() : (
+              loading ? <Loading/> : <></>)}
           </div>
         </div>
       </div>
