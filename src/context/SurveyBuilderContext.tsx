@@ -163,12 +163,18 @@ export default function SurveyBuilderContext(props: any) {
             change: true,
           };
         }
+        case "delete-question2": {
+          return {
+            survey: action.questions,
+            question: action.question,
+            change: action.change
+          }
+        }
         case "choices-change": {
           let test: any = tasks;
           test["survey"]["questions"][test["question"]]["config"]["choices"][
             "value"
           ][action.choiceIndex] = action.newChoice;
-          console.log(test['survey']);
           return {
             survey: test["survey"],
             question: tasks["question"],
@@ -214,6 +220,7 @@ export default function SurveyBuilderContext(props: any) {
           };
         }
         case "update": {
+          console.log("Update");
           return {
             survey: action.questions,
             question: action.question,
@@ -265,6 +272,7 @@ export default function SurveyBuilderContext(props: any) {
           }
           console.log(test2["survey"]["questionOrder"]);
           console.log(test2);
+          console.log(test2["survey"]["questionOrder"][0]);
           delete test2["survey"]["questions"][action.questionToDelete];
           console.log(test2);
           return {

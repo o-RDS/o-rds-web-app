@@ -30,19 +30,37 @@ const SurveyLinkModal = (props: any) => {
   }
 
   function checkIfReadyToPublish() {
-    if (SurveyState['survey']['questions'].length == 0 && SurveyState['survey']['title'] !== "") {
+    if (SurveyState['survey']['questionOrder'].length == 0 || SurveyState['survey']['title'] !== "") {
       return true;
     } else {
       return false;
     }
   }
 
+  function checkIfItemDone() {
+    return <></>
+  }
+
   return (
     <div className="fixed top-0 left-0 bottom-0 right-0 z-50 flex items-center justify-center backdrop-blur-sm">
-      <div className="flex h-3/5 w-3/5 flex-col justify-end gap-4 rounded-md border-2 border-rdsBlue bg-white p-4">
+      <div className="flex h-1/2 w-6/12 flex-col justify-end gap-4 rounded-md border-2 border-rdsBlue bg-white p-4">
         <h3 className="self-start justify-self-start text-lg font-bold">
           Survey Availability
         </h3>
+        <h3>Survey Checklist</h3>
+        <h4>Required</h4>
+        <ul className="">
+          <li><p>{checkIfItemDone()}</p>Survey Name</li>
+          <li><p>{checkIfItemDone()}</p>At least one question</li>
+        </ul>
+        <h4>Optional</h4>
+        <ul>
+          <li><p>{checkIfItemDone()}</p>Researcher Message</li>
+          <li><p>{checkIfItemDone()}</p>End of Survey Message</li>
+          <li><p>{checkIfItemDone()}</p>Phone Number</li>
+          <li><p>{checkIfItemDone()}</p>Email</li>
+          <li><p>{checkIfItemDone()}</p>Mailing Address</li>
+        </ul>
         <div className="">
           <h3 className="text-lg font-bold">Share Survey Link</h3>
           <p>

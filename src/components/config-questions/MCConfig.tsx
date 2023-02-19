@@ -19,7 +19,7 @@ export default function MCConfig(props: any) {
   }
 
   function handleQuestionChange(index: number) {
-    if (SurveyState['survey']['questions'].hasOwnProperty(index)) {
+    if (SurveyState['survey']['questionOrder'].hasOwnProperty(index)) {
     dispatch({
       type: "update",
       questions: SurveyState["survey"],
@@ -29,7 +29,7 @@ export default function MCConfig(props: any) {
     }
   }
 
-  function handleDeleteQuestion(question: string) {
+  function handleDeleteQuestion(question: number) {
     dispatch({
       type: "delete-question",
       questionToDelete: question
