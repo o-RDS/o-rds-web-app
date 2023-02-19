@@ -11,15 +11,12 @@ export default function LoginAdmin() {
     let loginResponse: any = "";
     console.log(e);
     console.log(e.target);
-    var item = document.getElementById('username')!;
     var data: any = new FormData(e.target);
     console.log(data);
     let formObject = Object.fromEntries(data.entries());
     console.log(formObject);
     let loginInfo = {
-      fullname: "Mr MR",
       email: formObject.username,
-      role: "admin",
       password: formObject.password
     }
     try {
