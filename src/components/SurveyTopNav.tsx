@@ -13,12 +13,12 @@ export default function SurveyTopNav(props: any) {
             o-RDS
           </h3>
         </Link>
-        <Link to={`../../results/${props.id}`}>
+        {/* <Link to={`../../results/${props.id}`}>
           Results
         </Link>
         <Link to={`../../survey-builder/${props.id}`}>
           Survey Builder
-        </Link>
+        </Link> */}
       </div>
       <div className="ml-auto flex items-center gap-2">
         <Link to="/admin/dashboard">

@@ -122,13 +122,14 @@ export default function SurveyBuilder() {
 
   return (
     <>
-      <SurveyTopNav id={SurveyState["survey"]["id"]} />
+      <SurveyTopNav />
       <SurveyTopConfig
         name={SurveyState["survey"]["title"]}
         setSurveyName={setSurveyName}
         setShowModal={setShowModal}
         setSettings={setSettings}
         settings={settings}
+        id={SurveyState["survey"]["id"]}
       />
       {/* {loading ? (
         <div className="dark:bg-rdsDark2">
