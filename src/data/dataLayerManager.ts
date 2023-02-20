@@ -278,7 +278,7 @@ export async function saveSurveyConfig(
     if (docSnap.exists()) {
       if (docSnap.data().admins.includes(userID)) {
         console.log("User is admin, updating survey");
-        surveyData.lastUpdated = new Date().toLocaleString("en-US", { timeZone: "UTC" });
+        surveyData.lastUpdated = new Date().toLocaleString("en-US", { timeZone: "CST" });
         setDoc(docRef, surveyData);
       } else {
         console.log("Unauthorized access to survey");

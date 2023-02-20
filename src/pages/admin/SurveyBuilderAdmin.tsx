@@ -34,7 +34,7 @@ export default function SurveyBuilder() {
       refPayout: 0.0,
       maxRefs: 0,
       maxRefIncentives: 0,
-      lastUpdated: new Date().toLocaleString("en-US", { timeZone: "UTC" }),
+      lastUpdated: new Date().toLocaleString("en-US", { timeZone: "CST" }),
       researcherMessage: "",
       endSurveyMessage: "Thank you for taking our survey",
       informedConsent: "You must consent to this survey",
