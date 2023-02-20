@@ -9,30 +9,20 @@ export default function LoginAdmin() {
   async function handleLogin(e: any) {
     e.preventDefault();
     let loginResponse: any = "";
-    console.log(e);
-    console.log(e.target);
-    var item = document.getElementById('username')!;
     var data: any = new FormData(e.target);
-    console.log(data);
     let formObject = Object.fromEntries(data.entries());
-    console.log(formObject);
     let loginInfo = {
-      fullname: "Mr MR",
       email: formObject.username,
-      role: "admin",
       password: formObject.password
     }
     try {
       loginResponse = await login(loginInfo);
-      console.log(loginResponse);
       document.cookie = `token=${loginResponse.accessToken}`
       navigate("admin/dashboard");
     } catch (error) {
       setErrorMessage({error: true, message: "Username or password was incorrect"});
       console.log(error);
-    } finally {
-
-    }
+    } 
   }
 
   return (

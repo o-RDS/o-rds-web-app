@@ -121,8 +121,7 @@ export default function SurveyBuilder() {
   // }, 50);
 
   return (
-    <>
-      <SurveyTopNav />
+    <StandardPage>
       <SurveyTopConfig
         name={SurveyState["survey"]["title"]}
         setSurveyName={setSurveyName}
@@ -161,6 +160,6 @@ export default function SurveyBuilder() {
           )}
         </div>
       {/* )} */}
-    </>
+    </StandardPage>
   );
 }

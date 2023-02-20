@@ -19,7 +19,7 @@ export default function MCConfig(props: any) {
   }
 
   function handleQuestionChange(index: number) {
-    if (SurveyState['survey']['questionOrder'].hasOwnProperty(index)) {
+    if (SurveyState['survey']['questionOrder'].indexOf(index) != -1) {
     dispatch({
       type: "update",
       questions: SurveyState["survey"],
