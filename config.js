@@ -1,0 +1,1 @@
+export const proxyAddress = 'https://localhost:8080';
