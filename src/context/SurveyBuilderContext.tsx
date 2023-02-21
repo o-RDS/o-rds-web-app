@@ -290,6 +290,20 @@ export default function SurveyBuilderContext(props: any) {
             change: true,
           };
         }
+        case "question-down": {
+          return {
+            survey: action.survey,
+            question: action.question,
+            change: action.change
+          }
+        }
+        case "question-up": {
+          return {
+            survey: action.survey,
+            question: action.question,
+            change: action.change
+          }
+        }
         default: {
           return {
             survey: tasks["survey"],
