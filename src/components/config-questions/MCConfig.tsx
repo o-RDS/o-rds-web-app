@@ -33,13 +33,11 @@ export default function MCConfig(props: any) {
   function handleQuestionUp() {
     console.log(SurveyState['survey']['questionOrder']);
     let test: any = SurveyState;
-    console.log(test['survey']['questionOrder']);
     let temp = test['survey']['questionOrder'][props.otherIndex - 1];
     test['survey']['questionOrder'][props.otherIndex - 1] = test['survey']['questionOrder'][props.otherIndex];
     test['survey']['questionOrder'][props.otherIndex] = temp;
-    console.log(test['survey']['questionOrder']);
     dispatch({
-      type: "question-down",
+      type: "question-up",
       survey: test['survey'],
       question: test['question'],
       change: true
@@ -87,7 +85,7 @@ export default function MCConfig(props: any) {
       >
         <div className="w-full p-2 dark:text-white">
           <div className="flex flex-row">
-            <h3>{"Q" + (props.otherIndex + 1)}</h3>
+            <h2 className="font-semibold text-lg">{"Q" + (props.otherIndex + 1)}</h2>
             <div className="ml-auto">
             <button onClick={() => handleQuestionDown()} className="hover:bg-rdsDarkAccent p-1 rounded-md mx-1">▼</button>
             <button onClick={() => handleQuestionUp()} className="hover:bg-rdsDarkAccent p-1 rounded-md mx-1">▲</button>
@@ -97,7 +95,7 @@ export default function MCConfig(props: any) {
             />
             </div>
           </div>
-          <h2>{SurveyStateQuestions["config"]["prompt"]["value"]}</h2>
+          <h3>{SurveyStateQuestions["config"]["prompt"]["value"]}</h3>
           <br></br>
           <div className="rounded-md bg-gray-100 p-3 dark:bg-rdsDarkAccent">
             <ul>{renderChoices()}</ul>

@@ -38,7 +38,10 @@ export default function SurveyBuilder() {
       lastUpdated: new Date().toLocaleString("en-US", { timeZone: "CST" }),
       researcherMessage: "",
       endSurveyMessage: "Thank you for taking our survey",
-      informedConsent: "You must consent to this survey",
+      informedConsent: {
+        message: "You must consent to this survey",
+        ICList: [],
+      },
       contactInfo: {
         phone: "",
         email: "",

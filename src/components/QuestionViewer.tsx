@@ -63,10 +63,10 @@ export default function QuestionViewer(props: any) {
         <div className="flex w-full flex-col items-center justify-center gap-10 rounded-md p-5">
           <div className="flex w-full flex-col gap-4">{testArray}</div>
           <button
-            className="w-fit rounded-sm bg-rdsBlue px-2 text-white py-1"
+            className="w-10 h-10 rounded-full bg-rdsBlue px-2 text-white py-1 text-lg font-bold transition-all"
             onClick={() => handleAddedQuestion()}
           >
-            + Add Question
+            +
           </button>
         </div>
       </div>
