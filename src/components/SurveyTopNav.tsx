@@ -5,7 +5,7 @@ import ords from "../images/ords.png";
 
 export default function SurveyTopNav(props: any) {
   return (
-    <div className="flex h-14 w-screen flex-row items-center justify-start overflow-visible overflow-y-auto px-2 shadow-sm shadow-black">
+    <div className="flex h-14 w-full flex-row items-center justify-start overflow-visible overflow-y-auto px-2 shadow-sm shadow-black">
       <div className="flex flex-row gap-3">
         {/**<img src={ords} className="h-14 w-14" alt="o-RDS Logo"></img>**/}
         <Link to="/admin/dashboard/">
