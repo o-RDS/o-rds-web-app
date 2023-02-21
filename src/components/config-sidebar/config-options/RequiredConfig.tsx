@@ -22,7 +22,7 @@ export default function RequiredConfig() {
       <input
         type="checkbox"
         onChange={(e) => handleCheckChange(e)}
-        defaultChecked={true} //Required needs to be added as a value in the survey!
+        defaultChecked={SurveyState['survey']['require']} //Required needs to be added as a value in the survey!
         className="accent-rdsBlue"
       ></input>
     </div>

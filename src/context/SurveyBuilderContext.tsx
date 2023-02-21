@@ -200,9 +200,7 @@ export default function SurveyBuilderContext(props: any) {
         }
         case "require": {
           let test: any = tasks;
-          test["survey"]["questions"][test["question"]]["config"]["shuffle"][
-            "value"
-          ] = action.isChecked;
+          test["survey"]['require'] = action.isChecked;
           return {
             survey: test["survey"],
             question: tasks["question"],

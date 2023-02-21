@@ -51,6 +51,7 @@ export default function SurveyBuilder() {
       questionOrder: [question1ID],
       questions: {
         [question1ID]: {
+          require: false,
           page: 0,
           type: "MultipleChoice",
           config: {

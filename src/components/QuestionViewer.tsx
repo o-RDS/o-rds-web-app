@@ -11,6 +11,7 @@ export default function QuestionViewer(props: any) {
   const dispatch = useContext(SurveyDispatchContext);
   //questions would be filled in through a database call and any uses of design would be replace with questions
   const proofQuestionToAdd: any = {
+    require: false,
     page: 0,
     type: "MultipleChoice",
     config: {

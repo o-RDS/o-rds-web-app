@@ -86,6 +86,7 @@ export default function CheckboxConfig(props: any) {
       <div className="w-full dark:text-white p-2">
       <div className="flex flex-row">
         <h2 className="font-semibold text-lg">{"Q" + (props.otherIndex + 1)}</h2>
+        {SurveyState['survey']['require'] && <p className="text-red-500 text-xl">*</p>}
         <div className="ml-auto">
             <button onClick={() => handleQuestionDown()} className="hover:bg-rdsDarkAccent p-1 rounded-md mx-1">▼</button>
             <button onClick={() => handleQuestionUp()} className="hover:bg-rdsDarkAccent p-1 rounded-md mx-1">▲</button>
