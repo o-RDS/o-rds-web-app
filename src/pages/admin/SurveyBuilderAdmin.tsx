@@ -35,7 +35,7 @@ export default function SurveyBuilder() {
       refPayout: 0.0,
       maxRefs: 0,
       maxRefIncentives: 0,
-      lastUpdated: new Date().toLocaleString("en-US", { timeZone: "UTC" }),
+      lastUpdated: new Date().toLocaleString("en-US", { timeZone: "CST" }),
       researcherMessage: "",
       endSurveyMessage: "Thank you for taking our survey",
       informedConsent: "You must consent to this survey",
@@ -78,12 +78,12 @@ export default function SurveyBuilder() {
   const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
   const [surveyName, setSurveyName] = useState("SurveyName");
-  const [config, setConfig] = useState<any>(getDefaultSurvey("test"));
+  const [config, setConfig] = useState<any>(getDefaultSurvey("test@siue.edu"));
   const [settings, setSettings] = useState({
     active: false,
     whichSettings: "General",
   });
-  const userID = "test";
+  const userID = "test@siue.edu";
 
   useEffect(() => {
     if (params.surveyID !== "new" && params.surveyID !== undefined) {
