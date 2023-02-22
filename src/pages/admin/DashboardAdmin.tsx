@@ -8,7 +8,7 @@ import { useState, useEffect } from "react";
 import Loading from "../../components/Loading";
 
 export default function Dashboard() {
-  const user = "test";
+  const user = "test@siue.edu";
   const [surveys, setSurveys] = useState<any>([]);
   const [page, setPage] = useState(0);
   const [displayNumber, setDisplayNumber] = useState(5);
@@ -95,7 +95,7 @@ export default function Dashboard() {
               <button disabled>{"<"}</button>
             )}
             <p>Page {page + 1}</p>
-            {renderSurveyButtons().length >= displayNumber ? (
+            {surveys.length >= displayNumber ? (
               <button onClick={() => setPage(page + 1)}>{">"}</button>
             ) : (
               <button disabled>{">"}</button>
