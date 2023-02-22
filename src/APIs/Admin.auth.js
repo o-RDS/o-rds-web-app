@@ -1,10 +1,11 @@
+import { proxyAddress } from './config';
 let serverHost = "";
 
 if (process.env.NODE_ENV == "development") {
   serverHost = 'http://localhost:8080';
 }
 else if (process.env.NODE_ENV == 'production') {
-  serverHost = ''; // URL of deployed server
+  serverHost = proxyAddress; // URL of deployed server
 }
 
 export function register(admin) {
