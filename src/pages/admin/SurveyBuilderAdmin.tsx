@@ -34,6 +34,7 @@ export default function SurveyBuilder() {
       refPayout: 0.0,
       maxRefs: 0,
       maxRefIncentives: 0,
+      live: false,
       lastUpdated: new Date().toLocaleString("en-US", { timeZone: "CST" }),
       researcherMessage: "",
       endSurveyMessage: "Thank you for taking our survey",
