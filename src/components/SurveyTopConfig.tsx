@@ -35,7 +35,7 @@ export default function SurveyTopConfig(props: any) {
 
   function saveSurvey() {
     if (SurveyState['change']) {
-      saveSurveyConfig("test", SurveyState["survey"]["id"], SurveyState["survey"]);
+      saveSurveyConfig("test@siue.edu", SurveyState["survey"]["id"], SurveyState["survey"]);
     }
     dispatch({
       type: 'save-survey',

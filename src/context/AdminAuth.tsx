@@ -4,7 +4,7 @@ import { signIn } from "../data/dataLayerManager";
 
 export default function ConfigContext(props: any) {
   const AdminAuthContext = react.createContext({});
-  const userID = "test";
+  const userID = "test@siue.edu";
 
   useEffect(() => {
     signIn();
