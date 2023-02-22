@@ -13,6 +13,7 @@ export default function Dashboard() {
 
   useEffect(() => {
     setSurveys([])
+    setLoading(true)
     loadAdminSurveys(
       user,
       page * displayNumber,
@@ -28,7 +29,7 @@ export default function Dashboard() {
       <div className="flex h-48 w-48 flex-col justify-end rounded-md bg-rdsBlue p-2 text-white">
         <Link to={`../survey-builder/${survey.id}`}>Edit Survey</Link>
         <Link to={`../results/${survey.id}`}>View Results</Link>
-        <p onClick={() => deleteSurvey(survey.id)}>Delete Survey</p>
+        <button className="text-left" onClick={() => deleteSurvey(survey.id)}>Delete Survey</button>
         <div className="border-t">
           <h4 className="text-md font-bold">{survey.title}</h4>
           <p className="text-sm">? Responses</p>
@@ -38,11 +39,14 @@ export default function Dashboard() {
   }
 
   function changeDisplayNumber(number: number) {
+    setLoading(true);
     setPage(0);
     setDisplayNumber(number);
+    setLoading(false);
   }
 
   async function deleteSurvey(id: string) {
+    setLoading(true);
     console.log(await deleteSurveyConfig(id));
     loadAdminSurveys(
       user,
@@ -50,6 +54,7 @@ export default function Dashboard() {
       (page + 1) * displayNumber
     ).then((surveys) => {
       setSurveys(surveys);
+      setLoading(false);
     });
   }
 
@@ -86,8 +91,8 @@ export default function Dashboard() {
           </div>
           <br></br>
           <div className="flex flex-row flex-wrap gap-10">
-            {surveys.length > 0 ? renderSurveyButtons() : (
-              loading ? <Loading/> : <></>)}
+            { surveys.length > 0 && renderSurveyButtons() }
+            { loading && <Loading/> }
           </div>
         </div>
       </div>
