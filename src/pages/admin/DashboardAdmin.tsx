@@ -29,7 +29,7 @@ export default function Dashboard() {
 
   function renderSurveyButtons() {
     return surveys.map((survey: any) => (
-      <div className="flex h-48 w-48 flex-col justify-end rounded-md bg-rdsBlue p-2 text-white">
+      <div className={`flex h-48 w-48 flex-col justify-end rounded-md ${survey.live ? "bg-rdsBlue" : "bg-rdsOrange"} p-2 text-white`}>
         <Link to={`../survey-builder/${survey.id}`}>Edit Survey</Link>
         <Link to={`../results/${survey.id}`}>View Results</Link>
         <button className="text-left" onClick={() => deleteSurvey(survey.id)}>
