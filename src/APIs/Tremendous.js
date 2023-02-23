@@ -10,9 +10,15 @@ else if (process.env.NODE_ENV == "production") {
   serverHost = proxyAddress; // URL of deployed server
 }
 
-export async function listCampaigns(JWT)   {
+function getCookie(name) {
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${name}=`);
+  if (parts.length === 2) return parts.pop().split(';').shift();
+}
 
-  const token = "JWT " + JWT;
+export async function listCampaigns()   {
+
+  const token = "JWT " + getCookie("token");
   
   const options = {
     method: 'GET',
@@ -35,9 +41,9 @@ export async function listCampaigns(JWT)   {
     })
 }
 
-export async function listFundingSources(JWT)   {
+export async function listFundingSources()   {
 
-  const token = "JWT " + JWT;
+  const token = "JWT " + getCookie("token");
 
   const options = {
     method: 'GET',
@@ -61,9 +67,9 @@ export async function listFundingSources(JWT)   {
 }
 
 
-export async function sendPayment(order, JWT) {
+export async function sendPayment(order) {
 
-  const token = "JWT " + JWT;
+  const token = "JWT " + getCookie("token");
 
   const options = {
     method: 'POST',

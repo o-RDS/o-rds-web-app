@@ -52,8 +52,7 @@ export default function ReceivePayment() {
 
       console.log("Fetching Tremendous order API");
       
-      // TODO: this now requires a JWT
-      sendPayment(order, "").then((data) => {
+      sendPayment(order).then((data) => {
         console.log(data);
       });
     }
