@@ -29,7 +29,7 @@ export async function listCampaigns()   {
   };
 
 
-  return fetch(`${serverHost}/tremendous/listCampaigns`, options)
+  return fetch(`${serverHost}/api/tremendous/listCampaigns`, options)
     .then(response => {
       if (!response.ok) {
         throw new Error(response.statusText)
@@ -54,7 +54,7 @@ export async function listFundingSources()   {
   };
 
 
-  return fetch(`${serverHost}/tremendous/listFundingSources`, options)
+  return fetch(`${serverHost}/api/tremendous/listFundingSources`, options)
     .then(response => {
       if (!response.ok) {
         throw new Error(response.statusText)
@@ -95,7 +95,7 @@ export async function sendPayment(order) {
   };
 
 
-  return fetch(`${serverHost}/tremendous/sendPayment`, options)
+  return fetch(`${serverHost}/api/tremendous/sendPayment`, options)
     .then(response => {
       if (!response.ok) {
         throw new Error(response.statusText)

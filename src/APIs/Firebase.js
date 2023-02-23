@@ -17,64 +17,253 @@ function getCookie(name) {
 
 // SURVEY FUNCTIONS
 
+// GET /api/survey
 export function retrieveSurveyConfig(id) {
-  // GET /api/survey
+  const token = "JWT " + getCookie("token");
+  
+  const options = {
+    method: 'GET',
+    headers: {
+      accept: 'application/json',
+      'content-type': 'application/json',
+      Authorization: token
+    },
+    body: JSON.stringify({
+      surveyID: id
+    })
+  };
+
+  return fetch(`${serverHost}/api/survey`, options)
+  .then(response => {
+    if (!response.ok) {
+      throw new Error(response.statusText)
+    }
+    return response.json()
+  })
+  .then((data) => {
+    console.log(data);
+    return data;
+  });
 }
 
+// GET /api/surveys
 export function loadAdminSurveys(index, limit) {
-  // GET /api/surveys
+  const token = "JWT " + getCookie("token");
+
+  const options = {
+    method: 'GET',
+    headers: {
+      accept: 'application/json',
+      'content-type': 'application/json',
+      Authorization: token
+    },
+    body: JSON.stringify({
+      index: index,
+      limit: limit
+    })
+  };
+
+  return fetch(`${serverHost}/api/surveys`, options)
+  .then(response => {
+    if (!response.ok) {
+      throw new Error(response.statusText)
+    }
+    return response.json()
+  })
+  .then((data) => {
+    console.log(data);
+    return data;
+  });
 }
 
+// POST /api/survey
 export function saveSurveyConfig(surveyID, surveyData) {
-  // POST /api/survey
+  const token = "JWT " + getCookie("token");
+
+  const options = {
+    method: 'POST',
+    headers: {
+      accept: 'application/json',
+      'content-type': 'application/json',
+      Authorization: token
+    },
+    body: JSON.stringify({
+      surveyID: surveyID,
+      surveyData: surveyData
+    })
+  };
+
+  return fetch(`${serverHost}/api/survey`, options)
+  .then(response => {
+    if (!response.ok) {
+      throw new Error(response.statusText)
+    }
+    return response.json()
+  })
+  .then((data) => {
+    console.log(data);
+    return data;
+  });
 }
 
+// DELETE /api/survey
 export function deleteSurveyConfig(surveyID) {
-  // DELETE /api/survey
+  const token = "JWT " + getCookie("token");
+
+  const options = {
+    method: 'DELETE',
+    headers: {
+      accept: 'application/json',
+      'content-type': 'application/json',
+      Authorization: token
+    },
+    body: JSON.stringify({
+      surveyID: surveyID
+    })
+  };
+
+  return fetch(`${serverHost}/api/survey`, options)
+  .then(response => {
+    if (!response.ok) {
+      throw new Error(response.statusText)
+    }
+    return response.json()
+  })
+  .then((data) => {
+    console.log(data);
+    return data;
+  });
 }
 
-// RESPONSE ROUTES
+// RESPONSE FUNCTIONS
 
+// GET /api/response
 export function loadResponse(surveyID, alias) {
-  // GET /api/response
+  const token = "JWT " + getCookie("token");
+
+  const options = {
+    method: 'GET',
+    headers: {
+      accept: 'application/json',
+      'content-type': 'application/json',
+      Authorization: token
+    },
+    body: JSON.stringify({
+      surveyID: surveyID,
+      alias: alias
+    })
+  };
+
+  return fetch(`${serverHost}/api/response`, options)
+  .then(response => {
+    if (!response.ok) {
+      throw new Error(response.statusText)
+    }
+    return response.json()
+  })
+  .then((data) => {
+    console.log(data);
+    return data;
+  });
 }
 
+// GET /api/responses
 export function loadAllResponses(surveyID) {
-  // GET /api/responses
+  const token = "JWT " + getCookie("token");
+
+  const options = {
+    method: 'GET',
+    headers: {
+      accept: 'application/json',
+      'content-type': 'application/json',
+      Authorization: token
+    },
+    body: JSON.stringify({
+      surveyID: surveyID
+    })
+  };
+
+  return fetch(`${serverHost}/api/responses`, options)
+  .then(response => {
+    if (!response.ok) {
+      throw new Error(response.statusText)
+    }
+    return response.json()
+  })
+  .then((data) => {
+    console.log(data);
+    return data;
+  });
 }
 
+// POST /api/response
 export async function writeSurveyResponse(surveyID, alias, response) {
-  // POST /api/response
+  const token = "JWT " + getCookie("token");
+
+  const options = {
+    method: 'POST',
+    headers: {
+      accept: 'application/json',
+      'content-type': 'application/json',
+      Authorization: token
+    },
+    body: JSON.stringify({
+      surveyID: surveyID,
+      alias: alias,
+      responseData: response
+    })
+  };
+
+  return fetch(`${serverHost}/api/response`, options)
+  .then(response => {
+    if (!response.ok) {
+      throw new Error(response.statusText)
+    }
+    return response.json()
+  })
+  .then((data) => {
+    console.log(data);
+    return data;
+  });
 }
 
-// INCENTIVE ROUTES
+// TODO: DELETE /api/response 
 
+// INCENTIVE FUNCTIONS
+
+// POST /api/hash
 export function addHash(surveyID, hash) {
-  // POST /api/hash
+  
 }
 
+// POST /api/incentive
 export function completeIncentive(surveyID, hash) {
-  // POST /api/incentive
+  
 }
 
+// GET /api/incentive
 export function loadIncentiveInfo(surveyID, hash) {
-  // GET /api/incentive
+  
 }
 
+// PUT /api/incentive
 export async function updateIncentiveInfo(surveyID, hash, data) {
-  // PUT /api/incentive
+  
 }
 
-// OTHER ROUTES
+// OTHER FUNCTIONS
 
+// POST /api/alias
 export function generateAlias(surveyID) {
-  // POST /api/alias
+  
 }
 
+// PATCH /api/user-remove
 export function removeSurveyFromUser(userId, surveyID) {
-  // PATCH /api/user-remove
+  
 }
 
+// PATCH /spi/user-add
 export function addSurveyToUser(userID, surveyID) {
-  // PATCH /spi/user-add
+  
 }

@@ -26,7 +26,7 @@ export function startVerification(phone) {
     redirect: 'follow'
   };
   
-  return fetch(`${serverHost}/twilio/verification`, options)
+  return fetch(`${serverHost}/api/twilio/verification`, options)
     .then(response => {
       if (!response.ok) {
         throw new Error(response.statusText)
@@ -57,7 +57,7 @@ export function verificationCheck(phone, code) {
     redirect: 'follow'
   };
 
-  return fetch(`${serverHost}/twilio/verificationCheck`, options)
+  return fetch(`${serverHost}/api/twilio/verificationCheck`, options)
     .then(response => {
       if (!response.ok) {
         throw new Error(response.statusText)

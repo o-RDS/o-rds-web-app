@@ -11,17 +11,17 @@ else if (process.env.NODE_ENV == 'production') {
 export function register(admin) {
 
     const options = {
-        method: 'POST',
-        headers: {
-            accept: 'application/json',
-            'content-type': 'application/json',
-        },
-        body: JSON.stringify({
-            fullname: admin.fullname,
-            email: admin.email,
-            role: admin.role,
-            password: admin.password
-        })
+      method: 'POST',
+      headers: {
+          accept: 'application/json',
+          'content-type': 'application/json',
+      },
+      body: JSON.stringify({
+          fullname: admin.fullname,
+          email: admin.email,
+          role: admin.role,
+          password: admin.password
+      })
     }
 
     return fetch(`${serverHost}/register`, options)
@@ -39,17 +39,17 @@ export function register(admin) {
 export function login(admin) {
 
     const options = {
-        method: 'POST',
-        headers: {
-            accept: 'application/json',
-            'content-type': 'application/json',
-        },
-        body: JSON.stringify({
-            fullname: admin.fullname,
-            email: admin.email,
-            role: admin.role,
-            password: admin.password
-        })
+      method: 'POST',
+      headers: {
+          accept: 'application/json',
+          'content-type': 'application/json',
+      },
+      body: JSON.stringify({
+          fullname: admin.fullname,
+          email: admin.email,
+          role: admin.role,
+          password: admin.password
+      })
     }
 
     return fetch(`${serverHost}/login`, options)
