@@ -66,6 +66,25 @@ export default function MCConfig(props: any) {
       questionToDelete: question,
     });
   }
+
+  function handleDeleteQuestion2(question: string) {
+    console.log(question);
+          let test2 = SurveyState;
+          let index = test2["survey"]["questionOrder"].indexOf(
+            question
+          );
+          if (index != -1) {
+            test2["survey"]["questionOrder"].splice(index, 1);
+          }
+          delete test2["survey"]["questions"][question];
+          dispatch({
+            type: "delete-question2",
+            questions: SurveyState["survey"],
+            question: SurveyState['survey']['questionOrder'][0],
+            change: true,
+          });
+  }
+
   function renderChoices() {
     return SurveyStateQuestions["config"]["choices"]["value"].map(
       (choice: any) => {
@@ -86,12 +105,12 @@ export default function MCConfig(props: any) {
         <div className="w-full p-2 dark:text-white">
           <div className="flex flex-row">
             <h2 className="font-semibold text-lg">{"Q" + (props.otherIndex + 1)}</h2>
-            {SurveyState['survey']['require'] && <p className="text-red-500 text-xl">*</p>}
+            {SurveyState['survey']['questions'][props.index]['require'] && <p className="text-red-500 text-xl">*</p>}
             <div className="ml-auto">
             <button onClick={() => handleQuestionDown()} className="hover:bg-rdsDarkAccent p-1 rounded-md mx-1">▼</button>
             <button onClick={() => handleQuestionUp()} className="hover:bg-rdsDarkAccent p-1 rounded-md mx-1">▲</button>
             <DeleteButton
-              handleDeleteQuestion={handleDeleteQuestion}
+              handleDeleteQuestion={handleDeleteQuestion2}
               index={props.index}
             />
             </div>

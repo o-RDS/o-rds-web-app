@@ -9,7 +9,7 @@ const SurveyLinkModal = (props: any) => {
 
   function handleSurveyStatus(status: boolean) {
     let test = SurveyState;
-    test['survey']['live'] = false;
+    test['survey']['live'] = status;
     dispatch({
       type: "update-survey-status",
       status: status

@@ -40,7 +40,7 @@ export default function SurveyBuilder() {
       endSurveyMessage: "Thank you for taking our survey",
       informedConsent: {
         message: "You must consent to this survey",
-        ICList: [],
+        consentRequirements: "",
       },
       contactInfo: {
         phone: "",
@@ -111,7 +111,7 @@ export default function SurveyBuilder() {
       dispatch({
         type: "initialize",
         questions: config,
-        question: 0,
+        question: config['questions'][config['questionOrder'][0]],
         change: false,
       });
       saveSurveyConfig(userID, config.id, config);

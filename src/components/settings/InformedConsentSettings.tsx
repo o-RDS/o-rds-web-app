@@ -20,9 +20,9 @@ export function InformedConsentSettings() {
         });
       }
 
-      function handleICItemChange(e: any, index: any) {
+      function handleICItemChange(e: any) {
         let test: any = SurveyState;
-        test["survey"]["informedConsent"]['ICList'][index] = e.target.value;
+        test["survey"]["informedConsent"]['consentRequirements'] = e.target.value;
         dispatch({
           type: "update",
           questions: test["survey"],
@@ -33,8 +33,8 @@ export function InformedConsentSettings() {
 
       function handleICItemAdd(e: any) {
         let test: any = SurveyState;
-        test["survey"]["informedConsent"]['ICList'].push("New Option");
-        console.log(test['survey']['informedConsent']['ICList']);
+        test["survey"]["informedConsent"]['consentRequirements'].push("New Option");
+        console.log(test['survey']['informedConsent']['consentRequirements']);
         dispatch({
           type: "update",
           questions: test["survey"],
@@ -58,10 +58,8 @@ export function InformedConsentSettings() {
         ></input>
       </div>
       <div className="flex flex-col gap-1">
-        <ol className="flex flex-col gap-2 list-decimal">{SurveyState['survey']['informedConsent']['ICList'].map((item: any, index: any) => {
-            return (<textarea value={item} onChange={(e) => handleICItemChange(e, index)} className="rounded-sm p-1 dark:bg-rdsDarkAccent w-2/5"></textarea>)
-        })}</ol>
-        <button onClick={(e) => handleICItemAdd(e)} className="w-fit text-left bg-rdsBlue p-2">Add Item</button>
+        <label htmlFor="consent-requirements">Consent Requirements</label>
+      <textarea id="consent-requirements" value={SurveyState['survey']['informedConsent']['consentRequirments']} onChange={(e) => handleICItemChange(e)} className="rounded-sm p-1 dark:bg-rdsDarkAccent w-3/5"></textarea>
       </div>
           </div>
     )

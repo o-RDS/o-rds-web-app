@@ -67,13 +67,14 @@ export default function Checkbox(props: any) {
         <div key={index}>
           <input
             type="checkbox"
-            name="name"
+            id={choice}
+            name={index.toString()}
             value={choice}
             onChange={() => handleClick(choice)}
             defaultChecked={isChecked}
             className="accent-rdsBlue"
           />
-          <label className="ml-2">{choice}</label>
+          <label htmlFor={choice} className="ml-2">{choice}</label>
         </div>
       );
     });

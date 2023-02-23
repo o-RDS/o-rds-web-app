@@ -34,6 +34,7 @@ export default function SurveyBuilderContext(props: any) {
           {
             page: 0,
             type: "MultipleChoice",
+            require: false,
             config: {
               prompt: {
                 value: "New Question",
@@ -200,7 +201,7 @@ export default function SurveyBuilderContext(props: any) {
         }
         case "require": {
           let test: any = tasks;
-          test["survey"]['require'] = action.isChecked;
+          test["survey"]['questions'][test['question']]['require'] = action.isChecked;
           return {
             survey: test["survey"],
             question: tasks["question"],
@@ -228,6 +229,7 @@ export default function SurveyBuilderContext(props: any) {
         case "update-survey-status": {
           let test = tasks;
           test['survey']['live'] = action.status;
+          saveSurveyConfig("test@siue.edu", tasks['survey']['id'], test['survey']);
           return {
             survey: test['survey'],
             question: tasks['question'],
@@ -236,7 +238,7 @@ export default function SurveyBuilderContext(props: any) {
         }
         case "save-survey": {
           if (tasks['change']) {
-            saveSurveyConfig("test", tasks["survey"]["id"], tasks["survey"]);
+            saveSurveyConfig("test@siue.edu", tasks["survey"]["id"], tasks["survey"]);
           }
           return {
             survey: tasks['survey'],
