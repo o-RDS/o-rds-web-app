@@ -81,7 +81,8 @@ export default function Survey() {
     return false;
   }
 
-  async function handleSubmit() {
+  async function handleSubmit(e: any) {
+    e.preventDefault();
     console.log("Submitting");
     let tempResponse:any = response;
     tempResponse.completed = true;
@@ -139,11 +140,9 @@ export default function Survey() {
             <hr className="border-1 w-9/12 self-center border-gray-800" />
           </div>
 
-          <div className="flex-grow-1 flex flex-col gap-y-6">
+          <form className="flex-grow-1 flex flex-col gap-y-6" onSubmit={(e) => handleSubmit(e)}>
             {renderQuestions()}
-          </div>
-
-          <div className="mt-auto flex min-h-[36px] w-4/5 flex-row justify-center md:mt-0 md:w-1/3">
+            <div className="mt-auto flex min-h-[36px] w-4/5 flex-row justify-center md:mt-0 md:w-1/3">
             {page > 0 ? (
               <button
                 className="w-1/3 rounded border-2 border-rdsOrange bg-white p-1 text-rdsOrange"
@@ -171,12 +170,14 @@ export default function Survey() {
             ) : (
               <button
                 className="w-1/3 rounded bg-rdsOrange p-1 text-white"
-                onClick={() => handleSubmit()}
               >
                 Submit
               </button>
             )}
           </div>
+          </form>
+
+          
           <p>
             If you have to leave the survey, write down this code, which you can
             use to load your progress, even on another device: {alias.current}

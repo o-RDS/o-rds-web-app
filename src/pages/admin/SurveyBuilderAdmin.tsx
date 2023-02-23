@@ -62,12 +62,13 @@ export default function SurveyBuilder() {
             },
             shuffle: {
               value: true,
-              configPrompt: "Shuffle choices?",
+              configPrompt: "Shuffle Choices",
               type: "bool",
             },
             choices: {
               value: ["A", "B", "C", "D", "E"],
-              configPrompt: "Enter choices:",
+              configPrompt: "Number of Choices",
+              editablePrompt: "Edit your choices",
               type: "stringArray",
             },
           },

@@ -88,6 +88,10 @@ export function GeneralSettings() {
           ></textarea>
         </div>
       </div>
+      <div className="h-1 w-11/12 bg-rdsDarkAccent"></div>
+      <div>
+        
+      </div>
     </div>
   );
 }

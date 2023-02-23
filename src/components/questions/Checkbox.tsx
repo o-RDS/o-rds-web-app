@@ -67,14 +67,15 @@ export default function Checkbox(props: any) {
         <div key={index}>
           <input
             type="checkbox"
-            id={choice}
-            name={index.toString()}
+            id={choice + index.toString()}
+            name={props.id}
             value={choice}
             onChange={() => handleClick(choice)}
             defaultChecked={isChecked}
             className="accent-rdsBlue"
+            required={props.require}
           />
-          <label htmlFor={choice} className="ml-2">{choice}</label>
+          <label htmlFor={choice + index.toString()} className="ml-2">{choice}</label>
         </div>
       );
     });
@@ -84,7 +85,7 @@ export default function Checkbox(props: any) {
   return (
     <div>
       <h2 className="text-lg font-bold">
-        {props.index + 1}) {props.config.prompt.value}
+        {props.index + 1}) {props.config.prompt.value} {props.require && <p className="text-red-500 text-xl">*</p>}
       </h2>
       {renderChoices()}
     </div>
