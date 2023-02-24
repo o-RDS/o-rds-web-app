@@ -33,14 +33,17 @@ export function retrieveSurveyConfig(id) {
     })
   };
 
+  var statusCode;
   return fetch(`${serverHost}/api/survey`, options)
   .then(response => {
     if (!response.ok) {
       throw new Error(response.statusText)
     }
+    statusCode = response.status;
     return response.json()
   })
   .then((data) => {
+    data.statusCode = statusCode;
     console.log(data);
     return data;
   });
@@ -63,14 +66,17 @@ export function loadAdminSurveys(index, limit) {
     })
   };
 
+  var statusCode;
   return fetch(`${serverHost}/api/surveys`, options)
   .then(response => {
     if (!response.ok) {
       throw new Error(response.statusText)
     }
+    statusCode = response.status;
     return response.json()
   })
   .then((data) => {
+    data.statusCode = statusCode;
     console.log(data);
     return data;
   });
@@ -93,14 +99,17 @@ export function saveSurveyConfig(surveyID, surveyData) {
     })
   };
 
+  var statusCode;
   return fetch(`${serverHost}/api/survey`, options)
   .then(response => {
     if (!response.ok) {
       throw new Error(response.statusText)
     }
+    statusCode = response.status;
     return response.json()
   })
   .then((data) => {
+    data.statusCode = statusCode;
     console.log(data);
     return data;
   });
@@ -122,14 +131,17 @@ export function deleteSurveyConfig(surveyID) {
     })
   };
 
+  var statusCode;
   return fetch(`${serverHost}/api/survey`, options)
   .then(response => {
     if (!response.ok) {
       throw new Error(response.statusText)
     }
+    statusCode = response.status;
     return response.json()
   })
   .then((data) => {
+    data.statusCode = statusCode;
     console.log(data);
     return data;
   });
@@ -154,14 +166,17 @@ export function loadResponse(surveyID, alias) {
     })
   };
 
+  var statusCode;
   return fetch(`${serverHost}/api/response`, options)
   .then(response => {
     if (!response.ok) {
       throw new Error(response.statusText)
     }
+    statusCode = response.status;
     return response.json()
   })
   .then((data) => {
+    data.statusCode = statusCode;
     console.log(data);
     return data;
   });
@@ -183,14 +198,17 @@ export function loadAllResponses(surveyID) {
     })
   };
 
+  var statusCode;
   return fetch(`${serverHost}/api/responses`, options)
   .then(response => {
     if (!response.ok) {
       throw new Error(response.statusText)
     }
+    statusCode = response.status;
     return response.json()
   })
   .then((data) => {
+    data.statusCode = statusCode;
     console.log(data);
     return data;
   });
@@ -214,14 +232,17 @@ export async function writeSurveyResponse(surveyID, alias, response) {
     })
   };
 
+  var statusCode;
   return fetch(`${serverHost}/api/response`, options)
   .then(response => {
     if (!response.ok) {
       throw new Error(response.statusText)
     }
+    statusCode = response.status;
     return response.json()
   })
   .then((data) => {
+    data.statusCode = statusCode;
     console.log(data);
     return data;
   });
