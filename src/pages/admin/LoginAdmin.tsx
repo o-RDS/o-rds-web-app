@@ -81,6 +81,13 @@ export default function LoginAdmin() {
           <br></br>
           {errorMessage.error && <div className="p-2 w-full bg-red-500 bg-opacity-20 rounded-md"><p className="text-red-500 text-center text-sm">{errorMessage.message}</p></div>}
         </form>
+        <br/>
+        <button
+          onClick={() => navigate("../register")}
+          className="text-rdsOrange underline"
+        >
+          Need an account? Click here to register!
+        </button>
       </div>
     </StandardPage>
   );

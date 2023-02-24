@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import LoginAdmin from "./pages/admin/LoginAdmin";
+import RegisterAdmin from "./pages/admin/RegisterAdmin";
 import DashboardAdmin from "./pages/admin/DashboardAdmin";
 import SurveyBuilder from './pages/admin/SurveyBuilderAdmin';
 import Results from './pages/admin/ResultsAdmin';
@@ -23,6 +24,7 @@ function App() {
       <Routes>
         <Route path="admin" element={<AdminAuth/>}>
           <Route path="login" element={<LoginAdmin/>} />
+          <Route path="register" element={<RegisterAdmin/>} />
           <Route path="dashboard" element={<DashboardAdmin/>} />
           <Route path="results">
             <Route path=":surveyID" element={<Results/>} />
