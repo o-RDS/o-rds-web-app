@@ -57,7 +57,7 @@ export default function LoginAdmin() {
           <br></br>
           <div className="relative">
             <input
-              type="text"
+              type="password"
               id="password"
               name="password"
               className="peer block w-full appearance-none rounded-lg border border-black bg-transparent px-2.5 pb-2.5 pt-4 text-sm text-gray-900 focus:border-rdsBlue focus:outline-none focus:ring-0 dark:border-gray-600 dark:text-white dark:focus:border-rdsBlue"
@@ -78,6 +78,13 @@ export default function LoginAdmin() {
           <br></br>
           {errorMessage.error && <div className="p-2 w-full bg-red-500 bg-opacity-20 rounded-md"><p className="text-red-500 text-center text-sm">{errorMessage.message}</p></div>}
         </form>
+        <br/>
+        <button
+          onClick={() => navigate("../register")}
+          className="text-rdsOrange underline"
+        >
+          Need an account? Click here to register!
+        </button>
       </div>
     </StandardPage>
   );

@@ -89,8 +89,7 @@ export async function sendPayment(order) {
         email: order.recipient_email,
         phone: order.recipient_phone
       },
-      method: order.delivery_method,
-      to: order.recipient_phone
+      method: order.delivery_method
     })
   };
 
