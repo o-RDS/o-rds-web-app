@@ -1,6 +1,6 @@
 import react, { useEffect, useReducer, useRef } from "react";
 import giveConfigs from "../data/QuestionSwitcher";
-import { saveSurveyConfig } from "../data/dataLayerManager";
+import { saveSurveyConfig, addSurveyToUser } from "../data/dataLayerManager";
 import { useParams, useNavigate, Outlet } from "react-router";
 import { retrieveSurveyConfig, signIn } from "../data/dataLayerManager";
 import { createContext } from "react";
@@ -302,6 +302,17 @@ export default function SurveyBuilderContext(props: any) {
             survey: action.survey,
             question: action.question,
             change: action.change
+          }
+        }
+        case "add-admin": {
+          let test: any = tasks;
+          test['survey']['admins'].push(action.admin);
+          console.log(test['survey']['admins']);
+          addSurveyToUser(action.admin, test['survey']['id']);
+          return {
+            survey: test['survey'],
+            question: test['question'],
+            change: true
           }
         }
         default: {

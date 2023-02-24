@@ -15,7 +15,7 @@ export function GeneralSettings() {
     dispatch({
       type: "general-update",
       property: input,
-      value: e.target.value
+      value: e.target.value,
     });
   }
 
@@ -26,8 +26,17 @@ export function GeneralSettings() {
       type: "update",
       questions: test["survey"],
       question: SurveyState["question"],
-      change: true
+      change: true,
     });
+  }
+
+  function handleAddAdmin() {
+    const admin: any = (document.getElementById("add-admin") as HTMLInputElement).value;
+    console.log(admin);
+    dispatch({
+      type: 'add-admin',
+      admin: admin
+    })
   }
 
   function handleEndMessageChange(e: any) {
@@ -37,7 +46,7 @@ export function GeneralSettings() {
       type: "update",
       questions: test["survey"],
       question: SurveyState["question"],
-      change: true
+      change: true,
     });
   }
 
@@ -62,7 +71,7 @@ export function GeneralSettings() {
               className="rounded-sm bg-gray-200 p-1 dark:bg-rdsDarkAccent"
               maxLength={20}
               onChange={(e) => handleInputChange(e, "title")}
-              value={SurveyState['survey']['title']}
+              value={SurveyState["survey"]["title"]}
             ></input>
           </div>
         </div>
@@ -73,24 +82,32 @@ export function GeneralSettings() {
           <label htmlFor="survey-message">Researcher Message</label>
           <textarea
             id="survey-message"
-            className="w-2/5 rounded-sm dark:bg-rdsDarkAccent bg-gray-200 p-1"
+            className="w-2/5 rounded-sm bg-gray-200 p-1 dark:bg-rdsDarkAccent"
             onChange={(e) => handleInputChange(e, "researcherMessage")}
-            value={SurveyState['survey']['researcherMessage']}
+            value={SurveyState["survey"]["researcherMessage"]}
           ></textarea>
         </div>
         <div className="flex flex-col gap-1">
           <label htmlFor="end-survey-message">End of Survey Message</label>
           <textarea
             id="end-survey-message"
-            className="w-2/5 rounded-sm dark:bg-rdsDarkAccent bg-gray-200 p-1"
+            className="w-2/5 rounded-sm bg-gray-200 p-1 dark:bg-rdsDarkAccent"
             onChange={(e) => handleInputChange(e, "endSurveyMessage")}
-            value={SurveyState['survey']['endSurveyMessage']}
+            value={SurveyState["survey"]["endSurveyMessage"]}
           ></textarea>
         </div>
       </div>
       <div className="h-1 w-11/12 bg-rdsDarkAccent"></div>
-      <div>
-        
+      <div className="flex flex-col gap-1">
+        <label htmlFor="survey-name">Add Admin</label>
+        <input
+          type="text"
+          id="add-admin"
+          className="rounded-sm bg-gray-200 p-1 dark:bg-rdsDarkAccent"
+          maxLength={20}
+          placeholder="Use Admin Email"
+        ></input>
+        <button className="bg-rdsDarkAccent text-white" onClick={() => handleAddAdmin()}>Add Admin</button>
       </div>
     </div>
   );
