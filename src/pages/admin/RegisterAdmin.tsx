@@ -6,7 +6,7 @@ import {register} from "../../APIs/Admin.auth.js"
 export default function RegisterAdmin() {
     const navigate = useNavigate();
     const [errorMessage, setErrorMessage] = useState({error: false, message: ""});
-
+    const [registerSuccess, setRegisterSuccess] = useState(false);
 
     async function handleRegister(e: any){
         e.preventDefault();
@@ -55,11 +55,18 @@ export default function RegisterAdmin() {
         try{
             let registerResponse = await register(accountInfo);
             console.log(registerResponse);
-            //WHATEVER CODE TO HANDLE MESSAGE
-            navigate("../login");
+            setErrorMessage({error: false, message: ""});
+            setRegisterSuccess(true);
+            setTimeout(() => navigate("../login"), 3000);
         }
-        catch(error){
+        catch(error:any){
             console.error(error);
+            if(error.message === "Conflict"){
+                setErrorMessage({error: true, message: "An account with that email already exists."})
+            }
+            else{
+                setErrorMessage({error: true, message: "An error occurred while creating your account."})
+            }
         }
     }
 
@@ -163,6 +170,7 @@ export default function RegisterAdmin() {
                     </button>
                     <br/>
                     {errorMessage.error && <div className="p-2 w-full bg-red-500 bg-opacity-20 rounded-md"><p className="text-red-500 text-center text-sm">{errorMessage.message}</p></div>}
+                    {registerSuccess && <div className="p-2 w-full bg-green-500 bg-opacity-20 rounded-md"><p className="text-green-500 text-center text-sm">Your account was registered successfully! You will now be redirected to the Login page.</p></div>}
                 </form>
                 <button
                     onClick={() => navigate("../login")}
