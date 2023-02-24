@@ -52,6 +52,7 @@ export default function FillInTheBlank(props: any) {
           value={answer}
           onChange={(e) => handleClick(e.target.value)}
           className="rounded-md border-2 border-rdsBlue pl-1 pr-1 md:w-2/5"
+          required={props.require}
         ></input>
       </div>
     );
@@ -61,7 +62,7 @@ export default function FillInTheBlank(props: any) {
   return (
     <div>
       <h2 className="text-lg font-bold">
-        {props.index + 1}) Fill In The Blank
+        {props.index + 1}) Fill In The Blank {props.require && <p className="text-red-500 text-xl">*</p>}
       </h2>
       {renderChoices()}
     </div>
