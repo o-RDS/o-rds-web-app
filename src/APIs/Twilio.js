@@ -26,14 +26,17 @@ export function startVerification(phone) {
     redirect: 'follow'
   };
   
+  var statusCode;
   return fetch(`${serverHost}/api/twilio/verification`, options)
     .then(response => {
       if (!response.ok) {
         throw new Error(response.statusText)
       }
+      statusCode = response.status;
       return response.json()
     })
     .then((data) => {
+      data.statusCode = statusCode;
       return data;
     });
 }
@@ -57,14 +60,17 @@ export function verificationCheck(phone, code) {
     redirect: 'follow'
   };
 
+  var statusCode;
   return fetch(`${serverHost}/api/twilio/verificationCheck`, options)
     .then(response => {
       if (!response.ok) {
         throw new Error(response.statusText)
       }
+      statusCode = response.status;
       return response.json()
     })
     .then((data) => {
+      data.statusCode = statusCode;
       return data;
     });
 }

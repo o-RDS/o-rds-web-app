@@ -28,16 +28,18 @@ export async function listCampaigns()   {
     }
   };
 
-
+  var statusCode;
   return fetch(`${serverHost}/api/tremendous/listCampaigns`, options)
     .then(response => {
       if (!response.ok) {
         throw new Error(response.statusText)
       }
+      statusCode = response.status;
       return response.json()
     })
     .then((data) => {
-      return data.campaigns;
+      data.statusCode = statusCode;
+      return data;
     })
 }
 
@@ -53,16 +55,18 @@ export async function listFundingSources()   {
     }
   };
 
-
+  var statusCode;
   return fetch(`${serverHost}/api/tremendous/listFundingSources`, options)
-    .then(response => {
+    .then(response => { 
       if (!response.ok) {
         throw new Error(response.statusText)
       }
-      return response.json()
+      statusCode = response.status;
+      return response.json();
     })
     .then((data) => {
-      return data.funding_sources;
+      data.statusCode = statusCode;
+      return data;
     })
 }
 
@@ -94,15 +98,17 @@ export async function sendPayment(order) {
     })
   };
 
-
+  var statusCode;
   return fetch(`${serverHost}/api/tremendous/sendPayment`, options)
     .then(response => {
       if (!response.ok) {
         throw new Error(response.statusText)
       }
+      statusCode = response.status;
       return response.json()
     })
     .then((data) => {
+      data.statusCode = statusCode;
       return data;
     })
 }
