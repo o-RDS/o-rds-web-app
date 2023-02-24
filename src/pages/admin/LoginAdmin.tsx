@@ -18,7 +18,7 @@ export default function LoginAdmin() {
     try {
       loginResponse = await login(loginInfo);
       document.cookie = `token=${loginResponse.accessToken}`
-      navigate("admin/dashboard");
+      navigate("/admin/dashboard");
     } catch (error) {
       setErrorMessage({error: true, message: "Username or password was incorrect"});
       console.log(error);
@@ -73,7 +73,7 @@ export default function LoginAdmin() {
         </form>
         <br/>
         <button
-          onClick={() => navigate("../register")}
+          onClick={() => navigate("/admin/register")}
           className="text-rdsOrange underline"
         >
           Need an account? Click here to register!
