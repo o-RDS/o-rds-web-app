@@ -14,7 +14,7 @@ export default function Consent(){
     return (
         <SurveyTakerStandardPage>
             <div className="flex flex-col justify-center items-center w-3/4 gap-y-4">
-                <p className="text-left whitespace-normal md:w-1/2">
+                <p className="text-left whitespace-normal">
                     You will now be asked to provide your consent to participate in this study. 
                     Please read the consent information below.
                 </p>
