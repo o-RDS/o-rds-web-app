@@ -13,7 +13,6 @@ export default function OTPCodeEntry() {
   const params = useParams();
   const [code, setCode] = useState("");
   const [error, setError] = useState("");
-  const TESTING = true;
 
   useEffect(() => {
     if (
@@ -31,13 +30,18 @@ export default function OTPCodeEntry() {
     } else {
       let phone = window.sessionStorage.getItem("phone");
       if (phone != null) {
-        if (TESTING) {
-          processHash();
-        }
         console.log(`Running verification check: ${phone}, ${code}`);
         verificationCheck(phone, code).then((data) => {
           console.log(data);
-          // processHash()
+          if (data.statusCode === 200) {
+            processHash();
+          } 
+          else if (data.statusCode === 401) {
+            setError("Invalid Code");
+          }
+          else {
+            setError("Server Error, Try Again");
+          }
         });
       }
     }
