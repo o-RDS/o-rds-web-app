@@ -27,14 +27,11 @@ export function retrieveSurveyConfig(id) {
       accept: 'application/json',
       'content-type': 'application/json',
       Authorization: token
-    },
-    body: JSON.stringify({
-      surveyID: id
-    })
+    }
   };
 
   var statusCode;
-  return fetch(`${serverHost}/api/survey`, options)
+  return fetch(`${serverHost}/api/survey/${id}`, options)
     .then(response => {
       if (!response.ok) {
         throw new Error(response.statusText)
@@ -59,15 +56,11 @@ export function loadAdminSurveys(index, limit) {
       accept: 'application/json',
       'content-type': 'application/json',
       Authorization: token
-    },
-    body: JSON.stringify({
-      index: index,
-      limit: limit
-    })
+    }
   };
 
   var statusCode;
-  return fetch(`${serverHost}/api/surveys`, options)
+  return fetch(`${serverHost}/api/surveys?` + new URLSearchParams({ index: index, limit: limit }), options)
     .then(response => {
       if (!response.ok) {
         throw new Error(response.statusText)

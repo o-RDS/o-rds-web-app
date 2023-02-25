@@ -1,8 +1,8 @@
 import react, { useEffect, useReducer, useRef } from "react";
 import giveConfigs from "../data/QuestionSwitcher";
-import { saveSurveyConfig, addSurveyToUser } from "../data/dataLayerManager";
+import { saveSurveyConfig, addSurveyToUser } from "../APIs/Firebase";
 import { useParams, useNavigate, Outlet } from "react-router";
-import { retrieveSurveyConfig, signIn } from "../data/dataLayerManager";
+import { retrieveSurveyConfig } from "../APIs/Firebase";
 import { createContext } from "react";
 import { uuidv4 } from "@firebase/util";
 
@@ -229,7 +229,7 @@ export default function SurveyBuilderContext(props: any) {
         case "update-survey-status": {
           let test = tasks;
           test['survey']['live'] = action.status;
-          saveSurveyConfig("test@siue.edu", tasks['survey']['id'], test['survey']);
+          saveSurveyConfig(tasks['survey']['id'], test['survey']);
           return {
             survey: test['survey'],
             question: tasks['question'],
@@ -238,7 +238,7 @@ export default function SurveyBuilderContext(props: any) {
         }
         case "save-survey": {
           if (tasks['change']) {
-            saveSurveyConfig("test@siue.edu", tasks["survey"]["id"], tasks["survey"]);
+            saveSurveyConfig(tasks["survey"]["id"], tasks["survey"]);
           }
           return {
             survey: tasks['survey'],

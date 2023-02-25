@@ -3,10 +3,9 @@ import Question from "../../components/questions/Question";
 import SurveyTakerStandardPage from "../../components/SurveyTakerStandardPage";
 import { useNavigate, useOutletContext, useParams } from "react-router";
 import {
-  completeIncentive,
   loadResponse,
   writeSurveyResponse,
-} from "../../data/dataLayerManager";
+} from "../../APIs/Firebase";
 import Loading from "../../components/Loading";
 
 export default function Survey() {
@@ -90,8 +89,7 @@ export default function Survey() {
     console.log(response);
     if (params.id !== undefined && hash.current !== null) {
       if (
-        (await saveResponse()) &&
-        (await completeIncentive(params.id, hash.current))
+        (await saveResponse())
       ) {
         navigate("../share");
       }

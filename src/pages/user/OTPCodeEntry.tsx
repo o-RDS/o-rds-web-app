@@ -6,7 +6,7 @@ import {
   addHash,
   generateAlias,
   writeSurveyResponse,
-} from "../../data/dataLayerManager";
+} from "../../APIs/Firebase";
 
 export default function OTPCodeEntry() {
   const navigate = useNavigate();
@@ -46,7 +46,7 @@ export default function OTPCodeEntry() {
   async function processHash() {
     let hash = window.sessionStorage.getItem("hash");
     if (hash && params.id !== undefined) {
-      let response = await addHash(params.id, hash);
+      let response = await addHash(params.id);
       if (response) {
         //Existing Hash
         console.log("Existing Hash");
