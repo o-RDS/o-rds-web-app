@@ -6,22 +6,38 @@ import {login} from "../../APIs/Admin.auth.js";
 export default function LoginAdmin() {
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState({error: false, message: ""});
+  
   async function handleLogin(e: any) {
     e.preventDefault();
     let loginResponse: any = "";
     console.log(e);
     console.log(e.target);
-    var item = document.getElementById('username')!;
     var data: any = new FormData(e.target);
     console.log(data);
     let formObject = Object.fromEntries(data.entries());
     console.log(formObject);
+    
+    try{
+      //Verify that all fields have been filled
+      Object.entries(formObject).forEach(([key, value]: Array<string>) => {
+        if(value === ""){
+            setErrorMessage({error: true, message: "All fields are required and must be filled out."});
+            throw "Missing fields";
+        }
+      });
+    }
+    catch(error){
+      console.error(error);
+      return;     //Return to prevent erroneous data from being sent to server
+    }
+
     let loginInfo = {
       fullname: "Mr MR",
-      email: formObject.username,
+      email: formObject.email,
       role: "admin",
       password: formObject.password
     }
+
     try {
       loginResponse = await login(loginInfo);
       console.log(loginResponse);
@@ -37,28 +53,31 @@ export default function LoginAdmin() {
 
   return (
     <StandardPage>
-      <div className="flex min-h-screen flex-col items-center justify-center gap-2 dark:bg-rdsDark2">
+      <div className="flex min-h-screen flex-col items-center justify-center gap-4 dark:bg-rdsDark2">
         <h1 className="inline-block bg-gradient-to-br from-green-600 to-orange-600 bg-clip-text text-3xl text-transparent">
           Welcome to o-RDS
         </h1>
-        <form onSubmit={(e) => handleLogin(e)}>
-          <div className="relative">
+        <form 
+          className="flex flex-col justify-center items-center w-1/6"
+          onSubmit={(e) => handleLogin(e)}
+        >
+          <div className="relative w-full">
             <input
               type="text"
-              id="username"
-              name="username"
+              id="email"
+              name="email"
               className="peer block w-full appearance-none rounded-lg border border-black bg-transparent px-2.5 pb-2.5 pt-4 text-sm text-gray-900 focus:border-rdsBlue focus:outline-none focus:ring-0 dark:border-gray-600 dark:text-white dark:focus:border-rdsBlue"
               placeholder=" "
             />
             <label
-              htmlFor="username"
+              htmlFor="email"
               className="absolute top-2 left-1 z-10 origin-[0] -translate-y-4 scale-75 transform bg-white px-2 text-sm text-gray-500 duration-300 peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:scale-100 peer-focus:top-2 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:px-2 peer-focus:text-blue-600 dark:bg-rdsDark2 dark:text-gray-400 peer-focus:dark:text-rdsOrange"
             >
-              Username
+              Email Address
             </label>
           </div>
           <br></br>
-          <div className="relative">
+          <div className="relative w-full">
             <input
               type="password"
               id="password"
@@ -74,14 +93,12 @@ export default function LoginAdmin() {
             </label>
           </div>
           <br></br>
-          <button className="w-full rounded bg-orange-600 p-1 text-white">
+          <button className="w-1/2 rounded bg-rdsOrange p-1 text-white">
             Submit
           </button>
           <br></br>
-          <br></br>
           {errorMessage.error && <div className="p-2 w-full bg-red-500 bg-opacity-20 rounded-md"><p className="text-red-500 text-center text-sm">{errorMessage.message}</p></div>}
         </form>
-        <br/>
         <button
           onClick={() => navigate("/admin/register")}
           className="text-rdsOrange underline"
