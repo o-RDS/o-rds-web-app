@@ -57,7 +57,7 @@ export default function RegisterAdmin() {
             console.log(registerResponse);
             setErrorMessage({error: false, message: ""});
             setRegisterSuccess(true);
-            setTimeout(() => navigate("../login"), 3000);
+            setTimeout(() => navigate("/admin/login"), 3000);
         }
         catch(error:any){
             console.error(error);
@@ -165,7 +165,7 @@ export default function RegisterAdmin() {
                         </label>
                     </div>
                     <br/>
-                    <button className="w-1/2 rounded bg-rdsOrange p-1 text-white self-center">
+                    <button className="w-1/2 rounded bg-rdsOrange p-1 text-white">
                         Create Account
                     </button>
                     <br/>
@@ -173,7 +173,7 @@ export default function RegisterAdmin() {
                     {registerSuccess && <div className="p-2 w-full bg-green-500 bg-opacity-20 rounded-md"><p className="text-green-500 text-center text-sm">Your account was registered successfully! You will now be redirected to the Login page.</p></div>}
                 </form>
                 <button
-                    onClick={() => navigate("../login")}
+                    onClick={() => navigate("/admin/login")}
                     className="text-rdsOrange underline"
                 >
                     Already have an account? Login instead!
