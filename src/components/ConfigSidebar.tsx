@@ -1,25 +1,45 @@
-import react from "react";
+import { updateCurrentUser } from "firebase/auth";
+import react, { useContext } from "react";
+import MCSidebar from "./config-sidebar/MCSidebar";
+import ShortAnswerSidebar from "./config-sidebar/ShortAnswerSidebar";
+import FillBlankSidebar from "./config-sidebar/FillBlankSidebar";
+import CheckboxSidebar from "./config-sidebar/CheckboxSidebar";
+import {
+  SurveyContext,
+  SurveyDispatchContext,
+} from "../context/SurveyBuilderContext";
 
 export default function ConfigSidebar(props: any) {
-  const choicesArray: any = props.currentQuestion.choices.value.map((choice: any) => <li key={choice}>{choice}</li>)
+  const SurveyState = useContext(SurveyContext);
+  console.log(SurveyState);
+
+  function getQuestionConfig(data: any) {
+    try {
+    switch (data.type) {
+      case "MultipleChoice":
+        return <MCSidebar />;
+      case "FillInBlank":
+        return <FillBlankSidebar />;
+      case "ShortAnswer":
+        return <ShortAnswerSidebar />;
+      case "Checkbox":
+        return <CheckboxSidebar />;
+      default:
+        return <p>"Unknown Question Type"</p>;
+    }
+  } catch(error) {
+    console.log(error);
+    return (<h2>This is a deleted question. Please pick a new one.</h2>)
+  }
+  }
+
   return (
     <>
-      <div className="flex flex-col justify-start items-center border-r border-black w-1/5 gap-2">
-        <div>
-          <label>{props.currentQuestion.prompt.configPrompt}</label>
-          <input type="text" placeholder="This is a question" className="border border-rdsOrange rounded-sm w-3/5"></input>
-        </div>
-        <div>
-          <label>{props.currentQuestion.shuffle.configPrompt}</label>
-          <input type="checkbox"></input>
-        </div>
-        <div>
-          <label>{props.currentQuestion.choices.configPrompt}</label>
-          <input type="text" placeholder="Add Choices Here" className="border border-rdsOrange rounded-sm w-3/5"></input>
-          <ul>
-            {choicesArray}
-          </ul>
-        </div>
+      <div className="flex w-[20%] flex-col items-center justify-start gap-4 border-r border-black p-4 dark:border-none dark:bg-rdsDarkAccent3 dark:text-white">
+        <h2 className="self-start text-2xl font-bold">
+          {"Question Settings"}
+        </h2>
+        {getQuestionConfig(SurveyState["survey"]["questions"][SurveyState["question"]])}
       </div>
     </>
   );

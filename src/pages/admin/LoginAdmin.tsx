@@ -1,25 +1,87 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, {useState} from "react";
+import { Link, useNavigate } from "react-router-dom";
 import StandardPage from "../../components/StandardPage";
+import {login} from "../../APIs/Admin.auth.js";
 
 export default function LoginAdmin() {
-    return (
-        <StandardPage>
-            {/* <div>
-                <h3 className="text-lg bg-gradient-to-br from-emerald-700 to-orange-600 inline-block text-transparent bg-clip-text">o-RDS</h3>
-            </div> */}
-            <div className="flex flex-col justify-center items-center min-h-screen gap-2">
-                <h1 className="text-3xl bg-gradient-to-br from-green-600 to-orange-600 inline-block text-transparent bg-clip-text">Welcome to o-RDS</h1>
-                <input type="text" placeholder="username" className="w-56 p-1 rounded bg-gray-200"></input>
-                <input type="text" placeholder="password" className="w-56 p-1 rounded bg-gray-200"></input>
-                <br></br>
-                <Link to="../dashboard">
-                    <button className=" p-1 w-56 rounded bg-orange-600 text-white">Login</button>
-                </Link>
-                {/* <Link to="/DashboardAdmin">
-                    <button className=" p-1 w-56 rounded border-2 border-orange-500 text-orange-500">Sign Up</button>
-                </Link> */}
-            </div>
-        </StandardPage>
-    )
+  const navigate = useNavigate();
+  const [errorMessage, setErrorMessage] = useState({error: false, message: ""});
+  async function handleLogin(e: any) {
+    e.preventDefault();
+    let loginResponse: any = "";
+    console.log(e);
+    console.log(e.target);
+    var item = document.getElementById('username')!;
+    var data: any = new FormData(e.target);
+    console.log(data);
+    let formObject = Object.fromEntries(data.entries());
+    console.log(formObject);
+    let loginInfo = {
+      fullname: "Mr MR",
+      email: formObject.username,
+      role: "admin",
+      password: formObject.password
+    }
+    try {
+      loginResponse = await login(loginInfo);
+      console.log(loginResponse);
+      document.cookie = `token=${loginResponse.accessToken}`
+      navigate("admin/dashboard");
+    } catch (error) {
+      setErrorMessage({error: true, message: "Username or password was incorrect"});
+      console.log(error);
+    } finally {
+
+    }
+  }
+
+  return (
+    <StandardPage>
+      <div className="flex min-h-screen flex-col items-center justify-center gap-2 dark:bg-rdsDark2">
+        <h1 className="inline-block bg-gradient-to-br from-green-600 to-orange-600 bg-clip-text text-3xl text-transparent">
+          Welcome to o-RDS
+        </h1>
+        <form onSubmit={(e) => handleLogin(e)}>
+          <div className="relative">
+            <input
+              type="text"
+              id="username"
+              name="username"
+              className="peer block w-full appearance-none rounded-lg border border-black bg-transparent px-2.5 pb-2.5 pt-4 text-sm text-gray-900 focus:border-rdsBlue focus:outline-none focus:ring-0 dark:border-gray-600 dark:text-white dark:focus:border-rdsBlue"
+              placeholder=" "
+            />
+            <label
+              htmlFor="username"
+              className="absolute top-2 left-1 z-10 origin-[0] -translate-y-4 scale-75 transform bg-white px-2 text-sm text-gray-500 duration-300 peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:scale-100 peer-focus:top-2 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:px-2 peer-focus:text-blue-600 dark:bg-rdsDark2 dark:text-gray-400 peer-focus:dark:text-rdsOrange"
+            >
+              Username
+            </label>
+          </div>
+          <br></br>
+          <div className="relative">
+            <input
+              type="text"
+              id="password"
+              name="password"
+              className="peer block w-full appearance-none rounded-lg border border-black bg-transparent px-2.5 pb-2.5 pt-4 text-sm text-gray-900 focus:border-rdsBlue focus:outline-none focus:ring-0 dark:border-gray-600 dark:text-white dark:focus:border-rdsBlue"
+              placeholder=" "
+            />
+            <label
+              htmlFor="password"
+              className="absolute top-2 left-1 z-10 origin-[0] -translate-y-4 scale-75 transform bg-white px-2 text-sm text-gray-500 duration-300 peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:scale-100 peer-focus:top-2 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:px-2 peer-focus:text-blue-600 dark:bg-rdsDark2 dark:text-gray-400 peer-focus:dark:text-rdsOrange"
+            >
+              Password
+            </label>
+          </div>
+          <br></br>
+          <button className="w-full rounded bg-orange-600 p-1 text-white">
+            Submit
+          </button>
+          <br></br>
+          <br></br>
+          {errorMessage.error && <div className="p-2 w-full bg-red-500 bg-opacity-20 rounded-md"><p className="text-red-500 text-center text-sm">{errorMessage.message}</p></div>}
+        </form>
+      </div>
+    </StandardPage>
+  );
 }

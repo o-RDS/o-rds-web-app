@@ -1,202 +1,125 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Question from "../../components/questions/Question";
 import SurveyTakerStandardPage from "../../components/SurveyTakerStandardPage";
+import { useNavigate, useOutletContext, useParams } from "react-router";
+import {
+  completeIncentive,
+  loadResponse,
+  writeSurveyResponse,
+} from "../../data/dataLayerManager";
+import Loading from "../../components/Loading";
 
 export default function Survey() {
-  const [page, setPage] = useState(0);
-  const [surveyQuestions, setSurveyQuestions] = useState([{}]);
-  const response:any = useRef({});
+  const [page, setPage] = useState<number>(0);
+  const [design, setDesign] = useState<any>(null);
+  const params = useParams();
+  const navigate = useNavigate();
+  const config: any = useOutletContext();
+  const [response, setResponse] = useState({ answers: {} });
+  const alias = useRef<string>("");
+  const hash = useRef<string>("");
 
-  // this would eventually load in data from DB, not use this dummy data
-  const design = [
-    {
-      page: 0,
-      type: "MultipleChoice",
-      config: {
-        prompt: {
-          value: "This is an example question (Page 0)?",
-          configPrompt: "Question Prompt:",
-          type: "text",
-        },
-        shuffle: {
-          value: true,
-          configPrompt: "Shuffle choices?",
-          type: "bool",
-        },
-        choices: {
-          value: ["A", "B", "C", "D", "E"],
-          configPrompt: "Enter choices:",
-          type: "stringArray",
-        },
-      },
-    },
-    {
-      page: 0,
-      type: "MultipleChoice",
-      config: {
-        prompt: {
-          value: "This is an example question (Page 0)?",
-          configPrompt: "Question Prompt:",
-          type: "text",
-        },
-        shuffle: {
-          value: true,
-          configPrompt: "Shuffle choices?",
-          type: "bool",
-        },
-        choices: {
-          value: ["A", "B", "C", "D", "E"],
-          configPrompt: "Enter choices:",
-          type: "stringArray",
-        },
-      },
-    },
-    {
-      page: 1,
-      type: "MultipleChoice",
-      config: {
-        prompt: {
-          value: "This is an example question (Page 1)?",
-          configPrompt: "Question Prompt:",
-          type: "text",
-        },
-        shuffle: {
-          value: true,
-          configPrompt: "Shuffle choices?",
-          type: "bool",
-        },
-        choices: {
-          value: ["A", "B", "C", "D", "E"],
-          configPrompt: "Enter choices:",
-          type: "stringArray",
-        },
-      },
-    },
-    {
-      page: 0,
-      type: "FillInBlank",
-      config: {
-        prompt: {
-          value: "The Declaration of Indpendence was written in ____________",
-          configPrompt: "Question Prompt:",
-          type: "text",
+  useEffect(() => {
+    if (config !== null && config !== undefined) {
+      setDesign(config.questionOrder);
+    }
+    let tempHash = window.sessionStorage.getItem("hash");
+    if (tempHash) {
+      hash.current = tempHash;
+    } else {
+      navigate("../");
+    }
+    if (params.id !== undefined) {
+      if (window.localStorage.getItem(params.id + hash.current)) {
+        let tempAlias = window.localStorage.getItem(params.id + hash.current);
+        if (tempAlias) {
+          alias.current = tempAlias;
+          loadResponse(params.id, tempAlias).then((data) => {
+            if (data) {
+              let tempResponse:any = response;
+              tempResponse = data;
+              tempResponse.parentID =
+                window.sessionStorage.getItem("parent");
+              tempResponse.depth = window.sessionStorage.getItem("depth");
+              window.sessionStorage.setItem("responseID", data.responseID);
+              setResponse(tempResponse);
+            }
+          });
         }
+      } else {
+        navigate("../resume");
       }
-    },
-    {
-      page: 1,
-      type: "ShortAnswer",
-      config: {
-        prompt: {
-          value: "Tell me why you are here",
-          configPrompt: "Question Prompt",
-          type: "text",
-        }
-      }
-    },
-    {
-      page: 0,
-      type: "Checkbox",
-      config: {
-        prompt: {
-          value: "This is an example question (Page 0)?",
-          configPrompt: "Question Prompt:",
-          type: "text",
-        },
-        shuffle: {
-          value: true,
-          configPrompt: "Shuffle choices?",
-          type: "bool",
-        },
-        choices: {
-          value: ["A", "B", "C", "D", "E"],
-          configPrompt: "Enter choices:",
-          type: "stringArray",
-        },
-      },
-    },
-    {
-      page: 0,
-      type: "MultipleChoice",
-      config: {
-        prompt: {
-          value: "This is an example question (Page 0)?",
-          configPrompt: "Question Prompt:",
-          type: "text",
-        },
-        shuffle: {
-          value: true,
-          configPrompt: "Shuffle choices?",
-          type: "bool",
-        },
-        choices: {
-          value: ["A", "B", "C", "D", "E"],
-          configPrompt: "Enter choices:",
-          type: "stringArray",
-        },
-      },
-    },
-    {
-      page: 1,
-      type: "MultipleChoice",
-      config: {
-        prompt: {
-          value: "This is an example question (Page 1)?",
-          configPrompt: "Question Prompt:",
-          type: "text",
-        },
-        shuffle: {
-          value: true,
-          configPrompt: "Shuffle choices?",
-          type: "bool",
-        },
-        choices: {
-          value: ["A", "B", "C", "D", "E"],
-          configPrompt: "Enter choices:",
-          type: "stringArray",
-        },
-      },
-    },
-  ];
+    }
+  }, []);
 
   // this will be called by the question component whenever the question requests to update the response
   // goes through each column sent by the question and updates the response object
-  function handleResponse(data: any, questionIndex: number) {
+  function handleResponse(data: any, questionID: string) {
     Object.entries(data).forEach(([key, value]) => {
       let questionName = key;
-      questionName = questionName.replace("#", "Question " + (questionIndex+1).toString());
-      response.current[questionName] = value;
+      questionName = questionName.replace("#", questionID);
+      let tempResponse:any = response;
+      tempResponse.answers[questionName] = value;
+      setResponse(tempResponse);
     });
-    console.log(response.current);
+    console.log(response);
   }
 
-  const changePage = (whichWay: string) => {
-    let pageTo: number = 0;
-    if (whichWay === "up") {
-      if (page < 4) {
-        pageTo = page + 1;
-      } else {
-        pageTo = page;
-      }
-    } else if (whichWay === "down") {
-      if ((page) > 0) {
-        pageTo = page - 1;
-      } else {
-        pageTo = page;
+  function changePage(modifier: number) {
+    saveResponse();
+    setPage(page + modifier);
+  }
+
+  async function saveResponse() {
+    let tempHash = hash.current;
+    if (params.id !== undefined && tempHash !== null) {
+      let tempAlias = window.localStorage.getItem(params.id + tempHash);
+      if (tempAlias) {
+        return await writeSurveyResponse(params.id, tempAlias, response);
       }
     }
-    setPage(pageTo);
+    return false;
+  }
+
+  async function handleSubmit() {
+    console.log("Submitting");
+    let tempResponse:any = response;
+    tempResponse.completed = true;
+    setResponse(tempResponse);
+    console.log(response);
+    if (params.id !== undefined && hash.current !== null) {
+      if (
+        (await saveResponse()) &&
+        (await completeIncentive(params.id, hash.current))
+      ) {
+        navigate("../share");
+      }
+    }
+    console.log("Failed to submit");
+    // TODO: add error message
   }
 
   // renders all questions on the current page
   function renderQuestions() {
     console.log("Rendering questions");
-    return design.map((question, index) => {
+    console.log(design)
+    return design.map((id: string, index: number) => {
+      console.log(id);
+      let question = config.questions[id];
       console.log("Rendering question " + index);
       console.log(question);
-      let answerIndex = "Question " + (index + 1).toString();
+      let tempResponse:any = response;
       if (question.page === page) {
-        return <Question data={question} index={index} handleResponse={handleResponse} currentAnswer={response.current[answerIndex]}/>;
+        console.log(response);
+        return (
+          <Question
+            data={question}
+            index={index}
+            id={id}
+            handleResponse={handleResponse}
+            currentAnswer={tempResponse.answers[id]}
+          />
+        );
       } else {
         return null;
       }
@@ -205,28 +128,63 @@ export default function Survey() {
 
   return (
     <SurveyTakerStandardPage>
-        <div className="flex flex-col gap-y-3">
-          <p className="max-w-prose">
-            Here is where some instructions could go. In the future, this should be a variable based on what the researcher inputs in the Builder.
-          </p>
-          <hr className="w-9/12 border-1 border-gray-800 self-center" />
-        </div>
+      {design !== null ? (
+        <>
+          <div className="flex flex-col gap-y-3">
+            <p className="max-w-prose">
+              Here is where some instructions could go. In the future, this
+              should be a variable based on what the researcher inputs in the
+              Builder.
+            </p>
+            <hr className="border-1 w-9/12 self-center border-gray-800" />
+          </div>
 
-        {/*Question Section*/}
-        <div className="flex flex-col gap-y-6 flex-grow-1">
-          {renderQuestions()}
-        </div>
-        
-        {/*Bottom Navigation*/}
-        <div className="flex flex-row justify-center mt-auto md:mt-0 w-4/5 md:w-1/3 min-h-[36px]">
-          {page > 0 ? 
-            <button className="p-1 w-1/3 rounded bg-white border-2 border-rdsOrange text-rdsOrange" onClick={() => setPage(page - 1)}>Back</button>
-            :
-            <div className="w-1/3"></div>
-          }
-          <p className="w-1/3 text-center">{page + 1} of #</p>
-          <button className="p-1 w-1/3 rounded bg-rdsOrange text-white" onClick={() => setPage(page + 1)}>Next</button>
-        </div>
+          <div className="flex-grow-1 flex flex-col gap-y-6">
+            {renderQuestions()}
+          </div>
+
+          <div className="mt-auto flex min-h-[36px] w-4/5 flex-row justify-center md:mt-0 md:w-1/3">
+            {page > 0 ? (
+              <button
+                className="w-1/3 rounded border-2 border-rdsOrange bg-white p-1 text-rdsOrange"
+                onClick={() => changePage(-1)}
+              >
+                Back
+              </button>
+            ) : (
+              design[design.length - 1].page > 0 && (
+                <div className="w-1/3"></div>
+              )
+            )}
+            {design[design.length - 1].page > 0 && (
+              <p className="w-1/3 text-center">
+                {page + 1} of {design[design.length - 1].page + 1}
+              </p>
+            )}
+            {design[design.length - 1].page > page ? (
+              <button
+                className="w-1/3 rounded bg-rdsOrange p-1 text-white"
+                onClick={() => changePage(1)}
+              >
+                Next
+              </button>
+            ) : (
+              <button
+                className="w-1/3 rounded bg-rdsOrange p-1 text-white"
+                onClick={() => handleSubmit()}
+              >
+                Submit
+              </button>
+            )}
+          </div>
+          <p>
+            If you have to leave the survey, write down this code, which you can
+            use to load your progress, even on another device: {alias.current}
+          </p>
+        </>
+      ) : (
+        <Loading />
+      )}
     </SurveyTakerStandardPage>
   );
 }

@@ -4,6 +4,8 @@ import { setPhone, setChainInfo } from "../../data/sessionManager";
 import { useState, useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import Sha256 from "../../data/Sha256";
+import { startVerification } from "../../APIs/Twilio";
+import { start } from "repl";
 
 export default function PhoneEntry() {
   const [phoneNum, setPhoneNum] = useState("");
@@ -14,14 +16,15 @@ export default function PhoneEntry() {
   // change to parent
   useEffect(() => {
     let parent = searchParams.get("p");
-    let depth = 0;
+    let referer = searchParams.get("r");
+    let depth = 1;
     if (parent == null) {
-      navigate("/invalid");
-    } else if (Sha256.hash(parent) === Sha256.hash("root")) {
-        depth = 1;
-        setChainInfo(parent, depth);
-    } else {
-        /* USE THIS CODE ONCE WE HAVE VALID SURVEY DATA
+      parent = "root";
+    }
+    if (referer == null) {
+      referer = "root";
+    }
+    /* USE THIS CODE ONCE WE HAVE VALID SURVEY DATA (maybe)
            THERE ALSO NEEDS TO BE A FUNCTION TO GET USER DATA
         retrieveResponseData(parent).then((data) => {
             if (data == null) {
@@ -31,14 +34,11 @@ export default function PhoneEntry() {
                 setChainInfo(parent, depth);
             }
         */
-        let depthStr = searchParams.get("d")
-        if (depthStr != null) {
-            depth = parseInt(depthStr) + 1;
-            setChainInfo(parent, depth);
-        } else {
-            navigate("/invalid");
-        }
+    let depthStr = searchParams.get("d");
+    if (depthStr != null) {
+      depth = parseInt(depthStr) + 1;
     }
+    setChainInfo(parent, referer, depth);
   }, [searchParams, navigate]);
 
   function submitNum() {
@@ -49,6 +49,11 @@ export default function PhoneEntry() {
       return;
     }
 
+    console.log(`Sending verification: ${phoneNum}`);
+    startVerification(phoneNum).then((data) => {
+      console.log(data);
+    });
+
     setPhone(num);
     console.log(num);
     // TODO Send code to phone number, pass code to OTPCodeEntry.tsx
@@ -57,7 +62,7 @@ export default function PhoneEntry() {
 
   return (
     <SurveyTakerStandardPage>
-      <div className="flex flex-col max-w-prose">
+      <div className="flex max-w-prose flex-col">
         <p>
           Before you begin the survey, we must verify that you have not yet
           taken the survey.
@@ -82,13 +87,13 @@ export default function PhoneEntry() {
             id="phoneNumber"
             name="phoneNumber"
             placeholder="(XXX) XXX-XXXX"
-            className="w-56 p-1 rounded bg-gray-200"
+            className="w-56 rounded bg-gray-200 p-1"
             value={phoneNum}
             onChange={(e) => setPhoneNum(e.target.value)}
           ></input>
         </div>
         <button
-          className="p-1 w-56 rounded bg-rdsOrange text-white"
+          className="w-56 rounded bg-rdsOrange p-1 text-white"
           onClick={() => submitNum()}
         >
           Submit
