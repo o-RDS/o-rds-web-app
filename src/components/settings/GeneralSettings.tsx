@@ -33,6 +33,7 @@ export function GeneralSettings() {
   function handleAddAdmin() {
     const admin: any = (document.getElementById("add-admin") as HTMLInputElement).value;
     console.log(admin);
+    (document.getElementById('add-admin') as HTMLInputElement).value = "";
     dispatch({
       type: 'add-admin',
       admin: admin
