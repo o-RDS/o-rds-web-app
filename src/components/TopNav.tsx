@@ -1,8 +1,11 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import helpIcon from "../images/help_icon.png";
+import {deleteCookie} from "../data/cookieFunctions"
 
 export default function TopNav() {
+  const navigate = useNavigate();
+
   return (
     <div className="flex h-14 w-full flex-row items-center justify-start overflow-visible overflow-y-auto px-2 shadow-sm shadow-black">
       <Link to="/admin/dashboard/">
@@ -21,6 +24,15 @@ export default function TopNav() {
           <button>Payments</button>
         </Link>
         <img src={helpIcon} className="h-6 w-6" alt="Help Icon" />
+        <button
+          className="hover:translate transform-y-1/2 hover:border-b-2"
+          onClick={() => {
+            deleteCookie("token");
+            navigate("/admin/login")
+          }}
+        >
+          Log Out
+        </button>
         {/* <p>Profile</p> */}
         <div className="h-8 w-8 rounded-2xl bg-lime-500"></div>
       </div>

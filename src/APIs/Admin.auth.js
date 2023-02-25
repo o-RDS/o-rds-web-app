@@ -23,7 +23,7 @@ export function register(admin) {
         })
     }
 
-    return fetch(`${serverHost}/register`, options)
+    return fetch(`${serverHost}/api/register`, options)
     .then(response => {
       if (!response.ok) {
         throw new Error(response.statusText)
@@ -51,7 +51,7 @@ export function login(admin) {
         })
     }
 
-    return fetch(`${serverHost}/login`, options)
+    return fetch(`${serverHost}/api/login`, options)
     .then(response => {
       if (!response.ok) {
         throw new Error(response.statusText)
