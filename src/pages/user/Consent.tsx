@@ -13,14 +13,18 @@ export default function Consent(){
 
     return (
         <SurveyTakerStandardPage>
-            <div className="flex flex-col justify-center items-center w-3/4 gap-y-6">
-                <p className="text-left whitespace-normal">
+            <div className="flex flex-col justify-center items-center w-3/4 gap-y-4">
+                <p className="text-left whitespace-normal md:w-1/2">
                     You will now be asked to provide your consent to participate in this study. 
                     Please read the consent information below.
                 </p>
-                <p className="text-left whitespace-normal">
-                    {config.informedConsent}
-                </p>
+                <hr className="w-1/3 border-1 border-gray-800"/>
+                <div className="flex justify-center items-center md:w-1/2">
+                    <p className="text-left whitespace-normal">
+                        {config.informedConsent}
+                    </p>
+                </div>
+                <hr className="w-1/3 border-1 border-gray-800"/>
                 <div className="flex flex-row justify-center">
                     <input 
                         type="checkbox"
