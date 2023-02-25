@@ -87,13 +87,12 @@ export function saveSurveyConfig(surveyID, surveyData) {
       Authorization: token
     },
     body: JSON.stringify({
-      surveyID: surveyID,
       surveyData: surveyData
     })
   };
 
   var statusCode;
-  return fetch(`${serverHost}/api/survey`, options)
+  return fetch(`${serverHost}/api/survey/${surveyID}`, options)
     .then(response => {
       if (!response.ok) {
         throw new Error(response.statusText)
@@ -118,14 +117,11 @@ export function deleteSurveyConfig(surveyID) {
       accept: 'application/json',
       'content-type': 'application/json',
       Authorization: token
-    },
-    body: JSON.stringify({
-      surveyID: surveyID
-    })
+    }
   };
 
   var statusCode;
-  return fetch(`${serverHost}/api/survey`, options)
+  return fetch(`${serverHost}/api/survey/${surveyID}`, options)
     .then(response => {
       if (!response.ok) {
         throw new Error(response.statusText)
@@ -152,15 +148,11 @@ export function loadResponse(surveyID, alias) {
       accept: 'application/json',
       'content-type': 'application/json',
       Authorization: token
-    },
-    body: JSON.stringify({
-      surveyID: surveyID,
-      alias: alias
-    })
+    }
   };
 
   var statusCode;
-  return fetch(`${serverHost}/api/response`, options)
+  return fetch(`${serverHost}/api/survey/${surveyID}/response/${alias}`, options)
     .then(response => {
       if (!response.ok) {
         throw new Error(response.statusText)
@@ -185,14 +177,11 @@ export function loadAllResponses(surveyID) {
       accept: 'application/json',
       'content-type': 'application/json',
       Authorization: token
-    },
-    body: JSON.stringify({
-      surveyID: surveyID
-    })
+    }
   };
 
   var statusCode;
-  return fetch(`${serverHost}/api/responses`, options)
+  return fetch(`${serverHost}/api/survey/${surveyID}/responses`, options)
     .then(response => {
       if (!response.ok) {
         throw new Error(response.statusText)
@@ -294,14 +283,11 @@ export function loadIncentiveInfo(surveyID) {
       accept: 'application/json',
       'content-type': 'application/json',
       Authorization: token
-    },
-    body: JSON.stringify({
-      surveyID: surveyID,
-    })
+    }
   };
 
   var statusCode;
-  return fetch(`${serverHost}/api/incentive`, options)
+  return fetch(`${serverHost}/api/survey/${surveyID}/incentive`, options)
     .then(response => {
       if (!response.ok) {
         throw new Error(response.statusText)
