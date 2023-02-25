@@ -2,10 +2,10 @@ import { proxyAddress } from './config';
 
 let serverHost = "";
 
-if (process.env.NODE_ENV == "development") {
+if (process.env.NODE_ENV === "development") {
   serverHost = 'http://localhost:8080';
 }
-else if (process.env.NODE_ENV == "production") {
+else if (process.env.NODE_ENV === "production") {
   serverHost = proxyAddress; // URL of deployed server
 }
 
