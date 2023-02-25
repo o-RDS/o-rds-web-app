@@ -1,31 +1,53 @@
 import { useEffect, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useOutletContext, useParams } from "react-router";
 import SurveyTakerStandardPage from "../../components/SurveyTakerStandardPage";
 
 export default function Consent(){
+    const navigate = useNavigate();
+    const config: any = useOutletContext();
+    const [ackChecked, setAckChecked] = useState(false);
+
+    useEffect(() => {
+        //Config error-checking code here?
+    });
+
     return (
         <SurveyTakerStandardPage>
-            <p>
-                You will now be asked to provide your consent to participate in this study.<br/> 
-                Please read the consent information below.
-            </p>
-            <p>
-                Get config info from config and put here.
-            </p>
-            <div className="flex flex-row">
-                <input 
-                    type="checkbox"
-                    id="consent"
-                    name="consent"
-                    className="mr-2"
-                />
-                <label htmlFor="consent">
-                    I acknowledge that I have read the consent information listed above and give my consent to participate in this study.
-                </label>
+            <div className="flex flex-col justify-center items-center w-3/4 gap-y-6">
+                <p className="text-left whitespace-normal">
+                    You will now be asked to provide your consent to participate in this study. 
+                    Please read the consent information below.
+                </p>
+                <p className="text-left whitespace-normal">
+                    {config.informedConsent}
+                </p>
+                <div className="flex flex-row justify-center">
+                    <input 
+                        type="checkbox"
+                        id="acknowledge"
+                        name="acknowledge"
+                        className="mr-4"
+                        onChange={() => setAckChecked(!ackChecked)}
+                    />
+                    <label htmlFor="acknowledge">
+                        I acknowledge that I have read the consent information listed above and give my consent to participate in this study.
+                    </label>
+                </div>
+                { ackChecked ? 
+                    (
+                        <button 
+                            className="w-56 rounded bg-rdsOrange p-1 text-white"
+                            onClick={() => navigate("../questions")}
+                        >
+                            Accept
+                        </button>
+                    ):(
+                        <button disabled className="w-56 rounded bg-rdsOrange opacity-60 p-1 text-white">
+                            Accept
+                        </button> 
+                    )
+                }
             </div>
-            <button className="w-56 rounded bg-rdsOrange p-1 text-white">
-                Accept
-            </button>
         </SurveyTakerStandardPage>
     );
 }
