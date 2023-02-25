@@ -15,6 +15,7 @@ import ConfigContext from './context/ConfigContext';
 import AdminAuth from './context/AdminAuth';
 import Share from './pages/user/Share';
 import SurveyBuilderContext from './context/SurveyBuilderContext';
+import Consent from "./pages/user/Consent";
 
 
 function App() {
@@ -36,6 +37,7 @@ function App() {
           <Route path=":id" element={<ConfigContext/>}>
             <Route path="" element={<PhoneEntry/>} />
             <Route path="verify" element={<OTPCodeEntry/>} />
+            <Route path="consent" element={<Consent/>} />
             <Route path="questions" element={<Survey/>} />
             <Route path="resume" element={<ResumeSurvey/>} />
             <Route path="reward" element={<ReceivePayment/>} />
