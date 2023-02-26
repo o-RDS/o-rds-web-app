@@ -43,25 +43,25 @@ export default function LoginAdmin() {
 
     try {
       loginResponse = await login(loginInfo);
-      if (loginResponse.statusCode === 404) {
+      if (loginResponse === undefined || loginResponse.statusCode === 500) {
+        throw new Error("Server error");
+      }
+      else if (loginResponse.statusCode === 404) {
         setErrorMessage({
           error: true,
           message: "Username or password was incorrect",
         });
-        throw new Error("Bad credentials");
       }
-      else if (loginResponse.statusCode === 500) {
-        setErrorMessage({
+      else {
+        setCookie("token", loginResponse.accessToken, 1);
+        navigate("/admin/dashboard");
+      }
+    } catch (error) {
+      setErrorMessage({
           error: true,
           message: "Server error, please try again later",
-        });
-        throw new Error("Server error");
-      }
-
-      setCookie("token", loginResponse.accessToken, 1);
-      navigate("/admin/dashboard");
-    } catch (error) {
-      console.log(error);
+      });
+      console.error(error);
     }
   }
 

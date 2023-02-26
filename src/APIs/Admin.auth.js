@@ -51,15 +51,17 @@ export function login(admin) {
           password: admin.password
       })
     }
-
+    var statusCode;
     return fetch(`${serverHost}/api/login`, options)
     .then(response => {
       if (!response.ok) {
         console.error(new Error(response.statusText));
       }
+      statusCode = response.status;
       return response.json()
     })
     .then((data) => {
+      data.statusCode = statusCode;
       return data;
     });
 }
