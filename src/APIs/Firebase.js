@@ -42,7 +42,7 @@ export function retrieveSurveyConfig(id) {
 }
 
 // GET /api/surveys
-export function loadAdminSurveys(index, limit) {
+export function loadAdminSurveys(index, count) {
   const token = "JWT " + getCookie("token");
 
   const options = {
@@ -55,7 +55,7 @@ export function loadAdminSurveys(index, limit) {
   };
 
   var statusCode;
-  return fetch(`${serverHost}/api/surveys?` + new URLSearchParams({ index: index, limit: limit }), options)
+  return fetch(`${serverHost}/api/surveys?` + new URLSearchParams({ index: index, count: count }), options)
     .then(response => {
       if (!response.ok) {
         throw new Error(response.statusText)

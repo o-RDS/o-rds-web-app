@@ -14,11 +14,11 @@ export default function Dashboard() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    setSurveys([]);
     setLoading(true);
+    setSurveys([]);
     loadAdminSurveys(
       page * displayNumber,
-      (page + 1) * displayNumber
+      displayNumber
     ).then((surveys) => {
       console.log(surveys)
       setSurveys(surveys);
@@ -54,7 +54,7 @@ export default function Dashboard() {
     console.log(await deleteSurveyConfig(id));
     loadAdminSurveys(
       page * displayNumber,
-      (page + 1) * displayNumber
+      displayNumber
     ).then((surveys) => {
       setSurveys(surveys);
       setLoading(false);
@@ -110,7 +110,7 @@ export default function Dashboard() {
           <div className="flex flex-row flex-wrap gap-10">
             {surveys.length > 0 && renderSurveyButtons()}
             {loading && <Loading />}
-            {surveys.length === 0 && !loading && page > 0 && setPage(page - 1)}
+            {(surveys.length === 0 && !loading && page > 0) && setPage(page - 1)}
           </div>
         </div>
       </div>
