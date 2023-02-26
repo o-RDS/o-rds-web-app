@@ -18,7 +18,7 @@ function getCookie(name) {
 // SURVEY FUNCTIONS
 
 // GET /api/survey
-export async function retrieveSurveyConfig(id) {
+export function retrieveSurveyConfig(id) {
   const token = "JWT " + getCookie("token");
   
   const options = {
@@ -27,11 +27,14 @@ export async function retrieveSurveyConfig(id) {
       accept: 'application/json',
       'content-type': 'application/json',
       Authorization: token
-    }
+    },
+    body: JSON.stringify({
+      surveyID: id
+    })
   };
 
   var statusCode;
-  return fetch(`${serverHost}/api/survey/${id}`, options)
+  return fetch(`${serverHost}/api/survey`, options)
   .then(response => {
     if (!response.ok) {
       throw new Error(response.statusText)
@@ -47,7 +50,7 @@ export async function retrieveSurveyConfig(id) {
 }
 
 // GET /api/surveys
-export async function loadAdminSurveys(index, limit) {
+export function loadAdminSurveys(index, limit) {
   const token = "JWT " + getCookie("token");
 
   const options = {
@@ -56,19 +59,15 @@ export async function loadAdminSurveys(index, limit) {
       accept: 'application/json',
       'content-type': 'application/json',
       Authorization: token
-    }
+    },
+    body: JSON.stringify({
+      index: index,
+      limit: limit
+    })
   };
 
   var statusCode;
-
-  const url = (
-    `${serverHost}/api/surveys?` + new URLSearchParams({
-      index: index,
-      count: limit
-    }).toString()
-  )
-
-  return fetch(url, options)
+  return fetch(`${serverHost}/api/surveys`, options)
   .then(response => {
     if (!response.ok) {
       throw new Error(response.statusText)
@@ -84,7 +83,7 @@ export async function loadAdminSurveys(index, limit) {
 }
 
 // POST /api/survey
-export async function saveSurveyConfig(surveyID, surveyData) {
+export function saveSurveyConfig(surveyID, surveyData) {
   const token = "JWT " + getCookie("token");
 
   const options = {
@@ -95,12 +94,13 @@ export async function saveSurveyConfig(surveyID, surveyData) {
       Authorization: token
     },
     body: JSON.stringify({
+      surveyID: surveyID,
       surveyData: surveyData
     })
   };
 
   var statusCode;
-  return fetch(`${serverHost}/api/survey/${surveyID}`, options)
+  return fetch(`${serverHost}/api/survey`, options)
   .then(response => {
     if (!response.ok) {
       throw new Error(response.statusText)
@@ -116,7 +116,7 @@ export async function saveSurveyConfig(surveyID, surveyData) {
 }
 
 // DELETE /api/survey
-export async function deleteSurveyConfig(surveyID) {
+export function deleteSurveyConfig(surveyID) {
   const token = "JWT " + getCookie("token");
 
   const options = {
@@ -125,11 +125,14 @@ export async function deleteSurveyConfig(surveyID) {
       accept: 'application/json',
       'content-type': 'application/json',
       Authorization: token
-    }
+    },
+    body: JSON.stringify({
+      surveyID: surveyID
+    })
   };
 
   var statusCode;
-  return fetch(`${serverHost}/api/survey/${surveyID}`, options)
+  return fetch(`${serverHost}/api/survey`, options)
   .then(response => {
     if (!response.ok) {
       throw new Error(response.statusText)
@@ -147,7 +150,7 @@ export async function deleteSurveyConfig(surveyID) {
 // RESPONSE FUNCTIONS
 
 // GET /api/response
-export async function loadResponse(surveyID, alias) {
+export function loadResponse(surveyID, alias) {
   const token = "JWT " + getCookie("token");
 
   const options = {
@@ -156,11 +159,15 @@ export async function loadResponse(surveyID, alias) {
       accept: 'application/json',
       'content-type': 'application/json',
       Authorization: token
-    }
+    },
+    body: JSON.stringify({
+      surveyID: surveyID,
+      alias: alias
+    })
   };
 
   var statusCode;
-  return fetch(`${serverHost}/api/survey/${surveyID}/response/${alias}`, options)
+  return fetch(`${serverHost}/api/response`, options)
   .then(response => {
     if (!response.ok) {
       throw new Error(response.statusText)
@@ -176,7 +183,7 @@ export async function loadResponse(surveyID, alias) {
 }
 
 // GET /api/responses
-export async function loadAllResponses(surveyID) {
+export function loadAllResponses(surveyID) {
   const token = "JWT " + getCookie("token");
 
   const options = {
@@ -185,11 +192,14 @@ export async function loadAllResponses(surveyID) {
       accept: 'application/json',
       'content-type': 'application/json',
       Authorization: token
-    }
+    },
+    body: JSON.stringify({
+      surveyID: surveyID
+    })
   };
 
   var statusCode;
-  return fetch(`${serverHost}/api/survey/${surveyID}/responses`, options)
+  return fetch(`${serverHost}/api/responses`, options)
   .then(response => {
     if (!response.ok) {
       throw new Error(response.statusText)
@@ -238,207 +248,43 @@ export async function writeSurveyResponse(surveyID, alias, response) {
   });
 }
 
-export async function deleteResponse(surveyID, responseID) {
-  const token = "JWT " + getCookie("token");
-
-  const options = {
-    method: 'DELETE',
-    headers: {
-      accept: 'application/json',
-      'content-type': 'application/json',
-      Authorization: token
-    },
-    body: JSON.stringify({
-      surveyID: surveyID,
-      resposneID: responseID
-    })
-  };
-
-  var statusCode;
-  return fetch(`${serverHost}/api/response`, options)
-  .then(response => {
-    if (!response.ok) {
-      throw new Error(response.statusText)
-    }
-    statusCode = response.status;
-    return response.json()
-  })
-  .then((data) => {
-    data.statusCode = statusCode;
-    console.log(data);
-    return data;
-  });
-}
+// TODO: DELETE /api/response 
 
 // INCENTIVE FUNCTIONS
 
+// POST /api/hash
+export function addHash(surveyID, hash) {
+  
+}
+
 // POST /api/incentive
-export async function completeIncentive(surveyID) {
-  const token = "JWT " + getCookie("token");
-
-  const options = {
-    method: 'POST',
-    headers: {
-      accept: 'application/json',
-      'content-type': 'application/json',
-      Authorization: token
-    },
-    body: JSON.stringify({
-      surveyID: surveyID
-    })
-  };
-
-  var statusCode;
-  return fetch(`${serverHost}/api/incentive`, options)
-  .then(response => {
-    if (!response.ok) {
-      throw new Error(response.statusText)
-    }
-    statusCode = response.status;
-    return response.json()
-  })
-  .then((data) => {
-    data.statusCode = statusCode;
-    console.log(data);
-    return data;
-  });
+export function completeIncentive(surveyID, hash) {
+  
 }
 
 // GET /api/incentive
-export async function loadIncentiveInfo(surveyID) {
-  const token = "JWT " + getCookie("token");
-
-  const options = {
-    method: 'GET',
-    headers: {
-      accept: 'application/json',
-      'content-type': 'application/json',
-      Authorization: token
-    }
-  };
-
-  var statusCode;
-  return fetch(`${serverHost}/api/survey/${surveyID}/incentive`, options)
-  .then(response => {
-    if (!response.ok) {
-      throw new Error(response.statusText)
-    }
-    statusCode = response.status;
-    return response.json()
-  })
-  .then((data) => {
-    data.statusCode = statusCode;
-    console.log(data);
-    return data;
-  });
+export function loadIncentiveInfo(surveyID, hash) {
+  
 }
 
 // PUT /api/incentive
 export async function updateIncentiveInfo(surveyID, hash, data) {
-  // TODO at server
+  
 }
 
 // OTHER FUNCTIONS
 
 // POST /api/alias
-export async function generateAlias(surveyID) {
-  const token = "JWT " + getCookie("token");
-
-  const options = {
-    method: 'POST',
-    headers: {
-      accept: 'application/json',
-      'content-type': 'application/json',
-      Authorization: token
-    }, 
-    body: JSON.stringify({
-      surveyID: surveyID
-    })
-  };
-
-  var statusCode;
-  return fetch(`${serverHost}/api/alias`, options)
-  .then(response => {
-    if (!response.ok) {
-      throw new Error(response.statusText)
-    }
-    statusCode = response.status;
-    return response.json()
-  })
-  .then((data) => {
-    data.statusCode = statusCode;
-    console.log(data);
-    return data;
-  });
+export function generateAlias(surveyID) {
+  
 }
 
 // PATCH /api/user-remove
-export async function removeSurveyFromUser(email, surveyID) {
-  const token = "JWT " + getCookie("token");
-
-  const options = {
-    method: 'PATCH',
-    headers: {
-      accept: 'application/json',
-      'content-type': 'application/json',
-      Authorization: token
-    }, 
-    body: JSON.stringify({
-      surveyID: surveyID,
-      email: email
-    })
-  };
-
-  var statusCode;
-  return fetch(`${serverHost}/api/user-remove`, options)
-  .then(response => {
-    if (!response.ok) {
-      throw new Error(response.statusText)
-    }
-    statusCode = response.status;
-    return response.json()
-  })
-  .then((data) => {
-    data.statusCode = statusCode;
-    console.log(data);
-    return data;
-  });
+export function removeSurveyFromUser(userId, surveyID) {
+  
 }
 
 // PATCH /spi/user-add
-export async function addSurveyToUser(email, surveyID) {
-  const token = "JWT " + getCookie("token");
-
-  const options = {
-    method: 'PATCH',
-    headers: {
-      accept: 'application/json',
-      'content-type': 'application/json',
-      Authorization: token
-    }, 
-    body: JSON.stringify({
-      surveyID: surveyID,
-      email: email
-    })
-  };
-
-  var statusCode;
-  return fetch(`${serverHost}/api/user-add`, options)
-  .then(response => {
-    if (!response.ok) {
-      throw new Error(response.statusText)
-    }
-    statusCode = response.status;
-    return response.json()
-  })
-  .then((data) => {
-    data.statusCode = statusCode;
-    console.log(data);
-    return data;
-  });
-}
-
-// POST /api/hash
-export async function addHash(surveyID, hash) {
+export function addSurveyToUser(userID, surveyID) {
   
 }
