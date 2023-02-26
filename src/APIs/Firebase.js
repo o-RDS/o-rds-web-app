@@ -29,7 +29,7 @@ export function retrieveSurveyConfig(id) {
   return fetch(`${serverHost}/api/survey/${id}`, options)
     .then(response => {
       if (!response.ok) {
-        throw new Error(response.statusText)
+        console.error(new Error(response.statusText));
       }
       statusCode = response.status;
       return response.json()
@@ -58,7 +58,7 @@ export function loadAdminSurveys(index, count) {
   return fetch(`${serverHost}/api/surveys?` + new URLSearchParams({ index: index, count: count }), options)
     .then(response => {
       if (!response.ok) {
-        throw new Error(response.statusText)
+        console.error(new Error(response.statusText));
       }
       statusCode = response.status;
       return response.json()
@@ -90,7 +90,7 @@ export function saveSurveyConfig(surveyID, surveyData) {
   return fetch(`${serverHost}/api/survey/${surveyID}`, options)
     .then(response => {
       if (!response.ok) {
-        throw new Error(response.statusText)
+        console.error(new Error(response.statusText));
       }
       statusCode = response.status;
       return response.json()
@@ -119,7 +119,7 @@ export function deleteSurveyConfig(surveyID) {
   return fetch(`${serverHost}/api/survey/${surveyID}`, options)
     .then(response => {
       if (!response.ok) {
-        throw new Error(response.statusText)
+        console.error(new Error(response.statusText));
       }
       statusCode = response.status;
       return response.json()
@@ -150,7 +150,7 @@ export function loadResponse(surveyID, alias) {
   return fetch(`${serverHost}/api/survey/${surveyID}/response/${alias}`, options)
     .then(response => {
       if (!response.ok) {
-        throw new Error(response.statusText)
+        console.error(new Error(response.statusText));
       }
       statusCode = response.status;
       return response.json()
@@ -179,7 +179,7 @@ export function loadAllResponses(surveyID) {
   return fetch(`${serverHost}/api/survey/${surveyID}/responses`, options)
     .then(response => {
       if (!response.ok) {
-        throw new Error(response.statusText)
+        console.error(new Error(response.statusText));
       }
       statusCode = response.status;
       return response.json()
@@ -213,7 +213,7 @@ export async function writeSurveyResponse(surveyID, alias, response) {
   return fetch(`${serverHost}/api/response`, options)
     .then(response => {
       if (!response.ok) {
-        throw new Error(response.statusText)
+        console.error(new Error(response.statusText));
       }
       statusCode = response.status;
       return response.json()
@@ -249,7 +249,7 @@ export function addHash(surveyID) {
   return fetch(`${serverHost}/api/incentive`, options)
     .then(response => {
       if (!response.ok) {
-        throw new Error(response.statusText)
+        console.error(new Error(response.statusText));
       }
       statusCode = response.status;
       return response.json()
@@ -285,7 +285,7 @@ export function loadIncentiveInfo(surveyID) {
   return fetch(`${serverHost}/api/survey/${surveyID}/incentive`, options)
     .then(response => {
       if (!response.ok) {
-        throw new Error(response.statusText)
+        console.error(new Error(response.statusText));
       }
       statusCode = response.status;
       return response.json()
@@ -326,7 +326,7 @@ export function generateAlias(surveyID) {
   return fetch(`${serverHost}/api/alias`, options)
     .then(response => {
       if (!response.ok) {
-        throw new Error(response.statusText)
+        console.error(new Error(response.statusText));
       }
       statusCode = response.status;
       return response.json()
@@ -359,7 +359,7 @@ export function removeSurveyFromUser(userID, surveyID) {
   return fetch(`${serverHost}/api/user-remove`, options)
     .then(response => {
       if (!response.ok) {
-        throw new Error(response.statusText)
+        console.error(new Error(response.statusText));
       }
       statusCode = response.status;
       return response.json()
@@ -392,7 +392,7 @@ export function addSurveyToUser(userID, surveyID) {
   return fetch(`${serverHost}/api/user-add`, options)
     .then(response => {
       if (!response.ok) {
-        throw new Error(response.statusText)
+        console.error(new Error(response.statusText));
       }
       statusCode = response.status;
       return response.json()
