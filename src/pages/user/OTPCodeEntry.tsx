@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import SurveyTakerStandardPage from "../../components/SurveyTakerStandardPage";
 import { verificationCheck } from "../../APIs/Twilio";
 import {
@@ -22,7 +22,7 @@ export default function OTPCodeEntry() {
     ) {
       navigate("..");
     }
-  }, []);
+  }, [navigate, params.id]);
 
   function verifyOTPCode() {
     if (code.length !== 6) {

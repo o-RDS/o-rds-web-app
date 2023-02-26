@@ -1,9 +1,7 @@
-import { Link } from "react-router-dom";
 import SurveyTakerStandardPage from "../../components/SurveyTakerStandardPage";
 import { setPhone, setChainInfo } from "../../data/sessionManager";
 import { useState, useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import Sha256 from "../../data/Sha256";
 import { startVerification } from "../../APIs/Twilio";
 import { start } from "repl";
 
