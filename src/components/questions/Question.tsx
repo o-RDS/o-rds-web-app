@@ -8,7 +8,9 @@ export default function Question(props: any) {
   // this defines the properties that should be present on each question
   interface QuestionData {
     type: string;
+    require: boolean;
     page: number;
+    id: any;
     config?: Object;
   }
 
@@ -16,8 +18,10 @@ export default function Question(props: any) {
   function getConfig(configData: Object) {
     const data: QuestionData = {
       type: props.data.type,
+      require: props.data.require,
       page: props.data.page,
       config: configData,
+      id: props.data.id
     };
     // TODO call a function passed from SurveyBuilder to update the config
   }
@@ -41,6 +45,7 @@ export default function Question(props: any) {
             updateResponse={updateResponse}
             currentValue={props.currentAnswer}
             index={props.index}
+            require={data.require}
           />
         );
       case "FillInBlank":
@@ -50,6 +55,7 @@ export default function Question(props: any) {
             updateResponse={updateResponse}
             currentValue={props.currentAnswer}
             index={props.index}
+            require={data.require}
           />
         );
       case "ShortAnswer":
@@ -59,6 +65,7 @@ export default function Question(props: any) {
             updateResponse={updateResponse}
             currentValue={props.currentAnswer}
             index={props.index}
+            require={data.require}
           />
         );
       case "Checkbox":
@@ -68,6 +75,8 @@ export default function Question(props: any) {
             updateResponse={updateResponse}
             currentValue={props.currentAnswer}
             index={props.index}
+            require={data.require}
+            id={data.id}
           />
         );
       default:

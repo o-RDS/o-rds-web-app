@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
-import { saveSurveyConfig } from "../data/dataLayerManager";
+import { saveSurveyConfig } from "../APIs/Firebase";
 import {
   SurveyContext,
   SurveyDispatchContext,
@@ -35,7 +35,7 @@ export default function SurveyTopConfig(props: any) {
 
   function saveSurvey() {
     if (SurveyState['change']) {
-      saveSurveyConfig("test@siue.edu", SurveyState["survey"]["id"], SurveyState["survey"]);
+      saveSurveyConfig(SurveyState["survey"]["id"], SurveyState["survey"]);
     }
     dispatch({
       type: 'save-survey',

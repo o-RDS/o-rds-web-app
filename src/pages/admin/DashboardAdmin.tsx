@@ -3,25 +3,24 @@ import StandardPage from "../../components/StandardPage";
 import {
   deleteSurveyConfig,
   loadAdminSurveys,
-} from "../../data/dataLayerManager";
+} from "../../APIs/Firebase";
 import { useState, useEffect } from "react";
 import Loading from "../../components/Loading";
 
 export default function Dashboard() {
-  const user = "test@siue.edu";
   const [surveys, setSurveys] = useState<any>([]);
   const [page, setPage] = useState(0);
   const [displayNumber, setDisplayNumber] = useState(5);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    setSurveys([]);
     setLoading(true);
+    setSurveys([]);
     loadAdminSurveys(
-      user,
       page * displayNumber,
-      (page + 1) * displayNumber
+      displayNumber
     ).then((surveys) => {
+      console.log(surveys)
       setSurveys(surveys);
       setLoading(false);
     });
@@ -54,9 +53,8 @@ export default function Dashboard() {
     setLoading(true);
     console.log(await deleteSurveyConfig(id));
     loadAdminSurveys(
-      user,
       page * displayNumber,
-      (page + 1) * displayNumber
+      displayNumber
     ).then((surveys) => {
       setSurveys(surveys);
       setLoading(false);
@@ -112,7 +110,7 @@ export default function Dashboard() {
           <div className="flex flex-row flex-wrap gap-10">
             {surveys.length > 0 && renderSurveyButtons()}
             {loading && <Loading />}
-            {surveys.length === 0 && !loading && page > 0 && setPage(page - 1)}
+            {(surveys.length === 0 && !loading && page > 0) && setPage(page - 1)}
           </div>
         </div>
       </div>

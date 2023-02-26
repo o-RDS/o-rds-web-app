@@ -1,9 +1,7 @@
-import { Link } from "react-router-dom";
 import SurveyTakerStandardPage from "../../components/SurveyTakerStandardPage";
 import { setPhone, setChainInfo } from "../../data/sessionManager";
 import { useState, useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import Sha256 from "../../data/Sha256";
 import { startVerification } from "../../APIs/Twilio";
 import { start } from "repl";
 
@@ -42,22 +40,29 @@ export default function PhoneEntry() {
   }, [searchParams, navigate]);
 
   function submitNum() {
-    let num = phoneNum.replace(/\W/g, "");
+    const cleanNum = phoneNum.replace(/\W/g, "");
 
-    if (num.length !== 10) {
+    if (cleanNum.length !== 10) {
       setError("Invalid Phone Number");
       return;
     }
 
-    console.log(`Sending verification: ${phoneNum}`);
-    startVerification(phoneNum).then((data) => {
+    console.log(`Sending verification: ${cleanNum}`);
+    startVerification(cleanNum).then((data) => {
       console.log(data);
+      setPhone(cleanNum);
+      console.log(cleanNum);
+      if (data.statusCode === 200) {
+        setError("");
+        navigate("verify");
+      } else if (data.statusCode === 500) {
+        setError("Server Error, Try Again Later");
+      }
     });
 
-    setPhone(num);
-    console.log(num);
+    
     // TODO Send code to phone number, pass code to OTPCodeEntry.tsx
-    navigate("verify");
+    
   }
 
   return (

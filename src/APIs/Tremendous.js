@@ -1,12 +1,12 @@
 import { order } from './interfaces';
-import { proxyAddress } from './config';
+import { proxyAddress, devAddress } from './config';
 
 let serverHost = "";
 
-if (process.env.NODE_ENV == "development") {
-  serverHost = 'http://localhost:8080';
+if (process.env.NODE_ENV === "development") {
+  serverHost = devAddress;
 }
-else if (process.env.NODE_ENV == "production") {
+else if (process.env.NODE_ENV === "production") {
   serverHost = proxyAddress; // URL of deployed server
 }
 
@@ -32,7 +32,7 @@ export async function listCampaigns()   {
   return fetch(`${serverHost}/api/tremendous/listCampaigns`, options)
     .then(response => {
       if (!response.ok) {
-        throw new Error(response.statusText)
+        console.error(new Error(response.statusText));
       }
       statusCode = response.status;
       return response.json()
@@ -59,7 +59,7 @@ export async function listFundingSources()   {
   return fetch(`${serverHost}/api/tremendous/listFundingSources`, options)
     .then(response => { 
       if (!response.ok) {
-        throw new Error(response.statusText)
+        console.error(new Error(response.statusText));
       }
       statusCode = response.status;
       return response.json();
@@ -93,8 +93,7 @@ export async function sendPayment(order) {
         email: order.recipient_email,
         phone: order.recipient_phone
       },
-      method: order.delivery_method,
-      to: order.recipient_phone
+      method: order.delivery_method
     })
   };
 
@@ -102,7 +101,7 @@ export async function sendPayment(order) {
   return fetch(`${serverHost}/api/tremendous/sendPayment`, options)
     .then(response => {
       if (!response.ok) {
-        throw new Error(response.statusText)
+        console.error(new Error(response.statusText));
       }
       statusCode = response.status;
       return response.json()

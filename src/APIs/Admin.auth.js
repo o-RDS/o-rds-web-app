@@ -1,10 +1,10 @@
-import { proxyAddress } from './config';
+import { proxyAddress, devAddress } from './config';
 let serverHost = "";
 
-if (process.env.NODE_ENV == "development") {
-  serverHost = 'http://localhost:8080';
+if (process.env.NODE_ENV === "development") {
+  serverHost = devAddress;
 }
-else if (process.env.NODE_ENV == 'production') {
+else if (process.env.NODE_ENV === 'production') {
   serverHost = proxyAddress; // URL of deployed server
 }
 
@@ -24,10 +24,10 @@ export function register(admin) {
       })
     }
 
-    return fetch(`${serverHost}/register`, options)
+    return fetch(`${serverHost}/api/register`, options)
     .then(response => {
       if (!response.ok) {
-        throw new Error(response.statusText)
+        console.error(new Error(response.statusText));
       }
       return response.json()
     })
@@ -51,15 +51,17 @@ export function login(admin) {
           password: admin.password
       })
     }
-
-    return fetch(`${serverHost}/login`, options)
+    var statusCode;
+    return fetch(`${serverHost}/api/login`, options)
     .then(response => {
       if (!response.ok) {
-        throw new Error(response.statusText)
+        console.error(new Error(response.statusText));
       }
+      statusCode = response.status;
       return response.json()
     })
     .then((data) => {
+      data.statusCode = statusCode;
       return data;
     });
 }

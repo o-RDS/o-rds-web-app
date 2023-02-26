@@ -1,10 +1,10 @@
-import { proxyAddress } from './config';
+import { proxyAddress, devAddress } from './config';
 let serverHost = "";
 
-if (process.env.NODE_ENV == "development") {
-  serverHost = 'http://localhost:8080';
+if (process.env.NODE_ENV === "development") {
+  serverHost = devAddress;
 }
-else if (process.env.NODE_ENV == 'production') {
+else if (process.env.NODE_ENV === 'production') {
   serverHost = proxyAddress; // URL of deployed server
 }
 
@@ -30,7 +30,7 @@ export function startVerification(phone) {
   return fetch(`${serverHost}/api/twilio/verification`, options)
     .then(response => {
       if (!response.ok) {
-        throw new Error(response.statusText)
+        console.error(new Error(response.statusText));
       }
       statusCode = response.status;
       return response.json()
@@ -64,7 +64,7 @@ export function verificationCheck(phone, code) {
   return fetch(`${serverHost}/api/twilio/verificationCheck`, options)
     .then(response => {
       if (!response.ok) {
-        throw new Error(response.statusText)
+        console.error(new Error(response.statusText));
       }
       statusCode = response.status;
       return response.json()
