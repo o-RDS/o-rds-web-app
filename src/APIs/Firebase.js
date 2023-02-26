@@ -1,10 +1,10 @@
-import { proxyAddress } from './config';
+import { proxyAddress, devAddress } from './config';
 import { getCookie } from '../data/cookieFunctions';
 
 let serverHost = "";
 
 if (process.env.NODE_ENV === "development") {
-  serverHost = 'http://localhost:8080';
+  serverHost = devAddress;
 }
 else if (process.env.NODE_ENV === "production") {
   serverHost = proxyAddress; // URL of deployed server
