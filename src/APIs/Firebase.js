@@ -22,10 +22,7 @@ export function retrieveSurveyConfig(id) {
       accept: 'application/json',
       'content-type': 'application/json',
       Authorization: token
-    },
-    body: JSON.stringify({
-      surveyID: id
-    })
+    }
   };
 
   var statusCode;
@@ -54,11 +51,7 @@ export function loadAdminSurveys(index, count) {
       accept: 'application/json',
       'content-type': 'application/json',
       Authorization: token
-    },
-    body: JSON.stringify({
-      index: index,
-      limit: limit
-    })
+    }
   };
 
   var statusCode;
@@ -89,7 +82,6 @@ export function saveSurveyConfig(surveyID, surveyData) {
       Authorization: token
     },
     body: JSON.stringify({
-      surveyID: surveyID,
       surveyData: surveyData
     })
   };
@@ -120,10 +112,7 @@ export function deleteSurveyConfig(surveyID) {
       accept: 'application/json',
       'content-type': 'application/json',
       Authorization: token
-    },
-    body: JSON.stringify({
-      surveyID: surveyID
-    })
+    }
   };
 
   var statusCode;
@@ -154,11 +143,7 @@ export function loadResponse(surveyID, alias) {
       accept: 'application/json',
       'content-type': 'application/json',
       Authorization: token
-    },
-    body: JSON.stringify({
-      surveyID: surveyID,
-      alias: alias
-    })
+    }
   };
 
   var statusCode;
@@ -187,10 +172,7 @@ export function loadAllResponses(surveyID) {
       accept: 'application/json',
       'content-type': 'application/json',
       Authorization: token
-    },
-    body: JSON.stringify({
-      surveyID: surveyID
-    })
+    }
   };
 
   var statusCode;
@@ -246,11 +228,6 @@ export async function writeSurveyResponse(surveyID, alias, response) {
 // TODO: DELETE /api/response 
 
 // INCENTIVE FUNCTIONS
-
-// POST /api/hash
-export function addHash(surveyID, hash) {
-  
-}
 
 // POST /api/incentive
 export function addHash(surveyID) {
