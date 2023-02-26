@@ -1,13 +1,16 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import StandardPage from "../../components/StandardPage";
-import {login} from "../../APIs/Admin.auth.js";
-import {setCookie} from "../../data/cookieFunctions"
+import { login } from "../../APIs/Admin.auth.js";
+import { setCookie } from "../../data/cookieFunctions";
 
 export default function LoginAdmin() {
   const navigate = useNavigate();
-  const [errorMessage, setErrorMessage] = useState({error: false, message: ""});
-  
+  const [errorMessage, setErrorMessage] = useState({
+    error: false,
+    message: "",
+  });
+
   async function handleLogin(e: any) {
     e.preventDefault();
     let loginResponse: any = "";
@@ -16,34 +19,50 @@ export default function LoginAdmin() {
     var data: any = new FormData(e.target);
     let formObject = Object.fromEntries(data.entries());
     console.log(formObject);
-    
-    try{
+
+    try {
       //Verify that all fields have been filled
       Object.entries(formObject).forEach(([key, value]: Array<string>) => {
-        if(value === ""){
-            setErrorMessage({error: true, message: "All fields are required and must be filled out."});
-            throw "Missing fields";
+        if (value === "") {
+          setErrorMessage({
+            error: true,
+            message: "All fields are required and must be filled out.",
+          });
+          throw new Error("Missing fields");
         }
       });
-    }
-    catch(error){
+    } catch (error) {
       console.error(error);
-      return;     //Return to prevent erroneous data from being sent to server
+      return; //Return to prevent erroneous data from being sent to server
     }
 
     let loginInfo = {
       email: formObject.email,
-      password: formObject.password
-    }
+      password: formObject.password,
+    };
 
     try {
       loginResponse = await login(loginInfo);
+      if (loginResponse.statusCode === 404) {
+        setErrorMessage({
+          error: true,
+          message: "Username or password was incorrect",
+        });
+        throw new Error("Bad credentials");
+      }
+      else if (loginResponse.statusCode === 500) {
+        setErrorMessage({
+          error: true,
+          message: "Server error, please try again later",
+        });
+        throw new Error("Server error");
+      }
+
       setCookie("token", loginResponse.accessToken, 1);
       navigate("/admin/dashboard");
     } catch (error) {
-      setErrorMessage({error: true, message: "Username or password was incorrect"});
       console.log(error);
-    } 
+    }
   }
 
   return (
@@ -52,8 +71,8 @@ export default function LoginAdmin() {
         <h1 className="inline-block bg-gradient-to-br from-green-600 to-orange-600 bg-clip-text text-3xl text-transparent">
           Welcome to o-RDS
         </h1>
-        <form 
-          className="flex flex-col justify-center items-center w-1/6"
+        <form
+          className="flex w-1/6 flex-col items-center justify-center"
           onSubmit={(e) => handleLogin(e)}
         >
           <div className="relative w-full">
@@ -62,7 +81,8 @@ export default function LoginAdmin() {
               id="email"
               name="email"
               className="peer block w-full appearance-none rounded-lg border border-black bg-transparent px-2.5 pb-2.5 pt-4 text-sm text-gray-900 focus:border-rdsBlue focus:outline-none focus:ring-0 dark:border-gray-600 dark:text-white dark:focus:border-rdsBlue"
-              placeholder=" "
+              placeholder=""
+              required
             />
             <label
               htmlFor="email"
@@ -78,7 +98,8 @@ export default function LoginAdmin() {
               id="password"
               name="password"
               className="peer block w-full appearance-none rounded-lg border border-black bg-transparent px-2.5 pb-2.5 pt-4 text-sm text-gray-900 focus:border-rdsBlue focus:outline-none focus:ring-0 dark:border-gray-600 dark:text-white dark:focus:border-rdsBlue"
-              placeholder=" "
+              placeholder=""
+              required
             />
             <label
               htmlFor="password"
@@ -92,7 +113,13 @@ export default function LoginAdmin() {
             Submit
           </button>
           <br></br>
-          {errorMessage.error && <div className="p-2 w-full bg-red-500 bg-opacity-20 rounded-md"><p className="text-red-500 text-center text-sm">{errorMessage.message}</p></div>}
+          {errorMessage.error && (
+            <div className="w-full rounded-md bg-red-500 bg-opacity-20 p-2">
+              <p className="text-center text-sm text-red-500">
+                {errorMessage.message}
+              </p>
+            </div>
+          )}
         </form>
         <button
           onClick={() => navigate("/admin/register")}

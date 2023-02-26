@@ -52,12 +52,19 @@ export default function PhoneEntry() {
     console.log(`Sending verification: ${cleanNum}`);
     startVerification(cleanNum).then((data) => {
       console.log(data);
+      setPhone(cleanNum);
+      console.log(cleanNum);
+      if (data.statusCode === 200) {
+        setError("");
+        navigate("verify");
+      } else if (data.statusCode === 500) {
+        setError("Server Error, Try Again Later");
+      }
     });
 
-    setPhone(cleanNum);
-    console.log(cleanNum);
+    
     // TODO Send code to phone number, pass code to OTPCodeEntry.tsx
-    navigate("verify");
+    
   }
 
   return (
