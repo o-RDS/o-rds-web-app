@@ -42,20 +42,20 @@ export default function PhoneEntry() {
   }, [searchParams, navigate]);
 
   function submitNum() {
-    let num = phoneNum.replace(/\W/g, "");
+    const cleanNum = phoneNum.replace(/\W/g, "");
 
-    if (num.length !== 10) {
+    if (cleanNum.length !== 10) {
       setError("Invalid Phone Number");
       return;
     }
 
-    console.log(`Sending verification: ${phoneNum}`);
-    startVerification(phoneNum).then((data) => {
+    console.log(`Sending verification: ${cleanNum}`);
+    startVerification(cleanNum).then((data) => {
       console.log(data);
     });
 
-    setPhone(num);
-    console.log(num);
+    setPhone(cleanNum);
+    console.log(cleanNum);
     // TODO Send code to phone number, pass code to OTPCodeEntry.tsx
     navigate("verify");
   }
