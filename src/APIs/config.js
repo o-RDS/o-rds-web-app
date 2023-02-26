@@ -1,1 +1,1 @@
-export const proxyAddress = 'https://localhost:8080';
+export const proxyAddress = 'o-rds-server-production.up.railway.app';
