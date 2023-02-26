@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import StandardPage from "../../components/StandardPage";
 import { login } from "../../APIs/Admin.auth.js";
 import { setCookie } from "../../data/cookieFunctions";
