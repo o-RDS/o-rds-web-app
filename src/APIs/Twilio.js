@@ -64,7 +64,7 @@ export function verificationCheck(phone, code) {
   return fetch(`${serverHost}/api/twilio/verificationCheck`, options)
     .then(response => {
       if (!response.ok) {
-        throw new Error(response.statusText)
+        console.error(new Error(response.statusText));
       }
       statusCode = response.status;
       return response.json()
