@@ -33,6 +33,9 @@ export default function MCConfig(props: any) {
   function handleQuestionUp() {
     console.log(SurveyState['survey']['questionOrder']);
     let test: any = SurveyState;
+    if (props.otherIndex - 1 < 0) {
+      return
+    }
     let temp = test['survey']['questionOrder'][props.otherIndex - 1];
     test['survey']['questionOrder'][props.otherIndex - 1] = test['survey']['questionOrder'][props.otherIndex];
     test['survey']['questionOrder'][props.otherIndex] = temp;
@@ -48,6 +51,9 @@ export default function MCConfig(props: any) {
     console.log(SurveyState['survey']['questionOrder']);
     let test: any = SurveyState;
     console.log(test['survey']['questionOrder']);
+    if (props.otherIndex + 1 > test['survey']['questionOrder'].length()) {
+      return
+    }
     let temp = test['survey']['questionOrder'][props.otherIndex + 1];
     test['survey']['questionOrder'][props.otherIndex + 1] = test['survey']['questionOrder'][props.otherIndex];
     test['survey']['questionOrder'][props.otherIndex] = temp;

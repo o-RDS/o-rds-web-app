@@ -141,7 +141,7 @@ export default function SurveyBuilder() {
           <Loading />
         </div>
       ) : ( */}
-        <div className="flex h-full flex-row gap-20 dark:bg-rdsDark2">
+        <div className="flex h-full flex-row gap-20 dark:bg-rdsDark2 relative">
           <SurveyLinkModal
             showModal={setShowModal}
             display={showModal}
