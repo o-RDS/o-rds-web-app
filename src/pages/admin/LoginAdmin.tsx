@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import { Link, useNavigate } from "react-router-dom";
 import StandardPage from "../../components/StandardPage";
 import {login} from "../../APIs/Admin.auth.js";
-import {deleteCookie} from "../../data/cookieFunctions"
+import {setCookie} from "../../data/cookieFunctions"
 
 export default function LoginAdmin() {
   const navigate = useNavigate();
@@ -38,10 +38,7 @@ export default function LoginAdmin() {
 
     try {
       loginResponse = await login(loginInfo);
-      let date = new Date();
-      date.setTime(date.getTime()+(24*60*60*1000));
-      let expires = "; expires="+date.toUTCString();
-      document.cookie = `token=${loginResponse.accessToken}${expires}; path=/"`
+      setCookie("token", loginResponse.accessToken, 1);
       navigate("/admin/dashboard");
     } catch (error) {
       setErrorMessage({error: true, message: "Username or password was incorrect"});

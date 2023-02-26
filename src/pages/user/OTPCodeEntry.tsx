@@ -7,6 +7,7 @@ import {
   generateAlias,
   writeSurveyResponse,
 } from "../../APIs/Firebase";
+import { setCookie } from "../../data/cookieFunctions";
 
 export default function OTPCodeEntry() {
   const navigate = useNavigate();
@@ -33,7 +34,9 @@ export default function OTPCodeEntry() {
         console.log(`Running verification check: ${phone}, ${code}`);
         verificationCheck(phone, code).then((data) => {
           console.log(data);
+          setCookie("token", data.accessToken, 1)
           if (data.statusCode === 200) {
+            setError("");
             processHash();
           } 
           else if (data.statusCode === 401) {
@@ -51,9 +54,8 @@ export default function OTPCodeEntry() {
     let hash = window.sessionStorage.getItem("hash");
     if (hash && params.id !== undefined) {
       let response = await addHash(params.id);
-      if (response) {
+      if (response.statusCode === 409) {
         //Existing Hash
-        console.log("Existing Hash");
         if (response.isComplete) {
           navigate("../share");
         } else {
@@ -111,10 +113,10 @@ export default function OTPCodeEntry() {
             <br />
           </label>
           <input
-            type="text"
+            type="number"
             id="OTPCode"
             name="OTPCode"
-            placeholder="*Code Format Here*"
+            placeholder="######"
             className="w-56 rounded bg-gray-200 p-1"
             value={code}
             onChange={(e) => setCode(e.target.value)}
