@@ -37,20 +37,13 @@ export default function Consent(){
                         I acknowledge that I have read the consent information listed above and give my consent to participate in this study.
                     </label>
                 </div>
-                { ackChecked ? 
-                    (
-                        <button 
-                            className="w-56 rounded bg-rdsOrange p-1 text-white"
-                            onClick={() => navigate("../questions")}
-                        >
-                            Accept
-                        </button>
-                    ):(
-                        <button disabled className="w-56 rounded bg-rdsOrange opacity-60 p-1 text-white">
-                            Accept
-                        </button> 
-                    )
-                }
+                <button
+                    disabled={!ackChecked}
+                    className="w-56 rounded bg-rdsOrange p-1 text-white disabled:opacity-60"
+                    onClick={() => navigate("../questions")}
+                >
+                    Accept
+                </button>
             </div>
         </SurveyTakerStandardPage>
     );
