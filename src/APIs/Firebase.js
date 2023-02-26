@@ -1,4 +1,5 @@
 import { proxyAddress } from './config';
+import { getCookie } from '../data/cookieFunctions';
 
 let serverHost = "";
 
@@ -7,14 +8,6 @@ if (process.env.NODE_ENV === "development") {
 }
 else if (process.env.NODE_ENV === "production") {
   serverHost = proxyAddress; // URL of deployed server
-}
-
-function getCookie(name) {
-  const value = `; ${document.cookie}`;
-  console.log(value)
-  const parts = value.split(`; ${name}=`);
-  console.log(parts)
-  if (parts.length === 2) return parts.pop().split(';').shift();
 }
 
 // SURVEY FUNCTIONS
@@ -330,7 +323,7 @@ export function generateAlias(surveyID) {
   };
 
   var statusCode;
-  return fetch(`${serverHost}/api/response`, options)
+  return fetch(`${serverHost}/api/alias`, options)
     .then(response => {
       if (!response.ok) {
         throw new Error(response.statusText)
