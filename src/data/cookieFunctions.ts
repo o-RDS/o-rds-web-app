@@ -1,16 +1,24 @@
-export function deleteCookie(name: string){
-    document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 GMT;";
+export function deleteCookie(name: string) {
+  document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/";
 }
 
-export function getCookie(name: string): string {
-    let cookieArr: Array<string> = document.cookie.split(';');
+export function setCookie(name: string, value: string, days: number) {
+  let date: Date = new Date();
+  date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
+  let expires: string = "expires=" + date.toUTCString();
+  document.cookie = name + "=" + value + ";" + expires + ";path=/";
+}
 
-    for(let i = 0; i < cookieArr.length; i++){
-        let cookie: string = cookieArr[i];
-        cookie = cookie.trim();
-        if(cookie.startsWith(name + "=")){
-            return cookie.substring(name.length + 1);
-        }
+export function getCookie(name: string) {
+  let nameEQ: string = name + "=";
+  let ca: string[] = document.cookie.split(";");
+  for (let i: number = 0; i < ca.length; i++) {
+    let c: string = ca[i];
+    while (c.charAt(0) === " ") c = c.substring(1, c.length);
+    if (c.indexOf(nameEQ) === 0) {
+      console.log(c.substring(nameEQ.length, c.length));
+      return c.substring(nameEQ.length, c.length);
     }
-    return "Cookie doesn't exist";
+  }
+  return null;
 }
