@@ -40,9 +40,9 @@ export default function PhoneEntry() {
   }, [searchParams, navigate]);
 
   function submitNum() {
-    const cleanNum = phoneNum.replace(/\W/g, "");
+    const cleanNum = "+1" + phoneNum.replace(/\W/g, "");
 
-    if (cleanNum.length !== 10) {
+    if (cleanNum.length !== 12) {
       setError("Invalid Phone Number");
       return;
     }
