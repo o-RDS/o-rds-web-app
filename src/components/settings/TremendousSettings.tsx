@@ -3,12 +3,11 @@ import { listCampaigns, listFundingSources } from "../../APIs/Tremendous"
 
 /* DEV NOTES
 *
-* There are three things that need to be selected: 
+* There are two things that need to be selected: 
 * 1: The funding source (funding_source_id: string)
 * 2: The campaign (campaign_id: string)
-* 3: Which products they would like to use (products: string[])
 * 
-* Their decision probably needs to be stored in the survey config, then used when a payment is made in ReceivePayment.tsx
+* Their decision will be saved in the survey config, along with the list of products associated with whichever campaign they chose. 
 */
 
 interface campaign {
