@@ -1,20 +1,69 @@
 import React from "react";
+import { listCampaigns, listFundingSources } from "../../APIs/Tremendous"
 
 /* DEV NOTES
 *
 * There are three things that need to be selected: 
-* 1: The funding source (funding_source_id)
-* 2: The campaign (campaign_id)
-* 3: Which products they would like to use (products[])
+* 1: The funding source (funding_source_id: string)
+* 2: The campaign (campaign_id: string)
+* 3: Which products they would like to use (products: string[])
 * 
-* Tremendous.js has functions to list each one of these.
 * Their decision probably needs to be stored in the survey config, then used when a payment is made in ReceivePayment.tsx
 */
 
+interface campaign {
+    name: string;
+    id: string;
+    products: string[];
+}
+
+interface fundingSource {
+    method: string;
+    id: string;
+    availableCents: number;
+}
+
+function loadCampaignData() {
+    let campaigns: campaign[] = [];
+
+    listCampaigns().then((data) => {
+        data.campaigns.forEach((obj: any) => {
+            var tempCampaign: campaign = {
+                name: obj.name,
+                id: obj.id,
+                products: obj.products
+            }
+            campaigns.push(tempCampaign);
+        })
+    });  
+
+    return campaigns;
+}
+
+function loadFundingData() {
+    let fundingSources: fundingSource[] = [];
+
+    listFundingSources().then((data) => {
+        data.funding_sources.forEach((obj: any) => {
+            var tempFundingSource: fundingSource = {
+                method: obj.method,
+                id: obj.id,
+                availableCents: obj.meta.available_cents
+            }
+            fundingSources.push(tempFundingSource);
+        })
+    }); 
+
+    return fundingSources;
+}
 
 export function TremendousSettings() {
 
-    
+    let campaigns: campaign[] = loadCampaignData();
+    console.log(campaigns);
+
+    let fundingSources: fundingSource[] = loadFundingData();
+    console.log(fundingSources);
 
     return (
         <div className="flex flex-col gap-10 w-full pl-2 pr-2">
