@@ -26,8 +26,6 @@ export default function ReceivePayment() {
       recipient_name: "Survey Taker", // To keep anonymous
       recipient_email: email,
       recipient_phone: phoneNum,
-      reward_id: "123456",
-      reward_value: "Survey Reward",
       delivery_method: "EMAIL",
     };
 
