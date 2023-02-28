@@ -69,7 +69,7 @@ export default function OTPCodeEntry() {
             console.log(response);
             let alias = result.alias;
             let responseID = result.responseID;
-            writeSurveyResponse(params.id, alias, {
+            await writeSurveyResponse(params.id, alias, {
               answers: {},
               completed: false,
               alias: alias,
@@ -89,7 +89,7 @@ export default function OTPCodeEntry() {
     let num = window.sessionStorage.getItem("phone");
     if (num != null) {
       return (
-        "(" + num.slice(0, 3) + ") " + num.slice(3, 6) + "-" + num.slice(6, 10)
+        num.slice(0, 2) + "(" + num.slice(2, 5) + ") " + num.slice(5, 8) + "-" + num.slice(8, 12)
       );
     } else {
       console.log("You shouldn't be here! (No Phone Number Found)");

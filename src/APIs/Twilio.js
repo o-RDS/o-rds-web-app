@@ -1,39 +1,33 @@
-import { proxyAddress, devAddress } from './config';
+import { proxyAddress, devAddress } from "./config";
 let serverHost = "";
 
 if (process.env.NODE_ENV === "development") {
   serverHost = devAddress;
-}
-else if (process.env.NODE_ENV === 'production') {
+} else if (process.env.NODE_ENV === "production") {
   serverHost = proxyAddress; // URL of deployed server
 }
 
 export function startVerification(phone) {
-
-  phone = phone.toString();
-  phone = "+1" + phone; 
-
-  
   const options = {
-    method: 'POST',
+    method: "POST",
     headers: {
-      accept: 'application/json',
-      'content-type': 'application/json',
+      accept: "application/json",
+      "content-type": "application/json",
     },
     body: JSON.stringify({
-      to: phone
+      to: phone,
     }),
-    redirect: 'follow'
+    redirect: "follow",
   };
-  
+
   var statusCode;
   return fetch(`${serverHost}/api/twilio/verification`, options)
-    .then(response => {
+    .then((response) => {
       if (!response.ok) {
         console.error(new Error(response.statusText));
       }
       statusCode = response.status;
-      return response.json()
+      return response.json();
     })
     .then((data) => {
       data.statusCode = statusCode;
@@ -42,32 +36,27 @@ export function startVerification(phone) {
 }
 
 export function verificationCheck(phone, code) {
-
-  phone = phone.toString();
-  phone = "+1" + phone; // currently default to USA
-
-
   const options = {
-    method: 'POST',
+    method: "POST",
     headers: {
-      accept: 'application/json',
-      'content-type': 'application/json',
+      accept: "application/json",
+      "content-type": "application/json",
     },
     body: JSON.stringify({
       to: phone,
-      code: code
+      code: code,
     }),
-    redirect: 'follow'
+    redirect: "follow",
   };
 
   var statusCode;
   return fetch(`${serverHost}/api/twilio/verificationCheck`, options)
-    .then(response => {
+    .then((response) => {
       if (!response.ok) {
         console.error(new Error(response.statusText));
       }
       statusCode = response.status;
-      return response.json()
+      return response.json();
     })
     .then((data) => {
       data.statusCode = statusCode;

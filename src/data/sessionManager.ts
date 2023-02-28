@@ -1,10 +1,11 @@
-import Sha256 from "./Sha256";
+import sha256 from 'crypto-js/sha256';
+import Base64 from 'crypto-js/enc-base64';
 
 export function setPhone(phoneNumber: string) {
   window.sessionStorage.setItem('phone', phoneNumber);
-  window.sessionStorage.setItem('hash', Sha256.hash(phoneNumber));
+  window.sessionStorage.setItem('hash', Base64.stringify(sha256(phoneNumber)).replaceAll('\\', 'x').replaceAll('/', 'y'));
   console.log('Phone number set to: ' + phoneNumber);
-  console.log('Hash set to: ' + Sha256.hash(phoneNumber));
+  console.log('Hash set to: ' + Base64.stringify(sha256(phoneNumber)).replaceAll('\\', 'x').replaceAll('/', 'y'));
 };
 
 export function setChainInfo(parent: string, referer: string, depth: number) {

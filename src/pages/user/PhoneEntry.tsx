@@ -40,9 +40,9 @@ export default function PhoneEntry() {
   }, [searchParams, navigate]);
 
   function submitNum() {
-    const cleanNum = phoneNum.replace(/\W/g, "");
+    const cleanNum = "+1" + phoneNum.replace(/\W/g, "");
 
-    if (cleanNum.length !== 10) {
+    if (cleanNum.length !== 12) {
       setError("Invalid Phone Number");
       return;
     }
@@ -54,15 +54,17 @@ export default function PhoneEntry() {
       console.log(cleanNum);
       if (data.statusCode === 200) {
         setError("");
+        // will print code to console if server is running in testing mode
+        if (data.code !== undefined) {
+          console.log(`Verification Code: ${data.code}`);
+        }
         navigate("verify");
       } else if (data.statusCode === 500) {
         setError("Server Error, Try Again Later");
       }
     });
 
-    
     // TODO Send code to phone number, pass code to OTPCodeEntry.tsx
-    
   }
 
   return (
