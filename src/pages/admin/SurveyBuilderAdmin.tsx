@@ -13,7 +13,7 @@ import {
 import {
   saveSurveyConfig,
   retrieveSurveyConfig,
-} from "../../data/dataLayerManager";
+} from "../../APIs/Firebase";
 import { v4 as uuidv4 } from "uuid";
 import { useNavigate, useParams } from "react-router";
 import StandardPage from "../../components/StandardPage";
@@ -88,7 +88,6 @@ export default function SurveyBuilder() {
     active: false,
     whichSettings: "General",
   });
-  const userID = "test@siue.edu";
 
   useEffect(() => {
     if (params.surveyID !== "new" && params.surveyID !== undefined) {
@@ -115,7 +114,7 @@ export default function SurveyBuilder() {
         question: config['questions'][config['questionOrder'][0]],
         change: false,
       });
-      saveSurveyConfig(userID, config.id, config);
+      saveSurveyConfig(config.id, config);
       navigate(`../${config.id}`);
     } else {
       navigate(`/admin/dashboard`);

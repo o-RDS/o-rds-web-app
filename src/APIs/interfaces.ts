@@ -7,8 +7,6 @@ export interface order {
     recipient_name: string; // 'John Doe Jr.'
     recipient_email: string; // 'john.doe@example.com'
     recipient_phone: string; // '123-456-7890'
-    reward_id: string; // '123456'
-    reward_value: string; // 'Huffelpuff'
     delivery_method: string; // 'EMAIL'
 }
 

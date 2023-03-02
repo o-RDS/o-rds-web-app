@@ -1,6 +1,6 @@
 import react, { useEffect, useRef } from "react";
 import { useParams, useNavigate, Outlet } from "react-router";
-import { retrieveSurveyConfig, signIn } from "../data/dataLayerManager";
+import { retrieveSurveyConfig } from "../APIs/Firebase";
 
 export default function ConfigContext(props: any) {
   //const SurveyConfigContext = react.createContext({});
@@ -19,7 +19,6 @@ export default function ConfigContext(props: any) {
   );
 
   useEffect(() => {
-    signIn();
     if (params.id && typeof params.id === "string") {
       console.log(params.id);
       retrieveSurveyConfig(params.id).then((data) => {
