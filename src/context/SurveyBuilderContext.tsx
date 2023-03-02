@@ -308,7 +308,7 @@ export default function SurveyBuilderContext(props: any) {
           let test: any = tasks;
           test['survey']['admins'].push(action.admin);
           console.log(test['survey']['admins']);
-          saveSurveyConfig("test@siue.edu", tasks["survey"]["id"], tasks["survey"])
+          saveSurveyConfig(tasks["survey"]["id"], tasks["survey"])
           addSurveyToUser(action.admin, test['survey']['id']);
           return {
             survey: test['survey'],
