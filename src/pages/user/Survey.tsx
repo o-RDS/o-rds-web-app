@@ -11,6 +11,7 @@ import Loading from "../../components/Loading";
 export default function Survey() {
   const [page, setPage] = useState<number>(0);
   const [design, setDesign] = useState<any>(null);
+  const [loading, setLoading] = useState<boolean>(true);
   const params = useParams();
   const navigate = useNavigate();
   const config: any = useOutletContext();
@@ -21,35 +22,38 @@ export default function Survey() {
   useEffect(() => {
     if (config !== null && config !== undefined) {
       setDesign(config.questionOrder);
-    }
-    let tempHash = window.sessionStorage.getItem("hash");
-    if (tempHash) {
-      hash.current = tempHash;
-    } else {
-      navigate("../");
-    }
-    if (params.id !== undefined) {
-      if (window.localStorage.getItem(params.id + hash.current)) {
-        let tempAlias = window.localStorage.getItem(params.id + hash.current);
-        if (tempAlias) {
-          alias.current = tempAlias;
-          loadResponse(params.id, tempAlias).then((data) => {
-            if (data) {
-              let tempResponse:any = response;
-              tempResponse = data;
-              tempResponse.parentID =
-                window.sessionStorage.getItem("parent");
-              tempResponse.depth = window.sessionStorage.getItem("depth");
-              window.sessionStorage.setItem("responseID", data.responseID);
-              setResponse(tempResponse);
-            }
-          });
-        }
+      let tempHash = window.sessionStorage.getItem("hash");
+      if (tempHash) {
+        hash.current = tempHash;
       } else {
-        navigate("../resume");
+        navigate("../");
       }
+      if (params.id !== undefined) {
+        if (window.localStorage.getItem(params.id + hash.current)) {
+          let tempAlias = window.localStorage.getItem(params.id + hash.current);
+          if (tempAlias) {
+            alias.current = tempAlias;
+            loadResponse(params.id, tempAlias).then((data) => {
+              if (data.statusCode === 200) {
+                let tempResponse:any = response;
+                tempResponse = data;
+                tempResponse.parentID =
+                  window.sessionStorage.getItem("parent");
+                tempResponse.depth = window.sessionStorage.getItem("depth");
+                window.sessionStorage.setItem("responseID", data.responseID);
+                setResponse(tempResponse);
+              }
+            });
+          }
+        } else {
+          navigate("../resume");
+        }
+      }
+      setLoading(false);
+    } else {
+      setLoading(true);
     }
-  }, []);
+  }, [config, navigate, params.id]);
 
   // this will be called by the question component whenever the question requests to update the response
   // goes through each column sent by the question and updates the response object
@@ -127,7 +131,7 @@ export default function Survey() {
 
   return (
     <SurveyTakerStandardPage>
-      {design !== null ? (
+      {!loading ? (
         <>
           <div className="flex flex-col gap-y-3">
             <p className="max-w-prose">

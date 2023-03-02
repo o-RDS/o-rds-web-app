@@ -3,7 +3,6 @@ import { setPhone, setChainInfo } from "../../data/sessionManager";
 import { useState, useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { startVerification } from "../../APIs/Twilio";
-import { start } from "repl";
 
 export default function PhoneEntry() {
   const [phoneNum, setPhoneNum] = useState("");
