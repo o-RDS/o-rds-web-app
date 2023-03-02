@@ -21,7 +21,7 @@ export default function Consent(){
                 <hr className="w-1/3 border-1 border-gray-800"/>
                 <div className="flex justify-center items-center md:w-1/2">
                     <p className="text-left whitespace-normal">
-                        {config.informedConsent}
+                        {config.informedConsent.consentRequirements}
                     </p>
                 </div>
                 <hr className="w-1/3 border-1 border-gray-800"/>
