@@ -30,14 +30,18 @@ export default function SurveyBuilder() {
       id: newID,
       title: "Untitled Survey",
       admins: [userID],
+      live: false,
       completionPayout: 0.0,
       refPayout: 0.0,
       maxRefs: 0,
       maxRefIncentives: 0,
-      lastUpdated: new Date().toLocaleString("en-US", { timeZone: "UTC" }),
+      lastUpdated: new Date().toLocaleString("en-US", { timeZone: "CST" }),
       researcherMessage: "",
       endSurveyMessage: "Thank you for taking our survey",
-      informedConsent: "You must consent to this survey",
+      informedConsent: {
+        message: "You must consent to this survey",
+        consentRequirements: "",
+      },
       contactInfo: {
         phone: "",
         email: "",
@@ -47,6 +51,7 @@ export default function SurveyBuilder() {
       questionOrder: [question1ID],
       questions: {
         [question1ID]: {
+          require: false,
           page: 0,
           type: "MultipleChoice",
           config: {
@@ -57,12 +62,13 @@ export default function SurveyBuilder() {
             },
             shuffle: {
               value: true,
-              configPrompt: "Shuffle choices?",
+              configPrompt: "Shuffle Choices",
               type: "bool",
             },
             choices: {
               value: ["A", "B", "C", "D", "E"],
-              configPrompt: "Enter choices:",
+              configPrompt: "Number of Choices",
+              editablePrompt: "Edit your choices",
               type: "stringArray",
             },
           },
@@ -77,12 +83,12 @@ export default function SurveyBuilder() {
   const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
   const [surveyName, setSurveyName] = useState("SurveyName");
-  const [config, setConfig] = useState<any>(getDefaultSurvey("test"));
+  const [config, setConfig] = useState<any>(getDefaultSurvey("test@siue.edu"));
   const [settings, setSettings] = useState({
     active: false,
     whichSettings: "General",
   });
-  const userID = "test";
+  const userID = "test@siue.edu";
 
   useEffect(() => {
     if (params.surveyID !== "new" && params.surveyID !== undefined) {
@@ -106,7 +112,7 @@ export default function SurveyBuilder() {
       dispatch({
         type: "initialize",
         questions: config,
-        question: 0,
+        question: config['questions'][config['questionOrder'][0]],
         change: false,
       });
       saveSurveyConfig(userID, config.id, config);
@@ -121,8 +127,7 @@ export default function SurveyBuilder() {
   // }, 50);
 
   return (
-    <>
-      <SurveyTopNav />
+    <StandardPage>
       <SurveyTopConfig
         name={SurveyState["survey"]["title"]}
         setSurveyName={setSurveyName}
@@ -136,7 +141,7 @@ export default function SurveyBuilder() {
           <Loading />
         </div>
       ) : ( */}
-        <div className="flex min-h-screen flex-row gap-20 dark:bg-rdsDark2">
+        <div className="flex h-full flex-row gap-20 dark:bg-rdsDark2 relative">
           <SurveyLinkModal
             showModal={setShowModal}
             display={showModal}
@@ -161,6 +166,6 @@ export default function SurveyBuilder() {
           )}
         </div>
       {/* )} */}
-    </>
+    </StandardPage>
   );
 }

@@ -7,7 +7,6 @@ import {
 
 export default function TypeConfig() {
   const SurveyState = useContext(SurveyContext);
-  const SurveyStateQuestions = SurveyState["survey"]["questions"][SurveyState["question"]];
   const dispatch = useContext(SurveyDispatchContext);
 
   function handleTypeChange(e: any) {
@@ -25,6 +24,7 @@ export default function TypeConfig() {
         className="rounded-md border border-rdsBlue p-2 dark:bg-inherit dark:text-white"
         onChange={(e) => handleTypeChange(e)}
       >
+        <option>Select An Option</option>
         <option>Multiple Choice</option>
         <option>FillInBlank</option>
         <option>Short Answer</option>

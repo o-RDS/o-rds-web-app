@@ -1,6 +1,6 @@
 import react, { useEffect, useReducer, useRef } from "react";
 import giveConfigs from "../data/QuestionSwitcher";
-import { saveSurveyConfig } from "../data/dataLayerManager";
+import { saveSurveyConfig, addSurveyToUser } from "../data/dataLayerManager";
 import { useParams, useNavigate, Outlet } from "react-router";
 import { retrieveSurveyConfig, signIn } from "../data/dataLayerManager";
 import { createContext } from "react";
@@ -34,6 +34,7 @@ export default function SurveyBuilderContext(props: any) {
           {
             page: 0,
             type: "MultipleChoice",
+            require: false,
             config: {
               prompt: {
                 value: "New Question",
@@ -163,12 +164,18 @@ export default function SurveyBuilderContext(props: any) {
             change: true,
           };
         }
+        case "delete-question2": {
+          return {
+            survey: action.questions,
+            question: action.question,
+            change: action.change
+          }
+        }
         case "choices-change": {
           let test: any = tasks;
           test["survey"]["questions"][test["question"]]["config"]["choices"][
             "value"
           ][action.choiceIndex] = action.newChoice;
-          console.log(test['survey']);
           return {
             survey: test["survey"],
             question: tasks["question"],
@@ -194,9 +201,7 @@ export default function SurveyBuilderContext(props: any) {
         }
         case "require": {
           let test: any = tasks;
-          test["survey"]["questions"][test["question"]]["config"]["shuffle"][
-            "value"
-          ] = action.isChecked;
+          test["survey"]['questions'][test['question']]['require'] = action.isChecked;
           return {
             survey: test["survey"],
             question: tasks["question"],
@@ -214,6 +219,7 @@ export default function SurveyBuilderContext(props: any) {
           };
         }
         case "update": {
+          console.log("Update");
           return {
             survey: action.questions,
             question: action.question,
@@ -223,6 +229,7 @@ export default function SurveyBuilderContext(props: any) {
         case "update-survey-status": {
           let test = tasks;
           test['survey']['live'] = action.status;
+          saveSurveyConfig("test@siue.edu", tasks['survey']['id'], test['survey']);
           return {
             survey: test['survey'],
             question: tasks['question'],
@@ -231,7 +238,7 @@ export default function SurveyBuilderContext(props: any) {
         }
         case "save-survey": {
           if (tasks['change']) {
-            saveSurveyConfig("test", tasks["survey"]["id"], tasks["survey"]);
+            saveSurveyConfig("test@siue.edu", tasks["survey"]["id"], tasks["survey"]);
           }
           return {
             survey: tasks['survey'],
@@ -265,6 +272,7 @@ export default function SurveyBuilderContext(props: any) {
           }
           console.log(test2["survey"]["questionOrder"]);
           console.log(test2);
+          console.log(test2["survey"]["questionOrder"][0]);
           delete test2["survey"]["questions"][action.questionToDelete];
           console.log(test2);
           return {
@@ -281,6 +289,32 @@ export default function SurveyBuilderContext(props: any) {
             question: tasks["question"],
             change: true,
           };
+        }
+        case "question-down": {
+          return {
+            survey: action.survey,
+            question: action.question,
+            change: action.change
+          }
+        }
+        case "question-up": {
+          return {
+            survey: action.survey,
+            question: action.question,
+            change: action.change
+          }
+        }
+        case "add-admin": {
+          let test: any = tasks;
+          test['survey']['admins'].push(action.admin);
+          console.log(test['survey']['admins']);
+          saveSurveyConfig("test@siue.edu", tasks["survey"]["id"], tasks["survey"])
+          addSurveyToUser(action.admin, test['survey']['id']);
+          return {
+            survey: test['survey'],
+            question: test['question'],
+            change: false
+          }
         }
         default: {
           return {

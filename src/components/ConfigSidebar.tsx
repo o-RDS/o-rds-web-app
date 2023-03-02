@@ -29,7 +29,7 @@ export default function ConfigSidebar(props: any) {
     }
   } catch(error) {
     console.log(error);
-    return (<h2>This is a deleted question. Please pick a new one.</h2>)
+    return (<h2>Please Select a Question</h2>)
   }
   }
 

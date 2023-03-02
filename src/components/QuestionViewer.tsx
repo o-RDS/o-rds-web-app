@@ -11,6 +11,7 @@ export default function QuestionViewer(props: any) {
   const dispatch = useContext(SurveyDispatchContext);
   //questions would be filled in through a database call and any uses of design would be replace with questions
   const proofQuestionToAdd: any = {
+    require: false,
     page: 0,
     type: "MultipleChoice",
     config: {
@@ -36,7 +37,6 @@ export default function QuestionViewer(props: any) {
     let id = uuidv4();
     test['survey']['questionOrder'] = SurveyState['survey']['questionOrder'].concat([id]); 
     test["survey"]["questions"][id] = proofQuestionToAdd; 
-    console.log(test);
     dispatch({
       type: "update",
       questions: test["survey"],
@@ -50,27 +50,24 @@ export default function QuestionViewer(props: any) {
     testArray = SurveyState["survey"]["questionOrder"].map(
       (question: string, index: number) => {
         console.log(question);
-        console.log(SurveyState['survey']['questions'][question])
+        console.log(SurveyState['survey']['questions'][question]);
         return <QuestionConfig data={SurveyState['survey']['questions'][question]} index={question} otherIndex={index}/>;
       }
     );
-    console.log(testArray[0]);
   } catch (error) {
     console.log(error);
-    console.log(SurveyState['survey']);
-    console.log(SurveyState['survey']['questions']);
   }
 
   return (
     <>
-      <div className="h-min-56 mt-3 mb-3 flex w-full flex-col gap-10 overflow-y-auto rounded-md shadow-lg shadow-black dark:bg-rdsDarkAccent3">
+      <div className="h-min-56 mt-3 mb-3 flex w-full flex-col gap-10 rounded-md shadow-lg shadow-black dark:bg-rdsDarkAccent3">
         <div className="flex w-full flex-col items-center justify-center gap-10 rounded-md p-5">
           <div className="flex w-full flex-col gap-4">{testArray}</div>
           <button
-            className="w-fit rounded-sm bg-rdsBlue px-2 text-white py-1"
+            className="w-10 h-10 rounded-full bg-rdsBlue px-2 text-white py-1 text-lg font-bold transition-all"
             onClick={() => handleAddedQuestion()}
           >
-            + Add Question
+            +
           </button>
         </div>
       </div>
