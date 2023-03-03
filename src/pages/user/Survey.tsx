@@ -17,6 +17,7 @@ export default function Survey() {
   const [response, setResponse] = useState({ answers: {} });
   const alias = useRef<string>("");
   const hash = useRef<string>("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
     if (config !== null && config !== undefined) {
@@ -74,7 +75,9 @@ export default function Survey() {
     if (params.id !== undefined && tempHash !== null) {
       let tempAlias = window.localStorage.getItem(params.id + tempHash);
       if (tempAlias) {
-        return await writeSurveyResponse(params.id, tempAlias, response);
+        return await writeSurveyResponse(params.id, tempAlias, response).then((data) => {
+          if (data.statusCode > 201) setErrorMessage(data.message);
+        });
       }
     }
     return false;

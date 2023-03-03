@@ -8,6 +8,7 @@ import { send } from "process";
 
 export default function ReceivePayment() {
   const [emailVerified, setEmailVerified] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
   const [completionPayout, setCompletionPayout] = useState(0);
   const config: any = useOutletContext();
 
@@ -51,6 +52,9 @@ export default function ReceivePayment() {
       console.log("Fetching Tremendous order API");
       
       sendPayment(order).then((data) => {
+        if (data.statusCode > 201) {
+          setErrorMessage(data.message);
+        }
         console.log(data);
       });
     }

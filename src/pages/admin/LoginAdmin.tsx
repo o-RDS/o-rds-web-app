@@ -42,7 +42,9 @@ export default function LoginAdmin() {
     };
 
     try {
-      loginResponse = await login(loginInfo);
+      loginResponse = await login(loginInfo).then((data) => {
+        if (data.statusCode > 201) setErrorMessage(data.message);
+      });
       if (loginResponse === undefined || loginResponse.statusCode === 500) {
         throw new Error("Server error");
       }
