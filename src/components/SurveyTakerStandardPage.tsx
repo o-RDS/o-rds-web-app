@@ -15,7 +15,7 @@ export default function SurveyTakerStandardPage(props: any) {
 
   return (
     <>
-      <div className="flex h-screen w-screen flex-col items-center gap-y-3">
+      <div className="flex h-screen w-screen flex-col items-center">
         {config !== null && config.contactInfo !== undefined && (config.contactInfo.phone || config.contactInfo.email) &&
           <>
             <ContactMenuModal 
@@ -32,7 +32,7 @@ export default function SurveyTakerStandardPage(props: any) {
           </>
         }
         
-        <div className="flex h-full w-full flex-col items-center gap-y-8 px-6">
+        <div className="flex h-full w-full flex-col items-center gap-y-8 px-6 pt-6">
           <img src={sampleResearcherLogo} className="w-3/4 md:w-1/3 lg:w-1/4" />
           {props.children}
         </div>
