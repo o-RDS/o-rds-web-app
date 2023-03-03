@@ -44,13 +44,15 @@ export default function MultipleChoice(props: any) {
         <div key={index}>
           <input
             type="radio"
-            // name="choice"
+            name={props.id}
+            id={choice}
             value={choice}
             onChange={() => handleClick(choice)}
             checked={isChecked}
             className="accent-rdsBlue"
+            required={props.require}
           />
-          <label className="ml-2">{choice}</label>
+          <label className="ml-2" htmlFor={choice}>{choice}</label>
         </div>
       );
     });
@@ -60,7 +62,7 @@ export default function MultipleChoice(props: any) {
   return (
     <div>
       <h2 className="text-lg font-bold">
-        {props.index + 1}) {props.config.prompt.value}
+        {props.index + 1}) {props.config.prompt.value} {props.require && <p className="text-red-500 text-xl">*</p>}
       </h2>
       {renderChoices()}
     </div>

@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
-import { saveSurveyConfig } from "../data/dataLayerManager";
+import { saveSurveyConfig } from "../APIs/Firebase";
 import {
   SurveyContext,
   SurveyDispatchContext,

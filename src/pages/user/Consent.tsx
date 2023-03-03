@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useOutletContext, useParams } from "react-router";
+import { useNavigate, useOutletContext } from "react-router";
 import SurveyTakerStandardPage from "../../components/SurveyTakerStandardPage";
 
 export default function Consent(){

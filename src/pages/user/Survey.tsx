@@ -3,15 +3,15 @@ import Question from "../../components/questions/Question";
 import SurveyTakerStandardPage from "../../components/SurveyTakerStandardPage";
 import { useNavigate, useOutletContext, useParams } from "react-router";
 import {
-  completeIncentive,
   loadResponse,
   writeSurveyResponse,
-} from "../../data/dataLayerManager";
+} from "../../APIs/Firebase";
 import Loading from "../../components/Loading";
 
 export default function Survey() {
   const [page, setPage] = useState<number>(0);
   const [design, setDesign] = useState<any>(null);
+  const [loading, setLoading] = useState<boolean>(true);
   const params = useParams();
   const navigate = useNavigate();
   const config: any = useOutletContext();
@@ -22,35 +22,38 @@ export default function Survey() {
   useEffect(() => {
     if (config !== null && config !== undefined) {
       setDesign(config.questionOrder);
-    }
-    let tempHash = window.sessionStorage.getItem("hash");
-    if (tempHash) {
-      hash.current = tempHash;
-    } else {
-      navigate("../");
-    }
-    if (params.id !== undefined) {
-      if (window.localStorage.getItem(params.id + hash.current)) {
-        let tempAlias = window.localStorage.getItem(params.id + hash.current);
-        if (tempAlias) {
-          alias.current = tempAlias;
-          loadResponse(params.id, tempAlias).then((data) => {
-            if (data) {
-              let tempResponse:any = response;
-              tempResponse = data;
-              tempResponse.parentID =
-                window.sessionStorage.getItem("parent");
-              tempResponse.depth = window.sessionStorage.getItem("depth");
-              window.sessionStorage.setItem("responseID", data.responseID);
-              setResponse(tempResponse);
-            }
-          });
-        }
+      let tempHash = window.sessionStorage.getItem("hash");
+      if (tempHash) {
+        hash.current = tempHash;
       } else {
-        navigate("../resume");
+        navigate("../");
       }
+      if (params.id !== undefined) {
+        if (window.localStorage.getItem(params.id + hash.current)) {
+          let tempAlias = window.localStorage.getItem(params.id + hash.current);
+          if (tempAlias) {
+            alias.current = tempAlias;
+            loadResponse(params.id, tempAlias).then((data) => {
+              if (data.statusCode === 200) {
+                let tempResponse:any = response;
+                tempResponse = data;
+                tempResponse.parentID =
+                  window.sessionStorage.getItem("parent");
+                tempResponse.depth = window.sessionStorage.getItem("depth");
+                window.sessionStorage.setItem("responseID", data.responseID);
+                setResponse(tempResponse);
+              }
+            });
+          }
+        } else {
+          navigate("../resume");
+        }
+      }
+      setLoading(false);
+    } else {
+      setLoading(true);
     }
-  }, []);
+  }, [config, navigate, params.id]);
 
   // this will be called by the question component whenever the question requests to update the response
   // goes through each column sent by the question and updates the response object
@@ -81,7 +84,8 @@ export default function Survey() {
     return false;
   }
 
-  async function handleSubmit() {
+  async function handleSubmit(e: any) {
+    e.preventDefault();
     console.log("Submitting");
     let tempResponse:any = response;
     tempResponse.completed = true;
@@ -89,8 +93,7 @@ export default function Survey() {
     console.log(response);
     if (params.id !== undefined && hash.current !== null) {
       if (
-        (await saveResponse()) &&
-        (await completeIncentive(params.id, hash.current))
+        (await saveResponse())
       ) {
         navigate("../share");
       }
@@ -128,7 +131,7 @@ export default function Survey() {
 
   return (
     <SurveyTakerStandardPage>
-      {design !== null ? (
+      {!loading ? (
         <>
           <div className="flex flex-col gap-y-3">
             <p className="max-w-prose">
@@ -139,11 +142,9 @@ export default function Survey() {
             <hr className="border-1 w-9/12 self-center border-gray-800" />
           </div>
 
-          <div className="flex-grow-1 flex flex-col gap-y-6">
+          <form className="flex-grow-1 flex flex-col gap-y-6" onSubmit={(e) => handleSubmit(e)}>
             {renderQuestions()}
-          </div>
-
-          <div className="mt-auto flex min-h-[36px] w-4/5 flex-row justify-center md:mt-0 md:w-1/3">
+            <div className="mt-auto flex min-h-[36px] w-4/5 flex-row justify-center md:mt-0 md:w-1/3">
             {page > 0 ? (
               <button
                 className="w-1/3 rounded border-2 border-rdsOrange bg-white p-1 text-rdsOrange"
@@ -171,12 +172,14 @@ export default function Survey() {
             ) : (
               <button
                 className="w-1/3 rounded bg-rdsOrange p-1 text-white"
-                onClick={() => handleSubmit()}
               >
                 Submit
               </button>
             )}
           </div>
+          </form>
+
+          
           <p>
             If you have to leave the survey, write down this code, which you can
             use to load your progress, even on another device: {alias.current}

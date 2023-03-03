@@ -50,6 +50,7 @@ export default function ShortAnswer(props: any) {
           value={answer}
           onChange={(e) => handleClick(e.target.value)}
           className="rounded-md border-2 border-rdsBlue"
+          required={props.require}
         ></textarea>
       </div>
     );
@@ -59,7 +60,7 @@ export default function ShortAnswer(props: any) {
   return (
     <div>
       <h2 className="text-lg font-bold">
-        {props.index + 1}) {props.config.prompt.value}
+        {props.index + 1}) {props.config.prompt.value} {props.require && <p className="text-red-500 text-xl">*</p>}
       </h2>
       {renderChoices()}
     </div>
