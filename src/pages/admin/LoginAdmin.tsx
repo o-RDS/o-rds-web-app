@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import { Link, useNavigate } from "react-router-dom";
 import StandardPage from "../../components/StandardPage";
+import Error from "../../components/Error";
 import {login} from "../../APIs/Admin.auth.js";
 
 export default function LoginAdmin() {
@@ -69,7 +70,7 @@ export default function LoginAdmin() {
           </button>
           <br></br>
           <br></br>
-          {errorMessage.error && <div className="p-2 w-full bg-red-500 bg-opacity-20 rounded-md"><p className="text-red-500 text-center text-sm">{errorMessage.message}</p></div>}
+          {errorMessage.error && <Error message={errorMessage.message} />}
         </form>
       </div>
     </StandardPage>
