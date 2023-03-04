@@ -1,17 +1,24 @@
 import { order } from './interfaces';
+import { proxyAddress, devAddress } from './config';
 
 let serverHost = "";
 
-if (process.env.NODE_ENV == "development") {
-  serverHost = 'http://localhost:8080';
+if (process.env.NODE_ENV === "development") {
+  serverHost = devAddress;
 }
-else if (process.env.NODE_ENV == "production") {
-  serverHost = ''; // URL of deployed server
+else if (process.env.NODE_ENV === "production") {
+  serverHost = proxyAddress; // URL of deployed server
 }
 
-export async function listCampaigns(JWT)   {
+function getCookie(name) {
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${name}=`);
+  if (parts.length === 2) return parts.pop().split(';').shift();
+}
 
-  const token = "JWT " + JWT;
+export async function listCampaigns()   {
+
+  const token = "JWT " + getCookie("token");
   
   const options = {
     method: 'GET',
@@ -21,22 +28,24 @@ export async function listCampaigns(JWT)   {
     }
   };
 
-
-  return fetch(`${serverHost}/tremendous/listCampaigns`, options)
+  var statusCode;
+  return fetch(`${serverHost}/api/tremendous/listCampaigns`, options)
     .then(response => {
       if (!response.ok) {
-        throw new Error(response.statusText)
+        console.error(new Error(response.statusText));
       }
+      statusCode = response.status;
       return response.json()
     })
     .then((data) => {
-      return data.campaigns;
+      data.statusCode = statusCode;
+      return data;
     })
 }
 
-export async function listFundingSources(JWT)   {
+export async function listFundingSources()   {
 
-  const token = "JWT " + JWT;
+  const token = "JWT " + getCookie("token");
 
   const options = {
     method: 'GET',
@@ -46,23 +55,25 @@ export async function listFundingSources(JWT)   {
     }
   };
 
-
-  return fetch(`${serverHost}/tremendous/listFundingSources`, options)
-    .then(response => {
+  var statusCode;
+  return fetch(`${serverHost}/api/tremendous/listFundingSources`, options)
+    .then(response => { 
       if (!response.ok) {
-        throw new Error(response.statusText)
+        console.error(new Error(response.statusText));
       }
-      return response.json()
+      statusCode = response.status;
+      return response.json();
     })
     .then((data) => {
-      return data.funding_sources;
+      data.statusCode = statusCode;
+      return data;
     })
 }
 
 
-export async function sendPayment(order, JWT) {
+export async function sendPayment(order) {
 
-  const token = "JWT " + JWT;
+  const token = "JWT " + getCookie("token");
 
   const options = {
     method: 'POST',
@@ -86,15 +97,17 @@ export async function sendPayment(order, JWT) {
     })
   };
 
-
-  return fetch(`${serverHost}/tremendous/sendPayment`, options)
+  var statusCode;
+  return fetch(`${serverHost}/api/tremendous/sendPayment`, options)
     .then(response => {
       if (!response.ok) {
-        throw new Error(response.statusText)
+        console.error(new Error(response.statusText));
       }
+      statusCode = response.status;
       return response.json()
     })
     .then((data) => {
+      data.statusCode = statusCode;
       return data;
     })
 }

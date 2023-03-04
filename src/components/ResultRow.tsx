@@ -11,13 +11,13 @@ export default function ResultRow(props: {
     return props.rowData.map((responseVal, index) => {
       if (props.type == "header") {
         return (
-          <th className="whitespace-wrap min-w-[275px] max-w-md border-x border-black px-4 py-3">
+          <th className="whitespace-normal min-w-[275px] max-w-md border-x border-black px-4 py-3">
             {responseVal}
           </th>
         );
       } else {
         return (
-          <td className="whitespace-wrap min-w-[275px] max-w-md break-words border border-black px-4 py-3">
+          <td className="whitespace-normal min-w-[275px] max-w-md break-words border border-black px-4 py-3">
             {responseVal}
           </td>
         );

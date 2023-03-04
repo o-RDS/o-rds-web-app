@@ -1,25 +1,14 @@
-import react, { useEffect, useRef } from "react";
+import { useEffect, useState } from "react";
 import { useParams, useNavigate, Outlet } from "react-router";
-import { retrieveSurveyConfig, signIn } from "../data/dataLayerManager";
+import { retrieveSurveyConfig } from "../APIs/Firebase";
 
 export default function ConfigContext(props: any) {
   //const SurveyConfigContext = react.createContext({});
   const navigate = useNavigate();
   const params = useParams();
-  const config = useRef(
-    window.sessionStorage.getItem(
-      params.id && typeof params.id === "string" ? params.id : ""
-    )
-      ? JSON.parse(
-          window.sessionStorage.getItem(
-            params.id && typeof params.id === "string" ? params.id : ""
-          ) as string
-        )
-      : {}
-  );
+  const [config, setConfig] = useState<any>(null);
 
   useEffect(() => {
-    signIn();
     if (params.id && typeof params.id === "string") {
       console.log(params.id);
       retrieveSurveyConfig(params.id).then((data) => {
@@ -29,8 +18,7 @@ export default function ConfigContext(props: any) {
           if (!data.live) {
             navigate("/invalid");
           }
-          console.log(data);
-          config.current = data;
+          setConfig(data);
           if (params.id && typeof params.id === "string") {
             window.sessionStorage.setItem(params.id, JSON.stringify(data));
           }
@@ -39,7 +27,7 @@ export default function ConfigContext(props: any) {
     } else {
       navigate("/invalid");
     }
-  }, []);
+  }, [navigate, params.id]);
 
-  return <Outlet context={config.current} />;
+  return <Outlet context={config} />;
 }

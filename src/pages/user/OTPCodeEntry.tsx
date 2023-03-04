@@ -1,19 +1,19 @@
 import { useEffect, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import SurveyTakerStandardPage from "../../components/SurveyTakerStandardPage";
 import { verificationCheck } from "../../APIs/Twilio";
 import {
   addHash,
   generateAlias,
   writeSurveyResponse,
-} from "../../data/dataLayerManager";
+} from "../../APIs/Firebase";
+import { setCookie } from "../../data/cookieFunctions";
 
 export default function OTPCodeEntry() {
   const navigate = useNavigate();
   const params = useParams();
   const [code, setCode] = useState("");
   const [error, setError] = useState("");
-  const TESTING = true;
 
   useEffect(() => {
     if (
@@ -22,7 +22,7 @@ export default function OTPCodeEntry() {
     ) {
       navigate("..");
     }
-  }, []);
+  }, [navigate, params.id]);
 
   function verifyOTPCode() {
     if (code.length !== 6) {
@@ -31,13 +31,20 @@ export default function OTPCodeEntry() {
     } else {
       let phone = window.sessionStorage.getItem("phone");
       if (phone != null) {
-        if (TESTING) {
-          processHash();
-        }
         console.log(`Running verification check: ${phone}, ${code}`);
         verificationCheck(phone, code).then((data) => {
           console.log(data);
-          // processHash()
+          setCookie("token", data.accessToken, 1)
+          if (data.statusCode === 200) {
+            setError("");
+            processHash();
+          } 
+          else if (data.statusCode === 401) {
+            setError("Invalid Code");
+          }
+          else {
+            setError("Server Error, Try Again");
+          }
         });
       }
     }
@@ -46,10 +53,9 @@ export default function OTPCodeEntry() {
   async function processHash() {
     let hash = window.sessionStorage.getItem("hash");
     if (hash && params.id !== undefined) {
-      let response = await addHash(params.id, hash);
-      if (response) {
+      let response = await addHash(params.id);
+      if (response.statusCode === 409) {
         //Existing Hash
-        console.log("Existing Hash");
         if (response.isComplete) {
           navigate("../share");
         } else {
@@ -63,7 +69,7 @@ export default function OTPCodeEntry() {
             console.log(response);
             let alias = result.alias;
             let responseID = result.responseID;
-            writeSurveyResponse(params.id, alias, {
+            await writeSurveyResponse(params.id, alias, {
               answers: {},
               completed: false,
               alias: alias,
@@ -83,7 +89,7 @@ export default function OTPCodeEntry() {
     let num = window.sessionStorage.getItem("phone");
     if (num != null) {
       return (
-        "(" + num.slice(0, 3) + ") " + num.slice(3, 6) + "-" + num.slice(6, 10)
+        num.slice(0, 2) + "(" + num.slice(2, 5) + ") " + num.slice(5, 8) + "-" + num.slice(8, 12)
       );
     } else {
       console.log("You shouldn't be here! (No Phone Number Found)");
@@ -100,17 +106,17 @@ export default function OTPCodeEntry() {
           Please enter it in the field below.
         </p>
       </div>
-      <div className="flex flex-col gap-y-6">
+      <div className="flex flex-col items-center gap-y-6">
         <div className="flex flex-col">
           <label htmlFor="OTPCode">
             Code:
             <br />
           </label>
           <input
-            type="text"
+            type="number"
             id="OTPCode"
             name="OTPCode"
-            placeholder="*Code Format Here*"
+            placeholder="######"
             className="w-56 rounded bg-gray-200 p-1"
             value={code}
             onChange={(e) => setCode(e.target.value)}

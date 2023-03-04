@@ -4,7 +4,7 @@ import ResultsTopConfig from "../../components/ResultsTopConfig";
 import {
   loadAllResponses,
   retrieveSurveyConfig,
-} from "../../data/dataLayerManager";
+} from "../../APIs/Firebase";
 import { useParams, useNavigate } from "react-router-dom";
 import Loading from "../../components/Loading";
 import ResultsTable from "../../components/ResultsTable";
