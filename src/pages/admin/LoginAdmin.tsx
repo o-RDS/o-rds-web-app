@@ -29,7 +29,7 @@ export default function LoginAdmin() {
             error: true,
             message: "All fields are required and must be filled out.",
           });
-          throw new Error("Missing fields");
+          // throw new Error("Missing fields");
         }
       });
     } catch (error) {
@@ -45,7 +45,7 @@ export default function LoginAdmin() {
     try {
       loginResponse = await login(loginInfo);
       if (loginResponse === undefined || loginResponse.statusCode === 500) {
-        throw new Error("Server error");
+        // throw new Error("Server error");
       }
       else if (loginResponse.statusCode === 404) {
         setErrorMessage({

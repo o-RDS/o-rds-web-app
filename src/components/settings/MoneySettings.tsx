@@ -11,6 +11,9 @@ export function MoneySettings() {
   function handleCompletionAmountChange(e: any) {
     let test: any = SurveyState;
     test["survey"]["completionPayout"] = parseInt(e.target.value);
+    if (test['survey']['maxRefs'] === Number.isNaN) {
+      test['survey']['maxRefs'] = 0;
+    }
     dispatch({
       type: "update",
       questions: test["survey"],
@@ -22,6 +25,9 @@ export function MoneySettings() {
   function handleReferralAmountChange(e: any) {
     let test: any = SurveyState;
     test["survey"]["refPayout"] = parseInt(e.target.value);
+    if (test['survey']['maxRefs'] === Number.isNaN) {
+      test['survey']['maxRefs'] = 0;
+    }
     dispatch({
       type: "update",
       questions: test["survey"],
@@ -33,6 +39,9 @@ export function MoneySettings() {
   function handleNumRefChange(e: any) {
     let test: any = SurveyState;
     test["survey"]["maxRefs"] = parseInt(e.target.value);
+    if (test['survey']['maxRefs'] === Number.isNaN) {
+      test['survey']['maxRefs'] = 0;
+    }
     console.log(test["survey"]["maxRefs"]);
     dispatch({
       type: "update",
