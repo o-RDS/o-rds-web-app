@@ -27,7 +27,7 @@ export default function RegisterAdmin() {
             error: true,
             message: "All fields are required and must be filled out.",
           });
-          // throw new Error("Missing fields");
+          throw Error("Missing fields");
         }
       });
 
@@ -41,7 +41,7 @@ export default function RegisterAdmin() {
           error: true,
           message: "Please enter a valid email address.",
         });
-        // throw new Error("Invalid email");
+        throw Error("Invalid email");
       }
 
       //Verify that the two passwords match
@@ -51,7 +51,7 @@ export default function RegisterAdmin() {
           message:
             "The passwords do not match. Please enter your password again.",
         });
-        // throw  new Error("Password mismatch");
+        throw Error("Password mismatch");
       }
     } catch (error) {
       console.error(error);
