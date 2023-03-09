@@ -108,7 +108,7 @@ export default function OTPCodeEntry() {
           Please enter it in the field below.
         </p>
       </div>
-      <div className="flex flex-col gap-y-6">
+      <div className="flex flex-col items-center gap-y-6">
         <div className="flex flex-col">
           <label htmlFor="OTPCode">
             Code:

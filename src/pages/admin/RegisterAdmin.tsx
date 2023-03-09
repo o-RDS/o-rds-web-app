@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import StandardPage from "../../components/StandardPage";
+import Error from "../../components/Error";
 import { register } from "../../APIs/Admin.auth.js";
 
 export default function RegisterAdmin() {
@@ -26,7 +27,7 @@ export default function RegisterAdmin() {
             error: true,
             message: "All fields are required and must be filled out.",
           });
-          throw new Error("Missing fields");
+          throw Error("Missing fields");
         }
       });
 
@@ -40,7 +41,7 @@ export default function RegisterAdmin() {
           error: true,
           message: "Please enter a valid email address.",
         });
-        throw new Error("Invalid email");
+        throw Error("Invalid email");
       }
 
       //Verify that the two passwords match
@@ -50,7 +51,7 @@ export default function RegisterAdmin() {
           message:
             "The passwords do not match. Please enter your password again.",
         });
-        throw  new Error("Password mismatch");
+        throw Error("Password mismatch");
       }
     } catch (error) {
       console.error(error);
@@ -184,11 +185,7 @@ export default function RegisterAdmin() {
           </button>
           <br />
           {errorMessage.error && (
-            <div className="w-full rounded-md bg-red-500 bg-opacity-20 p-2">
-              <p className="text-center text-sm text-red-500">
-                {errorMessage.message}
-              </p>
-            </div>
+            <Error message={errorMessage.message}/>
           )}
           {registerSuccess && (
             <div className="w-full rounded-md bg-green-500 bg-opacity-20 p-2">

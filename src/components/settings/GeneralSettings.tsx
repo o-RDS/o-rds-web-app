@@ -19,35 +19,14 @@ export function GeneralSettings() {
     });
   }
 
-  function handleStartMessageChange(e: any) {
-    let test: any = SurveyState;
-    test["survey"]["researcherMessage"] = e.target.value;
-    dispatch({
-      type: "update",
-      questions: test["survey"],
-      question: SurveyState["question"],
-      change: true,
-    });
-  }
-
   function handleAddAdmin() {
     const admin: any = (document.getElementById("add-admin") as HTMLInputElement).value;
     console.log(admin);
+    (document.getElementById('add-admin') as HTMLInputElement).value = "";
     dispatch({
       type: 'add-admin',
       admin: admin
     })
-  }
-
-  function handleEndMessageChange(e: any) {
-    let test: any = SurveyState;
-    test["survey"]["endSurveyMessage"] = e.target.value;
-    dispatch({
-      type: "update",
-      questions: test["survey"],
-      question: SurveyState["question"],
-      change: true,
-    });
   }
 
   return (

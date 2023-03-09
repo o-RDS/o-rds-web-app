@@ -31,33 +31,49 @@ export default function MCConfig(props: any) {
   }
 
   function handleQuestionUp() {
-    console.log(SurveyState['survey']['questionOrder']);
+    console.log(SurveyState["survey"]["questionOrder"]);
     let test: any = SurveyState;
-    let temp = test['survey']['questionOrder'][props.otherIndex - 1];
-    test['survey']['questionOrder'][props.otherIndex - 1] = test['survey']['questionOrder'][props.otherIndex];
-    test['survey']['questionOrder'][props.otherIndex] = temp;
+    if (props.otherIndex - 1 < 0) {
+      return;
+    }
+    let temp = test["survey"]["questionOrder"][props.otherIndex - 1];
+    test["survey"]["questionOrder"][props.otherIndex - 1] =
+      test["survey"]["questionOrder"][props.otherIndex];
+    test["survey"]["questionOrder"][props.otherIndex] = temp;
     dispatch({
       type: "question-up",
-      survey: test['survey'],
-      question: test['question'],
-      change: true
+      survey: test["survey"],
+      question: test["question"],
+      change: true,
     });
   }
 
   function handleQuestionDown() {
-    console.log(SurveyState['survey']['questionOrder']);
+    console.log(SurveyState["survey"]["questionOrder"]);
     let test: any = SurveyState;
-    console.log(test['survey']['questionOrder']);
-    let temp = test['survey']['questionOrder'][props.otherIndex + 1];
-    test['survey']['questionOrder'][props.otherIndex + 1] = test['survey']['questionOrder'][props.otherIndex];
-    test['survey']['questionOrder'][props.otherIndex] = temp;
-    console.log(test['survey']['questionOrder']);
-    dispatch({
-      type: "question-down",
-      survey: test['survey'],
-      question: test['question'],
-      change: true
-    });
+    console.log(test["survey"]["questionOrder"]);
+    console.log(props.otherIndex);
+    console.log(test["survey"]["questionOrder"].length);
+    if (props.otherIndex + 1 > test["survey"]["questionOrder"].length) {
+      dispatch({
+        type: "question-down",
+        survey: test["survey"],
+        question: test["question"],
+        change: true,
+      });
+    } else {
+      let temp = test["survey"]["questionOrder"][props.otherIndex + 1];
+      test["survey"]["questionOrder"][props.otherIndex + 1] =
+        test["survey"]["questionOrder"][props.otherIndex];
+      test["survey"]["questionOrder"][props.otherIndex] = temp;
+      console.log(test["survey"]["questionOrder"]);
+      dispatch({
+        type: "question-down",
+        survey: test["survey"],
+        question: test["question"],
+        change: true,
+      });
+    }
   }
 
   function handleDeleteQuestion(question: number) {
@@ -69,20 +85,18 @@ export default function MCConfig(props: any) {
 
   function handleDeleteQuestion2(question: string) {
     console.log(question);
-          let test2 = SurveyState;
-          let index = test2["survey"]["questionOrder"].indexOf(
-            question
-          );
-          if (index != -1) {
-            test2["survey"]["questionOrder"].splice(index, 1);
-          }
-          delete test2["survey"]["questions"][question];
-          dispatch({
-            type: "delete-question2",
-            questions: SurveyState["survey"],
-            question: SurveyState['survey']['questionOrder'][0],
-            change: true,
-          });
+    let test2 = SurveyState;
+    let index = test2["survey"]["questionOrder"].indexOf(question);
+    if (index != -1) {
+      test2["survey"]["questionOrder"].splice(index, 1);
+    }
+    delete test2["survey"]["questions"][question];
+    dispatch({
+      type: "delete-question2",
+      questions: SurveyState["survey"],
+      question: SurveyState["survey"]["questionOrder"][0],
+      change: true,
+    });
   }
 
   function renderChoices() {
@@ -100,19 +114,34 @@ export default function MCConfig(props: any) {
   return (
     <>
       <div
-        className={` ${isSelected()} rounded-md border-2 p-1 transition-all hover:border-2 hover:border-rdsOrange`} onClick={() => handleQuestionChange(props.index)}
+        className={` ${isSelected()} rounded-md border-2 p-1 transition-all hover:border-2 hover:border-rdsOrange`}
+        onClick={() => handleQuestionChange(props.index)}
       >
         <div className="w-full p-2 dark:text-white">
           <div className="flex flex-row">
-            <h2 className="font-semibold text-lg">{"Q" + (props.otherIndex + 1)}</h2>
-            {SurveyState['survey']['questions'][props.index]['require'] && <p className="text-red-500 text-xl">*</p>}
+            <h2 className="text-lg font-semibold">
+              {"Q" + (props.otherIndex + 1)}
+            </h2>
+            {SurveyState["survey"]["questions"][props.index]["require"] && (
+              <p className="text-xl text-red-500">*</p>
+            )}
             <div className="ml-auto">
-            <button onClick={() => handleQuestionDown()} className="hover:bg-rdsDarkAccent p-1 rounded-md mx-1">▼</button>
-            <button onClick={() => handleQuestionUp()} className="hover:bg-rdsDarkAccent p-1 rounded-md mx-1">▲</button>
-            <DeleteButton
-              handleDeleteQuestion={handleDeleteQuestion2}
-              index={props.index}
-            />
+              <button
+                onClick={() => handleQuestionDown()}
+                className="mx-1 rounded-md p-1 hover:bg-rdsDarkAccent"
+              >
+                ▼
+              </button>
+              <button
+                onClick={() => handleQuestionUp()}
+                className="mx-1 rounded-md p-1 hover:bg-rdsDarkAccent"
+              >
+                ▲
+              </button>
+              <DeleteButton
+                handleDeleteQuestion={handleDeleteQuestion2}
+                index={props.index}
+              />
             </div>
           </div>
           <h3>{SurveyStateQuestions["config"]["prompt"]["value"]}</h3>

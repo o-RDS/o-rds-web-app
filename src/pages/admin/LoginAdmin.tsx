@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import StandardPage from "../../components/StandardPage";
+import Error from "../../components/Error";
 import { login } from "../../APIs/Admin.auth.js";
 import { setCookie } from "../../data/cookieFunctions";
 
@@ -28,7 +29,7 @@ export default function LoginAdmin() {
             error: true,
             message: "All fields are required and must be filled out.",
           });
-          throw new Error("Missing fields");
+          throw Error("Missing fields");
         }
       });
     } catch (error) {
@@ -38,15 +39,15 @@ export default function LoginAdmin() {
 
     let loginInfo = {
       email: formObject.email,
-      password: formObject.password,
-    };
+      password: formObject.password
+    }
 
     try {
       loginResponse = await login(loginInfo).then((data) => {
         if (data.statusCode > 201) setErrorMessage(data.message);
       });
       if (loginResponse === undefined || loginResponse.statusCode === 500) {
-        throw new Error("Server error");
+        throw Error("Server error");
       }
       else if (loginResponse.statusCode === 404) {
         setErrorMessage({
@@ -115,13 +116,8 @@ export default function LoginAdmin() {
             Submit
           </button>
           <br></br>
-          {errorMessage.error && (
-            <div className="w-full rounded-md bg-red-500 bg-opacity-20 p-2">
-              <p className="text-center text-sm text-red-500">
-                {errorMessage.message}
-              </p>
-            </div>
-          )}
+          <br></br>
+          {errorMessage.error && <Error message={errorMessage.message} />}
         </form>
         <button
           onClick={() => navigate("/admin/register")}

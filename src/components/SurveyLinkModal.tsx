@@ -94,7 +94,7 @@ const SurveyLinkModal = (props: any) => {
   }
 
   return (
-    <div className="fixed top-0 left-0 bottom-0 right-0 z-50 flex items-center justify-center backdrop-blur-sm w-screen">
+    <div className="fixed top-0 left-0 bottom-0 right-0 z-50 flex items-center justify-center backdrop-blur-sm w-full">
       <div className="flex h-auto w-3/5 flex-col justify-between gap-4 rounded-md border-2 border-rdsBlue bg-white dark:bg-rdsDark2 p-4">
         <h3 className="self-start justify-self-start text-xl font-bold">
           Survey Availability

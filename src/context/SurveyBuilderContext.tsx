@@ -151,6 +151,7 @@ export default function SurveyBuilderContext(props: any) {
             survey: action.questions,
             question: action.question,
             change: action.change,
+            error: action.error
           };
         }
         case "question-prompt": {
@@ -246,6 +247,34 @@ export default function SurveyBuilderContext(props: any) {
             change: false
           }
         }
+        case "close-error": {
+          return {
+            survey: tasks['survey'],
+            question: tasks['question'],
+            change: false,
+            error: ""
+          }
+        }
+        case "change-funding": {
+          tasks["survey"]["tremendous"]["funding"] =
+            action.newType;
+          return {
+            survey: tasks['survey'],
+            question: tasks['question'],
+            change: false,
+            error: ""
+          }
+        }
+        case "change-campaign": {
+          tasks["survey"]["tremendous"]["campaign"] =
+            action.newType;
+          return {
+            survey: tasks['survey'],
+            question: tasks['question'],
+            change: false,
+            error: ""
+          }
+        }
         case "change-type": {
           let test: any = tasks;
           console.log(action.newType);
@@ -308,11 +337,12 @@ export default function SurveyBuilderContext(props: any) {
           let test: any = tasks;
           test['survey']['admins'].push(action.admin);
           console.log(test['survey']['admins']);
+          saveSurveyConfig(tasks["survey"]["id"], tasks["survey"])
           addSurveyToUser(action.admin, test['survey']['id']);
           return {
             survey: test['survey'],
             question: test['question'],
-            change: true
+            change: false
           }
         }
         default: {

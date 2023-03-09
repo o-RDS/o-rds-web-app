@@ -38,7 +38,7 @@ export default function ResultsTopConfig(props: any) {
 //   }
 
   return (
-    <div className="flex h-14 w-screen flex-row items-center justify-between border-b border-black pl-4 pr-4 dark:border-none dark:bg-rdsDark2 dark:text-white">
+    <div className="flex h-14 w-full flex-row items-center justify-between border-b border-black pl-4 pr-4 dark:border-none dark:bg-rdsDark2 dark:text-white">
       <div className="flex gap-2">
         <p onClick={() => setOpen(!open)}>{props.name}</p>
         {/* <img

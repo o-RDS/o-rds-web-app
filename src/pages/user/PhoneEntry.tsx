@@ -3,7 +3,6 @@ import { setPhone, setChainInfo } from "../../data/sessionManager";
 import { useState, useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { startVerification } from "../../APIs/Twilio";
-import { start } from "repl";
 
 export default function PhoneEntry() {
   const [phoneNum, setPhoneNum] = useState("");
@@ -83,7 +82,7 @@ export default function PhoneEntry() {
           only be used for verification purposes.
         </p>
       </div>
-      <div className="flex flex-col gap-y-6">
+      <div className="flex flex-col items-center gap-y-6">
         <div className="flex flex-col">
           <label htmlFor="phoneNumber">
             Phone Number:
