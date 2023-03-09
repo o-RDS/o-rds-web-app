@@ -5,7 +5,6 @@ import RegisterAdmin from "./pages/admin/RegisterAdmin";
 import DashboardAdmin from "./pages/admin/DashboardAdmin";
 import SurveyBuilder from './pages/admin/SurveyBuilderAdmin';
 import Results from './pages/admin/ResultsAdmin';
-import PaymentManager from './pages/admin/PaymentManagerAdmin';
 import Survey from './pages/user/Survey';
 import PhoneEntry from "./pages/user/PhoneEntry";
 import OTPCodeEntry from "./pages/user/OTPCodeEntry"
@@ -30,7 +29,6 @@ function App() {
           <Route path="results">
             <Route path=":surveyID" element={<Results/>} />
           </Route>
-          <Route path="payment-manager" element={<PaymentManager/>} />
           <Route path="survey-builder">
               <Route path=":surveyID" element={<SurveyBuilderContext ><SurveyBuilder/></SurveyBuilderContext>} />
           </Route>
