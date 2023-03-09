@@ -8,7 +8,7 @@ export default function SurveyTakerStandardPage(props: any) {
 
   return (
     <>
-      <div className="flex h-screen w-screen flex-col items-center gap-y-3 p-6">
+      <div className="flex h-screen w-full flex-col items-center gap-y-3 p-6">
         <ContactMenuModal 
           display={displayModal}
           setDisplay={setDisplayModal}
