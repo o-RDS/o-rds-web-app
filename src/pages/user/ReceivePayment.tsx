@@ -37,7 +37,16 @@ export default function ReceivePayment() {
     let email = (document.getElementById("tremendousEmail") as HTMLInputElement)
       .value;
     let phone = window.sessionStorage.getItem("phone");
+
+    // add time to hash to make it unique for each payout 
     let hash = window.sessionStorage.getItem("hash");
+    const time = Date.now();
+    if (hash != null) {
+      hash = hash + time.toString();
+    } else { 
+      hash = time.toString();
+    }
+
     if (phone && hash != null) {
       setCompletionPayout(config.completionPayout);
       let order = newOrder(email, phone, hash, completionPayout);
