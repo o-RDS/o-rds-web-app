@@ -60,7 +60,7 @@ export default function ReceivePayment() {
 
       console.log("Fetching Tremendous order API");
       
-      sendPayment(order).then((data) => {
+      sendPayment(order, config.id, "complete").then((data) => {
         if (data.statusCode > 201) {
           setErrorMessage(data.message);
         }
