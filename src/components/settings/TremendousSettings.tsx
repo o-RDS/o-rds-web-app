@@ -1,8 +1,7 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { SurveyContext, SurveyDispatchContext } from "../../context/SurveyBuilderContext";
 import { listCampaigns, listFundingSources } from "../../APIs/Tremendous";
 
-const [errorMessage, setErrorMessage] = useState("");
 
 /* DEV NOTES
  *
@@ -29,9 +28,6 @@ function loadCampaignData() {
   let campaigns: campaign[] = [];
 
   listCampaigns().then((data) => {
-    if (data.statusCode > 201) {
-      setErrorMessage(data.message);
-    }
     data.campaigns.forEach((obj: any) => {
       var tempCampaign: campaign = {
         name: obj.name,
@@ -49,9 +45,6 @@ function loadFundingData() {
   let fundingSources: fundingSource[] = [];
 
   listFundingSources().then((data) => {
-    if (data.statusCode > 201) {
-      setErrorMessage(data.message);
-    }
     data.funding_sources.forEach((obj: any) => {
       var tempFundingSource: fundingSource = {
         method: obj.method,
