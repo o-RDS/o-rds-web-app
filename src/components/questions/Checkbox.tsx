@@ -73,7 +73,6 @@ export default function Checkbox(props: any) {
             onChange={() => handleClick(choice)}
             defaultChecked={isChecked}
             className="accent-rdsBlue"
-            required={props.require}
           />
           <label htmlFor={choice + index.toString()} className="ml-2">{choice}</label>
         </div>
