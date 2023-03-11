@@ -12,7 +12,7 @@ import ResultsTable from "../../components/ResultsTable";
 export default function Results() {
   const [results, setResults] = useState<any>(null);
   const [config, setConfig] = useState<any>(null);
-  const [filterCompleted, setFilterCompleted] = useState(false);
+  const [filterCompleted, setFilterCompleted] = useState(true);
   const params = useParams();
   const navigate = useNavigate();
 
@@ -108,7 +108,7 @@ export default function Results() {
         <div className="flex w-full flex-row items-baseline">
           <h1 className="flex-grow pl-10 text-left text-2xl">{config.title}</h1>
           <label htmlFor="filterCompleted">
-            Display completed responses only
+            Show Incomplete Responses
           </label>
           <input
             type="checkbox"
