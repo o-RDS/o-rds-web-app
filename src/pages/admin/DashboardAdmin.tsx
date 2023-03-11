@@ -12,6 +12,7 @@ export default function Dashboard() {
   const [page, setPage] = useState(0);
   const [displayNumber, setDisplayNumber] = useState(5);
   const [loading, setLoading] = useState(true);
+  const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
     setLoading(true);
@@ -51,7 +52,11 @@ export default function Dashboard() {
 
   async function deleteSurvey(id: string) {
     setLoading(true);
-    console.log(await deleteSurveyConfig(id));
+    console.log(await deleteSurveyConfig(id).then((data) => {
+      if (data.statusCode > 201) {
+        setErrorMessage(data.message)
+      }
+    }));
     loadAdminSurveys(
       page * displayNumber,
       displayNumber

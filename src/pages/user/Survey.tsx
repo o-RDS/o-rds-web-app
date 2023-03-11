@@ -19,6 +19,7 @@ export default function Survey() {
   const [response, setResponse] = useState({ answers: {} });
   const alias = useRef<string>("");
   const hash = useRef<string>("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
     if (config !== null && config !== undefined) {
