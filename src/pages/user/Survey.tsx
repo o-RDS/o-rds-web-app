@@ -77,21 +77,22 @@ export default function Survey() {
 
   async function saveResponse() {
     setError("");
+    console.log(response)
     let tempHash = hash.current;
     if (params.id !== undefined && tempHash !== null) {
       let tempAlias = window.localStorage.getItem(params.id + tempHash);
       if (tempAlias) {
         let res = await writeSurveyResponse(params.id, tempAlias, response);
-        if (res.statusCode === 200) {
+        if (res.statusCode === 201) {
           return true;
         } else {
-          return false;
           setError(res.message)
+          return false;
         }
       }
     }
-    return false;
     setError("Failed to save response")
+    return false;
   }
 
   async function handleSubmit(e: any) {
@@ -188,7 +189,7 @@ export default function Survey() {
             )}
           </div>
           </form>
-          <p className="text-center text-red">{error}</p>
+          <p className="text-center text-red-600">{error}</p>
 
           
           <p>
