@@ -19,7 +19,6 @@ export default function Survey() {
   const [response, setResponse] = useState({ answers: {} });
   const alias = useRef<string>("");
   const hash = useRef<string>("");
-  const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
     if (config !== null && config !== undefined) {
@@ -106,10 +105,13 @@ export default function Survey() {
       if (
         (await saveResponse())
       ) {
+        console.log("Submitted response");
         navigate("../share");
       }
+      else {
+        console.log("Failed to submit response");
+      }
     }
-    console.log("Failed to submit");
     // TODO: add error message
   }
 
