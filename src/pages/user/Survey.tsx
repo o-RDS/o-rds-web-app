@@ -146,15 +146,15 @@ export default function Survey() {
     <SurveyTakerStandardPage>
       {!loading ? (
         <>
-          <div className="flex flex-col gap-y-3">
-            <p className="max-w-prose">
+          <div className="flex flex-col w-4/5 lg:w-1/4 gap-y-3 items-center">
+            <p className="w-11/12 whitespace-normal break-words">
               {config.researcherMessage}
             </p>
-            <hr className="border-1 w-9/12 self-center border-gray-800" />
+            <hr className="border-1 w-full self-center border-gray-800" />
           </div>
 
           <form 
-            className="flex flex-col flex-grow gap-y-6" 
+            className="flex flex-col w-4/5 lg:w-1/3 gap-y-6" 
             onSubmit={(e) => handleSubmit(e)}
           >
             {renderQuestions()}
@@ -167,19 +167,19 @@ export default function Survey() {
                 >
                   Back
                 </button>                
-            ) : (
-              design[design.length - 1].page > 0 && (
-                <div className="w-1/3"></div>
-              )
+              ) : (
+                config.questions[design[design.length - 1]].page > 0 && (
+                  <div className="w-1/3"></div>
+                )
               )}
-              
-              {design[design.length - 1].page > 0 && (
+
+              {config.questions[design[design.length - 1]].page > 0 && (
                 <p className="w-1/3 text-center">
-                  {page + 1} of {design[design.length - 1].page + 1}
+                  {page + 1} of {config.questions[design[design.length - 1]].page + 1}
                 </p>
               )}
 
-              {design[design.length - 1].page > page ? (
+              {config.questions[design[design.length - 1]].page > page ? (
                 <button
                   className="w-1/3 rounded bg-rdsOrange p-1 text-white"
                   onClick={() => changePage(1)}
@@ -195,13 +195,19 @@ export default function Survey() {
               )}
             </div>
           </form>
+
           <p className="text-center text-red-600">{error}</p>
 
-          <p className="max-w-prose">
-            If you have to leave the survey, write down this code, which you can
-            use to load your progress, even on another device:
-            <b className="text-rdsOrange text-lg font-bold">   {alias.current}</b>
-          </p>
+          <div className="flex flex-col items-center mt-auto text-sm text-center">
+            <p className="max-w-prose text-center font-semibold">
+              Need to leave the survey?
+            </p>
+            <p className="max-w-prose">
+              Write down this code, which you can
+              use to load your progress, even on another device:
+              <b className="text-rdsOrange text-base font-semibold"> {alias.current}</b>
+            </p>
+          </div>
         </>
       ) : (
         <Loading />

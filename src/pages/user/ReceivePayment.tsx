@@ -71,10 +71,10 @@ export default function ReceivePayment() {
 
   return (
     <SurveyTakerStandardPage>
-      <div className="mt-10 flex max-w-prose flex-col">
+      <div className="flex flex-col max-w-prose">
         <p>
           Thank you for completing the survey! You may now claim your
-          participation reward of $X! Your reward will be sent to you through
+          participation reward of $X.XX! Your reward will be sent to you through
           Tremendous, a digital payment service.
           <br />
           <br />
@@ -84,15 +84,15 @@ export default function ReceivePayment() {
       </div>
 
       {emailVerified ? (
-        <div className="mt-12 flex w-full max-w-prose flex-col items-center">
+        <div className="mt-6 flex w-full max-w-prose flex-col items-center">
           <img
             src={tremendousLogo}
             alt="The logo of Tremendous"
             className="w-3/4"
           />
-          <div className="mt-6 flex w-2/3 max-w-prose flex-row items-center justify-center">
-            <p className="w-1/6 text-center text-6xl text-green-500">✔</p>
-            <p className="w-5/6 max-w-xs break-words pl-2 text-center">
+          <div className="mt-6 flex flex-row w-2/3 max-w-prose items-center justify-center gap-x-2">
+            <p className=" text-center text-6xl text-green-500">✔</p>
+            <p className="max-w-xs break-words pl-2 text-center">
               An email will be sent to <br />{" "}
               {
                 (document.getElementById("tremendousEmail") as HTMLInputElement)
@@ -106,7 +106,7 @@ export default function ReceivePayment() {
           </button>
         </div>
       ) : (
-        <div className="mt-12 flex w-full max-w-prose flex-col items-center">
+        <div className="mt-6 flex w-full max-w-prose flex-col items-center">
           <img
             src={tremendousLogo}
             alt="The logo of Tremendous"
