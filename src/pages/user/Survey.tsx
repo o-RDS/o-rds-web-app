@@ -148,55 +148,59 @@ export default function Survey() {
         <>
           <div className="flex flex-col gap-y-3">
             <p className="max-w-prose">
-              Here is where some instructions could go. In the future, this
-              should be a variable based on what the researcher inputs in the
-              Builder.
+              {config.researcherMessage}
             </p>
             <hr className="border-1 w-9/12 self-center border-gray-800" />
           </div>
 
-          <form className="flex-grow-1 flex flex-col gap-y-6" onSubmit={(e) => handleSubmit(e)}>
+          <form 
+            className="flex flex-col flex-grow gap-y-6" 
+            onSubmit={(e) => handleSubmit(e)}
+          >
             {renderQuestions()}
-            <div className="mt-auto flex min-h-[36px] w-4/5 flex-row justify-center md:mt-0 md:w-1/3">
-            {page > 0 ? (
-              <button
-                className="w-1/3 rounded border-2 border-rdsOrange bg-white p-1 text-rdsOrange"
-                onClick={() => changePage(-1)}
-              >
-                Back
-              </button>
+
+            <div className="flex flex-row min-h-[36px] w-4/5 self-center justify-center">
+              {page > 0 ? (
+                <button
+                  className="w-1/3 rounded border-2 border-rdsOrange bg-white p-1 text-rdsOrange"
+                  onClick={() => changePage(-1)}
+                >
+                  Back
+                </button>                
             ) : (
               design[design.length - 1].page > 0 && (
                 <div className="w-1/3"></div>
               )
-            )}
-            {design[design.length - 1].page > 0 && (
-              <p className="w-1/3 text-center">
-                {page + 1} of {design[design.length - 1].page + 1}
-              </p>
-            )}
-            {design[design.length - 1].page > page ? (
-              <button
-                className="w-1/3 rounded bg-rdsOrange p-1 text-white"
-                onClick={() => changePage(1)}
-              >
-                Next
-              </button>
-            ) : (
-              <button
-                className="w-1/3 rounded bg-rdsOrange p-1 text-white"
-              >
-                Submit
-              </button>
-            )}
-          </div>
+              )}
+              
+              {design[design.length - 1].page > 0 && (
+                <p className="w-1/3 text-center">
+                  {page + 1} of {design[design.length - 1].page + 1}
+                </p>
+              )}
+
+              {design[design.length - 1].page > page ? (
+                <button
+                  className="w-1/3 rounded bg-rdsOrange p-1 text-white"
+                  onClick={() => changePage(1)}
+                >
+                  Next
+                </button>
+              ) : (
+                <button
+                  className="w-1/3 rounded bg-rdsOrange p-1 text-white"
+                >
+                  Submit
+                </button>
+              )}
+            </div>
           </form>
           <p className="text-center text-red-600">{error}</p>
 
-          
-          <p>
+          <p className="max-w-prose">
             If you have to leave the survey, write down this code, which you can
-            use to load your progress, even on another device: {alias.current}
+            use to load your progress, even on another device:
+            <b className="text-rdsOrange text-lg font-bold">   {alias.current}</b>
           </p>
         </>
       ) : (
