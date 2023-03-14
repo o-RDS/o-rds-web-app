@@ -12,6 +12,7 @@ export default function Survey() {
   const [page, setPage] = useState<number>(0);
   const [design, setDesign] = useState<any>(null);
   const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string>("");
   const params = useParams();
   const navigate = useNavigate();
   const config: any = useOutletContext();
@@ -74,14 +75,22 @@ export default function Survey() {
   }
 
   async function saveResponse() {
+    setError("");
     let tempHash = hash.current;
     if (params.id !== undefined && tempHash !== null) {
       let tempAlias = window.localStorage.getItem(params.id + tempHash);
       if (tempAlias) {
-        return await writeSurveyResponse(params.id, tempAlias, response);
+        let res = await writeSurveyResponse(params.id, tempAlias, response);
+        if (res.statusCode === 200) {
+          return true;
+        } else {
+          return false;
+          setError(res.message)
+        }
       }
     }
     return false;
+    setError("Failed to save response")
   }
 
   async function handleSubmit(e: any) {
@@ -178,6 +187,7 @@ export default function Survey() {
             )}
           </div>
           </form>
+          <p className="text-center text-red">{error}</p>
 
           
           <p>

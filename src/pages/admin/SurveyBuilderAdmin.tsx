@@ -131,7 +131,7 @@ export default function SurveyBuilder() {
 
   return (
     <StandardPage>
-      {SurveyState['error'] && <div className="fixed top-5 animate-inOut z-50 w-screen flex flex-row items-center justify-center"><SurveyBuilderError message={SurveyState['error']}/></div>}
+      {SurveyState['error'] && <div className="fixed top-5 animate-inOut z-50 w-full flex flex-row items-center justify-center"><SurveyBuilderError message={SurveyState['error']}/></div>}
       <SurveyTopConfig
         name={SurveyState["survey"]["title"]}
         setSurveyName={setSurveyName}
