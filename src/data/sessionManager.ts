@@ -3,9 +3,9 @@ import Base64 from 'crypto-js/enc-base64';
 
 export function setPhone(phoneNumber: string) {
   window.sessionStorage.setItem('phone', phoneNumber);
-  window.sessionStorage.setItem('hash', Base64.stringify(sha256(phoneNumber)).replaceAll('\\', 'x').replaceAll('/', 'y'));
+  window.sessionStorage.setItem('hash', Base64.stringify(sha256(phoneNumber)).replaceAll('\\', 'x').replaceAll('/', 'y').replaceAll('+', 'z'));
   console.log('Phone number set to: ' + phoneNumber);
-  console.log('Hash set to: ' + Base64.stringify(sha256(phoneNumber)).replaceAll('\\', 'x').replaceAll('/', 'y'));
+  console.log('Hash set to: ' + Base64.stringify(sha256(phoneNumber)).replaceAll('\\', 'x').replaceAll('/', 'y').replaceAll('+', 'z'));
 };
 
 export function setChainInfo(parent: string, referer: string, depth: number) {

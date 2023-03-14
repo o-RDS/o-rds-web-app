@@ -15,10 +15,10 @@ export default function PhoneEntry() {
     let parent = searchParams.get("p");
     let referer = searchParams.get("r");
     let depth = 1;
-    if (parent == null) {
+    if (parent == null || parent === "null") {
       parent = "root";
     }
-    if (referer == null) {
+    if (referer == null || referer === "null") {
       referer = "root";
     }
     /* USE THIS CODE ONCE WE HAVE VALID SURVEY DATA (maybe)

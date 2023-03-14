@@ -60,7 +60,7 @@ export default function QuestionViewer(props: any) {
 
   return (
     <>
-      <div className="h-min-56 mt-3 mb-3 flex w-full flex-col gap-10 rounded-md shadow-lg shadow-black dark:bg-rdsDarkAccent3">
+      <div className="h-min-56 mt-3 mb-3 flex w-full flex-col gap-10 rounded-md shadow-blur shadow-black dark:bg-rdsDarkAccent3">
         <div className="flex w-full flex-col items-center justify-center gap-10 rounded-md p-5">
           <div className="flex w-full flex-col gap-4">{testArray}</div>
           <button

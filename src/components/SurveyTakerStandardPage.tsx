@@ -15,7 +15,7 @@ export default function SurveyTakerStandardPage(props: any) {
 
   return (
     <>
-      <div className="flex h-screen w-screen flex-col items-center">
+      <div className="flex h-screen w-full flex-col items-center">
         {config !== null && config.contactInfo !== undefined && (config.contactInfo.phone || config.contactInfo.email) &&
           <>
             <ContactMenuModal 

@@ -6,6 +6,7 @@ import QuestionViewer from "../../components/QuestionViewer";
 import ConfigSidebar from "../../components/ConfigSidebar";
 import SurveyLinkModal from "../../components/SurveyLinkModal";
 import SurveySettings from "../../components/settings/SurveySettings";
+import SurveyBuilderError from "../../components/SurveyBuilderError";
 import {
   SurveyContext,
   SurveyDispatchContext,
@@ -23,6 +24,7 @@ import Loading from "../../components/Loading";
 export default function SurveyBuilder() {
   const SurveyState = useContext(SurveyContext);
   const dispatch = useContext(SurveyDispatchContext);
+  const [errors, setErrors] = useState("");
   function getDefaultSurvey(userID: string) {
     let newID = uuidv4();
     let question1ID = uuidv4();
@@ -100,6 +102,7 @@ export default function SurveyBuilder() {
           questions: data,
           question: Object.keys(data['questions'])[0],
           change: false,
+          error: ""
         });
         setConfig(data);
         // setTimeout(() =>{
@@ -113,6 +116,7 @@ export default function SurveyBuilder() {
         questions: config,
         question: config['questions'][config['questionOrder'][0]],
         change: false,
+        error: ""
       });
       saveSurveyConfig(config.id, config);
       navigate(`../${config.id}`);
@@ -127,6 +131,7 @@ export default function SurveyBuilder() {
 
   return (
     <StandardPage>
+      {SurveyState['error'] && <div className="fixed top-5 animate-inOut z-50 w-full flex flex-row items-center justify-center"><SurveyBuilderError message={SurveyState['error']}/></div>}
       <SurveyTopConfig
         name={SurveyState["survey"]["title"]}
         setSurveyName={setSurveyName}

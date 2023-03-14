@@ -71,7 +71,7 @@ export async function listFundingSources()   {
 }
 
 
-export async function sendPayment(order) {
+export async function sendPayment(order, surveyID, mode) {
 
   const token = "JWT " + getCookie("token");
 
@@ -98,7 +98,7 @@ export async function sendPayment(order) {
   };
 
   var statusCode;
-  return fetch(`${serverHost}/api/tremendous/sendPayment`, options)
+  return fetch(`${serverHost}/api/survey/${surveyID}/sendPayment/${mode}`, options)
     .then(response => {
       if (!response.ok) {
         console.error(new Error(response.statusText));

@@ -12,6 +12,18 @@ module.exports = {
         rdsDarkAccent: "#525760",
         rdsDarkAccent2: "#464b53",
         rdsDarkAccent3: "#3b3f45"
+      },
+      animation: {
+        inOut: 'error 1s forwards linear'
+      },
+      keyframes: {
+        error: {
+          '0%': { transform: 'translateY(-10vw)' },
+          '100%': { transform: 'translateY(0vw)' },
+        }
+      },
+      boxShadow: {
+        blur: '0 4px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)'
       }
     },
   },

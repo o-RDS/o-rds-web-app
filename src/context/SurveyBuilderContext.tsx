@@ -151,6 +151,7 @@ export default function SurveyBuilderContext(props: any) {
             survey: action.questions,
             question: action.question,
             change: action.change,
+            error: action.error
           };
         }
         case "question-prompt": {
@@ -244,6 +245,34 @@ export default function SurveyBuilderContext(props: any) {
             survey: tasks['survey'],
             question: tasks['question'],
             change: false
+          }
+        }
+        case "close-error": {
+          return {
+            survey: tasks['survey'],
+            question: tasks['question'],
+            change: false,
+            error: ""
+          }
+        }
+        case "change-funding": {
+          tasks["survey"]["tremendous"]["funding"] =
+            action.newType;
+          return {
+            survey: tasks['survey'],
+            question: tasks['question'],
+            change: false,
+            error: ""
+          }
+        }
+        case "change-campaign": {
+          tasks["survey"]["tremendous"]["campaign"] =
+            action.newType;
+          return {
+            survey: tasks['survey'],
+            question: tasks['question'],
+            change: false,
+            error: ""
           }
         }
         case "change-type": {
