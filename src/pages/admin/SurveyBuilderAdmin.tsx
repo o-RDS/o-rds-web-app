@@ -25,13 +25,13 @@ export default function SurveyBuilder() {
   const SurveyState = useContext(SurveyContext);
   const dispatch = useContext(SurveyDispatchContext);
   const [errors, setErrors] = useState("");
-  function getDefaultSurvey(userID: string) {
+  function getDefaultSurvey() {
     let newID = uuidv4();
     let question1ID = uuidv4();
     const defaultData = {
       id: newID,
       title: "Untitled Survey",
-      admins: [userID],
+      admins: [],
       live: false,
       completionPayout: 0.0,
       refPayout: 0.0,
@@ -85,7 +85,7 @@ export default function SurveyBuilder() {
   const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
   const [surveyName, setSurveyName] = useState("SurveyName");
-  const [config, setConfig] = useState<any>(getDefaultSurvey("test@siue.edu"));
+  const [config, setConfig] = useState<any>(getDefaultSurvey());
   const [settings, setSettings] = useState({
     active: false,
     whichSettings: "General",
