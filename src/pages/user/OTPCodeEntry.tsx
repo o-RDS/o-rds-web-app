@@ -80,7 +80,7 @@ export default function OTPCodeEntry() {
               if (data.statusCode > 201) setError(data.message)
             });
             window.localStorage.setItem(params.id + hash, alias);
-            navigate("../questions");
+            navigate("../consent");
           }
         }
       }
