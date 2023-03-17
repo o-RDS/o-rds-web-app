@@ -15,14 +15,14 @@ export default function SurveyTakerStandardPage(props: any) {
 
   return (
     <>
-      <div className="flex h-screen w-full flex-col items-center">
+      <div className="flex min-h-screen w-full flex-col items-center">
         {config !== null && config.contactInfo !== undefined && (config.contactInfo.phone || config.contactInfo.email) &&
           <>
             <ContactMenuModal 
               display={displayModal}
               setDisplay={setDisplayModal}
             />
-            <div className="justify-start self-start p-2">
+            <div className="justify-start self-start px-2 pt-2">
               <button
                 onClick={() => setDisplayModal(!displayModal)}
               >
@@ -32,7 +32,7 @@ export default function SurveyTakerStandardPage(props: any) {
           </>
         }
         
-        <div className="flex h-full w-full flex-col items-center gap-y-8 px-6 pt-6">
+        <div className="flex flex-col flex-grow w-full min-h-full items-center gap-y-6 p-6">
           <img src={sampleResearcherLogo} className="w-3/4 md:w-1/3 lg:w-1/4" />
           {props.children}
         </div>

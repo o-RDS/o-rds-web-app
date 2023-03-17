@@ -37,29 +37,34 @@ export default function Share() {
 
   return (
     <SurveyTakerStandardPage>
-      <p className="max-w-prose">
-        Thank you for taking the time to complete this survey.
-      </p>
-      <p className="max-w-prose">
-        If you would like to share this survey with others for additional
-        rewards, please use the link below.
-      </p>
-      <ShareBox link={getLink()} />
-      <div className="flex w-1/3 flex-row gap-8">
-        <button
-          className="grow rounded bg-rdsOrange p-1 text-white"
-          onClick={() => {
-            copyToClipboard();
-          }}
-        >
-          {copyLabel}
-        </button>
-        <button
-          className="grow rounded bg-rdsOrange p-1 text-white"
-          onClick={() => openShare()}
-        >
-          Share
-        </button>
+      <div className="flex flex-col items-center">
+        <p className="max-w-prose">
+          Thank you for taking the time to complete this survey.
+          <br/>
+          <br/>
+          If you would like to share this survey with others for additional
+          rewards, please use the link below.
+        </p>
+      </div>
+
+      <div className="flex flex-col items-center w-4/5 lg:w-1/3 mt-4 gap-y-6">
+        <ShareBox link={getLink()} />
+        <div className="flex flex-row w-full gap-8 justify-center">
+          <button
+            className="w-1/3 rounded bg-rdsOrange p-1 text-white"
+            onClick={() => {
+              copyToClipboard();
+            }}
+          >
+            {copyLabel}
+          </button>
+          <button
+            className="w-1/3 rounded bg-rdsOrange p-1 text-white"
+            onClick={() => openShare()}
+          >
+            Share
+          </button>
+        </div>
       </div>
     </SurveyTakerStandardPage>
   );

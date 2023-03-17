@@ -23,8 +23,7 @@ export default function ResumeSurvey() {
   return (
     <SurveyTakerStandardPage>
       <p className="max-w-prose">
-        To resume your progress on the survey, please enter your X-digit
-        resumption code below.
+        To resume your progress on the survey, please enter your resumption code below.
       </p>
       <div className="flex flex-col gap-y-6">
         <div className="flex flex-col">
@@ -36,7 +35,7 @@ export default function ResumeSurvey() {
             type="text"
             id="ResumptionCode"
             name="ResumptionCode"
-            placeholder="*Code Format Here*"
+            placeholder=""
             className="w-56 rounded bg-gray-200 p-1"
             value={code}
             onChange={(e) => setCode(e.target.value)}
