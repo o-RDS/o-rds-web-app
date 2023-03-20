@@ -57,7 +57,7 @@ export default function Share() {
     let order = newOrder(email, config.completionPayout);
     console.log("Fetching Tremendous order API");
     
-    sendPayment(order, config.id, "complete").then((data) => {
+    sendPayment(order, config.id, "referral").then((data) => {
       if (data.statusCode > 201) {
         setError(data.message);
       } else {
