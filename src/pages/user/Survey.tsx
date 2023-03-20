@@ -106,7 +106,7 @@ export default function Survey() {
         (await saveResponse())
       ) {
         console.log("Submitted response");
-        navigate("../share");
+        navigate("../reward");
       }
       else {
         console.log("Failed to submit response");
