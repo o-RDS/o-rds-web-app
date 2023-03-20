@@ -18,6 +18,7 @@ import {
 import { v4 as uuidv4 } from "uuid";
 import { useNavigate, useParams } from "react-router";
 import StandardPage from "../../components/StandardPage";
+import { getJWTPayload } from "../../data/cookieFunctions";
 import Loading from "../../components/Loading";
 
 //TODO: Survey builder context needs to get the correct survey! We need to make sure we get that data to it!
@@ -31,7 +32,7 @@ export default function SurveyBuilder() {
     const defaultData = {
       id: newID,
       title: "Untitled Survey",
-      admins: [],
+      admins: [getJWTPayload().email],
       live: false,
       completionPayout: 0.0,
       refPayout: 0.0,
