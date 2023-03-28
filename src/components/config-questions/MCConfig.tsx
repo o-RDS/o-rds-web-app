@@ -51,9 +51,6 @@ export default function MCConfig(props: any) {
   function handleQuestionDown() {
     console.log(SurveyState["survey"]["questionOrder"]);
     let test: any = SurveyState;
-    console.log(test["survey"]["questionOrder"]);
-    console.log(props.otherIndex);
-    console.log(test["survey"]["questionOrder"].length);
     if (props.otherIndex + 1 > test["survey"]["questionOrder"].length) {
       dispatch({
         type: "question-down",
@@ -66,7 +63,6 @@ export default function MCConfig(props: any) {
       test["survey"]["questionOrder"][props.otherIndex + 1] =
         test["survey"]["questionOrder"][props.otherIndex];
       test["survey"]["questionOrder"][props.otherIndex] = temp;
-      console.log(test["survey"]["questionOrder"]);
       dispatch({
         type: "question-down",
         survey: test["survey"],
@@ -99,11 +95,31 @@ export default function MCConfig(props: any) {
     });
   }
 
+  function isUpDisabled() {
+    console.log(SurveyState["survey"]["questionOrder"].length);
+    console.log(props.otherIndex)
+    if (props.otherIndex == 0) {
+      return true
+    } else {
+      return false
+    }
+  }
+
+  function isDownDisabled() {
+    console.log(SurveyState["survey"]["questionOrder"].length);
+    console.log(props.otherIndex)
+    if (props.otherIndex + 1 == SurveyState["survey"]["questionOrder"].length) {
+      return true
+    } else {
+      return false
+    }
+  }
+
   function renderChoices() {
     return SurveyStateQuestions["config"]["choices"]["value"].map(
-      (choice: any) => {
+      (choice: any, index: any) => {
         return (
-          <li key={choice}>
+          <li key={choice + index}>
             <input type="radio" value={choice} disabled></input>
             <label className="ml-2">{choice}</label>
           </li>
@@ -111,6 +127,7 @@ export default function MCConfig(props: any) {
       }
     );
   }
+
   return (
     <>
       <div
@@ -128,13 +145,15 @@ export default function MCConfig(props: any) {
             <div className="ml-auto">
               <button
                 onClick={() => handleQuestionDown()}
-                className="mx-1 rounded-md p-1 hover:bg-rdsDarkAccent"
+                className={`mx-1 rounded-md p-1 hover:bg-rdsDarkAccent disabled:opacity-50 transition-all`}
+                disabled={isDownDisabled()}
               >
                 ▼
               </button>
               <button
                 onClick={() => handleQuestionUp()}
-                className="mx-1 rounded-md p-1 hover:bg-rdsDarkAccent"
+                className="mx-1 rounded-md p-1 hover:bg-rdsDarkAccent disabled:opacity-50 transition-all"
+                disabled={isUpDisabled()}
               >
                 ▲
               </button>
