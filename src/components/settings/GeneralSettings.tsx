@@ -35,7 +35,7 @@ export function GeneralSettings() {
         <h3 className="text-3xl">General</h3>
         <div className="flex flex-row gap-10">
           <div>
-            <p>Rsearcher Logo</p>
+            <p>Researcher Logo</p>
             <img
               src={ords}
               className="h-32 w-32 rounded-full shadow-sm shadow-rdsDarkAccent2"
@@ -48,7 +48,7 @@ export function GeneralSettings() {
               type="text"
               id="survey-name"
               className="rounded-sm bg-gray-200 p-1 dark:bg-rdsDarkAccent"
-              maxLength={20}
+              maxLength={50}
               onChange={(e) => handleInputChange(e, "title")}
               value={SurveyState["survey"]["title"]}
             ></input>

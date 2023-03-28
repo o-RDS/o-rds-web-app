@@ -1,5 +1,6 @@
 import { order } from './interfaces';
 import { proxyAddress, devAddress } from './config';
+import { v4 as uuidv4 } from 'uuid';
 
 let serverHost = "";
 
@@ -71,7 +72,7 @@ export async function listFundingSources()   {
 }
 
 
-export async function sendPayment(order) {
+export async function sendPayment(order, surveyID, mode) {
 
   const token = "JWT " + getCookie("token");
 
@@ -83,22 +84,19 @@ export async function sendPayment(order) {
       Authorization: token,
     },
     body: JSON.stringify({
-      external_id: order.external_id,
       funding_source_id: order.funding_source_id,
       campaign_id: order.campaign_id,
-      products: order.products,
       denomination: order.denomination,
       recipient: {
         name: order.recipient_name,
         email: order.recipient_email,
-        phone: order.recipient_phone
       },
       method: order.delivery_method
     })
   };
 
   var statusCode;
-  return fetch(`${serverHost}/api/tremendous/sendPayment`, options)
+  return fetch(`${serverHost}/api/survey/${surveyID}/sendPayment/${mode}`, options)
     .then(response => {
       if (!response.ok) {
         console.error(new Error(response.statusText));

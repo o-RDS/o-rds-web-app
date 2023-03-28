@@ -76,9 +76,11 @@ export default function OTPCodeEntry() {
               responseID: responseID,
               parentID: window.sessionStorage.getItem("parent"),
               depth: window.sessionStorage.getItem("depth"),
+            }).then((data) => {
+              if (data.statusCode > 201) setError(data.message)
             });
             window.localStorage.setItem(params.id + hash, alias);
-            navigate("../questions");
+            navigate("../consent");
           }
         }
       }

@@ -19,9 +19,9 @@ export default function Consent(){
                     Please read the consent information below.
                 </p>
                 <hr className="w-1/3 border-1 border-gray-800"/>
-                <div className="flex justify-center items-center md:w-1/2">
-                    <p className="text-left whitespace-normal">
-                        {config.informedConsent}
+                <div className="flex justify-center items-center w-full lg:w-1/2">
+                    <p className="w-11/12 text-left whitespace-normal break-words">
+                        {config.informedConsent.consentRequirements}
                     </p>
                 </div>
                 <hr className="w-1/3 border-1 border-gray-800"/>

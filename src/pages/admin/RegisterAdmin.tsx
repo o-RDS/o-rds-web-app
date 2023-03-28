@@ -66,7 +66,9 @@ export default function RegisterAdmin() {
     };
 
     try {
-      let registerResponse = await register(accountInfo);
+      let registerResponse = await register(accountInfo).then((data) => {
+        if (data.statusCode > 201) setErrorMessage(data.message);
+      });
       console.log(registerResponse);
       setErrorMessage({ error: false, message: "" });
       setRegisterSuccess(true);

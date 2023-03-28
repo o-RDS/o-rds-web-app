@@ -18,6 +18,7 @@ import {
 import { v4 as uuidv4 } from "uuid";
 import { useNavigate, useParams } from "react-router";
 import StandardPage from "../../components/StandardPage";
+import { getJWTPayload } from "../../data/cookieFunctions";
 import Loading from "../../components/Loading";
 
 //TODO: Survey builder context needs to get the correct survey! We need to make sure we get that data to it!
@@ -25,13 +26,13 @@ export default function SurveyBuilder() {
   const SurveyState = useContext(SurveyContext);
   const dispatch = useContext(SurveyDispatchContext);
   const [errors, setErrors] = useState("");
-  function getDefaultSurvey(userID: string) {
+  function getDefaultSurvey() {
     let newID = uuidv4();
     let question1ID = uuidv4();
     const defaultData = {
       id: newID,
       title: "Untitled Survey",
-      admins: [userID],
+      admins: [getJWTPayload().email],
       live: false,
       completionPayout: 0.0,
       refPayout: 0.0,
@@ -85,7 +86,7 @@ export default function SurveyBuilder() {
   const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
   const [surveyName, setSurveyName] = useState("SurveyName");
-  const [config, setConfig] = useState<any>(getDefaultSurvey("test@siue.edu"));
+  const [config, setConfig] = useState<any>(getDefaultSurvey());
   const [settings, setSettings] = useState({
     active: false,
     whichSettings: "General",

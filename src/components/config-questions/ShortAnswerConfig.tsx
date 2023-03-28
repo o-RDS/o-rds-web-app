@@ -90,7 +90,7 @@ export default function ShortAnswerConfig(props: any) {
     return (
       <textarea
         disabled
-        className="rounded border-2 border-rdsBlue bg-white text-center"
+        className="w-full rounded border-2 border-rdsBlue bg-white text-center"
         placeholder="Text Would Go Here"
       ></textarea>
     );

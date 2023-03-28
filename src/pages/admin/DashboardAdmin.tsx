@@ -6,12 +6,15 @@ import {
 } from "../../APIs/Firebase";
 import { useState, useEffect } from "react";
 import Loading from "../../components/Loading";
+import { getJWTPayload } from "../../data/cookieFunctions";
 
 export default function Dashboard() {
   const [surveys, setSurveys] = useState<any>([]);
   const [page, setPage] = useState(0);
   const [displayNumber, setDisplayNumber] = useState(5);
   const [loading, setLoading] = useState(true);
+  const [name, setName] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
     setLoading(true);
@@ -24,6 +27,7 @@ export default function Dashboard() {
       setSurveys(surveys);
       setLoading(false);
     });
+    setName(getJWTPayload().email);
   }, [page, displayNumber]);
 
   function renderSurveyButtons() {
@@ -53,7 +57,11 @@ export default function Dashboard() {
 
   async function deleteSurvey(id: string) {
     setLoading(true);
-    console.log(await deleteSurveyConfig(id));
+    console.log(await deleteSurveyConfig(id).then((data) => {
+      if (data.statusCode > 201) {
+        setErrorMessage(data.message)
+      }
+    }));
     loadAdminSurveys(
       page * displayNumber,
       displayNumber
@@ -66,7 +74,7 @@ export default function Dashboard() {
   return (
     <StandardPage>
       <div className="flex flex-col items-center">
-        <h1>Welcome User</h1>
+        <h1>Welcome {name}</h1>
         <div className="flex w-5/6 flex-col">
           <div className="flex flex-row items-baseline gap-2">
             <h3 className="text-2xl">My Surveys</h3>

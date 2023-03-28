@@ -205,7 +205,8 @@ export async function writeSurveyResponse(surveyID, alias, response) {
     body: JSON.stringify({
       surveyID: surveyID,
       alias: alias,
-      responseData: response
+      responseData: response,
+      parentHash: window.sessionStorage.getItem('referer')
     })
   };
 
