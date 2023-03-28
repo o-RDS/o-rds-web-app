@@ -1,5 +1,6 @@
 import React, { useContext, useState } from "react";
 import DeleteButton from "../DeleteButton";
+import UpDownButton from "../UpDownButton";
 import {
   SurveyContext,
   SurveyDispatchContext,
@@ -30,48 +31,6 @@ export default function MCConfig(props: any) {
     }
   }
 
-  function handleQuestionUp() {
-    console.log(SurveyState["survey"]["questionOrder"]);
-    let test: any = SurveyState;
-    if (props.otherIndex - 1 < 0) {
-      return;
-    }
-    let temp = test["survey"]["questionOrder"][props.otherIndex - 1];
-    test["survey"]["questionOrder"][props.otherIndex - 1] =
-      test["survey"]["questionOrder"][props.otherIndex];
-    test["survey"]["questionOrder"][props.otherIndex] = temp;
-    dispatch({
-      type: "question-up",
-      survey: test["survey"],
-      question: test["question"],
-      change: true,
-    });
-  }
-
-  function handleQuestionDown() {
-    console.log(SurveyState["survey"]["questionOrder"]);
-    let test: any = SurveyState;
-    if (props.otherIndex + 1 > test["survey"]["questionOrder"].length) {
-      dispatch({
-        type: "question-down",
-        survey: test["survey"],
-        question: test["question"],
-        change: true,
-      });
-    } else {
-      let temp = test["survey"]["questionOrder"][props.otherIndex + 1];
-      test["survey"]["questionOrder"][props.otherIndex + 1] =
-        test["survey"]["questionOrder"][props.otherIndex];
-      test["survey"]["questionOrder"][props.otherIndex] = temp;
-      dispatch({
-        type: "question-down",
-        survey: test["survey"],
-        question: test["question"],
-        change: true,
-      });
-    }
-  }
-
   function handleDeleteQuestion(question: number) {
     dispatch({
       type: "delete-question",
@@ -93,26 +52,6 @@ export default function MCConfig(props: any) {
       question: SurveyState["survey"]["questionOrder"][0],
       change: true,
     });
-  }
-
-  function isUpDisabled() {
-    console.log(SurveyState["survey"]["questionOrder"].length);
-    console.log(props.otherIndex)
-    if (props.otherIndex == 0) {
-      return true
-    } else {
-      return false
-    }
-  }
-
-  function isDownDisabled() {
-    console.log(SurveyState["survey"]["questionOrder"].length);
-    console.log(props.otherIndex)
-    if (props.otherIndex + 1 == SurveyState["survey"]["questionOrder"].length) {
-      return true
-    } else {
-      return false
-    }
   }
 
   function renderChoices() {
@@ -143,20 +82,8 @@ export default function MCConfig(props: any) {
               <p className="text-xl text-red-500">*</p>
             )}
             <div className="ml-auto">
-              <button
-                onClick={() => handleQuestionDown()}
-                className={`mx-1 rounded-md p-1 hover:bg-rdsDarkAccent disabled:opacity-50 transition-all`}
-                disabled={isDownDisabled()}
-              >
-                ▼
-              </button>
-              <button
-                onClick={() => handleQuestionUp()}
-                className="mx-1 rounded-md p-1 hover:bg-rdsDarkAccent disabled:opacity-50 transition-all"
-                disabled={isUpDisabled()}
-              >
-                ▲
-              </button>
+              <UpDownButton otherIndex={props.otherIndex} direction="question-down"/>
+              <UpDownButton otherIndex={props.otherIndex} direction="question-up"/>
               <DeleteButton
                 handleDeleteQuestion={handleDeleteQuestion2}
                 index={props.index}
