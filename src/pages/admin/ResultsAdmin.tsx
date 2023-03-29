@@ -102,6 +102,7 @@ export default function Results() {
           id={params.surveyID}
           live={config.live}
           updated={config.lastUpdated}
+          downloadCSV={downloadCSV}
         />
       
       <div className="flex w-full flex-col gap-y-2 p-6">
@@ -117,12 +118,6 @@ export default function Results() {
             className="ml-4 mr-12"
             onChange={() => setFilterCompleted(!filterCompleted)}
           />
-          <button
-            className="w-fit rounded bg-rdsOrange p-2 text-white"
-            onClick={() => downloadCSV()}
-          >
-            Download CSV
-          </button>
         </div>
         <ResultsTable 
           results={results} 

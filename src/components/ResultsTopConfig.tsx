@@ -68,7 +68,7 @@ export default function ResultsTopConfig(props: any) {
         </button> */}
         <button 
             className="w-fit rounded bg-rdsOrange p-2 text-white"
-            // onClick={() => downloadCSV()}
+            onClick={() => props.downloadCSV()}
           >
             Download CSV
           </button>

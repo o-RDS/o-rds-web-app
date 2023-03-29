@@ -6,7 +6,7 @@ export default function AnswersSidebar() {
   return (
     <div className="flex flex-col gap-5">
       <h3 className="text-lg font-semibold">Answers</h3>
-      <ShuffleConfig />
+      {/* <ShuffleConfig /> */}
       <ChoicesConfig />
     </div>
   );

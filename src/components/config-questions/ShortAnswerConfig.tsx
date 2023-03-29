@@ -64,7 +64,7 @@ export default function ShortAnswerConfig(props: any) {
   }
   return (
     <div
-      className={`${isSelected()} rounded-md border-2 p-1 transition-all hover:border-2 hover:border-rdsOrange animate-inOut`}
+      className={`${isSelected()} rounded-md border-2 p-1 transition-all hover:border-2 hover:border-rdsOrange`}
       onClick={(e) => handleQuestionChange(props.index)}
     >
       <div className="w-full p-2 dark:text-white">

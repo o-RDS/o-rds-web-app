@@ -52,7 +52,7 @@ export default function ChoicesConfig() {
         <input
           value={choice}
           onChange={(e) => handleChoicesChange(index, e)}
-          className="w-full border-b-2 border-gray-200 transition-all focus:border-b-rdsBlue focus:outline-none dark:bg-rdsDarkAccent2"
+          className="w-full border-b-2 border-gray-200 transition-all focus:border-b-rdsBlue focus:outline-none dark:bg-rdsDarkAccent2 p-1 rounded-sm"
           placeholder="Enter Choice Here"
         ></input>
         <br></br>
