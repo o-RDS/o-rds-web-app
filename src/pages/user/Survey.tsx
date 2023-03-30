@@ -162,6 +162,7 @@ export default function Survey() {
             <div className="flex flex-row min-h-[36px] w-4/5 self-center justify-center">
               {page > 0 ? (
                 <button
+                  type="button"
                   className="w-1/3 rounded border-2 border-rdsOrange bg-white p-1 text-rdsOrange"
                   onClick={() => changePage(-1)}
                 >
@@ -181,6 +182,7 @@ export default function Survey() {
 
               {config.questions[design[design.length - 1]].page > page ? (
                 <button
+                  type="button"
                   className="w-1/3 rounded bg-rdsOrange p-1 text-white"
                   onClick={() => changePage(1)}
                 >
