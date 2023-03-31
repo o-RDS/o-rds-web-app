@@ -30,8 +30,6 @@ export default function TopNav() {
         >
           Log Out
         </button>
-        {/* <p>Profile</p> */}
-        <div className="h-8 w-8 rounded-2xl bg-lime-500"></div>
       </div>
     </div>
   );

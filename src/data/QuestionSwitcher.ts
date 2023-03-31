@@ -14,7 +14,8 @@ export default function giveConfigs(type: string) {
                 },
                 choices: {
                   value: ["A", "B", "C", "D", "E"],
-                  configPrompt: "Enter choices:",
+                  configPrompt: "Number of Choices",
+                  editablePrompt: "Edit your choices",
                   type: "stringArray",
                 },
               });
@@ -48,7 +49,8 @@ export default function giveConfigs(type: string) {
                   },
                   choices: {
                     value: ["A", "B", "C", "D", "E"],
-                    configPrompt: "Enter choices:",
+                    configPrompt: "Number of Choices",
+                    editablePrompt: "Edit your choices",
                     type: "stringArray",
                   },
             });

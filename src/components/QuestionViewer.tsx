@@ -27,7 +27,8 @@ export default function QuestionViewer(props: any) {
       },
       choices: {
         value: ["Option 1", "Option 2", "Option 3", "Option 4"],
-        configPrompt: "Enter choices:",
+        configPrompt: "Number of Choices",
+        editablePrompt: "Edit your choices",
         type: "stringArray",
       },
   }
