@@ -79,7 +79,7 @@ export default function SurveyTopConfig(props: any) {
         </button>
       </div>
       {open && (
-        <div className="fixed top-28 flex flex-col rounded-md bg-white p-1 text-black dark:bg-rdsDarkAccent2 dark:text-white">
+        <div className="fixed top-28 flex flex-col rounded-md bg-white p-1 text-black dark:bg-rdsDarkAccent2 dark:text-white z-50">
           <Link to={`../../results/${props.id}`}>
           Results
         </Link>

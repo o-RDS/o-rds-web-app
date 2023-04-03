@@ -1,5 +1,8 @@
 import React, { useContext, useState } from "react";
-import { SurveyContext, SurveyDispatchContext } from "../context/SurveyBuilderContext";
+import {
+  SurveyContext,
+  SurveyDispatchContext,
+} from "../context/SurveyBuilderContext";
 import SurveyitemComplete from "./SurveyItemComplete";
 
 const SurveyLinkModal = (props: any) => {
@@ -9,10 +12,10 @@ const SurveyLinkModal = (props: any) => {
 
   function handleSurveyStatus(status: boolean) {
     let test = SurveyState;
-    test['survey']['live'] = status;
+    test["survey"]["live"] = status;
     dispatch({
       type: "update-survey-status",
-      status: status
+      status: status,
     });
   }
 
@@ -31,95 +34,133 @@ const SurveyLinkModal = (props: any) => {
   }
 
   function checkIfReadyToPublish() {
-    console.log(SurveyState['survey']['questionOrder'].length);
-    if (SurveyState['survey']['questionOrder'].length == 0 || SurveyState['survey']['title'] == "") {
+    console.log(SurveyState["survey"]["questionOrder"].length);
+    if (
+      SurveyState["survey"]["questionOrder"].length == 0 ||
+      SurveyState["survey"]["title"] == ""
+    ) {
       return true;
     } else {
       return false;
     }
   }
 
+  function renderStatus() {
+    if (SurveyState["change"] == true) {
+      return {
+        colors: "border-yellow-500 text-yellow-500 bg-yellow-500 bg-opacity-10",
+        active: "Pending Changes",
+      };
+    } else if (SurveyState["survey"]["live"] == true) {
+      return {
+        colors: "border-green-500 text-green-500 bg-green-500 bg-opacity-10",
+        active: "Active",
+      };
+    } else {
+      return {
+        colors: "border-red-500 text-red-500 bg-red-500 bg-opacity-10",
+        active: "Inactive",
+      };
+    }
+  }
+
   function checkIfItemDone(item: string) {
     switch (item) {
       case "title": {
-        if (SurveyState['survey'][item] == "") {
-          return <SurveyitemComplete done={false} item="Survey Name"/>;
-        } else {
-          return <SurveyitemComplete done={true} item="Survey Name"/>
-        }
-      } case "questionOrder": {
-        console.log(SurveyState['survey']['questionOrder'].length);
-        if (SurveyState['survey']['questionOrder'].length < 1) {
-          return <SurveyitemComplete done={false} item="At Least One Question"/>;
-        } else {
-          return <SurveyitemComplete done={true} item="At Least One Question"/>
-        }
+        return (
+          <SurveyitemComplete
+            done={SurveyState["survey"][item] !== ""}
+            item="Survey Name"
+          />
+        );
+      }
+      case "questionOrder": {
+        return (
+          <SurveyitemComplete
+            done={SurveyState["survey"]["questionOrder"].length >= 1}
+            item="At Least One Question"
+          />
+        );
       }
       case "researcherMessage": {
-        if (SurveyState['survey'][item] == "") {
-          return <SurveyitemComplete done={false} item="Researcher Message"/>;
-        } else {
-          return <SurveyitemComplete done={true} item="Researcher Message"/>
-        }
+        return (
+          <SurveyitemComplete
+            done={SurveyState["survey"][item] !== ""}
+            item="Researcher Message"
+          />
+        );
       }
       case "endMessage": {
-        if (SurveyState['survey'][item] == "") {
-          return <SurveyitemComplete done={false} item="End of Survey Message"/>;
-        } else {
-          return <SurveyitemComplete done={true} item="End of Survey Message"/>
-        }
+        return (
+          <SurveyitemComplete
+            done={SurveyState["survey"][item] !== ""}
+            item="End of Survey Message"
+          />
+        );
       }
       case "phone": {
-        if (SurveyState['survey']['contactInfo'][item] == "") {
-          return <SurveyitemComplete done={false} item="Phone Number"/>;
-        } else {
-          return <SurveyitemComplete done={true} item="Phone Number"/>
-        }
+        return (
+          <SurveyitemComplete
+            done={SurveyState["survey"]["contactInfo"][item] !== ""}
+            item="Phone Number"
+          />
+        );
       }
       case "email": {
-        if (SurveyState['survey']['contactInfo'][item] == "") {
-          return <SurveyitemComplete done={false} item="Email"/>;
-        } else {
-          return <SurveyitemComplete done={true} item="Email"/>
-        }
+        return (
+          <SurveyitemComplete
+            done={SurveyState["survey"]["contactInfo"][item] !== ""}
+            item="Email"
+          />
+        );
       }
       case "mail": {
-        if (SurveyState['survey']['contactInfo'][item] == "") {
-          return <SurveyitemComplete done={false} item="Mailing Address"/>;
-        } else {
-          return <SurveyitemComplete done={true} item="Mailing Address"/>
-        }
+        return (
+          <SurveyitemComplete
+            done={SurveyState["survey"]["contactInfo"][item] !== ""}
+            item="Mailing Address"
+          />
+        );
       }
     }
   }
 
   return (
-    <div className="fixed top-0 left-0 bottom-0 right-0 z-50 flex items-center justify-center backdrop-blur-sm w-full">
-      <div className="flex h-auto w-3/5 flex-col justify-between gap-4 rounded-md border-2 border-rdsBlue bg-white dark:bg-rdsDark2 p-4">
-        <h3 className="self-start justify-self-start text-xl font-bold">
-          Survey Availability
-        </h3>
+    <div className="fixed top-0 left-0 bottom-0 right-0 z-50 flex w-full items-center justify-center backdrop-blur-sm">
+      <div className="flex h-auto w-3/5 flex-col justify-between gap-4 rounded-md border-2 border-rdsBlue bg-white p-4 dark:bg-rdsDark2">
+        <div className="flex flex-row">
+          <h3 className="self-start justify-self-start text-xl font-bold">
+            Survey Availability
+          </h3>
+          <div
+            className={`ml-auto rounded-sm border ${
+              renderStatus().colors
+            } pl-2 pr-2 transition-all`}
+          >
+            {renderStatus().active}
+          </div>
+        </div>
         <h3 className="text-lg">Survey Checklist</h3>
         <div className="flex flex-row justify-around">
-        <div className="">
-        <h4>Required</h4>
-        <div className="w-full h-1 bg-rdsDarkAccent2 rounded-lg"></div>
-        <ul className="">
-          <li>{checkIfItemDone("title")}</li>
-          <li>{checkIfItemDone("questionOrder")}</li>
-        </ul>
-        </div>
-        <div>
-        <h4>Optional</h4>
-        <div className="w-full h-1 bg-rdsDarkAccent2 rounded-lg"></div>
-        <ul>
-          <li>{checkIfItemDone("researcherMessage")}</li>
-          <li>{checkIfItemDone("endMessage")}</li>
-          <li>{checkIfItemDone("phone")}</li>
-          <li>{checkIfItemDone("email")}</li>
-          <li>{checkIfItemDone("mail")}</li>
-        </ul>
-        </div>
+          <div className="">
+            <h4>Required</h4>
+            <div className="h-1 w-full rounded-lg bg-rdsDarkAccent2"></div>
+            <ul className="">
+              <li>{checkIfItemDone("title")}</li>
+              <li>{checkIfItemDone("questionOrder")}</li>
+            </ul>
+          </div>
+          <div>
+            <h4>Optional</h4>
+            <div className="h-1 w-full rounded-lg bg-rdsDarkAccent2"></div>
+            <ul>
+              <li>{checkIfItemDone("researcherMessage")}</li>
+              <li>{checkIfItemDone("endMessage")}</li>
+              <li>{checkIfItemDone("phone")}</li>
+              <li>{checkIfItemDone("email")}</li>
+              <li>{checkIfItemDone("mail")}</li>
+            </ul>
+          </div>
         </div>
         <div className="">
           <h3 className="text-lg font-bold">Share Survey Link</h3>
@@ -149,10 +190,17 @@ const SurveyLinkModal = (props: any) => {
               Close
             </button>
             <div className="flex flex-row gap-2">
-              <button className="rounded-md border-2 border-rdsBlue text-black dark:text-white p-1" onClick={() => handleSurveyStatus(false)}>
+              <button
+                className="rounded-md border-2 border-rdsBlue p-1 text-black dark:text-white"
+                onClick={() => handleSurveyStatus(false)}
+              >
                 Pause Survey
               </button>
-              <button className="rounded-md bg-rdsBlue py-1 pl-2 pr-2 text-white disabled:cursor-not-allowed disabled:bg-gray-500" disabled={checkIfReadyToPublish()} onClick={() => handleSurveyStatus(true)}>
+              <button
+                className="rounded-md bg-rdsBlue py-1 pl-2 pr-2 text-white disabled:cursor-not-allowed disabled:bg-gray-500"
+                disabled={checkIfReadyToPublish()}
+                onClick={() => handleSurveyStatus(true)}
+              >
                 Publish Survey
               </button>
             </div>
