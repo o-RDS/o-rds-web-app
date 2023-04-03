@@ -94,7 +94,7 @@ export function TremendousSettings() {
         >
           <option>Select an Option</option>
           {campaigns.map((campaign: any) => (
-            <option>{campaign}</option>
+            <option>{campaign.name}</option>
           ))}
         </select>
       </div>
@@ -107,7 +107,7 @@ export function TremendousSettings() {
         >
           <option>Select an Option</option>
           {fundingSources.map((source: any) => (
-            <option>{source}</option>
+            <option>{source.method}</option>
           ))}
         </select>
       </div>
