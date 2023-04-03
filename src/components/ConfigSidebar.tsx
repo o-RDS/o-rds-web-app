@@ -29,7 +29,7 @@ export default function ConfigSidebar(props: any) {
     }
   } catch(error) {
     console.log(error);
-    return (<h2>Please Select a Question</h2>)
+    return (<h3>Please Select a Question</h3>)
   }
   }
 

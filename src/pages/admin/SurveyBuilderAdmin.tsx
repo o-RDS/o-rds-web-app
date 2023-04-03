@@ -6,6 +6,7 @@ import QuestionViewer from "../../components/QuestionViewer";
 import ConfigSidebar from "../../components/ConfigSidebar";
 import SurveyLinkModal from "../../components/SurveyLinkModal";
 import SurveySettings from "../../components/settings/SurveySettings";
+import SurveyBuilderError from "../../components/SurveyBuilderError";
 import {
   SurveyContext,
   SurveyDispatchContext,
@@ -17,19 +18,21 @@ import {
 import { v4 as uuidv4 } from "uuid";
 import { useNavigate, useParams } from "react-router";
 import StandardPage from "../../components/StandardPage";
+import { getJWTPayload } from "../../data/cookieFunctions";
 import Loading from "../../components/Loading";
 
 //TODO: Survey builder context needs to get the correct survey! We need to make sure we get that data to it!
 export default function SurveyBuilder() {
   const SurveyState = useContext(SurveyContext);
   const dispatch = useContext(SurveyDispatchContext);
-  function getDefaultSurvey(userID: string) {
+  const [errors, setErrors] = useState("");
+  function getDefaultSurvey() {
     let newID = uuidv4();
     let question1ID = uuidv4();
     const defaultData = {
       id: newID,
       title: "Untitled Survey",
-      admins: [userID],
+      admins: [getJWTPayload().email],
       live: false,
       completionPayout: 0.0,
       refPayout: 0.0,
@@ -83,7 +86,7 @@ export default function SurveyBuilder() {
   const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
   const [surveyName, setSurveyName] = useState("SurveyName");
-  const [config, setConfig] = useState<any>(getDefaultSurvey("test@siue.edu"));
+  const [config, setConfig] = useState<any>(getDefaultSurvey());
   const [settings, setSettings] = useState({
     active: false,
     whichSettings: "General",
@@ -100,6 +103,7 @@ export default function SurveyBuilder() {
           questions: data,
           question: Object.keys(data['questions'])[0],
           change: false,
+          error: ""
         });
         setConfig(data);
         // setTimeout(() =>{
@@ -113,6 +117,7 @@ export default function SurveyBuilder() {
         questions: config,
         question: config['questions'][config['questionOrder'][0]],
         change: false,
+        error: ""
       });
       saveSurveyConfig(config.id, config);
       navigate(`../${config.id}`);
@@ -127,6 +132,7 @@ export default function SurveyBuilder() {
 
   return (
     <StandardPage>
+      {SurveyState['error'] && <div className="fixed top-5 animate-inOut z-50 w-full flex flex-row items-center justify-center"><SurveyBuilderError message={SurveyState['error']}/></div>}
       <SurveyTopConfig
         name={SurveyState["survey"]["title"]}
         setSurveyName={setSurveyName}

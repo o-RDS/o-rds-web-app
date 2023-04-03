@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import GeneralSidebarCheck from "./GeneralSidebar";
+import GeneralSidebarCheck from "./GeneralSidebarCheck";
 import AnswersSidebar from "./AnswersSidebar";
 
 export default function CheckboxSidebar(props: any) {

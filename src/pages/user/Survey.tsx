@@ -12,6 +12,7 @@ export default function Survey() {
   const [page, setPage] = useState<number>(0);
   const [design, setDesign] = useState<any>(null);
   const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string>("");
   const params = useParams();
   const navigate = useNavigate();
   const config: any = useOutletContext();
@@ -74,13 +75,22 @@ export default function Survey() {
   }
 
   async function saveResponse() {
+    setError("");
+    console.log(response)
     let tempHash = hash.current;
     if (params.id !== undefined && tempHash !== null) {
       let tempAlias = window.localStorage.getItem(params.id + tempHash);
       if (tempAlias) {
-        return await writeSurveyResponse(params.id, tempAlias, response);
+        let res = await writeSurveyResponse(params.id, tempAlias, response);
+        if (res.statusCode === 201) {
+          return true;
+        } else {
+          setError(res.message)
+          return false;
+        }
       }
     }
+    setError("Failed to save response")
     return false;
   }
 
@@ -95,10 +105,13 @@ export default function Survey() {
       if (
         (await saveResponse())
       ) {
-        navigate("../share");
+        console.log("Submitted response");
+        navigate("../reward");
+      }
+      else {
+        console.log("Failed to submit response");
       }
     }
-    console.log("Failed to submit");
     // TODO: add error message
   }
 
@@ -133,57 +146,70 @@ export default function Survey() {
     <SurveyTakerStandardPage>
       {!loading ? (
         <>
-          <div className="flex flex-col gap-y-3">
-            <p className="max-w-prose">
-              Here is where some instructions could go. In the future, this
-              should be a variable based on what the researcher inputs in the
-              Builder.
+          <div className="flex flex-col w-4/5 lg:w-1/4 gap-y-3 items-center">
+            <p className="w-11/12 whitespace-normal break-words">
+              {config.researcherMessage}
             </p>
-            <hr className="border-1 w-9/12 self-center border-gray-800" />
+            <hr className="border-1 w-full self-center border-gray-800" />
           </div>
 
-          <form className="flex-grow-1 flex flex-col gap-y-6" onSubmit={(e) => handleSubmit(e)}>
+          <form 
+            className="flex flex-col w-4/5 lg:w-1/3 gap-y-6" 
+            onSubmit={(e) => handleSubmit(e)}
+          >
             {renderQuestions()}
-            <div className="mt-auto flex min-h-[36px] w-4/5 flex-row justify-center md:mt-0 md:w-1/3">
-            {page > 0 ? (
-              <button
-                className="w-1/3 rounded border-2 border-rdsOrange bg-white p-1 text-rdsOrange"
-                onClick={() => changePage(-1)}
-              >
-                Back
-              </button>
-            ) : (
-              design[design.length - 1].page > 0 && (
-                <div className="w-1/3"></div>
-              )
-            )}
-            {design[design.length - 1].page > 0 && (
-              <p className="w-1/3 text-center">
-                {page + 1} of {design[design.length - 1].page + 1}
-              </p>
-            )}
-            {design[design.length - 1].page > page ? (
-              <button
-                className="w-1/3 rounded bg-rdsOrange p-1 text-white"
-                onClick={() => changePage(1)}
-              >
-                Next
-              </button>
-            ) : (
-              <button
-                className="w-1/3 rounded bg-rdsOrange p-1 text-white"
-              >
-                Submit
-              </button>
-            )}
-          </div>
+
+            <div className="flex flex-row min-h-[36px] w-4/5 self-center justify-center">
+              {page > 0 ? (
+                <button
+                  type="button"
+                  className="w-1/3 rounded border-2 border-rdsOrange bg-white p-1 text-rdsOrange"
+                  onClick={() => changePage(-1)}
+                >
+                  Back
+                </button>                
+              ) : (
+                config.questions[design[design.length - 1]].page > 0 && (
+                  <div className="w-1/3"></div>
+                )
+              )}
+
+              {config.questions[design[design.length - 1]].page > 0 && (
+                <p className="w-1/3 text-center">
+                  {page + 1} of {config.questions[design[design.length - 1]].page + 1}
+                </p>
+              )}
+
+              {config.questions[design[design.length - 1]].page > page ? (
+                <button
+                  type="button"
+                  className="w-1/3 rounded bg-rdsOrange p-1 text-white"
+                  onClick={() => changePage(1)}
+                >
+                  Next
+                </button>
+              ) : (
+                <button
+                  className="w-1/3 rounded bg-rdsOrange p-1 text-white"
+                >
+                  Submit
+                </button>
+              )}
+            </div>
           </form>
 
-          
-          <p>
-            If you have to leave the survey, write down this code, which you can
-            use to load your progress, even on another device: {alias.current}
-          </p>
+          <p className="text-center text-red-600">{error}</p>
+
+          <div className="flex flex-col items-center mt-auto text-sm text-center">
+            <p className="max-w-prose text-center font-semibold">
+              Need to leave the survey?
+            </p>
+            <p className="max-w-prose">
+              Write down this code, which you can
+              use to load your progress, even on another device:
+              <b className="text-rdsOrange text-base font-semibold"> {alias.current}</b>
+            </p>
+          </div>
         </>
       ) : (
         <Loading />

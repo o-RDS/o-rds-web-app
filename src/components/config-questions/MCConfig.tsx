@@ -1,5 +1,6 @@
 import React, { useContext, useState } from "react";
 import DeleteButton from "../DeleteButton";
+import UpDownButton from "../UpDownButton";
 import {
   SurveyContext,
   SurveyDispatchContext,
@@ -30,52 +31,6 @@ export default function MCConfig(props: any) {
     }
   }
 
-  function handleQuestionUp() {
-    console.log(SurveyState["survey"]["questionOrder"]);
-    let test: any = SurveyState;
-    if (props.otherIndex - 1 < 0) {
-      return;
-    }
-    let temp = test["survey"]["questionOrder"][props.otherIndex - 1];
-    test["survey"]["questionOrder"][props.otherIndex - 1] =
-      test["survey"]["questionOrder"][props.otherIndex];
-    test["survey"]["questionOrder"][props.otherIndex] = temp;
-    dispatch({
-      type: "question-up",
-      survey: test["survey"],
-      question: test["question"],
-      change: true,
-    });
-  }
-
-  function handleQuestionDown() {
-    console.log(SurveyState["survey"]["questionOrder"]);
-    let test: any = SurveyState;
-    console.log(test["survey"]["questionOrder"]);
-    console.log(props.otherIndex);
-    console.log(test["survey"]["questionOrder"].length);
-    if (props.otherIndex + 1 > test["survey"]["questionOrder"].length) {
-      dispatch({
-        type: "question-down",
-        survey: test["survey"],
-        question: test["question"],
-        change: true,
-      });
-    } else {
-      let temp = test["survey"]["questionOrder"][props.otherIndex + 1];
-      test["survey"]["questionOrder"][props.otherIndex + 1] =
-        test["survey"]["questionOrder"][props.otherIndex];
-      test["survey"]["questionOrder"][props.otherIndex] = temp;
-      console.log(test["survey"]["questionOrder"]);
-      dispatch({
-        type: "question-down",
-        survey: test["survey"],
-        question: test["question"],
-        change: true,
-      });
-    }
-  }
-
   function handleDeleteQuestion(question: number) {
     dispatch({
       type: "delete-question",
@@ -101,9 +56,9 @@ export default function MCConfig(props: any) {
 
   function renderChoices() {
     return SurveyStateQuestions["config"]["choices"]["value"].map(
-      (choice: any) => {
+      (choice: any, index: any) => {
         return (
-          <li key={choice}>
+          <li key={choice + index}>
             <input type="radio" value={choice} disabled></input>
             <label className="ml-2">{choice}</label>
           </li>
@@ -111,6 +66,7 @@ export default function MCConfig(props: any) {
       }
     );
   }
+
   return (
     <>
       <div
@@ -126,18 +82,8 @@ export default function MCConfig(props: any) {
               <p className="text-xl text-red-500">*</p>
             )}
             <div className="ml-auto">
-              <button
-                onClick={() => handleQuestionDown()}
-                className="mx-1 rounded-md p-1 hover:bg-rdsDarkAccent"
-              >
-                ▼
-              </button>
-              <button
-                onClick={() => handleQuestionUp()}
-                className="mx-1 rounded-md p-1 hover:bg-rdsDarkAccent"
-              >
-                ▲
-              </button>
+              <UpDownButton otherIndex={props.otherIndex} direction="question-down"/>
+              <UpDownButton otherIndex={props.otherIndex} direction="question-up"/>
               <DeleteButton
                 handleDeleteQuestion={handleDeleteQuestion2}
                 index={props.index}

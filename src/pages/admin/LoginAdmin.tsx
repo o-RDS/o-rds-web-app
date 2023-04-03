@@ -1,15 +1,13 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import StandardPage from "../../components/StandardPage";
+import Error from "../../components/Error";
 import { login } from "../../APIs/Admin.auth.js";
 import { setCookie } from "../../data/cookieFunctions";
 
 export default function LoginAdmin() {
   const navigate = useNavigate();
-  const [errorMessage, setErrorMessage] = useState({
-    error: false,
-    message: "",
-  });
+  const [errorMessage, setErrorMessage] = useState("");
 
   async function handleLogin(e: any) {
     e.preventDefault();
@@ -24,11 +22,8 @@ export default function LoginAdmin() {
       //Verify that all fields have been filled
       Object.entries(formObject).forEach(([key, value]: Array<string>) => {
         if (value === "") {
-          setErrorMessage({
-            error: true,
-            message: "All fields are required and must be filled out.",
-          });
-          throw new Error("Missing fields");
+          setErrorMessage("All fields are required and must be filled out.");
+          throw Error("Missing fields");
         }
       });
     } catch (error) {
@@ -38,29 +33,25 @@ export default function LoginAdmin() {
 
     let loginInfo = {
       email: formObject.email,
-      password: formObject.password
-    }
+      password: formObject.password,
+    };
 
     try {
       loginResponse = await login(loginInfo);
+      if (loginResponse.statusCode > 201) {
+        setErrorMessage(data.message);
+        return;
+      }
       if (loginResponse === undefined || loginResponse.statusCode === 500) {
-        throw new Error("Server error");
-      }
-      else if (loginResponse.statusCode === 404) {
-        setErrorMessage({
-          error: true,
-          message: "Username or password was incorrect",
-        });
-      }
-      else {
+        throw Error("Server error");
+      } else if (loginResponse.statusCode === 404) {
+        setErrorMessage("Username or password was incorrect");
+      } else {
         setCookie("token", loginResponse.accessToken, 1);
         navigate("/admin/dashboard");
       }
     } catch (error) {
-      setErrorMessage({
-          error: true,
-          message: "Server error, please try again later",
-      });
+      setErrorMessage("Server error, please try again later");
       console.error(error);
     }
   }
@@ -113,13 +104,8 @@ export default function LoginAdmin() {
             Submit
           </button>
           <br></br>
-          {errorMessage.error && (
-            <div className="w-full rounded-md bg-red-500 bg-opacity-20 p-2">
-              <p className="text-center text-sm text-red-500">
-                {errorMessage.message}
-              </p>
-            </div>
-          )}
+          <br></br>
+          {errorMessage && <Error message={errorMessage} />}
         </form>
         <button
           onClick={() => navigate("/admin/register")}

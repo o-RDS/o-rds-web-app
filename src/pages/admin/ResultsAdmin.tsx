@@ -12,7 +12,7 @@ import ResultsTable from "../../components/ResultsTable";
 export default function Results() {
   const [results, setResults] = useState<any>(null);
   const [config, setConfig] = useState<any>(null);
-  const [filterCompleted, setFilterCompleted] = useState(false);
+  const [filterCompleted, setFilterCompleted] = useState(true);
   const params = useParams();
   const navigate = useNavigate();
 
@@ -102,13 +102,14 @@ export default function Results() {
           id={params.surveyID}
           live={config.live}
           updated={config.lastUpdated}
+          downloadCSV={downloadCSV}
         />
       
       <div className="flex w-full flex-col gap-y-2 p-6">
         <div className="flex w-full flex-row items-baseline">
           <h1 className="flex-grow pl-10 text-left text-2xl">{config.title}</h1>
           <label htmlFor="filterCompleted">
-            Display completed responses only
+            Show Incomplete Responses
           </label>
           <input
             type="checkbox"
@@ -117,12 +118,6 @@ export default function Results() {
             className="ml-4 mr-12"
             onChange={() => setFilterCompleted(!filterCompleted)}
           />
-          <button
-            className="w-fit rounded bg-rdsOrange p-2 text-white"
-            onClick={() => downloadCSV()}
-          >
-            Download CSV
-          </button>
         </div>
         <ResultsTable 
           results={results} 

@@ -46,10 +46,10 @@ export default function ShortAnswer(props: any) {
     return (
       <div>
         <textarea
-          placeholder="This is a place for text"
+          placeholder="Type your answer here"
           value={answer}
           onChange={(e) => handleClick(e.target.value)}
-          className="rounded-md border-2 border-rdsBlue"
+          className="w-full rounded-md border-2 border-rdsBlue"
           required={props.require}
         ></textarea>
       </div>

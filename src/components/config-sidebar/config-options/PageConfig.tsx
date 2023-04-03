@@ -26,7 +26,7 @@ export default function PageConfig() {
         >
           -
         </button>
-        <p className="h-8 text-lg text-white">{SurveyStateQuestions["page"]}</p>
+        <p className="h-8 text-lg text-white">{SurveyStateQuestions["page"] + 1}</p>
         <button
           className="h-8 w-1/3 rounded-r-full border-l border-l-white bg-rdsOrange text-lg text-white"
           onClick={() => handlePageChange(SurveyStateQuestions["page"] + 1)}
