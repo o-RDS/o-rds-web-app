@@ -59,7 +59,7 @@ export function InformedConsentSettings() {
       </div>
       <div className="flex flex-col gap-1">
         <label htmlFor="consent-requirements">Consent Requirements</label>
-      <textarea id="consent-requirements" value={SurveyState['survey']['informedConsent']['consentRequirments']} onChange={(e) => handleICItemChange(e)} className="rounded-sm p-1 dark:bg-rdsDarkAccent w-3/5"></textarea>
+      <textarea id="consent-requirements" value={SurveyState['survey']['informedConsent']['consentRequirements']} onChange={(e) => handleICItemChange(e)} className="rounded-sm p-1 dark:bg-rdsDarkAccent w-3/5"></textarea>
       </div>
           </div>
     )
