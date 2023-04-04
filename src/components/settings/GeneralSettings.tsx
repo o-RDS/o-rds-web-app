@@ -47,7 +47,7 @@ export function GeneralSettings() {
             <input
               type="text"
               id="survey-name"
-              className="rounded-sm bg-gray-200 p-1 dark:bg-rdsDarkAccent"
+              className="rounded-sm bg-gray-200 p-1 dark:bg-rdsDarkAccent w-full"
               maxLength={50}
               onChange={(e) => handleInputChange(e, "title")}
               value={SurveyState["survey"]["title"]}
@@ -82,11 +82,11 @@ export function GeneralSettings() {
         <input
           type="text"
           id="add-admin"
-          className="rounded-sm bg-gray-200 p-1 dark:bg-rdsDarkAccent"
+          className="rounded-sm bg-gray-200 p-1 dark:bg-rdsDarkAccent w-1/5"
           maxLength={20}
           placeholder="Use Admin Email"
         ></input>
-        <button className="bg-rdsDarkAccent text-white" onClick={() => handleAddAdmin()}>Add Admin</button>
+        <button className="bg-rdsOrange text-white w-1/5" onClick={() => handleAddAdmin()}>Add Admin</button>
       </div>
     </div>
   );

@@ -100,7 +100,7 @@ export default function LoginAdmin() {
             </label>
           </div>
           <br></br>
-          <button className="w-1/2 rounded bg-rdsOrange p-1 text-white">
+          <button className="w-1/2 rounded bg-rdsOrange p-1 text-white hover:shadow-black hover:shadow-md transition-shadow">
             Submit
           </button>
           <br></br>

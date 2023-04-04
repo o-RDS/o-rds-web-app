@@ -180,7 +180,7 @@ export default function RegisterAdmin() {
             </label>
           </div>
           <br />
-          <button className="w-1/2 rounded bg-rdsOrange p-1 text-white">
+          <button className="w-1/2 rounded bg-rdsOrange p-1 text-white hover:shadow-black hover:shadow-md transition-shadow">
             Create Account
           </button>
           <br />

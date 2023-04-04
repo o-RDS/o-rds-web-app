@@ -127,7 +127,7 @@ const SurveyLinkModal = (props: any) => {
 
   return (
     <div className="fixed top-0 left-0 bottom-0 right-0 z-50 flex w-full items-center justify-center backdrop-blur-sm">
-      <div className="flex h-auto w-3/5 flex-col justify-between gap-4 rounded-md border-2 border-rdsBlue bg-white p-4 dark:bg-rdsDark2">
+      <div className="flex h-auto w-3/5 flex-col justify-between gap-4 rounded-md border-2 border-rdsBlue bg-white p-4 dark:bg-rdsDark2" onClick={e => e.stopPropagation()}>
         <div className="flex flex-row">
           <h3 className="self-start justify-self-start text-xl font-bold">
             Survey Availability
@@ -185,19 +185,19 @@ const SurveyLinkModal = (props: any) => {
           <div className="flex w-full flex-row justify-between gap-2">
             <button
               onClick={() => props.showModal(false)}
-              className="w-3/12 rounded-sm bg-rdsOrange pl-2 pr-2 text-white"
+              className="w-3/12 rounded-sm bg-rdsOrange pl-2 pr-2 text-white hover:shadow-black hover:shadow-md transition-shadow"
             >
               Close
             </button>
             <div className="flex flex-row gap-2">
               <button
-                className="rounded-md border-2 border-rdsBlue p-1 text-black dark:text-white"
+                className="rounded-md border-2 border-rdsBlue p-1 text-black dark:text-white hover:shadow-black hover:shadow-md transition-shadow"
                 onClick={() => handleSurveyStatus(false)}
               >
                 Pause Survey
               </button>
               <button
-                className="rounded-md bg-rdsBlue py-1 pl-2 pr-2 text-white disabled:cursor-not-allowed disabled:bg-gray-500"
+                className="rounded-md bg-rdsBlue py-1 pl-2 pr-2 text-white disabled:cursor-not-allowed disabled:bg-gray-500 transition-all hover:shadow-black hover:shadow-md transition-shadow"
                 disabled={checkIfReadyToPublish()}
                 onClick={() => handleSurveyStatus(true)}
               >
