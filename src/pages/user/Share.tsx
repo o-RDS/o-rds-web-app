@@ -72,8 +72,8 @@ export default function Share() {
     <SurveyTakerStandardPage>
       {loading && <Loading/>}
       <div className="flex flex-col items-center">
-        <p className="max-w-prose text-center">
-          Thank you for taking the time to complete this survey.
+        <p className="max-w-prose text-left">
+          Thank you for taking the time to complete this survey!
           <br />
           <br />
           If you would like to share this survey with others for additional
@@ -100,26 +100,26 @@ export default function Share() {
           </button>
         </div>
       </div>
-
-      <div className="flex w-4/5 flex-col items-center gap-y-6 lg:w-1/3">
-        <p className="max-w-prose text-center">
+      <p className="max-w-prose text-justify">
           To claim your rewards for referrals, enter your email and press the "Claim Rewards"
           button. You will receive an email to claim your rewards from
           Tremendous. We do not store your email address.
         </p>
-        <div>
+      <div className="flex w-4/5 flex-col items-center gap-y-6 lg:w-1/3">
+        
+        <div className="flex flex-col">
           <label htmlFor="email">Email Address: </label>
           <input
             type="text"
             id="email"
             name="email"
-            className="w-56 rounded bg-gray-200 p-1"
+            className="justify-self-center w-56 rounded bg-gray-200 p-1"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
         </div>
         <button
-          className="w-1/3 rounded bg-rdsOrange p-1 text-white"
+          className="w-1/2 md:w-1/3 rounded bg-rdsOrange p-1 text-white"
           onClick={() => claimRewards()}
         >
           Claim Rewards
