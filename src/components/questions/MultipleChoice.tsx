@@ -5,7 +5,7 @@ export default function MultipleChoice(props: any) {
   // This still needs ability to handle other questions. It is not too tough to do but need a way to easily have it added in
   // this is far from finished, but each question type will have its own default config
   // the survey editor will use this when a new question is added
-  const [answer, setAnswer] = useState("");
+  const [answer, setAnswer] = useState(props.currentValue);
   const [config, setConfig] = useState({
     prompt: {
       value: "",
@@ -38,7 +38,7 @@ export default function MultipleChoice(props: any) {
     return props.config.choices.value.map((choice: string, index: number) => {
       let isChecked = false;
       console.log(props.currentValue);
-      if (choice === props.currentValue) {
+      if (choice === answer) {
         isChecked = true;
       } else {
         console.log("failed");
@@ -47,7 +47,7 @@ export default function MultipleChoice(props: any) {
         <div key={index}>
           <input
             type="radio"
-            name={props.id}
+            name={props.currentValue}
             id={choice}
             value={choice}
             onChange={() => handleClick(choice)}
