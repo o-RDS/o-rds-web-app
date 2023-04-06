@@ -107,12 +107,14 @@ export default function LoginAdmin() {
           <br></br>
           {errorMessage && <Error message={errorMessage} />}
         </form>
-        <button
+        
+        {/* <button
           onClick={() => navigate("/admin/register")}
           className="text-rdsOrange underline"
         >
           Need an account? Click here to register!
-        </button>
+        </button> */}
+        
       </div>
     </StandardPage>
   );
