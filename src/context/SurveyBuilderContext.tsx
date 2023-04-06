@@ -177,6 +177,7 @@ export default function SurveyBuilderContext(props: any) {
           test["survey"]["questions"][test["question"]]["config"]["choices"][
             "value"
           ][action.choiceIndex] = action.newChoice;
+          console.log(test['question']['config']['prompt']['value']);
           return {
             survey: test["survey"],
             question: tasks["question"],
@@ -184,10 +185,22 @@ export default function SurveyBuilderContext(props: any) {
           };
         }
         case "new-choice": {
+          console.log(tasks['question']['config']['prompt']['value']);
           return {
             survey: action.questions,
-            question: action.question,
+            question: tasks['question'],
           };
+        }
+        case "newer-choice": {
+            // let test: any = tasks;
+            // test["survey"]["questions"][test["question"]]["config"]["prompt"][
+            //   "value"
+            // ] = action.prompt;
+            return {
+              survey: action.questions,
+              question: tasks["question"],
+              change: true,
+            };
         }
         case "shuffle": {
           let test: any = tasks;

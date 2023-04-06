@@ -53,7 +53,6 @@ export default function UpDownButton(props: any) {
   }
 
   function handleQuestionMove() {
-    console.log(SurveyState["survey"]["questionOrder"]);
     let test: any = SurveyState;
     if (props.direction === "question-up") {
         let temp = test["survey"]["questionOrder"][props.otherIndex - 1];
@@ -81,8 +80,6 @@ export default function UpDownButton(props: any) {
   }
 
   function isUpDisabled() {
-    console.log(SurveyState["survey"]["questionOrder"].length);
-    console.log(props.otherIndex)
     if (props.otherIndex == 0) {
       return true
     } else {
@@ -91,8 +88,6 @@ export default function UpDownButton(props: any) {
   }
 
   function isDownDisabled() {
-    console.log(SurveyState["survey"]["questionOrder"].length);
-    console.log(props.otherIndex)
     if (props.otherIndex + 1 == SurveyState["survey"]["questionOrder"].length) {
       return true
     } else {

@@ -185,19 +185,19 @@ const SurveyLinkModal = (props: any) => {
           <div className="flex w-full flex-row justify-between gap-2">
             <button
               onClick={() => props.showModal(false)}
-              className="w-3/12 rounded-sm bg-rdsOrange pl-2 pr-2 text-white hover:shadow-black hover:shadow-md transition-shadow"
+              className="w-3/12 rounded-sm bg-rdsOrange pl-2 pr-2 text-white hover:shadow-black hover:shadow-md transition-all active:translate-y-1 active:shadow-none"
             >
               Close
             </button>
             <div className="flex flex-row gap-2">
               <button
-                className="rounded-md border-2 border-rdsBlue p-1 text-black dark:text-white hover:shadow-black hover:shadow-md transition-shadow"
+                className="rounded-md border-2 border-rdsBlue p-1 text-black dark:text-white hover:shadow-black hover:shadow-md transition-all active:translate-y-1 active:shadow-none"
                 onClick={() => handleSurveyStatus(false)}
               >
                 Pause Survey
               </button>
               <button
-                className="rounded-md bg-rdsBlue py-1 pl-2 pr-2 text-white disabled:cursor-not-allowed disabled:bg-gray-500 transition-all hover:shadow-black hover:shadow-md transition-shadow"
+                className="rounded-md bg-rdsBlue py-1 pl-2 pr-2 text-white disabled:cursor-not-allowed disabled:bg-gray-500 transition-all hover:shadow-black hover:shadow-md active:translate-y-1 active:shadow-none"
                 disabled={checkIfReadyToPublish()}
                 onClick={() => handleSurveyStatus(true)}
               >

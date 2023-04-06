@@ -7,6 +7,7 @@ import {
 import { useState, useEffect } from "react";
 import Loading from "../../components/Loading";
 import { getJWTPayload } from "../../data/cookieFunctions";
+import ords from "../../images/ords.png";
 
 export default function Dashboard() {
   const [surveys, setSurveys] = useState<any>([]);
@@ -32,19 +33,36 @@ export default function Dashboard() {
 
   function renderSurveyButtons() {
     return surveys.map((survey: any) => (
-      <div className={`flex h-48 w-48 flex-col justify-end rounded-md ${survey.live ? "bg-rdsBlue" : "bg-rdsOrange"} p-2 text-white`}>
-        <div className="flex flex-row">
-        <Link to={`../survey-builder/${survey.id}`}>✎</Link>
-        <Link to={`../results/${survey.id}`}>View Results</Link>
-        <button className="text-left ml-auto" onClick={() => deleteSurvey(survey.id)}>
-          X
-        </button>
+      <Link to={`../results/${survey.id}`}>
+        <div
+          className={`flex h-54 w-48 flex-col justify-start rounded-md p-2 dark:bg-rdsDarkAccent3 cursor-pointer`}
+        >
+          <div className="flex flex-row">
+            <Link to={`../survey-builder/${survey.id}`}><p className="text-xl font-bold">✎</p></Link>
+            <div
+              className={`ml-auto rounded-sm border pl-2 pr-2 transition-all ${
+                survey.live
+                  ? "border-green-500 bg-green-500 bg-opacity-10 text-green-500"
+                  : "border-red-500 bg-red-500 bg-opacity-10 text-red-500"
+              } text-white`}
+            >
+              {survey.live ? "Active" : <p>Inactive</p>}
+            </div>
+          </div>
+          <img src={ords} className="h-3/5 w-3/5 rounded-md m-4 self-center"/>
+          {/* <div className="h-3/5"></div> */}
+          <div className="border-t">
+            <h4 className="text-lg font-bold">{survey.title}</h4>
+            {/* <p className="text-sm">? Responses</p> */}
+            {/* <button
+              className="ml-auto text-left"
+              onClick={() => deleteSurvey(survey.id)}
+            >
+              X
+            </button> */}
+          </div>
         </div>
-        <div className="border-t">
-          <h4 className="text-md font-bold">{survey.title}</h4>
-          <p className="text-sm">? Responses</p>
-        </div>
-      </div>
+      </Link>
     ));
   }
 
@@ -74,10 +92,12 @@ export default function Dashboard() {
   return (
     <StandardPage>
       <div className="flex flex-col items-center">
-        <h1>Welcome {name}</h1>
+        <br></br>
+        <h1 className="text-4xl">Welcome {name}</h1>
+        <br></br>
         <div className="flex w-5/6 flex-col">
           <div className="flex flex-row items-baseline gap-2">
-            <h3 className="text-2xl">My Surveys</h3>
+            <h3 className="text-3xl">My Surveys</h3>
             <p className="pl-5">Surveys Per Page:</p>
             <button
               onClick={() => changeDisplayNumber(5)}
@@ -110,7 +130,7 @@ export default function Dashboard() {
             )}
             <div className="ml-auto">
               <Link to="../survey-builder/new">
-                <button className="rounded-md bg-rdsBlue p-1 pl-2 pr-2 text-white">
+                <button className="rounded-md bg-rdsBlue p-1 pl-2 pr-2 text-white active:translate-y-1 active:shadow-none hover:shadow-black hover:shadow-md transition-all">
                   New Survey
                 </button>
               </Link>

@@ -61,7 +61,7 @@ export default function QuestionViewer(props: any) {
 
   return (
     <>
-      <div className="h-min-56 mt-3 mb-3 flex w-full flex-col gap-10 rounded-md shadow-blur shadow-black dark:bg-rdsDarkAccent3">
+      <div className="mt-3 mb-3 flex flex-col gap-10 rounded-md shadow-blur shadow-black dark:bg-rdsDarkAccent3 overflow-auto h-[calc(h-full_-_3rem] lg:h-[calc(h-full_-_30rem)] w-8/12">
         <div className="flex w-full flex-col items-center justify-center gap-10 rounded-md p-5">
           <div className="flex w-full flex-col gap-4">{testArray}</div>
           <button

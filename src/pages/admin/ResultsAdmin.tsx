@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import SurveyTopNav from "../../components/SurveyTopNav";
+import TopNav from "../../components/TopNav";
 import ResultsTopConfig from "../../components/ResultsTopConfig";
 import {
   loadAllResponses,
@@ -94,7 +95,7 @@ export default function Results() {
 
   return (
     <div className="h-screen text-white dark:bg-rdsDark2">
-      <SurveyTopNav id={params.surveyID} />
+      <TopNav />
       {results && config ? (
         <>
         <ResultsTopConfig

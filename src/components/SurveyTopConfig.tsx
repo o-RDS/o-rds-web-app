@@ -72,7 +72,7 @@ export default function SurveyTopConfig(props: any) {
           {renderStatus().active}
         </div>
         <button
-          className="rounded-sm bg-rdsBlue pl-2 pr-2 text-white"
+          className="rounded-sm bg-rdsBlue pl-2 pr-2 text-white transition-all hover:shadow-black hover:shadow-md active:translate-y-1 active:shadow-none"
           onClick={() => props.setShowModal(true)}
         >
           Publish

@@ -67,7 +67,7 @@ export default function ResultsTopConfig(props: any) {
           Publish
         </button> */}
         <button 
-            className="w-fit rounded bg-rdsOrange p-2 text-white"
+            className="w-fit rounded bg-rdsOrange p-2 text-white transition-all hover:shadow-black hover:shadow-md active:translate-y-1 active:shadow-none"
             onClick={() => props.downloadCSV()}
           >
             Download CSV

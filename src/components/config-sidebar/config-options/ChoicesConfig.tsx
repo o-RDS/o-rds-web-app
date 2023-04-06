@@ -25,7 +25,7 @@ export default function ChoicesConfig() {
           "value"
         ].pop();
         dispatch({
-          type: "question-prompt",
+          type: "newer-choice",
           questions: test["survey"],
           question: SurveyState["question"],
           change: true,
@@ -37,7 +37,7 @@ export default function ChoicesConfig() {
           "value"
         ].push("New Option");
         dispatch({
-          type: "question-prompt",
+          type: "newer-choice",
           questions: test["survey"],
           question: SurveyState["question"],
           change: true,

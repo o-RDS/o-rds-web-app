@@ -59,7 +59,7 @@ export default function LoginAdmin() {
   return (
     <StandardPage>
       <div className="flex min-h-screen flex-col items-center justify-center gap-4 dark:bg-rdsDark2">
-        <h1 className="inline-block bg-gradient-to-br from-green-600 to-orange-600 bg-clip-text text-3xl text-transparent">
+        <h1 className="inline-block text-rdsBlue bg-clip-text text-4xl">
           Welcome to o-RDS
         </h1>
         <form
@@ -100,8 +100,8 @@ export default function LoginAdmin() {
             </label>
           </div>
           <br></br>
-          <button className="w-1/2 rounded bg-rdsOrange p-1 text-white hover:shadow-black hover:shadow-md transition-shadow">
-            Submit
+          <button className="w-1/2 rounded bg-rdsOrange p-1 text-white hover:shadow-black hover:shadow-md transition-all active:translate-y-1 active:shadow-none">
+            Login
           </button>
           <br></br>
           <br></br>

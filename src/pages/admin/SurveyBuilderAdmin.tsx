@@ -146,7 +146,7 @@ export default function SurveyBuilder() {
           <Loading />
         </div>
       ) : ( */}
-        <div className="flex h-full flex-row gap-20 dark:bg-rdsDark2 relative">
+        <div className="flex h-[40rem] 2xl:h-[60rem] min-h-fit flex-row gap-20 dark:bg-rdsDark2 relative">
           <SurveyLinkModal
             showModal={setShowModal}
             display={showModal}
@@ -164,9 +164,9 @@ export default function SurveyBuilder() {
           ) : (
             <>
               <ConfigSidebar />
-              <div className="mt-3 w-8/12">
+              {/* <div className="mt-3 w-8/12"> */}
                 <QuestionViewer />
-              </div>
+              {/* </div> */}
             </>
           )}
         </div>

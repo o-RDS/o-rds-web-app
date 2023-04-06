@@ -26,7 +26,7 @@ export default function PromptConfig() {
       </label>
       <textarea
         placeholder="This is a question"
-        className="h-20 w-full rounded-md border border-rdsOrange p-2 dark:bg-inherit"
+        className="h-32 w-full rounded-md border border-rdsOrange p-2 dark:bg-inherit"
         onChange={(e: any) => handleTitleChange(e)}
         value={SurveyStateQuestions["config"]["prompt"]["value"]}
       ></textarea>

@@ -35,7 +35,7 @@ export default function ConfigSidebar(props: any) {
 
   return (
     <>
-      <div className="flex w-[20%] flex-col items-center justify-start gap-4 border-r border-black p-4 dark:border-none dark:bg-rdsDarkAccent3 dark:text-white">
+      <div className="flex w-[20%] h-full flex-col items-start justify-start gap-4 border-r border-black p-4 dark:border-none dark:bg-rdsDarkAccent3 dark:text-white overflow-scroll">
         <h2 className="self-start text-2xl font-bold">
           {"Question Settings"}
         </h2>
