@@ -31,18 +31,20 @@ export default function QuestionViewer(props: any) {
         editablePrompt: "Edit your choices",
         type: "stringArray",
       },
-  }
+    },
   };
   function handleAddedQuestion() {
     let test: any = SurveyState;
     let id = uuidv4();
-    test['survey']['questionOrder'] = SurveyState['survey']['questionOrder'].concat([id]); 
-    test["survey"]["questions"][id] = proofQuestionToAdd; 
+    test["survey"]["questionOrder"] = SurveyState["survey"][
+      "questionOrder"
+    ].concat([id]);
+    test["survey"]["questions"][id] = proofQuestionToAdd;
     dispatch({
       type: "update",
       questions: test["survey"],
       question: SurveyState["question"],
-      change: true
+      change: true,
     });
   }
 
@@ -51,8 +53,14 @@ export default function QuestionViewer(props: any) {
     testArray = SurveyState["survey"]["questionOrder"].map(
       (question: string, index: number) => {
         console.log(question);
-        console.log(SurveyState['survey']['questions'][question]);
-        return <QuestionConfig data={SurveyState['survey']['questions'][question]} index={question} otherIndex={index}/>;
+        console.log(SurveyState["survey"]["questions"][question]);
+        return (
+          <QuestionConfig
+            data={SurveyState["survey"]["questions"][question]}
+            index={question}
+            otherIndex={index}
+          />
+        );
       }
     );
   } catch (error) {
@@ -61,11 +69,11 @@ export default function QuestionViewer(props: any) {
 
   return (
     <>
-      <div className="mt-3 mb-3 flex flex-col gap-10 rounded-md shadow-blur shadow-black dark:bg-rdsDarkAccent3 overflow-auto h-[calc(h-full_-_3rem] lg:h-[calc(h-full_-_30rem)] w-8/12">
+      <div className="h-[calc(h-full_-_3rem] mt-3 mb-3 flex w-8/12 flex-col gap-10 overflow-auto rounded-md shadow-blur shadow-black dark:bg-rdsDarkAccent3 lg:h-[calc(h-full_-_30rem)]">
         <div className="flex w-full flex-col items-center justify-center gap-10 rounded-md p-5">
           <div className="flex w-full flex-col gap-4">{testArray}</div>
           <button
-            className="w-10 h-10 rounded-full bg-rdsBlue px-2 text-white py-1 text-lg font-bold transition-all"
+            className="h-10 w-10 rounded-full bg-rdsBlue px-2 py-1 text-lg font-bold text-white transition-all"
             onClick={() => handleAddedQuestion()}
           >
             +

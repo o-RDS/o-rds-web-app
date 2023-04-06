@@ -23,7 +23,8 @@ export default function ResumeSurvey() {
   return (
     <SurveyTakerStandardPage>
       <p className="max-w-prose">
-        To resume your progress on the survey, please enter your resumption code below.
+        To resume your progress on the survey, please enter your resumption code
+        below.
       </p>
       <div className="flex flex-col gap-y-6">
         <div className="flex flex-col">

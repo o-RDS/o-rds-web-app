@@ -1,9 +1,6 @@
 import { Link } from "react-router-dom";
 import StandardPage from "../../components/StandardPage";
-import {
-  deleteSurveyConfig,
-  loadAdminSurveys,
-} from "../../APIs/Firebase";
+import { deleteSurveyConfig, loadAdminSurveys } from "../../APIs/Firebase";
 import { useState, useEffect } from "react";
 import Loading from "../../components/Loading";
 import { getJWTPayload } from "../../data/cookieFunctions";
@@ -20,11 +17,8 @@ export default function Dashboard() {
   useEffect(() => {
     setLoading(true);
     setSurveys([]);
-    loadAdminSurveys(
-      page * displayNumber,
-      displayNumber
-    ).then((surveys) => {
-      console.log(surveys)
+    loadAdminSurveys(page * displayNumber, displayNumber).then((surveys) => {
+      console.log(surveys);
       setSurveys(surveys);
       setLoading(false);
     });
@@ -35,10 +29,12 @@ export default function Dashboard() {
     return surveys.map((survey: any) => (
       <Link to={`../results/${survey.id}`}>
         <div
-          className={`flex h-54 w-48 flex-col justify-start rounded-md p-2 dark:bg-rdsDarkAccent3 cursor-pointer`}
+          className={`h-54 flex w-48 cursor-pointer flex-col justify-start rounded-md p-2 dark:bg-rdsDarkAccent3`}
         >
           <div className="flex flex-row">
-            <Link to={`../survey-builder/${survey.id}`}><p className="text-xl font-bold">✎</p></Link>
+            <Link to={`../survey-builder/${survey.id}`}>
+              <p className="text-xl font-bold">✎</p>
+            </Link>
             <div
               className={`ml-auto rounded-sm border pl-2 pr-2 transition-all ${
                 survey.live
@@ -49,7 +45,7 @@ export default function Dashboard() {
               {survey.live ? "Active" : <p>Inactive</p>}
             </div>
           </div>
-          <img src={ords} className="h-3/5 w-3/5 rounded-md m-4 self-center"/>
+          <img src={ords} className="m-4 h-3/5 w-3/5 self-center rounded-md" />
           {/* <div className="h-3/5"></div> */}
           <div className="border-t">
             <h4 className="text-lg font-bold">{survey.title}</h4>
@@ -75,15 +71,14 @@ export default function Dashboard() {
 
   async function deleteSurvey(id: string) {
     setLoading(true);
-    console.log(await deleteSurveyConfig(id).then((data) => {
-      if (data.statusCode > 201) {
-        setErrorMessage(data.message)
-      }
-    }));
-    loadAdminSurveys(
-      page * displayNumber,
-      displayNumber
-    ).then((surveys) => {
+    console.log(
+      await deleteSurveyConfig(id).then((data) => {
+        if (data.statusCode > 201) {
+          setErrorMessage(data.message);
+        }
+      })
+    );
+    loadAdminSurveys(page * displayNumber, displayNumber).then((surveys) => {
       setSurveys(surveys);
       setLoading(false);
     });
@@ -130,7 +125,7 @@ export default function Dashboard() {
             )}
             <div className="ml-auto">
               <Link to="../survey-builder/new">
-                <button className="rounded-md bg-rdsBlue p-1 pl-2 pr-2 text-white active:translate-y-1 active:shadow-none hover:shadow-black hover:shadow-md transition-all">
+                <button className="rounded-md bg-rdsBlue p-1 pl-2 pr-2 text-white transition-all hover:shadow-md hover:shadow-black active:translate-y-1 active:shadow-none">
                   New Survey
                 </button>
               </Link>
@@ -140,7 +135,7 @@ export default function Dashboard() {
           <div className="flex flex-row flex-wrap gap-10">
             {surveys.length > 0 && renderSurveyButtons()}
             {loading && <Loading />}
-            {(surveys.length === 0 && !loading && page > 0) && setPage(page - 1)}
+            {surveys.length === 0 && !loading && page > 0 && setPage(page - 1)}
           </div>
         </div>
       </div>

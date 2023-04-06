@@ -62,7 +62,8 @@ export default function FillInTheBlank(props: any) {
   return (
     <div>
       <h2 className="text-lg font-bold">
-        {props.index + 1}) Fill In The Blank {props.require && <p className="text-red-500 text-xl">*</p>}
+        {props.index + 1}) Fill In The Blank{" "}
+        {props.require && <p className="text-xl text-red-500">*</p>}
       </h2>
       {renderChoices()}
     </div>

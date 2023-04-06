@@ -21,7 +21,7 @@ export default function Question(props: any) {
       require: props.data.require,
       page: props.data.page,
       config: configData,
-      id: props.data.id
+      id: props.data.id,
     };
     // TODO call a function passed from SurveyBuilder to update the config
   }

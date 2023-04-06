@@ -13,7 +13,7 @@ export default function TypeConfig() {
     let type = e.target.value.replace(" ", "");
     dispatch({
       type: "change-type",
-      newType: type
+      newType: type,
     });
   }
 

@@ -3,7 +3,7 @@ import TopNav from "./TopNav";
 
 export default function StandardPage(props: any) {
   return (
-    <div className="overflow-x-hidden dark:bg-rdsDark2 w-full min-h-screen dark:text-white">
+    <div className="min-h-screen w-full overflow-x-hidden dark:bg-rdsDark2 dark:text-white">
       <TopNav />
       {props.children}
     </div>

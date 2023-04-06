@@ -151,7 +151,7 @@ export default function SurveyBuilderContext(props: any) {
             survey: action.questions,
             question: action.question,
             change: action.change,
-            error: action.error
+            error: action.error,
           };
         }
         case "question-prompt": {
@@ -169,15 +169,14 @@ export default function SurveyBuilderContext(props: any) {
           return {
             survey: action.questions,
             question: action.question,
-            change: action.change
-          }
+            change: action.change,
+          };
         }
         case "choices-change": {
           let test: any = tasks;
           test["survey"]["questions"][test["question"]]["config"]["choices"][
             "value"
           ][action.choiceIndex] = action.newChoice;
-          console.log(test['question']['config']['prompt']['value']);
           return {
             survey: test["survey"],
             question: tasks["question"],
@@ -185,22 +184,22 @@ export default function SurveyBuilderContext(props: any) {
           };
         }
         case "new-choice": {
-          console.log(tasks['question']['config']['prompt']['value']);
+          console.log(tasks["question"]["config"]["prompt"]["value"]);
           return {
             survey: action.questions,
-            question: tasks['question'],
+            question: tasks["question"],
           };
         }
         case "newer-choice": {
-            // let test: any = tasks;
-            // test["survey"]["questions"][test["question"]]["config"]["prompt"][
-            //   "value"
-            // ] = action.prompt;
-            return {
-              survey: action.questions,
-              question: tasks["question"],
-              change: true,
-            };
+          // let test: any = tasks;
+          // test["survey"]["questions"][test["question"]]["config"]["prompt"][
+          //   "value"
+          // ] = action.prompt;
+          return {
+            survey: action.questions,
+            question: tasks["question"],
+            change: true,
+          };
         }
         case "shuffle": {
           let test: any = tasks;
@@ -215,7 +214,8 @@ export default function SurveyBuilderContext(props: any) {
         }
         case "require": {
           let test: any = tasks;
-          test["survey"]['questions'][test['question']]['require'] = action.isChecked;
+          test["survey"]["questions"][test["question"]]["require"] =
+            action.isChecked;
           return {
             survey: test["survey"],
             question: tasks["question"],
@@ -242,51 +242,49 @@ export default function SurveyBuilderContext(props: any) {
         }
         case "update-survey-status": {
           let test = tasks;
-          test['survey']['live'] = action.status;
-          saveSurveyConfig(tasks['survey']['id'], test['survey']);
+          test["survey"]["live"] = action.status;
+          saveSurveyConfig(tasks["survey"]["id"], test["survey"]);
           return {
-            survey: test['survey'],
-            question: tasks['question'],
-            change: false
-          }
+            survey: test["survey"],
+            question: tasks["question"],
+            change: false,
+          };
         }
         case "save-survey": {
-          if (tasks['change']) {
+          if (tasks["change"]) {
             saveSurveyConfig(tasks["survey"]["id"], tasks["survey"]);
           }
           return {
-            survey: tasks['survey'],
-            question: tasks['question'],
-            change: false
-          }
+            survey: tasks["survey"],
+            question: tasks["question"],
+            change: false,
+          };
         }
         case "close-error": {
           return {
-            survey: tasks['survey'],
-            question: tasks['question'],
+            survey: tasks["survey"],
+            question: tasks["question"],
             change: false,
-            error: ""
-          }
+            error: "",
+          };
         }
         case "change-funding": {
-          tasks["survey"]["tremendous"]["funding"] =
-            action.newType;
+          tasks["survey"]["tremendous"]["funding"] = action.newType;
           return {
-            survey: tasks['survey'],
-            question: tasks['question'],
+            survey: tasks["survey"],
+            question: tasks["question"],
             change: false,
-            error: ""
-          }
+            error: "",
+          };
         }
         case "change-campaign": {
-          tasks["survey"]["tremendous"]["campaign"] =
-            action.newType;
+          tasks["survey"]["tremendous"]["campaign"] = action.newType;
           return {
-            survey: tasks['survey'],
-            question: tasks['question'],
+            survey: tasks["survey"],
+            question: tasks["question"],
             change: false,
-            error: ""
-          }
+            error: "",
+          };
         }
         case "change-type": {
           let test: any = tasks;
@@ -336,27 +334,27 @@ export default function SurveyBuilderContext(props: any) {
           return {
             survey: action.survey,
             question: action.question,
-            change: action.change
-          }
+            change: action.change,
+          };
         }
         case "question-up": {
           return {
             survey: action.survey,
             question: action.question,
-            change: action.change
-          }
+            change: action.change,
+          };
         }
         case "add-admin": {
           let test: any = tasks;
-          test['survey']['admins'].push(action.admin);
-          console.log(test['survey']['admins']);
-          saveSurveyConfig(tasks["survey"]["id"], tasks["survey"])
-          addSurveyToUser(action.admin, test['survey']['id']);
+          test["survey"]["admins"].push(action.admin);
+          console.log(test["survey"]["admins"]);
+          saveSurveyConfig(tasks["survey"]["id"], tasks["survey"]);
+          addSurveyToUser(action.admin, test["survey"]["id"]);
           return {
-            survey: test['survey'],
-            question: test['question'],
-            change: false
-          }
+            survey: test["survey"],
+            question: test["question"],
+            change: false,
+          };
         }
         default: {
           return {

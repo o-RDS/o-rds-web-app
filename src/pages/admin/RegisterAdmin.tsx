@@ -92,7 +92,7 @@ export default function RegisterAdmin() {
   return (
     <StandardPage>
       <div className="flex h-screen w-full flex-col items-center justify-center gap-4">
-        <h1 className="inline-block bg-gradient-to-br from-green-600 to-orange-600 bg-clip-text text-3xl text-transparent">
+        <h1 className="inline-block bg-clip-text text-4xl text-rdsBlue">
           Register for o-RDS
         </h1>
         <form
@@ -180,13 +180,11 @@ export default function RegisterAdmin() {
             </label>
           </div>
           <br />
-          <button className="w-1/2 rounded bg-rdsOrange p-1 text-white hover:shadow-black hover:shadow-md transition-shadow">
+          <button className="w-1/2 rounded bg-rdsOrange p-1 text-white transition-shadow hover:shadow-md hover:shadow-black">
             Create Account
           </button>
           <br />
-          {errorMessage.error && (
-            <Error message={errorMessage.message}/>
-          )}
+          {errorMessage.error && <Error message={errorMessage.message} />}
           {registerSuccess && (
             <div className="w-full rounded-md bg-green-500 bg-opacity-20 p-2">
               <p className="text-center text-sm text-green-500">

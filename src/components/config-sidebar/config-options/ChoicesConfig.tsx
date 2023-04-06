@@ -6,14 +6,15 @@ import {
 
 export default function ChoicesConfig() {
   const SurveyState = useContext(SurveyContext);
-  const SurveyStateQuestions = SurveyState["survey"]["questions"][SurveyState["question"]];
+  const SurveyStateQuestions =
+    SurveyState["survey"]["questions"][SurveyState["question"]];
   const dispatch = useContext(SurveyDispatchContext);
 
   function handleChoicesChange(index: number, e: any) {
     dispatch({
       type: "choices-change",
       choiceIndex: index,
-      newChoice: e.target.value
+      newChoice: e.target.value,
     });
   }
 
@@ -52,7 +53,7 @@ export default function ChoicesConfig() {
         <input
           value={choice}
           onChange={(e) => handleChoicesChange(index, e)}
-          className="w-full border-b-2 border-gray-200 transition-all focus:border-b-rdsBlue focus:outline-none dark:bg-rdsDarkAccent2 p-1 rounded-sm"
+          className="w-full rounded-sm border-b-2 border-gray-200 p-1 transition-all focus:border-b-rdsBlue focus:outline-none dark:bg-rdsDarkAccent2"
           placeholder="Enter Choice Here"
         ></input>
         <br></br>
@@ -62,7 +63,9 @@ export default function ChoicesConfig() {
   return (
     <div className="flex flex-col items-start justify-center gap-5">
       <div className="flex w-full flex-col items-start justify-center gap-2">
-        <label>{SurveyStateQuestions["config"]["choices"]["configPrompt"]}</label>
+        <label>
+          {SurveyStateQuestions["config"]["choices"]["configPrompt"]}
+        </label>
         <div className="flex w-2/3 flex-row justify-between gap-2 rounded-full bg-rdsOrange">
           <button
             className="h-8 w-1/3 rounded-l-full border-r border-r-white bg-rdsOrange text-lg text-white"
