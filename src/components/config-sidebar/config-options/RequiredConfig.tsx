@@ -18,25 +18,28 @@ export default function RequiredConfig() {
 
   function checkToggle() {
     if (toggle) {
-      console.log("Toggle on")
-      return "bg-green-500 before:translate-x-5"
+      console.log("Toggle on");
+      return "bg-green-500 before:translate-x-5";
     } else {
-      console.log("Toggle of")
-      return "bg-rdsDarkAccent"
+      console.log("Toggle of");
+      return "bg-rdsDarkAccent";
     }
   }
 
   return (
     <div className="flex flex-row gap-4">
-      <label className="w-full relative">
-      <span className={`left-3/4 absolute w-12 h-6 ${checkToggle()} rounded-full before:bg-white before:rounded-full before:w-5 before:h-5 before:absolute before:top-[2px] before:left-1 transition-all`} onClick={() => setToggle(!toggle)}></span>
-      {"Require Question"}
-      <input
-        type="checkbox"
-        onChange={(e) => handleCheckChange(e)} //Required needs to be added as a value in the survey!
-        className="accent-rdsBlue relative opacity-0"
-        defaultChecked={toggle}
-      ></input>
+      <label className="relative w-full">
+        <span
+          className={`absolute left-3/4 h-6 w-12 ${checkToggle()} rounded-full transition-all before:absolute before:top-[2px] before:left-1 before:h-5 before:w-5 before:rounded-full before:bg-white`}
+          onClick={() => setToggle(!toggle)}
+        ></span>
+        {"Require Question"}
+        <input
+          type="checkbox"
+          onChange={(e) => handleCheckChange(e)} //Required needs to be added as a value in the survey!
+          className="relative accent-rdsBlue opacity-0"
+          defaultChecked={toggle}
+        ></input>
       </label>
     </div>
   );

@@ -11,10 +11,7 @@ import {
   SurveyContext,
   SurveyDispatchContext,
 } from "../../context/SurveyBuilderContext";
-import {
-  saveSurveyConfig,
-  retrieveSurveyConfig,
-} from "../../APIs/Firebase";
+import { saveSurveyConfig, retrieveSurveyConfig } from "../../APIs/Firebase";
 import { v4 as uuidv4 } from "uuid";
 import { useNavigate, useParams } from "react-router";
 import StandardPage from "../../components/StandardPage";
@@ -101,9 +98,9 @@ export default function SurveyBuilder() {
         dispatch({
           type: "initialize",
           questions: data,
-          question: Object.keys(data['questions'])[0],
+          question: Object.keys(data["questions"])[0],
           change: false,
-          error: ""
+          error: "",
         });
         setConfig(data);
         // setTimeout(() =>{
@@ -115,9 +112,9 @@ export default function SurveyBuilder() {
       dispatch({
         type: "initialize",
         questions: config,
-        question: config['questions'][config['questionOrder'][0]],
+        question: config["questions"][config["questionOrder"][0]],
         change: false,
-        error: ""
+        error: "",
       });
       saveSurveyConfig(config.id, config);
       navigate(`../${config.id}`);
@@ -132,7 +129,11 @@ export default function SurveyBuilder() {
 
   return (
     <StandardPage>
-      {SurveyState['error'] && <div className="fixed top-5 animate-inOut z-50 w-full flex flex-row items-center justify-center"><SurveyBuilderError message={SurveyState['error']}/></div>}
+      {SurveyState["error"] && (
+        <div className="fixed top-5 z-50 flex w-full animate-inOut flex-row items-center justify-center">
+          <SurveyBuilderError message={SurveyState["error"]} />
+        </div>
+      )}
       <SurveyTopConfig
         name={SurveyState["survey"]["title"]}
         setSurveyName={setSurveyName}
@@ -146,30 +147,27 @@ export default function SurveyBuilder() {
           <Loading />
         </div>
       ) : ( */}
-        <div className="flex h-[40rem] 2xl:h-[60rem] min-h-fit flex-row gap-20 dark:bg-rdsDark2 relative">
-          <SurveyLinkModal
-            showModal={setShowModal}
-            display={showModal}
-            surveyName={surveyName}
-            surveyID={config.id}
-          />
-          {settings.active ? (
-            <>
-              <SurveySettingsSide
-                setSettings={setSettings}
-                settings={settings}
-              />
-              <SurveySettings settings={settings} />
-            </>
-          ) : (
-            <>
-              <ConfigSidebar />
-              {/* <div className="mt-3 w-8/12"> */}
-                <QuestionViewer />
-              {/* </div> */}
-            </>
-          )}
-        </div>
+      <div className="relative flex h-[40rem] min-h-fit flex-row gap-20 dark:bg-rdsDark2 2xl:h-[60rem]">
+        <SurveyLinkModal
+          showModal={setShowModal}
+          display={showModal}
+          surveyName={surveyName}
+          surveyID={config.id}
+        />
+        {settings.active ? (
+          <>
+            <SurveySettingsSide setSettings={setSettings} settings={settings} />
+            <SurveySettings settings={settings} />
+          </>
+        ) : (
+          <>
+            <ConfigSidebar />
+            {/* <div className="mt-3 w-8/12"> */}
+            <QuestionViewer />
+            {/* </div> */}
+          </>
+        )}
+      </div>
       {/* )} */}
     </StandardPage>
   );

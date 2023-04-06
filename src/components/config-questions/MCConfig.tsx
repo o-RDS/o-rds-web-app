@@ -82,8 +82,14 @@ export default function MCConfig(props: any) {
               <p className="text-xl text-red-500">*</p>
             )}
             <div className="ml-auto">
-              <UpDownButton otherIndex={props.otherIndex} direction="question-down"/>
-              <UpDownButton otherIndex={props.otherIndex} direction="question-up"/>
+              <UpDownButton
+                otherIndex={props.otherIndex}
+                direction="question-down"
+              />
+              <UpDownButton
+                otherIndex={props.otherIndex}
+                direction="question-up"
+              />
               <DeleteButton
                 handleDeleteQuestion={handleDeleteQuestion2}
                 index={props.index}

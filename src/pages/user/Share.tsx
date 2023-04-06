@@ -56,7 +56,7 @@ export default function Share() {
     setLoading(true);
     let order = newOrder(email, config.completionPayout);
     console.log("Fetching Tremendous order API");
-    
+
     sendPayment(order, config.id, "referral").then((data) => {
       if (data.statusCode > 201) {
         setError(data.message);
@@ -70,7 +70,7 @@ export default function Share() {
 
   return (
     <SurveyTakerStandardPage>
-      {loading && <Loading/>}
+      {loading && <Loading />}
       <div className="flex flex-col items-center">
         <p className="max-w-prose text-left">
           Thank you for taking the time to complete this survey!
@@ -101,25 +101,24 @@ export default function Share() {
         </div>
       </div>
       <p className="max-w-prose text-justify">
-          To claim your rewards for referrals, enter your email and press the "Claim Rewards"
-          button. You will receive an email to claim your rewards from
-          Tremendous. We do not store your email address.
-        </p>
+        To claim your rewards for referrals, enter your email and press the
+        "Claim Rewards" button. You will receive an email to claim your rewards
+        from Tremendous. We do not store your email address.
+      </p>
       <div className="flex w-4/5 flex-col items-center gap-y-6 lg:w-1/3">
-        
         <div className="flex flex-col">
           <label htmlFor="email">Email Address: </label>
           <input
             type="text"
             id="email"
             name="email"
-            className="justify-self-center w-56 rounded bg-gray-200 p-1"
+            className="w-56 justify-self-center rounded bg-gray-200 p-1"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
         </div>
         <button
-          className="w-1/2 md:w-1/3 rounded bg-rdsOrange p-1 text-white"
+          className="w-1/2 rounded bg-rdsOrange p-1 text-white md:w-1/3"
           onClick={() => claimRewards()}
         >
           Claim Rewards

@@ -6,13 +6,14 @@ import {
 
 export default function PromptConfig() {
   const SurveyState = useContext(SurveyContext);
-  const SurveyStateQuestions = SurveyState["survey"]["questions"][SurveyState["question"]];
+  const SurveyStateQuestions =
+    SurveyState["survey"]["questions"][SurveyState["question"]];
   const dispatch = useContext(SurveyDispatchContext);
 
   function handleTitleChange(e: any) {
     dispatch({
       type: "question-prompt",
-      prompt: e.target.value
+      prompt: e.target.value,
     });
   }
 

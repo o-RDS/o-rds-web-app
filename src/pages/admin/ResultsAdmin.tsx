@@ -2,10 +2,7 @@ import { useState, useEffect } from "react";
 import SurveyTopNav from "../../components/SurveyTopNav";
 import TopNav from "../../components/TopNav";
 import ResultsTopConfig from "../../components/ResultsTopConfig";
-import {
-  loadAllResponses,
-  retrieveSurveyConfig,
-} from "../../APIs/Firebase";
+import { loadAllResponses, retrieveSurveyConfig } from "../../APIs/Firebase";
 import { useParams, useNavigate } from "react-router-dom";
 import Loading from "../../components/Loading";
 import ResultsTable from "../../components/ResultsTable";
@@ -98,37 +95,38 @@ export default function Results() {
       <TopNav />
       {results && config ? (
         <>
-        <ResultsTopConfig
-          name={config.title}
-          id={params.surveyID}
-          live={config.live}
-          updated={config.lastUpdated}
-          downloadCSV={downloadCSV}
-        />
-      
-      <div className="flex w-full flex-col gap-y-2 p-6">
-        <div className="flex w-full flex-row items-baseline">
-          <h1 className="flex-grow pl-10 text-left text-2xl">{config.title}</h1>
-          <label htmlFor="filterCompleted">
-            Show Incomplete Responses
-          </label>
-          <input
-            type="checkbox"
-            id="filterCompleted"
-            name="filterCompleted"
-            className="ml-4 mr-12"
-            onChange={() => setFilterCompleted(!filterCompleted)}
+          <ResultsTopConfig
+            name={config.title}
+            id={params.surveyID}
+            live={config.live}
+            updated={config.lastUpdated}
+            downloadCSV={downloadCSV}
           />
-        </div>
-        <ResultsTable 
-          results={results} 
-          config={config} 
-          filterCompleted={filterCompleted}
-        />
-      </div>
-      </>) : (
-            <Loading />
-          )}
+
+          <div className="flex w-full flex-col gap-y-2 p-6">
+            <div className="flex w-full flex-row items-baseline">
+              <h1 className="flex-grow pl-10 text-left text-2xl">
+                {config.title}
+              </h1>
+              <label htmlFor="filterCompleted">Show Incomplete Responses</label>
+              <input
+                type="checkbox"
+                id="filterCompleted"
+                name="filterCompleted"
+                className="ml-4 mr-12"
+                onChange={() => setFilterCompleted(!filterCompleted)}
+              />
+            </div>
+            <ResultsTable
+              results={results}
+              config={config}
+              filterCompleted={filterCompleted}
+            />
+          </div>
+        </>
+      ) : (
+        <Loading />
+      )}
     </div>
   );
 }

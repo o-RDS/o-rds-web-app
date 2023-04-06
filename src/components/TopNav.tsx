@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import helpIcon from "../images/help_icon.png";
-import {deleteCookie} from "../data/cookieFunctions"
+import { deleteCookie } from "../data/cookieFunctions";
 
 export default function TopNav() {
   const navigate = useNavigate();
@@ -22,10 +22,10 @@ export default function TopNav() {
         </Link> */}
         <img src={helpIcon} className="h-6 w-6" alt="Help Icon" />
         <button
-          className="hover:shadow-black hover:shadow-md bg-rdsOrange rounded-sm p-1 transition-all active:translate-y-1 active:shadow-none"
+          className="rounded-sm bg-rdsOrange p-1 transition-all hover:shadow-md hover:shadow-black active:translate-y-1 active:shadow-none"
           onClick={() => {
             deleteCookie("token");
-            navigate("/admin/login")
+            navigate("/admin/login");
           }}
         >
           Log Out

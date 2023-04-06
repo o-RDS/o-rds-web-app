@@ -4,5 +4,5 @@ import { Outlet } from "react-router";
 export default function ConfigContext(props: any) {
   const AdminAuthContext = react.createContext({});
 
-  return <Outlet/>;
+  return <Outlet />;
 }

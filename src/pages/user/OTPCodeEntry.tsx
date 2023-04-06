@@ -34,15 +34,13 @@ export default function OTPCodeEntry() {
         console.log(`Running verification check: ${phone}, ${code}`);
         verificationCheck(phone, code).then((data) => {
           console.log(data);
-          setCookie("token", data.accessToken, 1)
+          setCookie("token", data.accessToken, 1);
           if (data.statusCode === 200) {
             setError("");
             processHash();
-          } 
-          else if (data.statusCode === 401) {
+          } else if (data.statusCode === 401) {
             setError("Invalid Code");
-          }
-          else {
+          } else {
             setError("Server Error, Try Again");
           }
         });
@@ -77,7 +75,7 @@ export default function OTPCodeEntry() {
               parentID: window.sessionStorage.getItem("parent"),
               depth: window.sessionStorage.getItem("depth"),
             }).then((data) => {
-              if (data.statusCode > 201) setError(data.message)
+              if (data.statusCode > 201) setError(data.message);
             });
             window.localStorage.setItem(params.id + hash, alias);
             navigate("../consent");
@@ -91,7 +89,13 @@ export default function OTPCodeEntry() {
     let num = window.sessionStorage.getItem("phone");
     if (num != null) {
       return (
-        num.slice(0, 2) + "(" + num.slice(2, 5) + ") " + num.slice(5, 8) + "-" + num.slice(8, 12)
+        num.slice(0, 2) +
+        "(" +
+        num.slice(2, 5) +
+        ") " +
+        num.slice(5, 8) +
+        "-" +
+        num.slice(8, 12)
       );
     } else {
       console.log("You shouldn't be here! (No Phone Number Found)");

@@ -57,9 +57,9 @@ export default function LoginAdmin() {
   }
 
   return (
-    <StandardPage>
+    <div className="min-h-screen w-full overflow-x-hidden dark:bg-rdsDark2 dark:text-white">
       <div className="flex min-h-screen flex-col items-center justify-center gap-4 dark:bg-rdsDark2">
-        <h1 className="inline-block text-rdsBlue bg-clip-text text-4xl">
+        <h1 className="inline-block bg-clip-text text-4xl text-rdsBlue">
           Welcome to o-RDS
         </h1>
         <form
@@ -100,22 +100,21 @@ export default function LoginAdmin() {
             </label>
           </div>
           <br></br>
-          <button className="w-1/2 rounded bg-rdsOrange p-1 text-white hover:shadow-black hover:shadow-md transition-all active:translate-y-1 active:shadow-none">
+          <button className="w-1/2 rounded bg-rdsOrange p-1 text-white transition-all hover:shadow-md hover:shadow-black active:translate-y-1 active:shadow-none">
             Login
           </button>
           <br></br>
           <br></br>
           {errorMessage && <Error message={errorMessage} />}
         </form>
-        
+
         {/* <button
           onClick={() => navigate("/admin/register")}
           className="text-rdsOrange underline"
         >
           Need an account? Click here to register!
         </button> */}
-        
       </div>
-    </StandardPage>
+    </div>
   );
 }

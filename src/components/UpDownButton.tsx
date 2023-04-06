@@ -55,16 +55,16 @@ export default function UpDownButton(props: any) {
   function handleQuestionMove() {
     let test: any = SurveyState;
     if (props.direction === "question-up") {
-        let temp = test["survey"]["questionOrder"][props.otherIndex - 1];
-        test["survey"]["questionOrder"][props.otherIndex - 1] =
-          test["survey"]["questionOrder"][props.otherIndex];
-        test["survey"]["questionOrder"][props.otherIndex] = temp;
-        dispatch({
-          type: "question-up",
-          survey: test["survey"],
-          question: test["question"],
-          change: true,
-        });
+      let temp = test["survey"]["questionOrder"][props.otherIndex - 1];
+      test["survey"]["questionOrder"][props.otherIndex - 1] =
+        test["survey"]["questionOrder"][props.otherIndex];
+      test["survey"]["questionOrder"][props.otherIndex] = temp;
+      dispatch({
+        type: "question-up",
+        survey: test["survey"],
+        question: test["question"],
+        change: true,
+      });
     } else {
       let temp = test["survey"]["questionOrder"][props.otherIndex + 1];
       test["survey"]["questionOrder"][props.otherIndex + 1] =
@@ -81,38 +81,42 @@ export default function UpDownButton(props: any) {
 
   function isUpDisabled() {
     if (props.otherIndex == 0) {
-      return true
+      return true;
     } else {
-      return false
+      return false;
     }
   }
 
   function isDownDisabled() {
     if (props.otherIndex + 1 == SurveyState["survey"]["questionOrder"].length) {
-      return true
+      return true;
     } else {
-      return false
+      return false;
     }
   }
 
   function isUpDownDisabled() {
-    if (props.otherIndex == 0 || props.otherIndex + 1 == SurveyState["survey"]["questionOrder"].length) {
-      return true
+    if (
+      props.otherIndex == 0 ||
+      props.otherIndex + 1 == SurveyState["survey"]["questionOrder"].length
+    ) {
+      return true;
     } else {
-      return false
+      return false;
     }
   }
 
   return (
     <>
-              <button
-                onClick={() => handleQuestionMove()}
-                className={`mx-1 rounded-md p-1 hover:bg-rdsDarkAccent disabled:opacity-50 disabled:cursor-not-allowed transition-all`}
-                disabled={props.direction === "question-up" ? isUpDisabled() : isDownDisabled()}
-              >
-                {props.direction === "question-up" ? "▲" : "▼"}
-              </button>
-              
+      <button
+        onClick={() => handleQuestionMove()}
+        className={`mx-1 rounded-md p-1 transition-all hover:bg-rdsDarkAccent disabled:cursor-not-allowed disabled:opacity-50`}
+        disabled={
+          props.direction === "question-up" ? isUpDisabled() : isDownDisabled()
+        }
+      >
+        {props.direction === "question-up" ? "▲" : "▼"}
+      </button>
     </>
   );
 }

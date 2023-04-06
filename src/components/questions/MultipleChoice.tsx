@@ -52,7 +52,9 @@ export default function MultipleChoice(props: any) {
             className="accent-rdsBlue"
             required={props.require}
           />
-          <label className="ml-2" htmlFor={choice}>{choice}</label>
+          <label className="ml-2" htmlFor={choice}>
+            {choice}
+          </label>
         </div>
       );
     });
@@ -62,7 +64,8 @@ export default function MultipleChoice(props: any) {
   return (
     <div>
       <h2 className="text-lg font-bold">
-        {props.index + 1}) {props.config.prompt.value} {props.require && <p className="text-red-500 text-xl">*</p>}
+        {props.index + 1}) {props.config.prompt.value}{" "}
+        {props.require && <p className="text-xl text-red-500">*</p>}
       </h2>
       {renderChoices()}
     </div>
