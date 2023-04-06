@@ -13,27 +13,30 @@ export default function Consent() {
 
   return (
     <SurveyTakerStandardPage>
-      <div className="flex w-3/4 flex-col items-center justify-center gap-y-4">
+      <div className="flex w-3/4 flex-col items-center justify-center gap-y-6">
         <p className="whitespace-normal text-left">
           You will now be asked to provide your consent to participate in this
           study. Please read the consent information below.
         </p>
-        <hr className="border-1 w-1/3 border-gray-800" />
-        <div className="flex w-full items-center justify-center lg:w-1/2">
-          <p className="w-11/12 whitespace-pre-wrap break-words text-left">
+        <hr className="border-1 w-2/3 lg:w-1/3 border-gray-800" />
+        <div className="flex w-full items-center justify-center lg:w-1/3">
+          <p className="whitespace-pre-wrap break-words text-left">
             {config.informedConsent.consentRequirements}
           </p>
         </div>
-        <hr className="border-1 w-1/3 border-gray-800" />
+        <hr className="border-1 w-2/3 lg:w-1/3 border-gray-800" />
         <div className="flex flex-row justify-center">
           <input
             type="checkbox"
             id="acknowledge"
             name="acknowledge"
-            className="mr-4"
+            className="mr-4 w-1/6 max-w-[24px]"
             onChange={() => setAckChecked(!ackChecked)}
           />
-          <label htmlFor="acknowledge">
+          <label 
+            htmlFor="acknowledge"
+            className="w-5/6 max-w-prose"
+            >
             I acknowledge that I have read the consent information listed above
             and give my consent to participate in this study.
           </label>
