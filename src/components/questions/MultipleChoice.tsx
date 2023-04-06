@@ -37,8 +37,11 @@ export default function MultipleChoice(props: any) {
   function renderChoices() {
     return props.config.choices.value.map((choice: string, index: number) => {
       let isChecked = false;
-      if (answer === choice) {
+      console.log(props.currentValue);
+      if (choice === props.currentValue) {
         isChecked = true;
+      } else {
+        console.log("failed");
       }
       return (
         <div key={index}>
@@ -48,7 +51,7 @@ export default function MultipleChoice(props: any) {
             id={choice}
             value={choice}
             onChange={() => handleClick(choice)}
-            checked={isChecked}
+            defaultChecked={isChecked}
             className="accent-rdsBlue"
             required={props.require}
           />

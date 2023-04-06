@@ -119,7 +119,7 @@ export default function Survey() {
       console.log(question);
       let tempResponse: any = response;
       if (question.page === page) {
-        console.log(response);
+        console.log(tempResponse.answers[id]);
         return (
           <Question
             data={question}
@@ -154,13 +154,13 @@ export default function Survey() {
 
             <div className="flex min-h-[36px] w-4/5 flex-row justify-center self-center">
               {page > 0 ? (
-                <button
-                  type="button"
-                  className="w-1/3 rounded border-2 border-rdsOrange bg-white p-1 text-rdsOrange"
+                <div
+                  // type="button"
+                  className="w-1/3 rounded border-2 border-rdsOrange bg-white p-1 text-rdsOrange text-center cursor-pointer"
                   onClick={() => changePage(-1)}
                 >
                   Back
-                </button>
+                </div>
               ) : (
                 config.questions[design[design.length - 1]].page > 0 && (
                   <div className="w-1/3"></div>
@@ -175,16 +175,16 @@ export default function Survey() {
               )}
 
               {config.questions[design[design.length - 1]].page > page ? (
-                <button
-                  type="button"
-                  className="w-1/3 rounded bg-rdsOrange p-1 text-white"
+                <div
+                  // type="button"
+                  className="w-1/3 rounded bg-rdsOrange p-1 text-white text-center cursor-pointer"
                   onClick={() => changePage(1)}
                 >
                   Next
-                </button>
+                </div>
               ) : (
                 <button className="w-1/3 rounded bg-rdsOrange p-1 text-white">
-                  Submit
+                  Submit 
                 </button>
               )}
             </div>

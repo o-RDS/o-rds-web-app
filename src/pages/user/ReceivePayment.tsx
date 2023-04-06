@@ -83,7 +83,7 @@ export default function ReceivePayment() {
           </div>
           <Link
             to="../share"
-            className="mt-6 w-1/3 rounded bg-orange-600 p-1 text-center text-white"
+            className="mt-6 w-1/3 rounded bg-orange-600 p-1 text-center text-white transition-all hover:shadow-md hover:shadow-black active:translate-y-1 active:shadow-none"
           >
             <button>Continue</button>
           </Link>
@@ -116,7 +116,7 @@ export default function ReceivePayment() {
                 setError("Invalid email");
               }
             }}
-            className="mt-6 w-1/3 rounded bg-orange-600 p-1 text-white"
+            className="mt-6 w-1/3 rounded bg-orange-600 p-1 text-white transition-all hover:shadow-md hover:shadow-black active:translate-y-1 active:shadow-none"
           >
             Submit
           </button>

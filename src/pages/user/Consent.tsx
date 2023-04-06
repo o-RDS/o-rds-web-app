@@ -40,7 +40,7 @@ export default function Consent() {
         </div>
         <button
           disabled={!ackChecked}
-          className="w-56 rounded bg-rdsOrange p-1 text-white disabled:opacity-60"
+          className="w-56 rounded bg-rdsOrange p-1 text-white disabled:opacity-60 transition-all hover:shadow-md hover:shadow-black active:translate-y-1 active:shadow-none"
           onClick={() => navigate("../questions")}
         >
           Accept

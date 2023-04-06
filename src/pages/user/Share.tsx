@@ -85,7 +85,7 @@ export default function Share() {
         <ShareBox link={getLink()} />
         <div className="flex w-full flex-row justify-center gap-8">
           <button
-            className="w-1/3 rounded bg-rdsOrange p-1 text-white"
+            className="w-1/3 rounded bg-rdsOrange p-1 text-white transition-all hover:shadow-md hover:shadow-black active:translate-y-1 active:shadow-none"
             onClick={() => {
               copyToClipboard();
             }}
@@ -93,7 +93,7 @@ export default function Share() {
             {copyLabel}
           </button>
           <button
-            className="w-1/3 rounded bg-rdsOrange p-1 text-white"
+            className="w-1/3 rounded bg-rdsOrange p-1 text-white transition-all hover:shadow-md hover:shadow-black active:translate-y-1 active:shadow-none"
             onClick={() => openShare()}
           >
             Share
@@ -118,7 +118,7 @@ export default function Share() {
           />
         </div>
         <button
-          className="w-1/2 rounded bg-rdsOrange p-1 text-white md:w-1/3"
+          className="w-1/2 rounded bg-rdsOrange p-1 text-white md:w-1/3 transition-all hover:shadow-md hover:shadow-black active:translate-y-1 active:shadow-none"
           onClick={() => claimRewards()}
         >
           Claim Rewards

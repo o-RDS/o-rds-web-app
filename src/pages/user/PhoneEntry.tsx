@@ -99,7 +99,7 @@ export default function PhoneEntry() {
           ></input>
         </div>
         <button
-          className="w-56 rounded bg-rdsOrange p-1 text-white"
+          className="w-56 rounded bg-rdsOrange p-1 text-white transition-all hover:shadow-md hover:shadow-black active:translate-y-1 active:shadow-none"
           onClick={() => submitNum()}
         >
           Submit
