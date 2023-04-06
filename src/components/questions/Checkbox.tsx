@@ -56,13 +56,12 @@ export default function Checkbox(props: any) {
   // TODO: make it so answers are reported up to the survey component (function chain)
   function renderChoices() {
     return props.config.choices.value.map((choice: string, index: number) => {
-      let isChecked = false;
+      let isChecked: boolean = false;
       if (props.currentValue) {
-        if (props.currentValue[index] === choice) {
+        if (props.currentValue.includes(choice)) {
           isChecked = true;
         }
       }
-      console.log(isChecked);
       return (
         <div key={index}>
           <input
