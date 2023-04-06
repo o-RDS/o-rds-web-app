@@ -39,27 +39,22 @@ export default function PhoneEntry() {
   }, [searchParams, navigate]);
 
   function submitNum() {
-    const cleanNum = "+1" + phoneNum.replace(/\W/g, "");
-
-    if (cleanNum.length !== 12) {
-      setError("Invalid Phone Number");
-      return;
-    }
+    const cleanNum = phoneNum.replace(/\W/g, "");
 
     console.log(`Sending verification: ${cleanNum}`);
     startVerification(cleanNum).then((data) => {
       console.log(data);
-      setPhone(cleanNum);
       console.log(cleanNum);
       if (data.statusCode === 200) {
         setError("");
+        setPhone(data.phoneNumber);
         // will print code to console if server is running in testing mode
         if (data.code !== undefined) {
           console.log(`Verification Code: ${data.code}`);
         }
         navigate("verify");
       } else if (data.statusCode === 500) {
-        setError("Server Error, Try Again Later");
+        setError(data.message);
       }
     });
 
