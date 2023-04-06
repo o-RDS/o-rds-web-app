@@ -177,7 +177,6 @@ export default function SurveyBuilderContext(props: any) {
           test["survey"]["questions"][test["question"]]["config"]["choices"][
             "value"
           ][action.choiceIndex] = action.newChoice;
-          console.log(test['question']['config']['prompt']['value']);
           return {
             survey: test["survey"],
             question: tasks["question"],
