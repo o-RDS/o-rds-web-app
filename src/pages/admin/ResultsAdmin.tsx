@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import SurveyTopNav from "../../components/SurveyTopNav";
 import TopNav from "../../components/TopNav";
 import ResultsTopConfig from "../../components/ResultsTopConfig";
 import { loadAllResponses, retrieveSurveyConfig } from "../../APIs/Firebase";
