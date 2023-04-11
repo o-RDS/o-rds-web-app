@@ -32,7 +32,7 @@ export default function SurveySettings(props: any) {
   }
     return (
         <>
-      <div className="h-min-56 mt-3 flex flex-col gap-10 overflow-y-auto justify-start items-start w-screen dark:text-white">
+      <div className="h-min-56 mt-3 flex flex-col gap-10 justify-start items-start w-screen dark:text-white">
         {showSettings()}
       </div>
     </>

@@ -49,7 +49,7 @@ export function ContactSettings() {
         <input
           type="tel"
           id="phone"
-          className="rounded-sm p-1 dark:bg-rdsDarkAccent w-2/5"
+          className="rounded-sm p-1 dark:bg-rdsDarkAccent w-2/5 bg-gray-200"
           maxLength={20}
           value={SurveyState['survey']['contactInfo']['phone']}
           onChange={(e) => handlePhoneChange(e)}
@@ -60,7 +60,7 @@ export function ContactSettings() {
         <input
           type="email"
           id="email"
-          className="rounded-sm p-1 dark:bg-rdsDarkAccent w-2/5"
+          className="rounded-sm p-1 dark:bg-rdsDarkAccent w-2/5 bg-gray-200"
           maxLength={20}
           value={SurveyState['survey']['contactInfo']['email']}
           onChange={(e) => handleEmailChange(e)}
@@ -71,7 +71,7 @@ export function ContactSettings() {
         <input
           type="text"
           id="mail"
-          className="rounded-sm p-1 dark:bg-rdsDarkAccent w-2/5"
+          className="rounded-sm p-1 dark:bg-rdsDarkAccent w-2/5 bg-gray-200"
           maxLength={20}
           value={SurveyState['survey']['contactInfo']['mail']}
           onChange={(e) => handleMailChange(e)}

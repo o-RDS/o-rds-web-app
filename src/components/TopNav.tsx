@@ -7,7 +7,7 @@ export default function TopNav() {
   const navigate = useNavigate();
 
   return (
-    <div className="flex h-14 w-full flex-row items-center justify-start overflow-visible overflow-y-auto px-2 shadow-sm shadow-black">
+    <div className="flex h-14 w-full flex-row items-center justify-start overflow-visible overflow-y-auto px-4 shadow-sm shadow-black">
       <Link to="/admin/dashboard/">
         <h3 className="inline-block items-center justify-start bg-gradient-to-br from-rdsBlue to-rdsOrange bg-clip-text text-lg text-transparent">
           o-RDS
@@ -22,7 +22,7 @@ export default function TopNav() {
         </Link> */}
         <img src={helpIcon} className="h-6 w-6" alt="Help Icon" />
         <button
-          className="rounded-sm bg-rdsOrange p-1 transition-all hover:shadow-md hover:shadow-black active:translate-y-1 active:shadow-none"
+          className="rounded-sm bg-rdsOrange px-2 py-1 transition-all hover:shadow-md hover:shadow-black active:translate-y-1 active:shadow-none text-white"
           onClick={() => {
             deleteCookie("token");
             navigate("/admin/login");

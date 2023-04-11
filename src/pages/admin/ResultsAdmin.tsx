@@ -90,7 +90,7 @@ export default function Results() {
   }
 
   return (
-    <div className="h-screen text-white dark:bg-rdsDark2">
+    <div className="h-screen dark:text-white dark:bg-rdsDark2">
       <TopNav />
       {results && config ? (
         <>
