@@ -10,7 +10,6 @@ export default function PhoneEntry() {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
 
-  // change to parent
   useEffect(() => {
     let parent = searchParams.get("p");
     let referer = searchParams.get("r");
@@ -21,16 +20,6 @@ export default function PhoneEntry() {
     if (referer == null || referer === "null") {
       referer = "root";
     }
-    /* USE THIS CODE ONCE WE HAVE VALID SURVEY DATA (maybe)
-           THERE ALSO NEEDS TO BE A FUNCTION TO GET USER DATA
-        retrieveResponseData(parent).then((data) => {
-            if (data == null) {
-                navigate("/invalid");
-            } else {
-                depth = data.depth + 1;
-                setChainInfo(parent, depth);
-            }
-        */
     let depthStr = searchParams.get("d");
     if (depthStr != null) {
       depth = parseInt(depthStr) + 1;
@@ -49,23 +38,24 @@ export default function PhoneEntry() {
       return;
     }
     console.log(`Sending verification: ${cleanNum}`);
-    startVerification(cleanNum).then((data) => {
-      console.log(data);
-      console.log(cleanNum);
-      if (data.statusCode === 200) {
-        setError("");
-        setPhone(data.phoneNumber);
-        // will print code to console if server is running in testing mode
-        if (data.code !== undefined) {
-          console.log(`Verification Code: ${data.code}`);
+    startVerification(cleanNum)
+      .then((data) => {
+        console.log(data);
+        console.log(cleanNum);
+        if (data.statusCode === 200) {
+          setError("");
+          setPhone(data.phoneNumber);
+          if (data.code !== undefined) {
+            console.log(`Verification Code: ${data.code}`);
+          }
+          navigate("verify");
+        } else {
+          setError(data.message);
         }
-        navigate("verify");
-      } else {
-        setError(data.message);
-      }
-    });
-
-    // TODO Send code to phone number, pass code to OTPCodeEntry.tsx
+      })
+      .catch((error) => {
+        setError("Server Error, Try Again Later");
+      });
   }
 
   return (
@@ -97,7 +87,10 @@ export default function PhoneEntry() {
             placeholder="(XXX) XXX-XXXX"
             className="w-56 rounded bg-gray-200 p-1"
             value={phoneNum}
-            onChange={(e) => { setPhoneNum(e.target.value); setError("")}}
+            onChange={(e) => {
+              setPhoneNum(e.target.value);
+              setError("");
+            }}
           ></input>
         </div>
         <button
