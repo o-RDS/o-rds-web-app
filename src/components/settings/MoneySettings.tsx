@@ -74,7 +74,7 @@ export function MoneySettings() {
         <input
           type="number"
           id="num-referrals"
-          className="w-2/5 rounded-sm p-1 dark:bg-rdsDarkAccent"
+          className="w-2/5 rounded-sm p-1 dark:bg-rdsDarkAccent bg-gray-200"
           maxLength={20}
           onChange={(e) => handlePaidRefChange(e)}
           value={SurveyState['survey']['maxRefIncentives']}
@@ -85,7 +85,7 @@ export function MoneySettings() {
         <input
           type="number"
           id="referrals-max"
-          className="w-2/5 rounded-sm p-1 dark:bg-rdsDarkAccent"
+          className="w-2/5 rounded-sm p-1 dark:bg-rdsDarkAccent bg-gray-200"
           maxLength={20}
           onChange={(e) => handleMaxRefChange(e)}
           value={SurveyState['survey']['maxRefs']}
@@ -96,7 +96,7 @@ export function MoneySettings() {
         <input
           type="number"
           id="completion-amount"
-          className="w-2/5 rounded-sm p-1 dark:bg-rdsDarkAccent"
+          className="w-2/5 rounded-sm p-1 dark:bg-rdsDarkAccent bg-gray-200"
           onChange={(e) => handleCompletionAmountChange(e)}
           value={SurveyState['survey']['completionPayout']}
         ></input>
@@ -106,7 +106,7 @@ export function MoneySettings() {
         <input
           type="number"
           id="referral-amount"
-          className="w-2/5 rounded-sm p-1 dark:bg-rdsDarkAccent"
+          className="w-2/5 rounded-sm p-1 dark:bg-rdsDarkAccent bg-gray-200"
           onChange={(e) => handleReferralAmountChange(e)}
           value={SurveyState['survey']['refPayout']}
         ></input>

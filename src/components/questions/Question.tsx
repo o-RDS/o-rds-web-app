@@ -46,6 +46,7 @@ export default function Question(props: any) {
             currentValue={props.currentAnswer}
             index={props.index}
             require={data.require}
+            id={props.id}
           />
         );
       case "FillInBlank":
@@ -56,6 +57,7 @@ export default function Question(props: any) {
             currentValue={props.currentAnswer}
             index={props.index}
             require={data.require}
+            id={props.id}
           />
         );
       case "ShortAnswer":
@@ -66,6 +68,7 @@ export default function Question(props: any) {
             currentValue={props.currentAnswer}
             index={props.index}
             require={data.require}
+            id={props.id}
           />
         );
       case "Checkbox":

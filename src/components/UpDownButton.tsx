@@ -110,7 +110,7 @@ export default function UpDownButton(props: any) {
     <>
       <button
         onClick={() => handleQuestionMove()}
-        className={`mx-1 rounded-md p-1 transition-all hover:bg-rdsDarkAccent disabled:cursor-not-allowed disabled:opacity-50`}
+        className={`mx-1 rounded-md p-1 transition-all hover:dark:bg-rdsDarkAccent disabled:cursor-not-allowed disabled:opacity-50 hover:bg-gray-200`}
         disabled={
           props.direction === "question-up" ? isUpDisabled() : isDownDisabled()
         }
