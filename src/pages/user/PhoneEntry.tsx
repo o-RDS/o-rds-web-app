@@ -54,7 +54,7 @@ export default function PhoneEntry() {
         }
       })
       .catch((error) => {
-        setError("Server Error, Try Again Later");
+        setError("Error Connecting To Server, Try Again Later");
       });
   }
 
