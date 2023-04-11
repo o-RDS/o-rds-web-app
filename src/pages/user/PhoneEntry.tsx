@@ -39,8 +39,15 @@ export default function PhoneEntry() {
   }, [searchParams, navigate]);
 
   function submitNum() {
+    if (!phoneNum) {
+      setError("Please enter a phone number");
+      return;
+    }
     const cleanNum = phoneNum.replace(/\W/g, "");
-
+    if (!cleanNum) {
+      setError("Invalid phone number");
+      return;
+    }
     console.log(`Sending verification: ${cleanNum}`);
     startVerification(cleanNum).then((data) => {
       console.log(data);
@@ -53,7 +60,7 @@ export default function PhoneEntry() {
           console.log(`Verification Code: ${data.code}`);
         }
         navigate("verify");
-      } else if (data.statusCode === 500) {
+      } else {
         setError(data.message);
       }
     });
@@ -90,7 +97,7 @@ export default function PhoneEntry() {
             placeholder="(XXX) XXX-XXXX"
             className="w-56 rounded bg-gray-200 p-1"
             value={phoneNum}
-            onChange={(e) => setPhoneNum(e.target.value)}
+            onChange={(e) => { setPhoneNum(e.target.value); setError("")}}
           ></input>
         </div>
         <button
