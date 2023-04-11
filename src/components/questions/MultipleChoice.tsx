@@ -47,7 +47,7 @@ export default function MultipleChoice(props: any) {
         <div key={index}>
           <input
             type="radio"
-            name={props.currentValue}
+            name={props.id}
             id={choice}
             value={choice}
             onChange={() => handleClick(choice)}
