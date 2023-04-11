@@ -20,7 +20,7 @@ export default function Share() {
       "?r=" +
         window.sessionStorage.getItem("hash") +
         "&p=" +
-        window.sessionStorage.getItem("responseID") +
+        window.localStorage.getItem(window.sessionStorage.getItem("hash") + "responseID") +
         "&d=" +
         window.sessionStorage.getItem("depth")
     );
