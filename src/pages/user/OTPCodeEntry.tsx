@@ -32,18 +32,22 @@ export default function OTPCodeEntry() {
       let phone = window.sessionStorage.getItem("phone");
       if (phone != null) {
         console.log(`Running verification check: ${phone}, ${code}`);
-        verificationCheck(phone, code).then((data) => {
-          console.log(data);
-          setCookie("token", data.accessToken, 1);
-          if (data.statusCode === 200) {
-            setError("");
-            processHash();
-          } else if (data.statusCode === 401) {
-            setError("Invalid Code");
-          } else {
-            setError("Server Error, Try Again");
-          }
-        });
+        verificationCheck(phone, code)
+          .then((data) => {
+            console.log(data);
+            setCookie("token", data.accessToken, 1);
+            if (data.statusCode === 200) {
+              setError("");
+              processHash();
+            } else if (data.statusCode === 401) {
+              setError("Invalid Code");
+            } else {
+              setError("Server Error, Try Again");
+            }
+          })
+          .catch((error) => {
+            setError("Error Connecting To Server, Try Again Later");
+          });
       }
     }
   }
