@@ -69,6 +69,8 @@ export default function Results() {
         questionOrder.forEach((questionID: string) => {
           if (response.answers[questionID] === undefined) {
             userResponseRow.push("");
+          } else if (config.questions[questionID].type === "Checkbox"){
+            userResponseRow.push('"' + response.answers[questionID].join(", ") + '"');
           } else {
             userResponseRow.push('"' + response.answers[questionID] + '"');
           }
@@ -90,7 +92,7 @@ export default function Results() {
   }
 
   return (
-    <div className="h-full dark:text-white dark:bg-rdsDark2">
+    <div className="h-full min-h-screen dark:text-white dark:bg-rdsDark2">
       <TopNav />
       {results && config ? (
         <>
