@@ -37,7 +37,7 @@ export default function Survey() {
                 tempResponse = data;
                 tempResponse.parentID = window.sessionStorage.getItem("parent");
                 tempResponse.depth = window.sessionStorage.getItem("depth");
-                window.sessionStorage.setItem("responseID", data.responseID);
+                window.localStorage.setItem(window.sessionStorage.getItem("hash") + "responseID", data.responseID);
                 setResponse(tempResponse);
               }
             });
