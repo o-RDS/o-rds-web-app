@@ -17,12 +17,12 @@ export default function SurveyTopConfig(props: any) {
   function renderStatus() {
     if (SurveyState["change"] == true) {
       return {
-        colors: "border-yellow-500 text-yellow-500 bg-yellow-500 bg-opacity-10",
+        colors: "border-yellow-600 text-yellow-600 bg-yellow-600 bg-opacity-10",
         active: "Pending Changes",
       };
     } else if (SurveyState["survey"]["live"] == true) {
       return {
-        colors: "border-green-500 text-green-500 bg-green-500 bg-opacity-10",
+        colors: "border-green-500 text-green-600 dark:text-green-500 bg-green-500 bg-opacity-10",
         active: "Active",
       };
     } else {
@@ -44,8 +44,8 @@ export default function SurveyTopConfig(props: any) {
 
   return (
     <div className="flex h-14 w-full flex-row items-center justify-between border-b border-black pl-4 pr-4 dark:border-none dark:bg-rdsDark2 dark:text-white">
-      <div className="flex gap-2">
-        <p onClick={() => setOpen(!open)}>{props.name}</p>
+      <div className="flex gap-2 items-center">
+        <div onClick={() => setOpen(!open)} className="dark:bg-rdsDarkAccent2 p-2 rounded-md flex flex-row gap-2">{props.name}</div>
         <img
           src={floppydisc}
           className="h-6 w-6 cursor-pointer"
@@ -63,11 +63,6 @@ export default function SurveyTopConfig(props: any) {
           }
           alt="Settings Button"
         ></img>
-      </div>
-      <p className="self-center">
-        Last Updated: {SurveyState["survey"]["lastUpdated"]}
-      </p>
-      <div className="flex gap-2">
         <div
           className={`rounded-sm border ${
             renderStatus().colors
@@ -75,19 +70,32 @@ export default function SurveyTopConfig(props: any) {
         >
           {renderStatus().active}
         </div>
+      </div>
+      <p className="self-center">
+        Last Updated: {SurveyState["survey"]["lastUpdated"]}
+      </p>
+      <div className="flex gap-2 items-center">
+        {/* <div
+          className={`rounded-sm border ${
+            renderStatus().colors
+          } pl-2 pr-2 transition-all`}
+        >
+          {renderStatus().active}
+        </div> */}
+        <Link to={`../../results/${props.id}`}><button className="rounded border-rdsOrange border-2 px-3 py-1 text-rdsOrange transition-all hover:shadow-md hover:shadow-black active:translate-y-1 active:shadow-none">Results</button></Link>
         <button
-          className="rounded-sm bg-rdsBlue pl-2 pr-2 text-white transition-all hover:shadow-md hover:shadow-black active:translate-y-1 active:shadow-none"
+          className="rounded px-3 py-1 border-rdsBlue border-2 bg-rdsBlue text-white transition-all hover:shadow-md hover:shadow-black active:translate-y-1 active:shadow-none"
           onClick={() => props.setShowModal(true)}
         >
           Publish
         </button>
       </div>
-      {open && (
-        <div className="fixed top-28 z-50 flex flex-col rounded-md bg-white p-1 text-black dark:bg-rdsDarkAccent2 dark:text-white">
+      {/* {open && (
+        <div className="fixed top-28 z-50 flex flex-col rounded bg-white p-1 text-black dark:bg-rdsDarkAccent2 dark:text-white">
           <Link to={`../../results/${props.id}`}>Results</Link>
           <Link to={`../../survey-builder/${props.id}`}>Survey Builder</Link>
         </div>
-      )}
+      )} */}
     </div>
   );
 }

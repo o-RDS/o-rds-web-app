@@ -17,7 +17,7 @@ export default function ResultsTopConfig(props: any) {
   function renderStatus() {
     if (props.live == true) {
       return {
-        colors: "border-green-500 text-green-500 bg-green-500 bg-opacity-10",
+        colors: "border-green-500 text-green-600 bg-green-500 bg-opacity-10",
         active: "Active",
       };
     } else {
@@ -41,6 +41,13 @@ export default function ResultsTopConfig(props: any) {
     <div className="flex h-14 w-full flex-row items-center justify-between border-b border-black pl-4 pr-4 dark:border-none dark:bg-rdsDark2 dark:text-white">
       <div className="flex gap-2">
         <p onClick={() => setOpen(!open)}>{props.name}</p>
+        <div
+          className={`rounded-sm border ${
+            renderStatus().colors
+          } pl-2 pr-2 transition-all`}
+        >
+          {renderStatus().active}
+        </div>
         {/* <img
           src={floppydisc}
           className="h-6 w-6 cursor-pointer"
@@ -55,32 +62,33 @@ export default function ResultsTopConfig(props: any) {
       </div>
       <p className="self-center">Last Updated: {props.updated}</p>
       <div className="flex items-center gap-2">
-        <div
+        {/* <div
           className={`rounded-sm border ${
             renderStatus().colors
           } pl-2 pr-2 transition-all`}
         >
           {renderStatus().active}
-        </div>
+        </div> */}
         {/* <button
           className="rounded-sm bg-rdsBlue pl-2 pr-2 text-white"
           onClick={() => props.setShowModal(true)}
         >
           Publish
         </button> */}
+        <Link to={`../../survey-builder/${props.id}`}><button className="w-fit rounded border-rdsOrange border-2 px-3 py-1 text-rdsOrange transition-all hover:shadow-blur hover:shadow-black active:translate-y-1 active:shadow-none">Survey Builder</button></Link>
         <button
-          className="w-fit rounded bg-rdsOrange p-2 text-white transition-all hover:shadow-md hover:shadow-black active:translate-y-1 active:shadow-none"
+          className="w-fit rounded bg-rdsBlue px-3 py-1 border-rdsBlue border-2 text-white transition-all hover:shadow-blur hover:shadow-black active:translate-y-1 active:shadow-none"
           onClick={() => props.downloadCSV()}
         >
           Download CSV
         </button>
       </div>
-      {open && (
+      {/* {open && (
         <div className="fixed top-28 flex flex-col rounded-md bg-white p-1 text-black dark:bg-rdsDarkAccent2 dark:text-white">
           <Link to={`../../results/${props.id}`}>Results</Link>
           <Link to={`../../survey-builder/${props.id}`}>Survey Builder</Link>
         </div>
-      )}
+      )} */}
     </div>
   );
 }

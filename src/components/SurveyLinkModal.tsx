@@ -53,7 +53,7 @@ const SurveyLinkModal = (props: any) => {
       };
     } else if (SurveyState["survey"]["live"] == true) {
       return {
-        colors: "border-green-500 text-green-500 bg-green-500 bg-opacity-10",
+        colors: "border-green-500 text-green-600 bg-green-500 bg-opacity-10",
         active: "Active",
       };
     } else {

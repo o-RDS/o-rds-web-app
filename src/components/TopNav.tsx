@@ -7,7 +7,7 @@ export default function TopNav() {
   const navigate = useNavigate();
 
   return (
-    <div className="flex h-14 w-full flex-row items-center justify-start overflow-visible overflow-y-auto px-4 shadow-sm shadow-black">
+    <div className="flex h-14 w-full flex-row items-center justify-start overflow-visible overflow-y-auto px-4 border-b-[1px] border-black">
       <Link to="/admin/dashboard/">
         <h3 className="inline-block items-center justify-start bg-gradient-to-br from-rdsBlue to-rdsOrange bg-clip-text text-lg text-transparent">
           o-RDS
@@ -20,7 +20,7 @@ export default function TopNav() {
             Home
           </button>
         </Link> */}
-        <img src={helpIcon} className="h-6 w-6" alt="Help Icon" />
+        {/* <img src={helpIcon} className="h-6 w-6" alt="Help Icon" /> */}
         <button
           className="rounded-sm bg-rdsOrange px-2 py-1 transition-all hover:shadow-md hover:shadow-black active:translate-y-1 active:shadow-none text-white"
           onClick={() => {

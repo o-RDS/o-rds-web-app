@@ -29,7 +29,7 @@ export default function Dashboard() {
     return surveys.map((survey: any) => (
       <Link to={`../results/${survey.id}`}>
         <div
-          className={`h-54 flex w-48 cursor-pointer flex-col justify-start rounded-md p-2 dark:bg-rdsDarkAccent3 border-2 border-rdsDarkAccent3`}
+          className={`h-54 flex w-48 cursor-pointer flex-col justify-start rounded-md p-2 dark:bg-rdsDarkAccent3 border-2 border-rdsDarkAccent3 hover:border-rdsOrange transition-all`}
         >
           <div className="flex flex-row">
             <Link to={`../survey-builder/${survey.id}`}>
@@ -38,7 +38,7 @@ export default function Dashboard() {
             <div
               className={`ml-auto rounded-sm border pl-2 pr-2 transition-all ${
                 survey.live
-                  ? "border-green-500 bg-green-500 bg-opacity-10 text-green-500"
+                  ? "border-green-500 bg-green-500 bg-opacity-10 text-green-600"
                   : "border-red-500 bg-red-500 bg-opacity-10 text-red-500"
               } text-white inline-block`}
             >
