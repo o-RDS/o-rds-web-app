@@ -20,8 +20,10 @@ export default function MCConfig(props: any) {
   }
 
   function handleQuestionChange(index: string) {
-    console.log(SurveyState["survey"]["questionOrder"].indexOf(index) != -1);
-    if (SurveyState["survey"]["questionOrder"].indexOf(index) != -1) {
+    console.log(SurveyState['question']);
+    console.log(index);
+    console.log(SurveyState['question'] !== index)
+    if (SurveyState["survey"]["questionOrder"].indexOf(index) != -1 && SurveyState['question'] !== index) {
       dispatch({
         type: "update",
         questions: SurveyState["survey"],
