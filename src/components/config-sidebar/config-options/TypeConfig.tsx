@@ -26,7 +26,7 @@ export default function TypeConfig() {
       >
         <option>Select An Option</option>
         <option>Multiple Choice</option>
-        <option>FillInBlank</option>
+        <option>Fill In The Blank</option>
         <option>Short Answer</option>
         <option>Checkbox</option>
       </select>
