@@ -75,9 +75,13 @@ export default function ResultsTopConfig(props: any) {
         >
           Publish
         </button> */}
-        <Link to={`../../survey-builder/${props.id}`}><button className="w-fit rounded border-rdsOrange border-2 px-3 py-1 text-rdsOrange transition-all hover:shadow-blur hover:shadow-black active:translate-y-1 active:shadow-none">Survey Builder</button></Link>
+        <Link to={`../../survey-builder/${props.id}`}>
+          <button className="w-fit rounded border-2 border-rdsOrange px-3 py-1 text-rdsOrange transition-all hover:shadow-blur hover:shadow-black active:translate-y-1 active:shadow-none">
+            Survey Builder
+          </button>
+        </Link>
         <button
-          className="w-fit rounded bg-rdsBlue px-3 py-1 border-rdsBlue border-2 text-white transition-all hover:shadow-blur hover:shadow-black active:translate-y-1 active:shadow-none"
+          className="w-fit rounded border-2 border-rdsBlue bg-rdsBlue px-3 py-1 text-white transition-all hover:shadow-blur hover:shadow-black active:translate-y-1 active:shadow-none"
           onClick={() => props.downloadCSV()}
         >
           Download CSV

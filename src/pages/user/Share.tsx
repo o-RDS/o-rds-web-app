@@ -20,7 +20,9 @@ export default function Share() {
       "?r=" +
         window.sessionStorage.getItem("hash") +
         "&p=" +
-        window.localStorage.getItem(window.sessionStorage.getItem("hash") + "responseID") +
+        window.localStorage.getItem(
+          window.sessionStorage.getItem("hash") + "responseID"
+        ) +
         "&d=" +
         window.sessionStorage.getItem("depth")
     );
@@ -118,7 +120,7 @@ export default function Share() {
           />
         </div>
         <button
-          className="w-1/2 rounded bg-rdsOrange p-1 text-white md:w-1/3 transition-all hover:shadow-md hover:shadow-black active:translate-y-1 active:shadow-none"
+          className="w-1/2 rounded bg-rdsOrange p-1 text-white transition-all hover:shadow-md hover:shadow-black active:translate-y-1 active:shadow-none md:w-1/3"
           onClick={() => claimRewards()}
         >
           Claim Rewards

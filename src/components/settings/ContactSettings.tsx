@@ -10,34 +10,34 @@ export function ContactSettings() {
 
   function handlePhoneChange(e: any) {
     let test: any = SurveyState;
-    test["survey"]["contactInfo"]['phone'] = e.target.value;
+    test["survey"]["contactInfo"]["phone"] = e.target.value;
     dispatch({
       type: "update",
       questions: test["survey"],
       question: SurveyState["question"],
-      change: true
+      change: true,
     });
   }
 
   function handleEmailChange(e: any) {
     let test: any = SurveyState;
-    test["survey"]["contactInfo"]['email'] = e.target.value;
+    test["survey"]["contactInfo"]["email"] = e.target.value;
     dispatch({
       type: "update",
       questions: test["survey"],
       question: SurveyState["question"],
-      change: true
+      change: true,
     });
   }
 
   function handleMailChange(e: any) {
     let test: any = SurveyState;
-    test["survey"]["contactInfo"]['mail'] = e.target.value;
+    test["survey"]["contactInfo"]["mail"] = e.target.value;
     dispatch({
       type: "update",
       questions: test["survey"],
       question: SurveyState["question"],
-      change: true
+      change: true,
     });
   }
 
@@ -49,31 +49,31 @@ export function ContactSettings() {
         <input
           type="tel"
           id="phone"
-          className="rounded-sm p-1 dark:bg-rdsDarkAccent w-2/5 bg-gray-200"
+          className="w-2/5 rounded-sm bg-gray-200 p-1 dark:bg-rdsDarkAccent"
           maxLength={20}
-          value={SurveyState['survey']['contactInfo']['phone']}
+          value={SurveyState["survey"]["contactInfo"]["phone"]}
           onChange={(e) => handlePhoneChange(e)}
         ></input>
       </div>
       <div className="flex flex-col gap-1">
-      <label htmlFor="email">Email</label>
+        <label htmlFor="email">Email</label>
         <input
           type="email"
           id="email"
-          className="rounded-sm p-1 dark:bg-rdsDarkAccent w-2/5 bg-gray-200"
+          className="w-2/5 rounded-sm bg-gray-200 p-1 dark:bg-rdsDarkAccent"
           maxLength={20}
-          value={SurveyState['survey']['contactInfo']['email']}
+          value={SurveyState["survey"]["contactInfo"]["email"]}
           onChange={(e) => handleEmailChange(e)}
         ></input>
       </div>
       <div className="flex flex-col gap-1">
-      <label htmlFor="mail">Mailing Address</label>
+        <label htmlFor="mail">Mailing Address</label>
         <input
           type="text"
           id="mail"
-          className="rounded-sm p-1 dark:bg-rdsDarkAccent w-2/5 bg-gray-200"
+          className="w-2/5 rounded-sm bg-gray-200 p-1 dark:bg-rdsDarkAccent"
           maxLength={20}
-          value={SurveyState['survey']['contactInfo']['mail']}
+          value={SurveyState["survey"]["contactInfo"]["mail"]}
           onChange={(e) => handleMailChange(e)}
         ></input>
       </div>

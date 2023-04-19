@@ -77,7 +77,7 @@ export default function LoginAdmin() {
             />
             <label
               htmlFor="email"
-              className="absolute top-2 left-1 z-10 origin-[0] -translate-y-4 scale-75 transform bg-white px-2 text-sm text-gray-500 duration-300 peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:scale-100 peer-focus:top-2 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:px-2 peer-focus:text-rdsOrange peer-focus:font-bold dark:bg-rdsDark2 dark:text-gray-400 peer-focus:dark:text-rdsOrange"
+              className="absolute top-2 left-1 z-10 origin-[0] -translate-y-4 scale-75 transform bg-white px-2 text-sm text-gray-500 duration-300 peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:scale-100 peer-focus:top-2 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:px-2 peer-focus:font-bold peer-focus:text-rdsOrange dark:bg-rdsDark2 dark:text-gray-400 peer-focus:dark:text-rdsOrange"
             >
               Email Address
             </label>
@@ -94,7 +94,7 @@ export default function LoginAdmin() {
             />
             <label
               htmlFor="password"
-              className="absolute top-2 left-1 z-10 origin-[0] -translate-y-4 scale-75 transform bg-white px-2 text-sm text-gray-500 duration-300 peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:scale-100 peer-focus:top-2 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:px-2 peer-focus:text-rdsOrange peer-focus:font-bold dark:bg-rdsDark2 dark:text-gray-400 peer-focus:dark:text-rdsOrange"
+              className="absolute top-2 left-1 z-10 origin-[0] -translate-y-4 scale-75 transform bg-white px-2 text-sm text-gray-500 duration-300 peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:scale-100 peer-focus:top-2 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:px-2 peer-focus:font-bold peer-focus:text-rdsOrange dark:bg-rdsDark2 dark:text-gray-400 peer-focus:dark:text-rdsOrange"
             >
               Password
             </label>

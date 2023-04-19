@@ -1,7 +1,9 @@
 import React, { useContext, useEffect, useState } from "react";
-import { SurveyContext, SurveyDispatchContext } from "../../context/SurveyBuilderContext";
+import {
+  SurveyContext,
+  SurveyDispatchContext,
+} from "../../context/SurveyBuilderContext";
 import { listCampaigns, listFundingSources } from "../../APIs/Tremendous";
-
 
 /* DEV NOTES
  *
@@ -27,7 +29,7 @@ interface fundingSource {
 async function loadCampaignData() {
   let campaigns: campaign[] = [];
 
-  let data = await listCampaigns()
+  let data = await listCampaigns();
   data.campaigns.forEach((obj: any) => {
     var tempCampaign: campaign = {
       name: obj.name,
@@ -43,7 +45,7 @@ async function loadCampaignData() {
 async function loadFundingData() {
   let fundingSources: fundingSource[] = [];
 
-  let data = await listFundingSources()
+  let data = await listFundingSources();
   data.funding_sources.forEach((obj: any) => {
     var tempFundingSource: fundingSource = {
       method: obj.method,
@@ -76,7 +78,7 @@ export function TremendousSettings() {
     }
     dispatch({
       type: "change-campaign",
-      newType: id
+      newType: id,
     });
   }
 
@@ -95,7 +97,7 @@ export function TremendousSettings() {
     }
     dispatch({
       type: "change-funding",
-      newType: id
+      newType: id,
     });
   }
 
@@ -106,7 +108,6 @@ export function TremendousSettings() {
     loadFundingData().then((data) => setFundingSources(data));
     console.log(fundingSources);
   }, []);
-
 
   return (
     <div className="flex w-full flex-col gap-10 pl-2 pr-2">

@@ -37,7 +37,10 @@ export default function Survey() {
                 tempResponse = data;
                 tempResponse.parentID = window.sessionStorage.getItem("parent");
                 tempResponse.depth = window.sessionStorage.getItem("depth");
-                window.localStorage.setItem(window.sessionStorage.getItem("hash") + "responseID", data.responseID);
+                window.localStorage.setItem(
+                  window.sessionStorage.getItem("hash") + "responseID",
+                  data.responseID
+                );
                 setResponse(tempResponse);
               }
             });
@@ -156,7 +159,7 @@ export default function Survey() {
               {page > 0 ? (
                 <div
                   // type="button"
-                  className="w-1/3 rounded border-2 border-rdsOrange bg-white p-1 text-rdsOrange text-center cursor-pointer"
+                  className="w-1/3 cursor-pointer rounded border-2 border-rdsOrange bg-white p-1 text-center text-rdsOrange"
                   onClick={() => changePage(-1)}
                 >
                   Back
@@ -177,14 +180,14 @@ export default function Survey() {
               {config.questions[design[design.length - 1]].page > page ? (
                 <div
                   // type="button"
-                  className="w-1/3 rounded bg-rdsOrange p-1 text-white text-center cursor-pointer"
+                  className="w-1/3 cursor-pointer rounded bg-rdsOrange p-1 text-center text-white"
                   onClick={() => changePage(1)}
                 >
                   Next
                 </div>
               ) : (
                 <button className="w-1/3 rounded bg-rdsOrange p-1 text-white">
-                  Submit 
+                  Submit
                 </button>
               )}
             </div>

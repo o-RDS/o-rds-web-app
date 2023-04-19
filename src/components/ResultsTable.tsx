@@ -19,8 +19,10 @@ export default function ResultsTable(props: {
         questionOrder.forEach((questionID: string) => {
           if (responses[userID].answers[questionID] === undefined) {
             currUserResponses.push("");
-          } else if (props.config.questions[questionID].type === "Checkbox"){
-            currUserResponses.push(responses[userID].answers[questionID].join(", "));
+          } else if (props.config.questions[questionID].type === "Checkbox") {
+            currUserResponses.push(
+              responses[userID].answers[questionID].join(", ")
+            );
           } else {
             currUserResponses.push(responses[userID].answers[questionID]);
           }

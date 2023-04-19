@@ -20,13 +20,15 @@ export function GeneralSettings() {
   }
 
   function handleAddAdmin() {
-    const admin: any = (document.getElementById("add-admin") as HTMLInputElement).value;
+    const admin: any = (
+      document.getElementById("add-admin") as HTMLInputElement
+    ).value;
     console.log(admin);
-    (document.getElementById('add-admin') as HTMLInputElement).value = "";
+    (document.getElementById("add-admin") as HTMLInputElement).value = "";
     dispatch({
-      type: 'add-admin',
-      admin: admin
-    })
+      type: "add-admin",
+      admin: admin,
+    });
   }
 
   return (
@@ -47,7 +49,7 @@ export function GeneralSettings() {
             <input
               type="text"
               id="survey-name"
-              className="rounded-sm bg-gray-200 p-1 dark:bg-rdsDarkAccent w-full"
+              className="w-full rounded-sm bg-gray-200 p-1 dark:bg-rdsDarkAccent"
               maxLength={50}
               onChange={(e) => handleInputChange(e, "title")}
               value={SurveyState["survey"]["title"]}
@@ -82,11 +84,16 @@ export function GeneralSettings() {
         <input
           type="text"
           id="add-admin"
-          className="rounded-sm bg-gray-200 p-1 dark:bg-rdsDarkAccent w-1/5"
+          className="w-1/5 rounded-sm bg-gray-200 p-1 dark:bg-rdsDarkAccent"
           maxLength={20}
           placeholder="Use Admin Email"
         ></input>
-        <button className="bg-rdsOrange text-white w-1/5" onClick={() => handleAddAdmin()}>Add Admin</button>
+        <button
+          className="w-1/5 bg-rdsOrange text-white"
+          onClick={() => handleAddAdmin()}
+        >
+          Add Admin
+        </button>
       </div>
     </div>
   );

@@ -29,25 +29,27 @@ export default function Dashboard() {
     return surveys.map((survey: any) => (
       <Link to={`../results/${survey.id}`}>
         <div
-          className={`h-54 flex w-48 cursor-pointer flex-col justify-start rounded-md p-2 dark:bg-rdsDarkAccent3 border-2 border-rdsDarkAccent3 hover:border-rdsOrange transition-all`}
+          className={`h-54 flex w-48 cursor-pointer flex-col justify-start rounded-md border-2 border-rdsDarkAccent3 p-2 transition-all hover:border-rdsOrange dark:bg-rdsDarkAccent3`}
         >
           <div className="flex flex-row">
             <Link to={`../survey-builder/${survey.id}`}>
-              <button className="text-md hover:dark:bg-rdsDarkAccent hover:bg-gray-200 rounded-md px-2">Edit</button>
+              <button className="text-md rounded-md px-2 hover:bg-gray-200 hover:dark:bg-rdsDarkAccent">
+                Edit
+              </button>
             </Link>
             <div
               className={`ml-auto rounded-sm border pl-2 pr-2 transition-all ${
                 survey.live
                   ? "border-green-500 bg-green-500 bg-opacity-10 text-green-600"
                   : "border-red-500 bg-red-500 bg-opacity-10 text-red-500"
-              } text-white inline-block`}
+              } inline-block text-white`}
             >
               {survey.live ? <p>Active</p> : <p>Inactive</p>}
             </div>
           </div>
           <img src={ords} className="m-4 h-3/5 w-3/5 self-center rounded-md" />
           {/* <div className="h-3/5"></div> */}
-          <div className="border-t flex flex-row">
+          <div className="flex flex-row border-t">
             <h4 className="text-lg font-bold">{survey.title}</h4>
             {/* <p className="text-sm">? Responses</p> */}
             {/* <button

@@ -24,10 +24,10 @@ export function getCookie(name: string) {
 }
 
 export function getJWTPayload() {
-  let token: string|null = getCookie("token");
+  let token: string | null = getCookie("token");
   if (token) {
     let payload: string = token.split(".")[1];
-    console.log(JSON.parse(atob(payload)))
+    console.log(JSON.parse(atob(payload)));
     return JSON.parse(atob(payload));
   }
   return null;

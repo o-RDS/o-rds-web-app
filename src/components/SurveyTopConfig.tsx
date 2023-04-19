@@ -22,7 +22,8 @@ export default function SurveyTopConfig(props: any) {
       };
     } else if (SurveyState["survey"]["live"] == true) {
       return {
-        colors: "border-green-500 text-green-600 dark:text-green-500 bg-green-500 bg-opacity-10",
+        colors:
+          "border-green-500 text-green-600 dark:text-green-500 bg-green-500 bg-opacity-10",
         active: "Active",
       };
     } else {
@@ -44,8 +45,13 @@ export default function SurveyTopConfig(props: any) {
 
   return (
     <div className="flex h-14 w-full flex-row items-center justify-between border-b border-black pl-4 pr-4 dark:border-none dark:bg-rdsDark2 dark:text-white">
-      <div className="flex gap-2 items-center">
-        <div onClick={() => setOpen(!open)} className="dark:bg-rdsDarkAccent2 p-2 rounded-md flex flex-row gap-2">{props.name}</div>
+      <div className="flex items-center gap-2">
+        <div
+          onClick={() => setOpen(!open)}
+          className="flex flex-row gap-2 rounded-md p-2 dark:bg-rdsDarkAccent2"
+        >
+          {props.name}
+        </div>
         <img
           src={floppydisc}
           className="h-6 w-6 cursor-pointer"
@@ -74,7 +80,7 @@ export default function SurveyTopConfig(props: any) {
       <p className="self-center">
         Last Updated: {SurveyState["survey"]["lastUpdated"]}
       </p>
-      <div className="flex gap-2 items-center">
+      <div className="flex items-center gap-2">
         {/* <div
           className={`rounded-sm border ${
             renderStatus().colors
@@ -82,9 +88,13 @@ export default function SurveyTopConfig(props: any) {
         >
           {renderStatus().active}
         </div> */}
-        <Link to={`../../results/${props.id}`}><button className="rounded border-rdsOrange border-2 px-3 py-1 text-rdsOrange transition-all hover:shadow-md hover:shadow-black active:translate-y-1 active:shadow-none">Results</button></Link>
+        <Link to={`../../results/${props.id}`}>
+          <button className="rounded border-2 border-rdsOrange px-3 py-1 text-rdsOrange transition-all hover:shadow-md hover:shadow-black active:translate-y-1 active:shadow-none">
+            Results
+          </button>
+        </Link>
         <button
-          className="rounded px-3 py-1 border-rdsBlue border-2 bg-rdsBlue text-white transition-all hover:shadow-md hover:shadow-black active:translate-y-1 active:shadow-none"
+          className="rounded border-2 border-rdsBlue bg-rdsBlue px-3 py-1 text-white transition-all hover:shadow-md hover:shadow-black active:translate-y-1 active:shadow-none"
           onClick={() => props.setShowModal(true)}
         >
           Publish

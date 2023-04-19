@@ -7,34 +7,33 @@ import { TremendousSettings } from "./TremendousSettings";
 import { InformedConsentSettings } from "./InformedConsentSettings";
 
 export default function SurveySettings(props: any) {
-
   function showSettings() {
     switch (props.settings.whichSettings) {
       case "general": {
-        return <GeneralSettings />
+        return <GeneralSettings />;
       }
       case "money": {
-        return <MoneySettings />
+        return <MoneySettings />;
       }
       case "contact": {
-        return <ContactSettings />
+        return <ContactSettings />;
       }
       case "appearance": {
-        return <AppearanceSettings />
+        return <AppearanceSettings />;
       }
       case "tremendous": {
-        return <TremendousSettings />
+        return <TremendousSettings />;
       }
       case "informed-consent": {
-        return <InformedConsentSettings />
+        return <InformedConsentSettings />;
       }
     }
   }
-    return (
-        <>
-      <div className="h-min-56 mt-3 flex flex-col gap-10 justify-start items-start w-screen dark:text-white">
+  return (
+    <>
+      <div className="h-min-56 mt-3 flex w-screen flex-col items-start justify-start gap-10 dark:text-white">
         {showSettings()}
       </div>
     </>
-    )
+  );
 }

@@ -18,7 +18,7 @@ export function MoneySettings() {
       type: "update",
       questions: test["survey"],
       question: SurveyState["question"],
-      change: true
+      change: true,
     });
   }
 
@@ -32,7 +32,7 @@ export function MoneySettings() {
       type: "update",
       questions: test["survey"],
       question: SurveyState["question"],
-      change: true
+      change: true,
     });
   }
 
@@ -47,7 +47,7 @@ export function MoneySettings() {
       type: "update",
       questions: test["survey"],
       question: SurveyState["question"],
-      change: true
+      change: true,
     });
   }
 
@@ -62,7 +62,7 @@ export function MoneySettings() {
       type: "update",
       questions: test["survey"],
       question: SurveyState["question"],
-      change: true
+      change: true,
     });
   }
 
@@ -74,10 +74,10 @@ export function MoneySettings() {
         <input
           type="number"
           id="num-referrals"
-          className="w-2/5 rounded-sm p-1 dark:bg-rdsDarkAccent bg-gray-200"
+          className="w-2/5 rounded-sm bg-gray-200 p-1 dark:bg-rdsDarkAccent"
           maxLength={20}
           onChange={(e) => handlePaidRefChange(e)}
-          value={SurveyState['survey']['maxRefIncentives']}
+          value={SurveyState["survey"]["maxRefIncentives"]}
         ></input>
       </div>
       <div className="flex flex-col gap-1">
@@ -85,10 +85,10 @@ export function MoneySettings() {
         <input
           type="number"
           id="referrals-max"
-          className="w-2/5 rounded-sm p-1 dark:bg-rdsDarkAccent bg-gray-200"
+          className="w-2/5 rounded-sm bg-gray-200 p-1 dark:bg-rdsDarkAccent"
           maxLength={20}
           onChange={(e) => handleMaxRefChange(e)}
-          value={SurveyState['survey']['maxRefs']}
+          value={SurveyState["survey"]["maxRefs"]}
         ></input>
       </div>
       <div className="flex flex-col gap-1">
@@ -96,9 +96,9 @@ export function MoneySettings() {
         <input
           type="number"
           id="completion-amount"
-          className="w-2/5 rounded-sm p-1 dark:bg-rdsDarkAccent bg-gray-200"
+          className="w-2/5 rounded-sm bg-gray-200 p-1 dark:bg-rdsDarkAccent"
           onChange={(e) => handleCompletionAmountChange(e)}
-          value={SurveyState['survey']['completionPayout']}
+          value={SurveyState["survey"]["completionPayout"]}
         ></input>
       </div>
       <div className="flex flex-col gap-1">
@@ -106,9 +106,9 @@ export function MoneySettings() {
         <input
           type="number"
           id="referral-amount"
-          className="w-2/5 rounded-sm p-1 dark:bg-rdsDarkAccent bg-gray-200"
+          className="w-2/5 rounded-sm bg-gray-200 p-1 dark:bg-rdsDarkAccent"
           onChange={(e) => handleReferralAmountChange(e)}
-          value={SurveyState['survey']['refPayout']}
+          value={SurveyState["survey"]["refPayout"]}
         ></input>
       </div>
     </div>
