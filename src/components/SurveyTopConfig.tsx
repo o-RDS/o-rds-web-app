@@ -89,12 +89,12 @@ export default function SurveyTopConfig(props: any) {
           {renderStatus().active}
         </div> */}
         <Link to={`../../results/${props.id}`}>
-          <button className="rounded border-2 border-rdsOrange px-3 py-1 text-rdsOrange transition-all hover:shadow-md hover:shadow-black active:translate-y-1 active:shadow-none">
+          <button className="rounded border-2 border-rdsOrange px-3 py-1 text-rdsOrange transition-all hover:bg-rdsOrange hover:bg-opacity-10 active:translate-y-1 active:shadow-none">
             Results
           </button>
         </Link>
         <button
-          className="rounded border-2 border-rdsBlue bg-rdsBlue px-3 py-1 text-white transition-all hover:shadow-md hover:shadow-black active:translate-y-1 active:shadow-none"
+          className="rounded border-2 border-rdsBlue bg-rdsBlue px-3 py-1 text-white transition-all hover:bg-rdsBlue/80 hover:border-rdsBlue/80 active:translate-y-1 active:shadow-none"
           onClick={() => props.setShowModal(true)}
         >
           Publish

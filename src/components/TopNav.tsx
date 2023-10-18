@@ -22,7 +22,7 @@ export default function TopNav() {
         </Link> */}
         {/* <img src={helpIcon} className="h-6 w-6" alt="Help Icon" /> */}
         <button
-          className="rounded-sm bg-rdsOrange px-2 py-1 text-white transition-all hover:shadow-md hover:shadow-black active:translate-y-1 active:shadow-none"
+          className="rounded-sm bg-rdsOrange px-2 py-1 text-white transition-all hover:bg-rdsOrange/80 hover:border-rdsOrange/80 active:translate-y-1 active:shadow-none"
           onClick={() => {
             deleteCookie("token");
             navigate("/admin/login");

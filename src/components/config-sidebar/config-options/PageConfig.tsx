@@ -22,7 +22,7 @@ export default function PageConfig() {
       <label>Page</label>
       <div className="flex w-2/3 flex-row justify-between gap-2 rounded-full bg-rdsOrange">
         <button
-          className="h-8 w-1/3 rounded-l-full border-r border-r-white bg-rdsOrange text-lg text-white"
+          className="h-8 w-1/3 rounded-l-full border-r border-r-white bg-rdsOrange text-lg text-white hover:bg-rdsOrange/80"
           onClick={() => handlePageChange(SurveyStateQuestions["page"] - 1)}
         >
           -
@@ -31,7 +31,7 @@ export default function PageConfig() {
           {SurveyStateQuestions["page"] + 1}
         </p>
         <button
-          className="h-8 w-1/3 rounded-r-full border-l border-l-white bg-rdsOrange text-lg text-white"
+          className="h-8 w-1/3 rounded-r-full border-l border-l-white bg-rdsOrange  hover:bg-rdsOrange/80 text-lg text-white"
           onClick={() => handlePageChange(SurveyStateQuestions["page"] + 1)}
         >
           +

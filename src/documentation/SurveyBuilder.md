@@ -1,4 +1,4 @@
-# Survey Builder
+# Survey Builder (***User***)
 
 ## Basics
 o-RDS comes with a `Survey Builder` in order to create your surveys. It is a powerful tool that makes it easy to build the perfect survey for you. The `Survey Builder` contains quite a few features in order to help you achieve that. Let's dive into how the `Survey Builder` works.
@@ -32,7 +32,7 @@ All changes to a question from the sidebar are done in realtime and are instant.
 The `Survey Settings` is where you will adjust the (mostly) unseen parts of the survey. There are 6 categories of settings and they include `General`, `Appearance`, `Contact`, `Informed Consent`, `Tremendous` and `Referral`. Each category controls a different aspect of the survey, giving you a lot of control over it. 
 
 #### General
-The General Settings contain the most basic settings for a survey. The settings incldued here include the following:
+The General Settings contain the most basic settings for a survey. The settings include the following:
 
 ***Survey Name*** - Place for you to edit the name of your survey
 
@@ -41,6 +41,38 @@ The General Settings contain the most basic settings for a survey. The settings 
 ***End of Survey Message*** - Place to edit the message that was shown once a survey has been completed. 
 
 ***Add Admin*** - Use this to add an admin to a survey. Adding an admin will allow that person to view and edit the survey.
+
+#### Appearance
+The appearance settings allow you to edit the primary and accent colors for your survey. The settings include the following:
+
+***Primary Color*** - Edit the primary color for your survey
+
+***Accent Color*** - Edit the accent color for your survey
+
+#### Contact
+The contact settings allow you to edit the contact information that is found in the contact menu within a survey. The settings include the following:
+
+***Phone Number*** - Edit the primary phone number a researcher can be reached at regarding questions about the survey
+
+***Email*** - Edit the email address a researcher can be reached at regarding questions about the survey
+
+***Mailing Address*** - Edit the mailing address a researcher can be reached at regarding questions about the survey
+
+#### Informed Consent
+The informed consent settings allow you to edit the message and items displayed on the informed consent page. The settings include the following:
+
+***Informed Consent Message*** - Edit the message you want shown as you consent to a survey
+
+***Informed Consent Requirements*** - Edit the message to convey Informed connsent reqiorements to a participant
+
+#### Tremendous
+The Tremendous settings allow you to edit which funding source you'll be using and what campaign you are using. The settings include the following:
+
+***Funding Source*** - Edit which funding source you want to use to pay for referral payments
+
+***Campaign*** - Edit which campaign you want to use in order to add flair to your payments
+
+#### Referral
 
 
 

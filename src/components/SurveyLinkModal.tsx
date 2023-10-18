@@ -176,7 +176,7 @@ const SurveyLinkModal = (props: any) => {
               {window.location.origin}/survey/{props.surveyID}
             </div>
             <button
-              className="rounded-md border-2 border-rdsBlue pl-2 pr-2"
+              className="rounded-md border-2 border-rdsBlue hover:bg-rdsBlue hover:bg-opacity-10 pl-2 pr-2"
               onClick={() => copyToClipboard()}
             >
               {copyLabel}
@@ -188,19 +188,19 @@ const SurveyLinkModal = (props: any) => {
           <div className="flex w-full flex-row justify-between gap-2">
             <button
               onClick={() => props.showModal(false)}
-              className="w-3/12 rounded-sm bg-rdsOrange pl-2 pr-2 text-white transition-all hover:shadow-md hover:shadow-black active:translate-y-1 active:shadow-none"
+              className="w-3/12 rounded-sm bg-rdsOrange pl-2 pr-2 text-white transition-all hover:bg-rdsOrange/80 hover:border-rdsOrange/80 active:translate-y-1 active:shadow-none"
             >
               Close
             </button>
             <div className="flex flex-row gap-2">
               <button
-                className="rounded-md border-2 border-rdsBlue p-1 text-black transition-all hover:shadow-md hover:shadow-black active:translate-y-1 active:shadow-none dark:text-white"
+                className="rounded-md border-2 border-rdsBlue p-1 text-black transition-all hover:bg-rdsBlue hover:bg-opacity-10 active:translate-y-1 active:shadow-none dark:text-white"
                 onClick={() => handleSurveyStatus(false)}
               >
                 Pause Survey
               </button>
               <button
-                className="rounded-md bg-rdsBlue py-1 pl-2 pr-2 text-white transition-all hover:shadow-md hover:shadow-black active:translate-y-1 active:shadow-none disabled:cursor-not-allowed disabled:bg-gray-500"
+                className="rounded-md bg-rdsBlue py-1 pl-2 pr-2 text-white transition-all hover:shadow-md hover:bg-rdsBlue/80 hover:border-rdsBlue/80 active:translate-y-1 active:shadow-none disabled:cursor-not-allowed disabled:bg-gray-500"
                 disabled={checkIfReadyToPublish()}
                 onClick={() => handleSurveyStatus(true)}
               >
