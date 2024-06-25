@@ -6,7 +6,7 @@ o-RDS comes with a `Survey Builder` in order to create your surveys. It is a pow
 ***If you are a developer, documentation related to implementing new features can be found here***
 
 ## Survey Builder Structure
-The `Survey Builder` consists of 6 main parts. These parts are: the questions preview, the question settings sidebar, the survey settings, the top status bar, and the publish modal. Each of these parts serve an important role in make the `Survey Builder` run.
+The `Survey Builder` consists of 5 main parts. These parts are: the questions preview, the question settings sidebar, the survey settings, the top status bar, and the publish modal. Each of these parts serve an important role in make the `Survey Builder` run.
 
 ### The Question Preview
 The first main part you will learn about is the `Question Preview` section. In this section you will see all the questions you have created as well as a button to add questions. This will give you a quick indicator as to what your survey will be like. Let's dive into the questions themselves
