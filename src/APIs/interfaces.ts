@@ -17,6 +17,10 @@ export interface admin {
   password: string;
 }
 
+export interface surveySchema {
+  
+}
+
 // EXAMPLE Order Creation
 // let order: order = {
 //     external_id: "your individual indentifier for this order",

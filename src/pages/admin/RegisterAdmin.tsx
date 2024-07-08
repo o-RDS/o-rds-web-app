@@ -96,7 +96,7 @@ export default function RegisterAdmin() {
           Register for o-RDS
         </h1>
         <form
-          className="flex w-1/6 flex-col items-center justify-center"
+          className="flex w-1/2 md:w-1/6 flex-col items-center justify-center"
           onSubmit={(e) => handleRegister(e)}
         >
           <div className="relative w-full">
@@ -180,7 +180,7 @@ export default function RegisterAdmin() {
             </label>
           </div>
           <br />
-          <button className="w-1/2 rounded bg-rdsOrange p-1 text-white transition-shadow hover:shadow-blur hover:shadow-black">
+          <button className="w-full md:w-1/2 rounded bg-rdsOrange p-1 text-white transition-shadow hover:shadow-blur hover:shadow-black">
             Create Account
           </button>
           <br />
