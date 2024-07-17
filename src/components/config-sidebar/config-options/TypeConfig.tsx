@@ -10,7 +10,12 @@ export default function TypeConfig() {
   const dispatch = useContext(SurveyDispatchContext);
 
   function handleTypeChange(e: any) {
-    let type = e.target.value.replace(" ", "");
+    let type;
+    if (e.target.value === "Fill In The Blank") {
+      type = "FillInBlank"
+    } else {
+     type = e.target.value.replace(" ", "");
+    }
     dispatch({
       type: "change-type",
       newType: type,
